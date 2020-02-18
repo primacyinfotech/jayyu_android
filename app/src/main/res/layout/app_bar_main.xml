@@ -37,6 +37,19 @@
 
                 </Spinner>
 
+                <Button
+
+                    android:gravity="left"
+                    android:layout_gravity="center"
+                    android:drawableTint="#ffffff"
+                    android:id="@+id/show_pin"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:drawableRight="@drawable/down_spinn"
+                    android:fontFamily="@font/clearsansbold">
+                </Button>
+
             </LinearLayout>
 
 

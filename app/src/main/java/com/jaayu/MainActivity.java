@@ -21,6 +21,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.github.juanlabrador.badgecounter.BadgeCounter;
 import com.google.android.material.navigation.NavigationView;
+import com.jaayu.Model.SharedPref;
 import com.volcaniccoder.bottomify.BottomifyNavigationView;
 import com.volcaniccoder.bottomify.OnNavigationItemChangeListener;
 
@@ -33,6 +34,9 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.view.Menu;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONException;
@@ -52,6 +56,7 @@ public class MainActivity extends AppCompatActivity
     private String u_id,status;
     int notifiCart;
     int notti=0;
+    TextView showpinbtn;
     int count_cart;
     ProgressDialog progressDialog;
  //   private String Chk_data_hasCart_url="https://work.primacyinfotech.com/jaayu/api/addtocart/all";
@@ -66,6 +71,7 @@ public class MainActivity extends AppCompatActivity
                 "Register Details", Context.MODE_PRIVATE);
         u_id=prefs_register.getString("USER_ID","");
 
+        showpinbtn = findViewById(R.id.show_pin);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -77,6 +83,7 @@ public class MainActivity extends AppCompatActivity
                     .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                     .commit();
         }
+
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
         NavigationView navigationView = findViewById(R.id.nav_view);
@@ -114,6 +121,16 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
+        showpinbtn.setText(new SharedPref(getApplicationContext()).getpincode());
+
+
+        showpinbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getApplicationContext(), PinSearchActivity.class);
+                startActivity(i);
+            }
+        });
 
 
     }
@@ -153,12 +170,13 @@ public class MainActivity extends AppCompatActivity
                             String status=person.getString("status");
                             count_cart=person.getInt("count");
                             if(status.equals("0")){
+                                BadgeCounter.update(MainActivity.this,
+                                        menu.findItem(R.id.action_cart),R.drawable.ic_action_cart, BadgeCounter.BadgeColor.RED,
+                                        count_cart);
                               /*  BadgeCounter.update(MainActivity.this,
                                         menu.findItem(R.id.action_cart),R.drawable.ic_action_cart, BadgeCounter.BadgeColor.RED,
                                         count_cart);*/
-                                BadgeCounter.update(MainActivity.this,
-                                        menu.findItem(R.id.action_cart),R.drawable.ic_action_cart, null,null
-                                        );
+
                                /* Intent intentCart=new Intent(MainActivity.this,EmptyCart.class);
                                 startActivity(intentCart);
                                 overridePendingTransition(0,0);
