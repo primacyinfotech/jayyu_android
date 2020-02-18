@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/navigation_home"
+        android:icon="@drawable/u"
+        android:title="Home" />
+
+    <item
+        android:id="@+id/navigation_reminder"
+        android:icon="@drawable/ic_action_alarm"
+        android:title="Reminder" />
+
+    <item
+        android:id="@+id/navigation_order"
+        android:icon="@drawable/ic_action_order"
+        android:title="My Order" />
+    <item
+        android:id="@+id/navigation_account"
+        android:icon="@drawable/ic_action_account"
+        android:title="Account" />
+</menu>

@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".OrderPrescriptionInfo">
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        app:popupTheme="@style/AppTheme.PopupOverlay" >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <ImageView
+                android:id="@+id/back_button"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_action_back_arrow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:layout_gravity="center"
+                android:textColor="#fff"
+                android:layout_marginLeft="15dp"
+                android:text="Order Info"
+                android:textSize="22sp"
+                android:fontFamily="@font/clearsansbold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+    </androidx.appcompat.widget.Toolbar>
+    <TextView
+        android:text="CHOOSE AN OPTION"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+    </TextView>
+    <androidx.cardview.widget.CardView
+        android:layout_margin="15dp"
+        android:elevation="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+          <CheckBox
+              android:id="@+id/order_by_press"
+              android:text="Order everything as per prescription"
+              android:layout_width="match_parent"
+              android:checked="true"
+              android:layout_height="wrap_content">
+          </CheckBox>
+            <LinearLayout
+                android:id="@+id/first_child"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                   <LinearLayout
+                       android:orientation="horizontal"
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content">
+                       <CheckBox
+                           android:id="@+id/for_days"
+                           android:text="For "
+                           android:layout_width="wrap_content"
+                           android:layout_height="wrap_content">
+
+                       </CheckBox>
+                       <EditText
+                           android:id="@+id/edt_days"
+
+                           android:layout_width="50dp"
+                           android:inputType="number"
+                           android:maxLength="2"
+                           android:layout_height="40dp">
+                       </EditText>
+                       <TextView
+                           android:text="days"
+                           android:layout_width="wrap_content"
+                           android:layout_height="wrap_content">
+
+                       </TextView>
+                   </LinearLayout>
+                   <CheckBox
+                       android:id="@+id/during_doctor"
+                       android:text="Duration or quantity of medicines as written by Doctor"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content">
+
+                   </CheckBox>
+
+
+            </LinearLayout>
+
+
+            <View
+                android:background="@color/light_gray"
+                android:layout_width="match_parent"
+                android:layout_height="2dp">
+
+            </View>
+            <CheckBox
+                android:id="@+id/specify_medicin"
+                android:text="Let me Specify medicines and Quantity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+            </CheckBox>
+            <EditText
+                android:id="@+id/edit_specify_medicin"
+                android:layout_width="match_parent"
+                android:layout_margin="10dp"
+                android:layout_height="wrap_content">
+
+            </EditText>
+            <View
+                android:background="@color/light_gray"
+                android:layout_width="match_parent"
+                android:layout_height="2dp">
+
+            </View>
+            <CheckBox
+                android:id="@+id/call_me"
+                android:text="Call me For Details"
+                android:layout_width="wrap_content"
+                android:layout_height="100dp">
+
+            </CheckBox>
+            <View
+                android:background="@color/light_gray"
+                android:layout_width="match_parent"
+                android:layout_height="2dp">
+
+            </View>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+    <Button
+        android:id="@+id/btn_continue"
+        android:textColor="@color/white"
+        android:textAllCaps="false"
+        android:textSize="18dp"
+        android:background="@drawable/corner_round_button"
+        android:text="Continue"
+        android:layout_margin="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+</LinearLayout>

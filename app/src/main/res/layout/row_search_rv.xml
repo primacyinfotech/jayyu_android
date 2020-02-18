@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:background="@color/light_gray"
+    android:layout_height="70dp">
+<LinearLayout
+    android:id="@+id/serch_items"
+    android:layout_margin="5dp"
+    android:layout_width="match_parent"
+    android:padding="4dp"
+  android:orientation="vertical"
+    android:background="@color/white"
+    android:layout_height="70dp">
+
+
+        <TextView
+            android:id="@+id/item_name"
+            android:fontFamily="@font/clearsansbold"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:textAllCaps="false"
+            android:layout_marginLeft="10dp"
+            android:textSize="15sp"
+            android:scrollbarSize="20sp"
+            android:text="Calpol Teblets 500"
+           />
+
+
+        <ImageView
+            android:id="@+id/item_go_img"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:visibility="gone"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_action_arrow" />
+
+    <TextView
+        android:id="@+id/item_compo_name"
+        android:fontFamily="@font/clearsansbold"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:textAllCaps="false"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:textSize="13sp"
+        android:scrollbarSize="20sp"
+        android:text="Calpol Teblets 500"
+
+        />
+</LinearLayout>
+</LinearLayout>
