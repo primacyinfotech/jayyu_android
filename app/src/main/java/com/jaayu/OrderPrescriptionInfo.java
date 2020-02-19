@@ -74,7 +74,7 @@ public class OrderPrescriptionInfo extends AppCompatActivity {
              @Override
              public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(order_by_press.isChecked()){
-                    odrevery="1";
+                    odrevery="1e";
                     first_child.setVisibility(View.VISIBLE);
                     specify_medicin.setChecked(false);
                     call_me.setChecked(false);
@@ -108,7 +108,7 @@ public class OrderPrescriptionInfo extends AppCompatActivity {
              @Override
              public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(during_doctor.isChecked()){
-                    duration="2";
+                    duration="2d";
                     edt_days.setEnabled(false);
                     for_days.setChecked(false);
                 }
@@ -125,7 +125,7 @@ public class OrderPrescriptionInfo extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(specify_medicin.isChecked()){
-                    sp="3";
+                    sp="3s";
 
                     edit_specify_medicin.setVisibility(View.VISIBLE);
                     order_by_press.setChecked(false);
@@ -143,7 +143,7 @@ public class OrderPrescriptionInfo extends AppCompatActivity {
         @Override
         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
             if (call_me.isChecked()) {
-                mob="4";
+                mob="4m";
                 specify_medicin.setChecked(false);
                 order_by_press.setChecked(false);
                 call_me.setChecked(true);
@@ -206,6 +206,7 @@ public class OrderPrescriptionInfo extends AppCompatActivity {
 
                                       Intent gotoPresOrderSummery=new Intent(OrderPrescriptionInfo.this,PrescriptionOrderSummery.class);
                                       gotoPresOrderSummery.putExtra("Value",val1);
+                                      gotoPresOrderSummery.putExtra("Pref",odrevery);
                                       startActivity(gotoPresOrderSummery);
                                       overridePendingTransition(0,0);
                                       finish();
@@ -269,6 +270,7 @@ public class OrderPrescriptionInfo extends AppCompatActivity {
                                         val2=prefs_Pass_Value2.getString("VALUE_TWO","");
                                         Intent gotoPresOrderSummery=new Intent(OrderPrescriptionInfo.this,PrescriptionOrderSummery.class);
                                         gotoPresOrderSummery.putExtra("Value",val2);
+                                        gotoPresOrderSummery.putExtra("Pref",duration);
                                         startActivity(gotoPresOrderSummery);
                                         overridePendingTransition(0,0);
                                         finish();
@@ -335,6 +337,7 @@ public class OrderPrescriptionInfo extends AppCompatActivity {
                                    val3=prefs_Pass_Value3.getString("VALUE_THREE","");
                                    Intent gotoPresOrderSummery=new Intent(OrderPrescriptionInfo.this,PrescriptionOrderSummery.class);
                                    gotoPresOrderSummery.putExtra("Value",val3);
+                                   gotoPresOrderSummery.putExtra("Pref",sp);
                                    startActivity(gotoPresOrderSummery);
                                    overridePendingTransition(0,0);
                                    finish();
@@ -398,6 +401,7 @@ public class OrderPrescriptionInfo extends AppCompatActivity {
                                    val4=prefs_Pass_Value4.getString("VALUE_FOUR","");
                                    Intent gotoPresOrderSummery=new Intent(OrderPrescriptionInfo.this,PrescriptionOrderSummery.class);
                                    gotoPresOrderSummery.putExtra("Value",val4);
+                                   gotoPresOrderSummery.putExtra("Pref",mob);
                                    startActivity(gotoPresOrderSummery);
                                    overridePendingTransition(0,0);
                                    finish();

@@ -58,7 +58,7 @@ public class PrescriptionOrderSummery extends AppCompatActivity {
     SharedPreferences prefs_Address_second;
     SharedPreferences prefs_Pass_Value1,prefs_Pass_Value2,prefs_Pass_Value3,prefs_Pass_Value4,prefs_Pass_Value;
     private String u_id,check_pincode_Second,check_pincode_first,add_zip,sing_zip_code;
-    String pin_cod,pin_cod2,instant,val,val1,val2,val3,val4,pass_val;
+    String pin_cod,pin_cod2,instant,val,val1,val2,val3,val4,pass_val,pref;
     ProgressDialog progressDialog;
 
     @Override
@@ -541,6 +541,7 @@ public class PrescriptionOrderSummery extends AppCompatActivity {
         items_view=(TextView)findViewById(R.id.items_view);
         Intent fetchPassVal =getIntent();
         val=fetchPassVal.getStringExtra("Value");
+        pref=fetchPassVal.getStringExtra("Pref");
         RequestQueue requestQueue = Volley.newRequestQueue(PrescriptionOrderSummery.this);
         StringRequest postRequest = new StringRequest(Request.Method.POST,pass_val_url,
                 new Response.Listener<String>() {
