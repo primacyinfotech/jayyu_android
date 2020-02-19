@@ -153,9 +153,12 @@ public class MainActivity extends AppCompatActivity
                             String status=person.getString("status");
                             count_cart=person.getInt("count");
                             if(status.equals("0")){
-                                BadgeCounter.update(MainActivity.this,
+                              /*  BadgeCounter.update(MainActivity.this,
                                         menu.findItem(R.id.action_cart),R.drawable.ic_action_cart, BadgeCounter.BadgeColor.RED,
-                                        count_cart);
+                                        count_cart);*/
+                                BadgeCounter.update(MainActivity.this,
+                                        menu.findItem(R.id.action_cart),R.drawable.ic_action_cart, null,null
+                                        );
                                /* Intent intentCart=new Intent(MainActivity.this,EmptyCart.class);
                                 startActivity(intentCart);
                                 overridePendingTransition(0,0);

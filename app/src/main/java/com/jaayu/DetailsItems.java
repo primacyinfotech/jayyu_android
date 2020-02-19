@@ -450,10 +450,11 @@ public class DetailsItems extends AppCompatActivity {
                             count_cart=person.getInt("count");
                             if(status.equals("0")){
 
-                                BadgeCounter.update(DetailsItems.this,
+                              /*  BadgeCounter.update(DetailsItems.this,
                                         menu.findItem(R.id.action_cart),R.drawable.ic_action_cart, BadgeCounter.BadgeColor.RED,
-                                        count_cart);
-
+                                        count_cart);*/
+                                BadgeCounter.update(DetailsItems.this,
+                                        menu.findItem(R.id.action_cart),R.drawable.ic_action_cart,null,null);
 
                             }
                             else if(status.equals("1")) {
