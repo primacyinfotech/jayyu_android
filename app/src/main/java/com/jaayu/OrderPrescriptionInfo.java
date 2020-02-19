@@ -41,7 +41,7 @@ public class OrderPrescriptionInfo extends AppCompatActivity {
     ImageView back_button;
     private Button btn_continue;
     SharedPreferences prefs_register;
-    String data,val1,val2,val3,val4;
+    String data,val1,val2,val3,val4,val_sub_1,val_sub_2,val_sub3,val_sub4,result;
     SharedPreferences prefs_Pass_Value1,prefs_Pass_Value2,prefs_Pass_Value3,prefs_Pass_Value4;
     private String Choose_first_url="https://work.primacyinfotech.com/jaayu/api/prescription_order_subscription_first";
     private String Choose_second_url="https://work.primacyinfotech.com/jaayu/api/prescription_order_subscription_second";
@@ -197,16 +197,19 @@ public class OrderPrescriptionInfo extends AppCompatActivity {
                                    String status=person.getString("status");
                                    if(status.equals("1")){
                                        data=person.getString("Data");
+                                       result=person.getString("result");
                                        prefs_Pass_Value1 = getSharedPreferences(
                                                "PASS_DATA_1", Context.MODE_PRIVATE);
                                        SharedPreferences.Editor editor1 = prefs_Pass_Value1.edit();
                                        editor1.putString("VALUE_ONE",data);
+                                       editor1.putString("VALUE_sub_ONE",result);
                                        editor1.commit();
                                        val1=prefs_Pass_Value1.getString("VALUE_ONE","");
+                                       val_sub_1=prefs_Pass_Value1.getString("VALUE_sub_ONE","");
 
                                       Intent gotoPresOrderSummery=new Intent(OrderPrescriptionInfo.this,PrescriptionOrderSummery.class);
                                       gotoPresOrderSummery.putExtra("Value",val1);
-                                      gotoPresOrderSummery.putExtra("Pref",odrevery);
+                                      gotoPresOrderSummery.putExtra("Pref",val_sub_1);
                                       startActivity(gotoPresOrderSummery);
                                       overridePendingTransition(0,0);
                                       finish();
@@ -262,15 +265,18 @@ public class OrderPrescriptionInfo extends AppCompatActivity {
                                     if(status.equals("1")){
                                       //  Toast.makeText(getApplicationContext(),"OK2",Toast.LENGTH_LONG).show();
                                         data=person.getString("Data");
+                                        result=person.getString("result");
                                         prefs_Pass_Value2 = getSharedPreferences(
                                                 "PASS_DATA_2", Context.MODE_PRIVATE);
                                         SharedPreferences.Editor editor2 = prefs_Pass_Value2.edit();
                                         editor2.putString("VALUE_TWO",data);
+                                        editor2.putString("VALUE_sub_TWO",result);
                                         editor2.commit();
                                         val2=prefs_Pass_Value2.getString("VALUE_TWO","");
+                                        val_sub_2=prefs_Pass_Value2.getString("VALUE_sub_TWO","");
                                         Intent gotoPresOrderSummery=new Intent(OrderPrescriptionInfo.this,PrescriptionOrderSummery.class);
                                         gotoPresOrderSummery.putExtra("Value",val2);
-                                        gotoPresOrderSummery.putExtra("Pref",duration);
+                                        gotoPresOrderSummery.putExtra("Pref",val_sub_2);
                                         startActivity(gotoPresOrderSummery);
                                         overridePendingTransition(0,0);
                                         finish();
@@ -329,15 +335,18 @@ public class OrderPrescriptionInfo extends AppCompatActivity {
                                if(status.equals("1")){
                                 //   Toast.makeText(getApplicationContext(),"OK3",Toast.LENGTH_LONG).show();
                                     data=person.getString("Data");
+                                    result=person.getString("result");
                                    prefs_Pass_Value3 = getSharedPreferences(
                                            "PASS_DATA_3", Context.MODE_PRIVATE);
                                    SharedPreferences.Editor editor3 = prefs_Pass_Value3.edit();
                                    editor3.putString("VALUE_THREE",data);
+                                   editor3.putString("VALUE_sub_THREE",result);
                                    editor3.commit();
                                    val3=prefs_Pass_Value3.getString("VALUE_THREE","");
+                                   val_sub3=prefs_Pass_Value3.getString("VALUE_sub_THREE","");
                                    Intent gotoPresOrderSummery=new Intent(OrderPrescriptionInfo.this,PrescriptionOrderSummery.class);
                                    gotoPresOrderSummery.putExtra("Value",val3);
-                                   gotoPresOrderSummery.putExtra("Pref",sp);
+                                   gotoPresOrderSummery.putExtra("Pref",val_sub3);
                                    startActivity(gotoPresOrderSummery);
                                    overridePendingTransition(0,0);
                                    finish();
@@ -392,16 +401,19 @@ public class OrderPrescriptionInfo extends AppCompatActivity {
                                String status=person.getString("status");
                                if(status.equals("1")){
                                    //Toast.makeText(getApplicationContext(),"OK4",Toast.LENGTH_LONG).show();
-                                  //  data=person.getString("message");
+                                    data=person.getString("message");
+                                   result=person.getString("result");
                                    prefs_Pass_Value4 = getSharedPreferences(
                                            "PASS_DATA_4", Context.MODE_PRIVATE);
                                    SharedPreferences.Editor editor4 = prefs_Pass_Value4.edit();
                                    editor4.putString("VALUE_FOUR",phone);
+                                   editor4.putString("VALUE_sub_FOUR",result);
                                    editor4.commit();
                                    val4=prefs_Pass_Value4.getString("VALUE_FOUR","");
+                                   val_sub4=prefs_Pass_Value4.getString("VALUE_sub_FOUR","");
                                    Intent gotoPresOrderSummery=new Intent(OrderPrescriptionInfo.this,PrescriptionOrderSummery.class);
                                    gotoPresOrderSummery.putExtra("Value",val4);
-                                   gotoPresOrderSummery.putExtra("Pref",mob);
+                                   gotoPresOrderSummery.putExtra("Pref",val_sub4);
                                    startActivity(gotoPresOrderSummery);
                                    overridePendingTransition(0,0);
                                    finish();

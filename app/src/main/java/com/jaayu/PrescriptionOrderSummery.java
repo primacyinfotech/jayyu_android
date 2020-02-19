@@ -58,7 +58,7 @@ public class PrescriptionOrderSummery extends AppCompatActivity {
     SharedPreferences prefs_Address_second;
     SharedPreferences prefs_Pass_Value1,prefs_Pass_Value2,prefs_Pass_Value3,prefs_Pass_Value4,prefs_Pass_Value;
     private String u_id,check_pincode_Second,check_pincode_first,add_zip,sing_zip_code;
-    String pin_cod,pin_cod2,instant,val,val1,val2,val3,val4,pass_val,pref;
+    String pin_cod,pin_cod2,instant,val,val1,val2,val3,val4,pass_val,pass_val_pref,pref;
     ProgressDialog progressDialog;
 
     @Override
@@ -542,6 +542,7 @@ public class PrescriptionOrderSummery extends AppCompatActivity {
         Intent fetchPassVal =getIntent();
         val=fetchPassVal.getStringExtra("Value");
         pref=fetchPassVal.getStringExtra("Pref");
+       // Toast.makeText(getApplicationContext(),val+pref,Toast.LENGTH_LONG).show();
         RequestQueue requestQueue = Volley.newRequestQueue(PrescriptionOrderSummery.this);
         StringRequest postRequest = new StringRequest(Request.Method.POST,pass_val_url,
                 new Response.Listener<String>() {
@@ -553,15 +554,20 @@ public class PrescriptionOrderSummery extends AppCompatActivity {
                             //Do it with this it will work
                             JSONObject person = new JSONObject(response);
                             String status=person.getString("status");
+
                             if(status.equals("1")){
                                 String result=person.getString("result");
+                                String msg=person.getString("message");
+
                                 prefs_Pass_Value = getSharedPreferences(
                                         "PASS_DATA", Context.MODE_PRIVATE);
                                 SharedPreferences.Editor editor = prefs_Pass_Value.edit();
                                 editor.putString("Pass_Value",result);
+                                editor.putString("Pass_Value_pref",msg);
                                 editor.commit();
                                 pass_val=prefs_Pass_Value.getString("Pass_Value","");
-                                items_view.setText(pass_val);
+                                pass_val_pref=prefs_Pass_Value.getString("Pass_Value_pref","");
+                                items_view.setText(pass_val_pref+"\n"+pass_val);
 
                             }
                          /* else {
@@ -594,6 +600,7 @@ public class PrescriptionOrderSummery extends AppCompatActivity {
 
 
                 params.put("dur" ,val);
+                params.put("subs" ,pref);
 
 
 
@@ -636,7 +643,8 @@ public class PrescriptionOrderSummery extends AppCompatActivity {
         prefs_Pass_Value = getSharedPreferences(
                 "PASS_DATA", Context.MODE_PRIVATE);
         pass_val=prefs_Pass_Value.getString("Pass_Value","");
-        items_view.setText(pass_val);
+        pass_val_pref=prefs_Pass_Value.getString("Pass_Value_pref","");
+        items_view.setText(pass_val_pref+"\n"+pass_val);
 
     }
 
