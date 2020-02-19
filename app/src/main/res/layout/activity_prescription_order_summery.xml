@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#EFEFEF"
+    tools:context=".PrescriptionOrderSummery">
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        app:popupTheme="@style/AppTheme.PopupOverlay" >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <ImageView
+                android:id="@+id/back_button"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_action_back_arrow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:layout_gravity="center"
+                android:textColor="#fff"
+                android:layout_marginLeft="15dp"
+                android:text="Order Summery"
+                android:textSize="22sp"
+                android:fontFamily="@font/clearsansbold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+    </androidx.appcompat.widget.Toolbar>
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="480dp"
+            android:scrollbars="vertical">
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            <LinearLayout
+                android:orientation="vertical"
+                android:background="#fff"
+                android:padding="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:background="@drawable/dotted_back"
+                    android:layout_margin="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+                        <ImageView
+                            android:src="@drawable/rp"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="10dp"
+                            />
+                        <TextView
+                            android:id="@+id/upper_save_amt"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="10dp"
+                            android:text="25% Savings will be applied on the MRP"
+                            android:textSize="15sp"
+                            android:fontFamily="@font/clearsansbold"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+                        <ImageView
+                            android:src="@drawable/dboy"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="10dp"
+                            />
+
+                        <TextView
+                            android:text="Free Delivery above Rs.350|Save more !"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="10dp"
+                            android:textSize="15sp"
+                            android:layout_marginBottom="20dp"
+
+                            android:fontFamily="@font/clearsansbold"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+                </LinearLayout>
+
+            </LinearLayout>
+                <LinearLayout
+                    android:layout_marginTop="30dp"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:text="DELIVERY ADDSESS"
+                        android:textSize="15sp"
+
+                        android:fontFamily="@font/clearsansbold"
+                        android:layout_marginLeft="10dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:id="@+id/address_edit"
+                        android:text="Change Address"
+                        android:textSize="15sp"
+                        android:textStyle="bold|italic"
+                        android:textColor="@color/colorAccent"
+                        android:fontFamily="@font/clearsansbold"
+                        android:layout_marginLeft="90dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/card_view"
+                    android:layout_margin="10dp"
+                    android:background="@color/white"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <LinearLayout
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            <TextView
+                                android:id="@+id/customer_name"
+                                android:textColor="#000"
+                                android:textSize="15sp"
+                                android:text="Address Required"
+                                android:layout_marginTop="10dp"
+                                android:layout_marginLeft="10dp"
+                                android:fontFamily="@font/clearsansbold"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+
+                            <ImageView
+                                android:visibility="gone"
+                                android:layout_width="24dp"
+                                android:layout_height="14dp"
+                                android:layout_gravity="center"
+                                android:layout_marginLeft="180dp"
+                                android:src="@drawable/ic_action_edit" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+                            <TextView
+                                android:id="@+id/email_add"
+                                android:visibility="gone"
+                                android:fontFamily="@font/clearsansbold"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+                            <TextView
+                                android:id="@+id/address_text"
+                                android:fontFamily="@font/clearsansbold"
+
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/card_view_istant"
+                    android:layout_margin="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+                        <CheckBox
+                            android:id="@+id/chk_instant"
+                            android:layout_marginLeft="10dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                        <TextView
+                            android:textStyle="bold"
+                            android:text="Instant Deliery"
+                            android:textSize="16sp"
+                            android:textColor="@color/black"
+                            android:fontFamily="@font/clearsansbold"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+                <LinearLayout
+                    android:layout_marginTop="20dp"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:text="Items"
+                        android:textSize="15sp"
+                        android:fontFamily="@font/clearsansbold"
+                        android:layout_marginLeft="10dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                   <!-- <TextView
+                        android:id="@+id/open_item"
+                        android:text="OPEN VIEW"
+                        android:textSize="15sp"
+                        android:visibility="gone"
+                        android:textColor="@color/colorAccent"
+                        android:fontFamily="@font/clearsansbold"
+                        android:layout_marginLeft="225dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />-->
+
+                </LinearLayout>
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/card_view_items"
+                    android:layout_margin="10dp"
+                    android:background="@color/white"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="wrap_content"
+                        android:layout_height="100dp">
+                        <TextView
+                            android:id="@+id/items_view"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+
+                        </TextView>
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/card_view_mode_payment"
+                    android:layout_margin="10dp"
+                    android:background="@color/white"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+                        <ImageView
+                            android:src="@drawable/c"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="10dp"
+                            />
+                        <TextView
+                            android:id="@+id/cash_mode"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="20dp"
+                            android:text="CASH ON DELIVERY"
+                            android:textSize="18sp"
+                            android:textColor="#000"
+                            android:fontFamily="@font/clearsansbold"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+             <ImageView
+                 android:src="@drawable/pj"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content">
+
+             </ImageView>
+            </LinearLayout>
+        </ScrollView>
+        <Button
+            android:id="@+id/submit_btn"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:fontFamily="@font/clearsansbold"
+            android:textColor="#fff"
+            android:textAllCaps="false"
+            android:text="CONFIRM"
+            android:layout_margin="20dp"
+            android:textSize="20dp"
+            android:layout_gravity="bottom"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/coupon_button_back" />
+    </LinearLayout>
+</LinearLayout>

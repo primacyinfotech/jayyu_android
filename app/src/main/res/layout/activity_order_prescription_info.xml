@@ -57,7 +57,7 @@
               android:id="@+id/order_by_press"
               android:text="Order everything as per prescription"
               android:layout_width="match_parent"
-              android:checked="true"
+
               android:layout_height="wrap_content">
           </CheckBox>
             <LinearLayout
@@ -121,6 +121,7 @@
                 android:id="@+id/edit_specify_medicin"
                 android:layout_width="match_parent"
                 android:layout_margin="10dp"
+                android:hint="Medicine(s)name,quantity/duration"
                 android:layout_height="wrap_content">
 
             </EditText>
