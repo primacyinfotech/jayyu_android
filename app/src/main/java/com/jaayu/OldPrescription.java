@@ -187,7 +187,7 @@ private String Old_prescription_url="https://work.primacyinfotech.com/jaayu/api/
                                    old_prescription_list.setHasFixedSize(true);
                                    old_prescription_list.setLayoutManager(new LinearLayoutManager(OldPrescription.this));
                                    old_prescription_list.setAdapter(oldPrescriptionAdapter);
-                                   old_prescription_list.setNestedScrollingEnabled(false);
+                                   old_prescription_list.setNestedScrollingEnabled(true);
                                    oldPrescriptionAdapter.notifyDataSetChanged();
 
                                }

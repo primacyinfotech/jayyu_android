@@ -630,4 +630,11 @@ public class OnlyUploadPrescription extends AppCompatActivity {
         };
         queue.add(postRequest);
     }
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(OnlyUploadPrescription.this,MainActivity.class);
+        startActivity(intent);
+        overridePendingTransition(0, 0);
+        finish();
+    }
 }

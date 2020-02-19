@@ -162,12 +162,6 @@ public class OrderDetails extends AppCompatActivity {
                             ship_add_land=person.getString("Landmark");
                             ship_add_pin=person.getString("Pincode");
                             ship_address.setText(ship_add_name+"\n"+ship_add_address+"\n"+ship_add_land+","+"Pin:"+ship_add_pin+"\n"+"Mobile:"+ship_add_phone);
-
-
-
-
-
-
                             if(ship_status.equals("0")){
                                 order_details_icon.setImageResource(R.drawable.tickyellow);
                                 active_order.setVisibility(View.VISIBLE);
