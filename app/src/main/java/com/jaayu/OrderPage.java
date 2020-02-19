@@ -64,7 +64,7 @@ public class OrderPage extends AppCompatActivity {
         back_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent( OrderPage.this,ThankYouPage.class);
+                Intent intent = new Intent( OrderPage.this,MainActivity.class);
                 startActivity(intent);
                 overridePendingTransition(0,0);
                 finish();
@@ -135,7 +135,7 @@ public class OrderPage extends AppCompatActivity {
     }
     @Override
     public void onBackPressed() {
-        Intent intent = new Intent( OrderPage.this,ThankYouPage.class);
+        Intent intent = new Intent( OrderPage.this,MainActivity.class);
         startActivity(intent);
         overridePendingTransition(0,0);
         finish();
