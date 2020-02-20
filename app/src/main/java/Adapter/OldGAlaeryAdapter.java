@@ -3,6 +3,8 @@ package Adapter;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
+import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +23,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+
 import com.jaayu.R;
 import com.jaayu.UploadToPrescription;
 import com.squareup.picasso.Picasso;
@@ -54,7 +57,7 @@ public class OldGAlaeryAdapter extends RecyclerView.Adapter<OldGAlaeryAdapter.My
 
     @Override
     public void onBindViewHolder(@NonNull OldGAlaeryAdapter.MyViewHolder holder, final int position) {
-        Picasso.with(context).load("https://work.primacyinfotech.com/jaayu/upload/prescription/" + prescriptionModels2.get(position).getPrescription_img()).into(holder.ivGallery);
+        Picasso.with(context).load("https://work.primacyinfotech.com/jaayu/upload/prescription/"+ prescriptionModels2.get(position).getPrescription_img()).into(holder.ivGallery);
         holder.img_id.setText("" + prescriptionModels2.get(position).getProduct_id());
         holder.delete_prescription.setOnClickListener(new View.OnClickListener() {
             @Override
