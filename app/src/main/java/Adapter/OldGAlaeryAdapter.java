@@ -24,6 +24,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import com.jaayu.OnlyUploadPrescription;
 import com.jaayu.R;
 import com.jaayu.UploadToPrescription;
 import com.squareup.picasso.Picasso;
@@ -57,7 +58,7 @@ public class OldGAlaeryAdapter extends RecyclerView.Adapter<OldGAlaeryAdapter.My
 
     @Override
     public void onBindViewHolder(@NonNull OldGAlaeryAdapter.MyViewHolder holder, final int position) {
-        Picasso.with(context).load("https://work.primacyinfotech.com/jaayu/upload/prescription/"+ prescriptionModels2.get(position).getPrescription_img()).into(holder.ivGallery);
+        Picasso.with(context).load("https://work.primacyinfotech.com/jaayu/upload/prescription/" + prescriptionModels2.get(position).getPrescription_img()).into(holder.ivGallery);
         holder.img_id.setText("" + prescriptionModels2.get(position).getProduct_id());
         holder.delete_prescription.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,10 +72,10 @@ public class OldGAlaeryAdapter extends RecyclerView.Adapter<OldGAlaeryAdapter.My
                                 Log.d("Response", response);
                                 try {
                                     //Do it with this it will work
-                                     JSONObject person = new JSONObject(response);
+                                    JSONObject person = new JSONObject(response);
                                     String status = person.getString("status");
                                     if (status.equals("1")) {
-                                        Intent intent = new Intent(context, UploadToPrescription.class);
+                                        Intent intent = new Intent(context, OnlyUploadPrescription.class);
                                         // intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                                         context.startActivity(intent);
                                         ((Activity) context).overridePendingTransition(0, 0);
