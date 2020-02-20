@@ -397,7 +397,7 @@ public class DetailsItems extends AppCompatActivity {
                             }
                             else {
                                 required_pres_img.setVisibility(View.VISIBLE);
-                                required_pres_img.setImageResource(R.drawable.rx);
+                                required_pres_img.setImageResource(R.drawable.prescriptionrequired);
                             }
 
 

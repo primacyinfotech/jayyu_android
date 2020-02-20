@@ -121,10 +121,25 @@ public class OnlyUploadPrescription extends AppCompatActivity {
          btn_continue.setOnClickListener(new View.OnClickListener() {
              @Override
              public void onClick(View v) {
-                 Intent goToOrderInfo=new Intent(OnlyUploadPrescription.this,OrderPrescriptionInfo.class);
-                 startActivity(goToOrderInfo);
-                 overridePendingTransition(0,0);
-                 finish();
+                 if(prescriptionModels.size()<=0){
+
+                 }
+                 else {
+                     Intent goToOrderInfo=new Intent(OnlyUploadPrescription.this,OrderPrescriptionInfo.class);
+                     startActivity(goToOrderInfo);
+                     overridePendingTransition(0,0);
+                     finish();
+                 }
+                 if(prescriptionModels2.size()<=0){
+
+                 }
+                 else {
+                     Intent goToOrderInfo=new Intent(OnlyUploadPrescription.this,OrderPrescriptionInfo.class);
+                     startActivity(goToOrderInfo);
+                     overridePendingTransition(0,0);
+                     finish();
+                 }
+
              }
          });
 

@@ -32,6 +32,7 @@
                 android:layout_gravity="center"
                 android:src="@drawable/ic_action_search_view_png"
                 android:layout_width="50dp"
+                android:visibility="gone"
                 android:layout_height="wrap_content" />
             <ImageView
                 android:id="@+id/cart_view"
@@ -253,10 +254,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />-->
                 <ImageView
-                    android:src="@drawable/rx"
+                    android:src="@drawable/prescriptionrequired"
                     android:id="@+id/required_pres_img"
-                    android:layout_marginLeft="130dp"
-                    android:layout_width="80dp"
+                    android:layout_marginLeft="120dp"
+                    android:layout_width="100dp"
                     android:layout_height="50dp" />
             </LinearLayout>
             <LinearLayout
