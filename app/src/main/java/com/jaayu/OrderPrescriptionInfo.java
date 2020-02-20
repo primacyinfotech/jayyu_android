@@ -238,7 +238,13 @@ public class OrderPrescriptionInfo extends AppCompatActivity {
 
                        params.put("user_id", u_id);
                        params.put("odrevery", odrevery);
-                       params.put("days", days_to);
+                       if(days_to.equals("0")|| days_to.equals("00")){
+
+                       }
+                       else {
+                           params.put("days", days_to);
+                       }
+                      // params.put("days", days_to);
 
 
                        return params;
