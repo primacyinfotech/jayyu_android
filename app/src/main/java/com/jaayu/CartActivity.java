@@ -151,7 +151,7 @@ public class CartActivity extends AppCompatActivity {
                 startActivity(goToSeatch);
             }
         });
-      coupon_off_on.setOnClickListener(new View.OnClickListener() {
+        apply_coupon_btn.setOnClickListener(new View.OnClickListener() {
           @Override
           public void onClick(View v) {
               couponListModelArrayList=new ArrayList<>();
@@ -180,14 +180,13 @@ public class CartActivity extends AppCompatActivity {
               dialog.show();
           }
       });
-      coupon_off_on.setOnLongClickListener(new View.OnLongClickListener() {
-          @Override
-          public boolean onLongClick(View v) {
-              place_apply_coupon.setText("Apply Coupon");
-              coupon_off_on.setImageResource(R.drawable.rigth_arrow);
-              return true;
-          }
-      });
+    coupon_off_on.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            place_apply_coupon.setText("Apply Coupon");
+            coupon_off_on.setImageResource(R.drawable.rigth_arrow);
+        }
+    });
 
         submit_btn.setOnClickListener(new View.OnClickListener() {
             @Override
