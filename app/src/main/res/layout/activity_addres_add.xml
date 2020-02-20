@@ -87,13 +87,14 @@
 
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
-    <EditText
+    <com.bachors.prefixinput.EditText
         android:id="@+id/mob_number"
         android:background="@drawable/border_gray_field"
         android:layout_marginTop="10dp"
         android:layout_marginLeft="20dp"
         android:inputType="phone"
-        android:maxLength="10"
+        android:maxLength="13"
+         android:text="+91"
         android:layout_marginRight="20dp"
         android:layout_width="match_parent"
         android:layout_height="50dp" />
@@ -131,6 +132,7 @@
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
            android:inputType="number"
+            android:maxLength="6"
             android:layout_width="match_parent"
             android:layout_height="50dp" />
         <TextView

@@ -59,6 +59,7 @@ public class AddresAddActivity extends AppCompatActivity {
         first_name=(EditText)findViewById(R.id.first_name);
         last_name=(EditText)findViewById(R.id.last_name);
         mob_number=(EditText)findViewById(R.id.mob_number);
+
         pin_number=(EditText)findViewById(R.id.pin_number);
         address=(EditText)findViewById(R.id.address);
         lan_mark=(EditText)findViewById(R.id.lan_mark);
