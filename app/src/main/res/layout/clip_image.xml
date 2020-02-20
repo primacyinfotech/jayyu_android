@@ -14,19 +14,17 @@
         android:id="@+id/ivGallery"
         android:layout_width="150dp"
         android:layout_height="150dp"
-        android:scaleType="fitXY"
-       >
+        android:scaleType="fitXY">
 
     </ImageView>
     <ImageButton
         android:background="@color/red"
         android:src="@drawable/ic_delete_img"
         android:id="@+id/delete_prescription"
-
         android:layout_width="30dp"
         android:layout_height="30dp" />
 
-        />
+
 
 
 </RelativeLayout>

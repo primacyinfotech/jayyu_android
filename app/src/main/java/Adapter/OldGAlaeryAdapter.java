@@ -58,7 +58,7 @@ public class OldGAlaeryAdapter extends RecyclerView.Adapter<OldGAlaeryAdapter.My
 
     @Override
     public void onBindViewHolder(@NonNull OldGAlaeryAdapter.MyViewHolder holder, final int position) {
-        Picasso.with(context).load("https://work.primacyinfotech.com/jaayu/upload/prescription/" + prescriptionModels2.get(position).getPrescription_img()).into(holder.ivGallery);
+        Picasso.with(context).load("https://work.primacyinfotech.com/jaayu/upload/prescription/"+ prescriptionModels2.get(position).getPrescription_img()).into(holder.ivGallery);
         holder.img_id.setText("" + prescriptionModels2.get(position).getProduct_id());
         holder.delete_prescription.setOnClickListener(new View.OnClickListener() {
             @Override
