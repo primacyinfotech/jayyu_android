@@ -19,6 +19,7 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -49,13 +50,14 @@ public class OrderDetails extends AppCompatActivity {
     OrderItemAdapter orderItemAdapter;
     private Animation animationUp;
     private Animation animationDown;
-    private TextView active_order_two,active_order_three,active_order,active_order_four,active_order_five,order_id,order_date;
+    private TextView active_order_two,active_order_three,active_order,active_order_four,active_order_five,order_id,order_date,text_cancel,text_pay;
     SharedPreferences prefs_register;
     private String Orderdetails_url="https://work.primacyinfotech.com/jaayu/api/order_details_profile";
     String u_id,instant_id,ship_status,delivery_date,ord_id,ord_date,mrp_amt,save_amt,shipping_charge,tot_pay,ship_add_name,ship_add_phone,
     ship_add_address,ship_add_land,ship_add_pin;
     int odr_id;
     private TextView mrp_amount,save_amount,ship_charge,total_pay,ship_address,date_of_delivery;
+    private LinearLayout cancel_btn,paynow_btn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,6 +92,11 @@ public class OrderDetails extends AppCompatActivity {
         total_pay=(TextView)findViewById(R.id.total_pay);
         ship_address=(TextView)findViewById(R.id.ship_address);
         date_of_delivery=(TextView)findViewById(R.id.date_of_delivery);
+        text_pay=(TextView)findViewById(R.id.text_pay);
+        text_cancel=(TextView)findViewById(R.id.text_cancel);
+        cancel_btn=(LinearLayout)findViewById(R.id.cancel_btn);
+        paynow_btn=(LinearLayout)findViewById(R.id.paynow_btn);
+
 
         active_order.setVisibility(View.GONE);
         active_order_two.setVisibility(View.GONE);
@@ -169,6 +176,9 @@ public class OrderDetails extends AppCompatActivity {
                                 active_order_three.setVisibility(View.GONE);
                                 active_order_four.setVisibility(View.GONE);
                                 active_order_five.setVisibility(View.GONE);
+                                text_cancel.setText("CANCEL ORDER");
+                                text_pay.setText("Help");
+
 
                             }
                             if (ship_status.equals("1")){
@@ -178,6 +188,9 @@ public class OrderDetails extends AppCompatActivity {
                                 active_order_three.setVisibility(View.GONE);
                                 active_order_four.setVisibility(View.GONE);
                                 active_order_five.setVisibility(View.GONE);
+                                text_cancel.setText("Cancel Order");
+                                text_pay.setText("Pay Now");
+
                             }
                             if(ship_status.equals("2")){
                                 order_details_icon.setImageResource(R.drawable.tick);
@@ -186,6 +199,8 @@ public class OrderDetails extends AppCompatActivity {
                                 active_order_three.setVisibility(View.VISIBLE);
                                 active_order_four.setVisibility(View.GONE);
                                 active_order_five.setVisibility(View.GONE);
+                                text_cancel.setText("Cancel Order");
+                                text_pay.setText("Pay Now");
                             }
                             if(ship_status.equals("3")){
                                 order_details_icon.setImageResource(R.drawable.tick);
@@ -194,6 +209,8 @@ public class OrderDetails extends AppCompatActivity {
                                 active_order_three.setVisibility(View.GONE);
                                 active_order_four.setVisibility(View.VISIBLE);
                                 active_order_five.setVisibility(View.GONE);
+                                text_cancel.setText("Help");
+                                text_pay.setText("Pay Now");
                             }
                             if(ship_status.equals("4")){
                                 order_details_icon.setImageResource(R.drawable.tickyellow);

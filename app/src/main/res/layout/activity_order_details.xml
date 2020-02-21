@@ -469,12 +469,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="60dp">
             <LinearLayout
+                android:id="@+id/cancel_btn"
                 android:orientation="vertical"
                 android:layout_width="180dp"
                 android:layout_height="match_parent">
                 <TextView
-                    android:id="@+id/cancel_btn"
-                    android:text="CANCEL ORDER"
+                    android:id="@+id/text_cancel"
+                    android:text=""
                     android:fontFamily="@font/clearsansbold"
                     android:gravity="center"
                     android:textColor="@color/colorAccent"
@@ -483,13 +484,14 @@
                     android:layout_height="match_parent" />
             </LinearLayout>
                 <LinearLayout
+                    android:id="@+id/paynow_btn"
                 android:orientation="vertical"
                 android:layout_width="180dp"
                 android:background="@color/colorAccent"
                 android:layout_height="match_parent">
                 <TextView
-                    android:id="@+id/paynow_btn"
-                    android:text="Pay Now"
+                   android:id="@+id/text_pay"
+                    android:text=""
                     android:textColor="#fff"
                     android:fontFamily="@font/clearsansbold"
                     android:gravity="center"
