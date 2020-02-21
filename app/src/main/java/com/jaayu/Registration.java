@@ -132,5 +132,12 @@ public class Registration extends AppCompatActivity {
             ActivityCompat.requestPermissions(this, permission_list, 1);
         }
     }
+    @Override
+    public void onBackPressed() {
+        Intent goToBack=new Intent(Registration.this,LoginSignUp.class);
+        startActivity(goToBack);
+        overridePendingTransition(0,0);
+        finish();
+    }
 
 }
