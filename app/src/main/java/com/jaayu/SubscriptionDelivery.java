@@ -421,68 +421,72 @@ sixty_day_order.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeLis
            }
               if(!thirty_day_order.isChecked()&&!fortyfive_day_order.isChecked()&&!sixty_day_order.isChecked()
               && single_day.matches("")||!selected_three_delivery.isChecked()&&!selected_six_delivery.isChecked()&&single_delivery.matches("")){
-               Toast.makeText(getApplicationContext(),"Please, Checked All Preference Of Delivery Order",Toast.LENGTH_LONG).show();
-
+                  Toast.makeText(getApplicationContext(),"Please, Checked All Preference Of Delivery Order",Toast.LENGTH_LONG).show();
               }
 
 
               else {
-                  RequestQueue requestQueue = Volley.newRequestQueue(SubscriptionDelivery.this);
-                  StringRequest postRequest = new StringRequest(Request.Method.POST,Place_order_url,
-                          new Response.Listener<String>() {
-                              @Override
-                              public void onResponse(String response) {
-                                  // response
-                                  Log.d("Response", response);
-                                  try {
-                                      //Do it with this it will work
-                                      JSONObject person = new JSONObject(response);
-                                      String status=person.getString("status");
-                                      if(status.equals("1")){
-                                          String message=person.getString("message");
-                                         // Toast.makeText(getApplicationContext(),message,Toast.LENGTH_LONG).show();
-                                          Intent goToOrderView_method=new Intent(SubscriptionDelivery.this,OrderReview.class);
-                                          goToOrderView_method.putExtra("DAY",day_portion);
-                                          goToOrderView_method.putExtra("Duration",duration);
-                                          goToOrderView_method.putExtra("User_add",user_add);
-                                          goToOrderView_method.putExtra("User_ID",user_id);
-                                          // goTopayment_method.putExtra("presc_img",prescription_img);
-                                          startActivity(goToOrderView_method);
-                                          overridePendingTransition(0,0);
+                  if(single_day.equals("0")||single_day.equals("00")||single_delivery.equals("0")||single_delivery.equals("00")){
+
+                  }
+                  else {
+                      RequestQueue requestQueue = Volley.newRequestQueue(SubscriptionDelivery.this);
+                      StringRequest postRequest = new StringRequest(Request.Method.POST, Place_order_url,
+                              new Response.Listener<String>() {
+                                  @Override
+                                  public void onResponse(String response) {
+                                      // response
+                                      Log.d("Response", response);
+                                      try {
+                                          //Do it with this it will work
+                                          JSONObject person = new JSONObject(response);
+                                          String status = person.getString("status");
+                                          if (status.equals("1")) {
+                                              String message = person.getString("message");
+                                              // Toast.makeText(getApplicationContext(),message,Toast.LENGTH_LONG).show();
+                                              Intent goToOrderView_method = new Intent(SubscriptionDelivery.this, OrderReview.class);
+                                              goToOrderView_method.putExtra("DAY", day_portion);
+                                              goToOrderView_method.putExtra("Duration", duration);
+                                              goToOrderView_method.putExtra("User_add", user_add);
+                                              goToOrderView_method.putExtra("User_ID", user_id);
+                                              // goTopayment_method.putExtra("presc_img",prescription_img);
+                                              startActivity(goToOrderView_method);
+                                              overridePendingTransition(0, 0);
+                                          }
+
+                                      } catch (JSONException e) {
+                                          e.printStackTrace();
+                                          Toast.makeText(getApplicationContext(), "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
                                       }
 
-                                  } catch (JSONException e) {
-                                      e.printStackTrace();
-                                      Toast.makeText(getApplicationContext(), "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+
                                   }
+                              },
+                              new Response.ErrorListener() {
+                                  @Override
+                                  public void onErrorResponse(VolleyError error) {
+                                      // error
 
-
+                                  }
                               }
-                          },
-                          new Response.ErrorListener() {
-                              @Override
-                              public void onErrorResponse(VolleyError error) {
-                                  // error
+                      ) {
+                          @Override
+                          protected Map<String, String> getParams() {
+                              Map<String, String> params = new HashMap<String, String>();
 
-                              }
+                              params.put("user_id", user_id);
+                              params.put("aId", user_add);
+                              params.put("days", day_portion);
+                              params.put("duration", duration);
+                              // params.put("spid", presc_img);
+                              // params.put("payment_method", cod);
+                              params.put("status", "1");
+                              return params;
                           }
-                  ) {
-                      @Override
-                      protected Map<String, String> getParams() {
-                          Map<String, String> params = new HashMap<String, String>();
+                      };
 
-                          params.put("user_id", user_id);
-                          params.put("aId", user_add);
-                          params.put("days", day_portion);
-                          params.put("duration", duration);
-                          // params.put("spid", presc_img);
-                          // params.put("payment_method", cod);
-                          params.put("status", "1");
-                          return params;
-                      }
-                  };
-
-                  requestQueue.add(postRequest);
+                      requestQueue.add(postRequest);
+                  }
 
               }
 
