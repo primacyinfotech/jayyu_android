@@ -54,7 +54,7 @@ public class OrderDetails extends AppCompatActivity {
     SharedPreferences prefs_register;
     private String Orderdetails_url="https://work.primacyinfotech.com/jaayu/api/order_details_profile";
     String u_id,instant_id,ship_status,delivery_date,ord_id,ord_date,mrp_amt,save_amt,shipping_charge,tot_pay,ship_add_name,ship_add_phone,
-    ship_add_address,ship_add_land,ship_add_pin;
+    ship_add_address,ship_add_land,ship_add_pin,payment_status;
     int odr_id;
     private TextView mrp_amount,save_amount,ship_charge,total_pay,ship_address,date_of_delivery;
     private LinearLayout cancel_btn,paynow_btn;
@@ -151,6 +151,7 @@ public class OrderDetails extends AppCompatActivity {
                             JSONObject person = new JSONObject(response);
                             String status = person.getString("status");
                             ship_status=person.getString("shipping_status");
+                            payment_status=person.getString("payment_status");
                             ord_id=person.getString("OrderId");
                             order_id.setText(ord_id);
                             ord_date=person.getString("Order_date");
@@ -176,8 +177,11 @@ public class OrderDetails extends AppCompatActivity {
                                 active_order_three.setVisibility(View.GONE);
                                 active_order_four.setVisibility(View.GONE);
                                 active_order_five.setVisibility(View.GONE);
-                                text_cancel.setText("CANCEL ORDER");
-                                text_pay.setText("Help");
+
+                               if(payment_status.equals("0")){
+                                   text_cancel.setText("Cancel Order");
+                                   text_pay.setText("Help");
+                               }
 
 
                             }
@@ -188,8 +192,11 @@ public class OrderDetails extends AppCompatActivity {
                                 active_order_three.setVisibility(View.GONE);
                                 active_order_four.setVisibility(View.GONE);
                                 active_order_five.setVisibility(View.GONE);
-                                text_cancel.setText("Cancel Order");
-                                text_pay.setText("Pay Now");
+                                 if(payment_status.equals("0")){
+                                     text_cancel.setText("Cancel Order");
+                                     text_pay.setText("Pay Now");
+                                 }
+
 
                             }
                             if(ship_status.equals("2")){
@@ -201,6 +208,7 @@ public class OrderDetails extends AppCompatActivity {
                                 active_order_five.setVisibility(View.GONE);
                                 text_cancel.setText("Cancel Order");
                                 text_pay.setText("Pay Now");
+
                             }
                             if(ship_status.equals("3")){
                                 order_details_icon.setImageResource(R.drawable.tick);
@@ -209,8 +217,7 @@ public class OrderDetails extends AppCompatActivity {
                                 active_order_three.setVisibility(View.GONE);
                                 active_order_four.setVisibility(View.VISIBLE);
                                 active_order_five.setVisibility(View.GONE);
-                                text_cancel.setText("Help");
-                                text_pay.setText("Pay Now");
+
                             }
                             if(ship_status.equals("4")){
                                 order_details_icon.setImageResource(R.drawable.tickyellow);
