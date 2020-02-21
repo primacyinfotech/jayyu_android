@@ -60,7 +60,7 @@
          android:orientation="horizontal"
          android:layout_width="match_parent"
          android:layout_height="wrap_content">
-         <RadioButton
+         <CheckBox
              android:id="@+id/paytm"
              android:layout_width="match_parent"
              android:text="Paytm"
@@ -90,7 +90,7 @@
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <RadioButton
+        <CheckBox
             android:id="@+id/amazon_pay"
             android:layout_width="match_parent"
             android:text="Amazon Pay"
@@ -130,7 +130,7 @@ on orders above Rs.100.Offer Valid Once Per User between 1st to 30th Nov"
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-            <RadioButton
+            <CheckBox
                 android:id="@+id/ola_money"
                 android:layout_width="match_parent"
                 android:text="OlaMoney Postpaid"
@@ -170,7 +170,7 @@ on orders above Rs.100.Offer Valid Once Per User between 1st to 30th Nov"
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-            <RadioButton
+            <CheckBox
                 android:id="@+id/paypal_pay"
                 android:layout_width="match_parent"
                 android:text="Paypal"
@@ -218,7 +218,7 @@ on orders above Rs.100.Offer Valid Once Per User between 1st to 30th Nov"
                         android:orientation="horizontal"
                         android:layout_width="match_parent"
                         android:layout_height="60dp">
-                        <RadioButton
+                        <CheckBox
                             android:id="@+id/netbank"
                             android:layout_width="match_parent"
                             android:text="NetBanking"
@@ -244,7 +244,7 @@ on orders above Rs.100.Offer Valid Once Per User between 1st to 30th Nov"
                         android:orientation="horizontal"
                         android:layout_width="match_parent"
                         android:layout_height="60dp">
-                        <RadioButton
+                        <CheckBox
                             android:id="@+id/credit_debit_card"
                             android:layout_width="match_parent"
                             android:text="Credit and Debit Card"
@@ -283,7 +283,7 @@ on orders above Rs.100.Offer Valid Once Per User between 1st to 30th Nov"
                         android:orientation="horizontal"
                         android:layout_width="match_parent"
                         android:layout_height="60dp">
-                        <RadioButton
+                        <CheckBox
                             android:id="@+id/cash_delivery"
                             android:layout_width="match_parent"
                             android:text="Cash On Delivery"
@@ -317,7 +317,7 @@ on orders above Rs.100.Offer Valid Once Per User between 1st to 30th Nov"
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-                <RadioButton
+                <CheckBox
                     android:id="@+id/jaayu_wallet"
                     android:layout_width="match_parent"
                     android:text="Jaayu Cash"

@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.RadioButton;
@@ -31,7 +32,7 @@ import java.util.Map;
 
 public class Payment extends AppCompatActivity {
     ImageView back_button;
-    private RadioButton paytm,amazon_pay,ola_money,paypal_pay,netbank,credit_debit_card,jaayu_details,cash_delivery;
+    private CheckBox paytm,amazon_pay,ola_money,paypal_pay,netbank,credit_debit_card,jaayu_details,cash_delivery;
     private RadioGroup radio_three;
     String user_id,user_add,day_time,duration,cod,net_bank,presc_img;
     private String Order_tiem_total_dataUrl="https://work.primacyinfotech.com/jaayu/api/addtocart/sum_value";
@@ -47,14 +48,14 @@ public class Payment extends AppCompatActivity {
         setSupportActionBar(toolbar);
         back_button=(ImageView)toolbar.findViewById(R.id.back_button);
         radio_three=(RadioGroup)findViewById(R.id.radio_three);
-        cash_delivery=(RadioButton)findViewById(R.id.cash_delivery);
-        netbank=(RadioButton)findViewById(R.id.netbank);
-        paytm=(RadioButton)findViewById(R.id.paytm);
-        amazon_pay=(RadioButton)findViewById(R.id.amazon_pay);
-        ola_money=(RadioButton)findViewById(R.id.ola_money);
-        paypal_pay=(RadioButton)findViewById(R.id.paypal_pay);
-        credit_debit_card=(RadioButton)findViewById(R.id.credit_debit_card);
-        jaayu_details=(RadioButton)findViewById(R.id.jaayu_wallet);
+        cash_delivery=(CheckBox)findViewById(R.id.cash_delivery);
+        netbank=(CheckBox)findViewById(R.id.netbank);
+        paytm=(CheckBox)findViewById(R.id.paytm);
+        amazon_pay=(CheckBox)findViewById(R.id.amazon_pay);
+        ola_money=(CheckBox)findViewById(R.id.ola_money);
+        paypal_pay=(CheckBox)findViewById(R.id.paypal_pay);
+        credit_debit_card=(CheckBox)findViewById(R.id.credit_debit_card);
+        jaayu_details=(CheckBox)findViewById(R.id.jaayu_wallet);
         submit_btn=(Button)findViewById(R.id.submit_btn) ;
         mrp_total=(TextView)findViewById(R.id.mrp_total);
         total_save_price=(TextView)findViewById(R.id.total_save_price);
@@ -87,7 +88,7 @@ public class Payment extends AppCompatActivity {
             }
         });
 
-        paytm.setOnClickListener(new View.OnClickListener() {
+       /* paytm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(!paytm.isSelected()){
@@ -95,16 +96,24 @@ public class Payment extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(),cod,Toast.LENGTH_LONG).show();
                     paytm.setSelected(true);
                     paytm.setChecked(true);
-                    amazon_pay.setEnabled(false);
+                  *//*  amazon_pay.setEnabled(false);
                     ola_money.setEnabled(false);
                     paypal_pay.setEnabled(false);
                     netbank.setEnabled(false);
                     credit_debit_card.setEnabled(false);
                     cash_delivery.setEnabled(false);
-                    jaayu_details.setEnabled(false);
+                    jaayu_details.setEnabled(false);*//*
+                    amazon_pay.setChecked(false);
+                    ola_money.setChecked(false);
+                    paypal_pay.setChecked(false);
+                    netbank.setChecked(false);
+                    credit_debit_card.setChecked(false);
+                    cash_delivery.setChecked(false);
+                    jaayu_details.setChecked(false);
+
 
                 }
-                else {
+               *//* else {
                     paytm.setSelected(false);
                     paytm.setChecked(false);
                     amazon_pay.setEnabled(true);
@@ -116,7 +125,7 @@ public class Payment extends AppCompatActivity {
                     jaayu_details.setEnabled(true);
 
 
-                }
+                }*//*
             }
         });
         amazon_pay.setOnClickListener(new View.OnClickListener() {
@@ -127,17 +136,24 @@ public class Payment extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(),cod,Toast.LENGTH_LONG).show();
                     amazon_pay.setSelected(true);
                     amazon_pay.setChecked(true);
-                    paytm.setEnabled(false);
+                *//*    paytm.setEnabled(false);
                     ola_money.setEnabled(false);
                     paypal_pay.setEnabled(false);
                     netbank.setEnabled(false);
                     credit_debit_card.setEnabled(false);
                     cash_delivery.setEnabled(false);
-                    jaayu_details.setEnabled(false);
+                    jaayu_details.setEnabled(false);*//*
+                    paytm.setChecked(false);
+                    ola_money.setChecked(false);
+                    paypal_pay.setChecked(false);
+                    netbank.setChecked(false);
+                    credit_debit_card.setChecked(false);
+                    cash_delivery.setChecked(false);
+                    jaayu_details.setChecked(false);
 
 
                 }
-                else {
+               *//* else {
                     amazon_pay.setSelected(false);
                     amazon_pay.setChecked(false);
                     paytm.setEnabled(true);
@@ -149,7 +165,7 @@ public class Payment extends AppCompatActivity {
                     jaayu_details.setEnabled(true);
 
 
-                }
+                }*//*
 
             }
         });
@@ -161,16 +177,23 @@ public class Payment extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(),cod,Toast.LENGTH_LONG).show();
                     ola_money.setSelected(true);
                     ola_money.setChecked(true);
-                    paytm.setEnabled(false);
+                   *//* paytm.setEnabled(false);
                     amazon_pay.setEnabled(false);
                     paypal_pay.setEnabled(false);
                     netbank.setEnabled(false);
                     credit_debit_card.setEnabled(false);
                     cash_delivery.setEnabled(false);
-                    jaayu_details.setEnabled(false);
+                    jaayu_details.setEnabled(false);*//*
+                    paytm.setChecked(false);
+                    amazon_pay.setChecked(false);
+                    paypal_pay.setChecked(false);
+                    netbank.setChecked(false);
+                    credit_debit_card.setChecked(false);
+                    cash_delivery.setChecked(false);
+                    jaayu_details.setChecked(false);
 
                 }
-                else {
+              *//*  else {
                     ola_money.setSelected(false);
                     ola_money.setChecked(false);
                     paytm.setEnabled(true);
@@ -182,7 +205,7 @@ public class Payment extends AppCompatActivity {
                     jaayu_details.setEnabled(true);
 
 
-                }
+                }*//*
             }
         });
         paypal_pay.setOnClickListener(new View.OnClickListener() {
@@ -193,16 +216,23 @@ public class Payment extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(),cod,Toast.LENGTH_LONG).show();
                     paypal_pay.setSelected(true);
                     paypal_pay.setChecked(true);
-                    paytm.setEnabled(false);
+                  *//*  paytm.setEnabled(false);
                     amazon_pay.setEnabled(false);
                     ola_money.setEnabled(false);
                     netbank.setEnabled(false);
                     credit_debit_card.setEnabled(false);
                     cash_delivery.setEnabled(false);
-                    jaayu_details.setEnabled(false);
+                    jaayu_details.setEnabled(false);*//*
+                    paytm.setChecked(false);
+                    amazon_pay.setChecked(false);
+                    ola_money.setChecked(false);
+                    netbank.setChecked(false);
+                    credit_debit_card.setChecked(false);
+                    cash_delivery.setChecked(false);
+                    jaayu_details.setChecked(false);
 
                 }
-                else {
+              *//*  else {
                     paypal_pay.setSelected(false);
                     paypal_pay.setChecked(false);
                     paytm.setEnabled(true);
@@ -214,7 +244,7 @@ public class Payment extends AppCompatActivity {
                     jaayu_details.setEnabled(true);
 
 
-                }
+                }*//*
             }
         });
          netbank.setOnClickListener(new View.OnClickListener() {
@@ -225,16 +255,23 @@ public class Payment extends AppCompatActivity {
                      Toast.makeText(getApplicationContext(),cod,Toast.LENGTH_LONG).show();
                      netbank.setSelected(true);
                      netbank.setChecked(true);
-                     paytm.setEnabled(false);
+                    *//* paytm.setEnabled(false);
                      amazon_pay.setEnabled(false);
                      ola_money.setEnabled(false);
                      paypal_pay.setEnabled(false);
                      credit_debit_card.setEnabled(false);
                      cash_delivery.setEnabled(false);
-                     jaayu_details.setEnabled(false);
+                     jaayu_details.setEnabled(false);*//*
+                     paytm.setChecked(false);
+                     amazon_pay.setChecked(false);
+                     ola_money.setChecked(false);
+                     paypal_pay.setChecked(false);
+                     credit_debit_card.setChecked(false);
+                     cash_delivery.setChecked(false);
+                     jaayu_details.setChecked(false);
 
                  }
-                 else {
+              *//*   else {
                      netbank.setSelected(false);
                      netbank.setChecked(false);
                      paytm.setEnabled(true);
@@ -246,7 +283,7 @@ public class Payment extends AppCompatActivity {
                      jaayu_details.setEnabled(true);
 
 
-                 }
+                 }*//*
              }
          });
          credit_debit_card.setOnClickListener(new View.OnClickListener() {
@@ -257,15 +294,21 @@ public class Payment extends AppCompatActivity {
                      Toast.makeText(getApplicationContext(),cod,Toast.LENGTH_LONG).show();
                      credit_debit_card.setSelected(true);
                      credit_debit_card.setChecked(true);
-                     amazon_pay.setEnabled(false);
+                    *//* amazon_pay.setEnabled(false);
                      ola_money.setEnabled(false);
                      paypal_pay.setEnabled(false);
                      netbank.setEnabled(false);
                      cash_delivery.setEnabled(false);
-                     jaayu_details.setEnabled(false);
+                     jaayu_details.setEnabled(false);*//*
+                     amazon_pay.setChecked(false);
+                     ola_money.setChecked(false);
+                     paypal_pay.setChecked(false);
+                     netbank.setChecked(false);
+                     cash_delivery.setChecked(false);
+                     jaayu_details.setChecked(false);
 
                  }
-                 else {
+              *//*   else {
                      credit_debit_card.setSelected(false);
                      credit_debit_card.setChecked(false);
                      amazon_pay.setEnabled(true);
@@ -276,7 +319,7 @@ public class Payment extends AppCompatActivity {
                      jaayu_details.setEnabled(true);
 
 
-                 }
+                 }*//*
              }
          });
          cash_delivery.setOnClickListener(new View.OnClickListener() {
@@ -287,15 +330,22 @@ public class Payment extends AppCompatActivity {
                      Toast.makeText(getApplicationContext(),cod,Toast.LENGTH_LONG).show();
                      cash_delivery.setSelected(true);
                      cash_delivery.setChecked(true);
-                     amazon_pay.setEnabled(false);
+                    *//* amazon_pay.setEnabled(false);
                      ola_money.setEnabled(false);
                      paypal_pay.setEnabled(false);
                      netbank.setEnabled(false);
                      credit_debit_card.setEnabled(false);
-                     jaayu_details.setEnabled(false);
+                     jaayu_details.setEnabled(false);*//*
+                     amazon_pay.setChecked(false);
+                     ola_money.setChecked(false);
+                     paypal_pay.setChecked(false);
+                     netbank.setChecked(false);
+                     credit_debit_card.setChecked(false);
+                     jaayu_details.setChecked(false);
 
                  }
-                 else {
+
+                *//* else {
                      cash_delivery.setSelected(false);
                      cash_delivery.setChecked(false);
                      amazon_pay.setEnabled(true);
@@ -306,7 +356,7 @@ public class Payment extends AppCompatActivity {
                      jaayu_details.setEnabled(true);
 
 
-                 }
+                 }*//*
              }
          });
          jaayu_details.setOnClickListener(new View.OnClickListener() {
@@ -317,15 +367,22 @@ public class Payment extends AppCompatActivity {
                      Toast.makeText(getApplicationContext(),cod,Toast.LENGTH_LONG).show();
                      jaayu_details.setSelected(true);
                      jaayu_details.setChecked(true);
-                     amazon_pay.setEnabled(false);
+                   *//*  amazon_pay.setEnabled(false);
                      ola_money.setEnabled(false);
                      paypal_pay.setEnabled(false);
                      netbank.setEnabled(false);
                      credit_debit_card.setEnabled(false);
-                     cash_delivery.setEnabled(false);
+                     cash_delivery.setEnabled(false);*//*
+                     amazon_pay.setChecked(false);
+                     ola_money.setChecked(false);
+                     paypal_pay.setChecked(false);
+                     netbank.setChecked(false);
+                     credit_debit_card.setChecked(false);
+                     cash_delivery.setChecked(false);
 
                  }
-                 else {
+
+                *//* else {
                      jaayu_details.setSelected(false);
                      jaayu_details.setChecked(false);
                      amazon_pay.setEnabled(true);
@@ -336,10 +393,150 @@ public class Payment extends AppCompatActivity {
                      cash_delivery.setEnabled(true);
 
 
-                 }
+                 }*//*
              }
-         });
-
+         });*/
+    paytm.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        @Override
+        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+            if(paytm.isChecked()){
+                cod="Paytm";
+                Toast.makeText(getApplicationContext(),cod,Toast.LENGTH_LONG).show();
+                paytm.setSelected(true);
+                paytm.setChecked(true);
+                amazon_pay.setChecked(false);
+                ola_money.setChecked(false);
+                paypal_pay.setChecked(false);
+                netbank.setChecked(false);
+                credit_debit_card.setChecked(false);
+                cash_delivery.setChecked(false);
+                jaayu_details.setChecked(false);
+            }
+        }
+    });
+    amazon_pay.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        @Override
+        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+            if(amazon_pay.isChecked()){
+                cod="amazon_pay";
+                Toast.makeText(getApplicationContext(),cod,Toast.LENGTH_LONG).show();
+                amazon_pay.setSelected(true);
+                amazon_pay.setChecked(true);
+                paytm.setChecked(false);
+                ola_money.setChecked(false);
+                paypal_pay.setChecked(false);
+                netbank.setChecked(false);
+                credit_debit_card.setChecked(false);
+                cash_delivery.setChecked(false);
+                jaayu_details.setChecked(false);
+            }
+        }
+    });
+    ola_money.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        @Override
+        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+            if(ola_money.isChecked()){
+                cod="Ola_Money";
+                Toast.makeText(getApplicationContext(),cod,Toast.LENGTH_LONG).show();
+                ola_money.setSelected(true);
+                ola_money.setChecked(true);
+                paytm.setChecked(false);
+                amazon_pay.setChecked(false);
+                paypal_pay.setChecked(false);
+                netbank.setChecked(false);
+                credit_debit_card.setChecked(false);
+                cash_delivery.setChecked(false);
+                jaayu_details.setChecked(false);
+            }
+        }
+    });
+    paypal_pay.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        @Override
+        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+            if(paypal_pay.isChecked()){
+                cod="Paypal";
+                Toast.makeText(getApplicationContext(),cod,Toast.LENGTH_LONG).show();
+                paypal_pay.setSelected(true);
+                paypal_pay.setChecked(true);
+                paytm.setChecked(false);
+                amazon_pay.setChecked(false);
+                ola_money.setChecked(false);
+                netbank.setChecked(false);
+                credit_debit_card.setChecked(false);
+                cash_delivery.setChecked(false);
+                jaayu_details.setChecked(false);
+            }
+        }
+    });
+    netbank.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        @Override
+        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+            if(netbank.isChecked()){
+                cod="netbank";
+                Toast.makeText(getApplicationContext(),cod,Toast.LENGTH_LONG).show();
+                netbank.setSelected(true);
+                netbank.setChecked(true);
+                paytm.setChecked(false);
+                amazon_pay.setChecked(false);
+                ola_money.setChecked(false);
+                paypal_pay.setChecked(false);
+                credit_debit_card.setChecked(false);
+                cash_delivery.setChecked(false);
+                jaayu_details.setChecked(false);
+            }
+        }
+    });
+    credit_debit_card.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        @Override
+        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+            if(credit_debit_card.isChecked()){
+                cod="credit_debit_card";
+                Toast.makeText(getApplicationContext(),cod,Toast.LENGTH_LONG).show();
+                credit_debit_card.setSelected(true);
+                credit_debit_card.setChecked(true);
+                amazon_pay.setChecked(false);
+                ola_money.setChecked(false);
+                paypal_pay.setChecked(false);
+                netbank.setChecked(false);
+                cash_delivery.setChecked(false);
+                jaayu_details.setChecked(false);
+            }
+        }
+    });
+    cash_delivery.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        @Override
+        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+            if(cash_delivery.isChecked()){
+                cod="cod";
+                Toast.makeText(getApplicationContext(),cod,Toast.LENGTH_LONG).show();
+                cash_delivery.setSelected(true);
+                cash_delivery.setChecked(true);
+                amazon_pay.setChecked(false);
+                ola_money.setChecked(false);
+                paypal_pay.setChecked(false);
+                netbank.setChecked(false);
+                credit_debit_card.setChecked(false);
+                jaayu_details.setChecked(false);
+            }
+        }
+    });
+    jaayu_details.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        @Override
+        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+            if(jaayu_details.isChecked()){
+                cod="Jaayu_Wallet";
+                Toast.makeText(getApplicationContext(),cod,Toast.LENGTH_LONG).show();
+                jaayu_details.setSelected(true);
+                jaayu_details.setChecked(true);
+                amazon_pay.setChecked(false);
+                ola_money.setChecked(false);
+                paypal_pay.setChecked(false);
+                netbank.setChecked(false);
+                credit_debit_card.setChecked(false);
+                cash_delivery.setChecked(false);
+            }
+        }
+    });
         submit_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
