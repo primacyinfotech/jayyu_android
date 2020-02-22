@@ -139,5 +139,6 @@ public class OrderAdapter  extends RecyclerView.Adapter<OrderAdapter.MyViewHolde
             order_status_icon=(ImageView)itemView.findViewById(R.id.order_status_icon);
             card_order=(CardView)itemView.findViewById(R.id.card_order);
         }
+
     }
 }

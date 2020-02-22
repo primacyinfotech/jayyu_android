@@ -177,12 +177,10 @@ public class OrderDetails extends AppCompatActivity {
                                 active_order_three.setVisibility(View.GONE);
                                 active_order_four.setVisibility(View.GONE);
                                 active_order_five.setVisibility(View.GONE);
-
-                               if(payment_status.equals("0")){
+                                if(payment_status.equals("0")){
                                    text_cancel.setText("Cancel Order");
                                    text_pay.setText("Help");
-                               }
-
+                                }
 
                             }
                             if (ship_status.equals("1")){
@@ -196,7 +194,6 @@ public class OrderDetails extends AppCompatActivity {
                                      text_cancel.setText("Cancel Order");
                                      text_pay.setText("Pay Now");
                                  }
-
 
                             }
                             if(ship_status.equals("2")){
