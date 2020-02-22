@@ -96,6 +96,7 @@ public class OrderPage extends AppCompatActivity {
                                     orderModel.setOrder_date(object.getString("order_date"));
                                     orderModel.setShip_status(object.getString("shipping_status"));
                                     orderModel.setInstant(object.getString("instant"));
+                                    orderModel.setPrescription_chk(object.getString("prescription"));
                                     modelList.add(orderModel);
                                 }
                                 orderAdapter=new OrderAdapter(modelList,OrderPage.this);

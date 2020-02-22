@@ -1,13 +1,21 @@
 package Model;
 
 public class OrderModel {
- private     String order_mame,order_id,order_date,ship_status,instant;
+ private     String order_mame,order_id,order_date,ship_status,instant,prescription_chk;
   private   int tbl_order_id;
    /* public OrderModel(String order_id, String order_date, String order_mame) {
         this.order_id = order_id;
         this.order_date = order_date;
         this.order_mame = order_mame;
     }*/
+
+    public String getPrescription_chk() {
+        return prescription_chk;
+    }
+
+    public void setPrescription_chk(String prescription_chk) {
+        this.prescription_chk = prescription_chk;
+    }
 
     public String getInstant() {
         return instant;
