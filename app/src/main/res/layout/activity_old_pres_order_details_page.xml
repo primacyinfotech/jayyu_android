@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".PrescriptionOrderDetails">
+    tools:context=".OldPresOrderDetailsPage">
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
@@ -131,49 +131,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
                 </LinearLayout>
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/card_view"
-                    android:layout_margin="10dp"
-                    android:background="@color/white"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-                    <LinearLayout
 
-                        android:orientation="vertical"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-                        <LinearLayout
-                            android:orientation="horizontal"
-                            android:layout_width="match_parent"
-                            android:layout_height="50dp">
-
-                            <TextView
-                                android:text="Items"
-                                android:fontFamily="@font/clearsansbold"
-                                android:textColor="#000"
-                                android:textSize="15sp"
-                                android:layout_marginTop="10dp"
-                                android:layout_marginLeft="10dp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content" />
-                            <ImageView
-                                android:id="@+id/expend_btn"
-                                android:src="@drawable/ic_action_down_arrow"
-                                android:layout_gravity="center"
-                                android:layout_marginLeft="250dp"
-                                android:visibility="gone"
-                                android:layout_width="20dp"
-                                android:layout_height="20dp" />
-                        </LinearLayout>
-                        <androidx.recyclerview.widget.RecyclerView
-                            android:id="@+id/rv_items"
-                            android:layout_marginTop="10dp"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
-
-                        </androidx.recyclerview.widget.RecyclerView>
-                    </LinearLayout>
-                </androidx.cardview.widget.CardView>
                 <androidx.cardview.widget.CardView
                     android:id="@+id/card_view_other_details"
                     android:layout_margin="10dp"
@@ -284,7 +242,7 @@
                                 android:background="#fff"
                                 android:orientation="vertical">
 
-                                <LinearLayout
+                               <!-- <LinearLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_margin="10dp"
@@ -370,7 +328,7 @@
                                         android:fontFamily="@font/clearsansbold"
                                         android:text=""
                                         android:textSize="15sp" />
-                                </LinearLayout>
+                                </LinearLayout>-->
 
                                 <LinearLayout
                                     android:layout_width="match_parent"
@@ -387,7 +345,7 @@
                                         android:textSize="15sp" />
 
                                     <View
-                                        android:layout_width="170dp"
+                                        android:layout_width="130dp"
                                         android:layout_height="0dp">
 
                                     </View>
@@ -396,8 +354,9 @@
                                         android:id="@+id/total_pay"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
+                                        android:textColor="#000"
                                         android:fontFamily="@font/clearsansbold"
-                                        android:text=""
+                                        android:text="To be generated Soon"
                                         android:textSize="15sp" />
                                 </LinearLayout>
                             </LinearLayout>

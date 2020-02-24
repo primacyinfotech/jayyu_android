@@ -174,7 +174,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".PrescriptionOrderDetails"
+        <activity android:name=".OldPresOrderDetailsPage"
             android:configChanges="orientation|screenSize"
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait"
@@ -182,13 +182,17 @@
 
         </activity>
         <activity
+            android:name=".PrescriptionOrderDetails"
+            android:configChanges="orientation|screenSize"
+            android:hardwareAccelerated="true"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
             android:name=".PrescriptionThankYouPage"
             android:configChanges="orientation|screenSize"
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar">
-
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
             android:name=".PrescriptionLocationAddress"
             android:configChanges="orientation|screenSize"
@@ -314,7 +318,7 @@
             android:configChanges="orientation|screenSize"
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".DeliverySubscription"
             android:configChanges="orientation|screenSize"

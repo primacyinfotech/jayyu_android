@@ -13,7 +13,9 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.jaayu.OldPresOrderDetailsPage;
 import com.jaayu.OrderDetails;
+import com.jaayu.PrescriptionOrderDetails;
 import com.jaayu.R;
 
 import java.util.ArrayList;
@@ -115,12 +117,29 @@ public class OrderMainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
            card_order.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intentGotodetaails=new Intent(context, OrderDetails.class);
+                 /*   Intent intentGotodetaails=new Intent(context, OrderDetails.class);
                     intentGotodetaails.putExtra("Order_id",normalorder.getTbl_order_id());
                     intentGotodetaails.putExtra("Instant",normalorder.getInstant());
                     context.startActivity(intentGotodetaails);
                     ((Activity) context).overridePendingTransition(0,0);
-                    ((Activity) context).finish();
+                    ((Activity) context).finish();*/
+                    String press_chk=normalorder.getPrescription_chk();
+                    if(press_chk.equals("0")){
+                        Intent intentGotodetaails=new Intent(context, OrderDetails.class);
+                        intentGotodetaails.putExtra("Order_id",normalorder.getTbl_order_id());
+                        intentGotodetaails.putExtra("Instant",normalorder.getInstant());
+                        context.startActivity(intentGotodetaails);
+                        ((Activity) context).overridePendingTransition(0,0);
+                        ((Activity) context).finish();
+                    }
+                    if(press_chk.equals("1")){
+                        Intent intentGotodetaails=new Intent(context, PrescriptionOrderDetails.class);
+                        intentGotodetaails.putExtra("Order_id",normalorder.getTbl_order_id());
+                        intentGotodetaails.putExtra("Instant",normalorder.getInstant());
+                        context.startActivity(intentGotodetaails);
+                        ((Activity) context).overridePendingTransition(0,0);
+                        ((Activity) context).finish();
+                    }
 
 
                 }
@@ -207,13 +226,15 @@ public class OrderMainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             card_order.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intentGotodetaails=new Intent(context, OrderDetails.class);
-                    intentGotodetaails.putExtra("Order_id",pressorder.getTbl_order_id());
-                    intentGotodetaails.putExtra("Instant",pressorder.getInstant());
-                    context.startActivity(intentGotodetaails);
-                    ((Activity) context).overridePendingTransition(0,0);
-                    ((Activity) context).finish();
-
+                    String press_chk=pressorder.getPrescription_chk();
+                    if(press_chk.equals("0")){
+                        Intent intentGotodetaails=new Intent(context, OldPresOrderDetailsPage.class);
+                        intentGotodetaails.putExtra("Order_id",pressorder.getTbl_order_id());
+                        //intentGotodetaails.putExtra("Instant",normalorder.getInstant());
+                        context.startActivity(intentGotodetaails);
+                        ((Activity) context).overridePendingTransition(0,0);
+                        ((Activity) context).finish();
+                    }
 
                 }
             });

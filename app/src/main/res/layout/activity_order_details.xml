@@ -192,7 +192,7 @@
         android:src="@drawable/ic_action_down_arrow"
         android:layout_gravity="center"
         android:layout_marginLeft="250dp"
-
+      android:visibility="gone"
         android:layout_width="20dp"
         android:layout_height="20dp" />
 </LinearLayout>

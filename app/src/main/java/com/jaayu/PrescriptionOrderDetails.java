@@ -27,6 +27,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -34,6 +35,9 @@ import Adapter.OrderItemAdapter;
 import Model.OderItemModel;
 
 public class PrescriptionOrderDetails extends AppCompatActivity {
+    private ArrayList<OderItemModel> modelList;
+    OrderItemAdapter orderItemAdapter;
+    RecyclerView recyclerView;
     ImageView back_button,expend_btn,order_details_icon;
     private TextView active_order_two,active_order_three,active_order,active_order_four,active_order_five,order_id,order_date,text_cancel,text_pay;
     SharedPreferences prefs_register;
@@ -50,6 +54,7 @@ public class PrescriptionOrderDetails extends AppCompatActivity {
         setContentView(R.layout.activity_prescription_order_details);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        modelList=new ArrayList<>();
         prefs_register = getSharedPreferences(
                 "Register Details", Context.MODE_PRIVATE);
         u_id=prefs_register.getString("USER_ID","");
@@ -87,6 +92,7 @@ public class PrescriptionOrderDetails extends AppCompatActivity {
                 finish();
             }
         });
+        recyclerView=(RecyclerView)findViewById(R.id.rv_items);
         getOrderDetails();
     }
     private void getOrderDetails(){
@@ -204,7 +210,7 @@ public class PrescriptionOrderDetails extends AppCompatActivity {
                             date_of_delivery.setText(delivery_date);*/
 
 
-                           /* if (status.equals("1")) {
+                            if (status.equals("1")) {
                                 JSONArray jsonArray=person.getJSONArray("Items");
                                 for (int i=0;i<jsonArray.length();i++){
                                     OderItemModel itemModel=new OderItemModel();
@@ -212,19 +218,19 @@ public class PrescriptionOrderDetails extends AppCompatActivity {
                                     itemModel.setItem_Name(jsonObject.getString("title"));
                                     itemModel.setItem_unit(jsonObject.getString("strip"));
                                     itemModel.setItem_amt(jsonObject.getString("price"));
-                                    //modelList.add(itemModel);
+                                    modelList.add(itemModel);
 
                                 }
 
 
-                               *//* orderItemAdapter=new OrderItemAdapter(modelList,OrderDetails.this);
-                                recyclerView.setLayoutManager(new LinearLayoutManager(OrderDetails.this, RecyclerView.VERTICAL,false));
+                                orderItemAdapter=new OrderItemAdapter(modelList,PrescriptionOrderDetails.this);
+                                recyclerView.setLayoutManager(new LinearLayoutManager(PrescriptionOrderDetails.this,RecyclerView.VERTICAL,false));
                                 recyclerView.setHasFixedSize(true);
                                 recyclerView.setAdapter(orderItemAdapter);
-                                orderItemAdapter.notifyDataSetChanged();*//*
+                                orderItemAdapter.notifyDataSetChanged();
 
 
-                            }*/
+                            }
 
 
                         } catch (JSONException e) {

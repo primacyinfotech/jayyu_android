@@ -204,7 +204,7 @@ public class PrescriptionOrderSummery extends AppCompatActivity {
 
 
                                     params.put("user_id" ,u_id);
-                                    params.put("aId" ,String.valueOf(Addd_first));
+                                    params.put("aId1" ,String.valueOf(Addd_first));
                                     params.put("instant" ,instant);
 
 
@@ -276,7 +276,7 @@ public class PrescriptionOrderSummery extends AppCompatActivity {
 
 
                                     params.put("user_id" ,u_id);
-                                    params.put("aId" , String.valueOf(Addd_Second));
+                                    params.put("aId1" , String.valueOf(Addd_Second));
                                     params.put("instant" ,"0");
 
 
