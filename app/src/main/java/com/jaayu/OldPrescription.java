@@ -83,7 +83,6 @@ private String Old_prescription_url="https://work.primacyinfotech.com/jaayu/api/
                         for(String str:old_Plist){
                             All_Plist_two=new ArrayList<>();
                             All_Plist_two.add(str);
-
                             Gson gson=new Gson();
                             old_pres_id=gson.toJson(All_Plist_two);
                             System.out.println("OlD"+old_pres_id);
