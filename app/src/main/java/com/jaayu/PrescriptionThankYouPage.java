@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -21,5 +22,14 @@ public class PrescriptionThankYouPage extends AppCompatActivity {
         order_track_btn=(LinearLayout)findViewById(R.id.order_track_btn);
         help_ord_btn=(LinearLayout)findViewById(R.id.help_ord_btn);
         order_id.setText("Order Id"+ordID+"has been successfully placed");
+        order_track_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent GotoOrderPage=new Intent(PrescriptionThankYouPage.this,OrderPage.class);
+                startActivity(GotoOrderPage);
+                overridePendingTransition(0,0);
+                finish();
+            }
+        });
     }
 }
