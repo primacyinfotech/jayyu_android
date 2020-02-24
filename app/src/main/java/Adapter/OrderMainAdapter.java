@@ -23,14 +23,14 @@ import Model.OrderPressModel;
 
 public class OrderMainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private final static int TYPE_NORMAL=1,TYPE_PRESS=2;
-    ArrayList<Object> normalandPress;
+    ArrayList<Object> normalandPress=new ArrayList<>();
     Context context;
 
     public OrderMainAdapter(Context context) {
         this.context = context;
     }
 
-    public void OrderNormalAndPress(ArrayList<Object> normalandPress) {
+    public void setNormalandPress(ArrayList<Object> normalandPress) {
         this.normalandPress = normalandPress;
     }
 

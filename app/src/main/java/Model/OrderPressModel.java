@@ -1,8 +1,16 @@
 package Model;
 
 public class OrderPressModel {
-    private     String order_mame,order_id,order_date,ship_status,instant;
+    private     String order_mame,order_id,order_date,ship_status,instant,prescription_chk;
     private   int tbl_order_id;
+
+    public String getPrescription_chk() {
+        return prescription_chk;
+    }
+
+    public void setPrescription_chk(String prescription_chk) {
+        this.prescription_chk = prescription_chk;
+    }
 
     public String getOrder_mame() {
         return order_mame;
