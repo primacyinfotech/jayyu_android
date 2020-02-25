@@ -70,16 +70,17 @@ private String Old_prescription_url="https://work.primacyinfotech.com/jaayu/api/
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onClick(View v) {
-                List<OldPrescriptionModel> oldList=((OldPrescriptionAdapter) oldPrescriptionAdapter).getOldPrescription();
-                for (int i=0;i<oldList.size();i++){
+                List<OldPrescriptionModel> oldList = ((OldPrescriptionAdapter) oldPrescriptionAdapter).getOldPrescription();
+                for (int i = 0; i < oldList.size(); i++) {
                     OldPrescriptionModel singleStudent = oldList.get(i);
-                    if(singleStudent.isSelected()){
-                       int  data=singleStudent.getOld_Pres_id();
+                    if (singleStudent.isSelected()) {
+                        int data = singleStudent.getOld_Pres_id();
                         //System.out.println("OlD_v"+data);
-                        old_Plist=new ArrayList<>();
+                        old_Plist = new ArrayList<>();
                         old_Plist.add(String.valueOf(singleStudent.getOld_Pres_id()));
-                        old_Plist_two=new ArrayList<>();
+                        old_Plist_two = new ArrayList<>();
                         old_Plist_two.addAll(old_Plist);
+
                         for(String str:old_Plist){
                             All_Plist_two=new ArrayList<>();
                             All_Plist_two.add(str);
@@ -143,16 +144,16 @@ private String Old_prescription_url="https://work.primacyinfotech.com/jaayu/api/
 
 
 
-
                     }
 
+                }
+
+
 
                 }
 
 
 
-
-                }
 
 
 
