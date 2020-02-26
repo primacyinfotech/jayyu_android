@@ -206,6 +206,7 @@ public class PrescriptionOrderSummery extends AppCompatActivity {
                                     params.put("user_id" ,u_id);
                                     params.put("aId1" ,String.valueOf(Addd_first));
                                     params.put("instant" ,instant);
+                                    params.put("source" ,"1");
 
 
                                     return params;
