@@ -2,25 +2,41 @@ package com.jaayu;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import Adapter.AddressAdapter;
+import Adapter.ManageAdderssAdapter;
 import Model.AddressModel;
 
 public class ManagaAddressView extends AppCompatActivity {
     RecyclerView address_list;
-    AddressAdapter mAdapter;
+    ManageAdderssAdapter mAdapter;
     private ImageView back_button;
     private ArrayList<AddressModel> modelList;
     private  String order_addressUrl="https://work.primacyinfotech.com/jaayu/api/order_address";
@@ -54,7 +70,7 @@ public class ManagaAddressView extends AppCompatActivity {
         back_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ManagaAddressView.this, OrderSummery.class);
+                Intent intent = new Intent(ManagaAddressView.this, AccountPage.class);
                 startActivity(intent);
                 overridePendingTransition(0,0);
                 finish();
@@ -62,6 +78,99 @@ public class ManagaAddressView extends AppCompatActivity {
         });
     }
     private void fetchAddress(){
+        RequestQueue requestQueue = Volley.newRequestQueue(ManagaAddressView.this);
+        StringRequest postRequest = new StringRequest(Request.Method.POST,order_addressUrl,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        // response
+                        Log.d("Response", response);
+                        try {
+                            //Do it with this it will work
+                            JSONObject person = new JSONObject(response);
+                            String status=person.getString("status");
+                            if(status.equals("success")){
+                                JSONArray jsonArray=person.getJSONArray("address");
+                                modelList=new ArrayList<>();
+                                for(int i=0;i<jsonArray.length();i++){
+                                    AddressModel addressModel=new AddressModel();
+                                    JSONObject object=jsonArray.getJSONObject(i);
 
+                                    String first_name=object.getString("first_name");
+                                    //String last_name=object.getString("last_name");
+                                    String fullname=first_name;
+
+                                    String phone=object.getString("phone");
+                                    //String email=object.getString("email");
+                                    String address=object.getString("address");
+                                    // String country=object.getString("country");
+                                    // String state=object.getString("state");
+                                    // String city=object.getString("city");
+                                    String zip_code=object.getString("zip_code");
+                                    SharedPreferences.Editor editor = prefs_Address_pin.edit();
+                                    editor.putString("SELECTED_PIN",zip_code);
+                                    editor.commit();
+                                    String all_address=address+"\n"+"Pin Code-"+zip_code+","+"\n"+"phone:"+phone;
+                                    addressModel.setAdd_id(object.getInt("id"));
+                                    addressModel.setAddress_pref(object.getString("atype"));
+                                    addressModel.setName(fullname);
+                                    addressModel.setAddress(all_address);
+                                    addressModel.setZip_code(zip_code);
+
+                                    modelList.add(addressModel);
+
+
+
+                                }
+                                mAdapter=new ManageAdderssAdapter(modelList,ManagaAddressView.this);
+                                address_list.setHasFixedSize(true);
+                                LinearLayoutManager layoutManager=new LinearLayoutManager(getApplicationContext(),RecyclerView.VERTICAL,false);
+                                //address_list.setLayoutManager(new LinearLayoutManager(LocationAddress.this));
+                                address_list.setLayoutManager(layoutManager);
+
+                                address_list.setAdapter(mAdapter);
+                                mAdapter.notifyDataSetChanged();
+
+                            }
+
+
+
+
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            Toast.makeText(getApplicationContext(), "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                        }
+
+
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // error
+
+                    }
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
+
+                params.put("user_id" ,u_id);
+
+
+                return params;
+            }
+
+        };
+        requestQueue.add(postRequest);
+    }
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(ManagaAddressView.this, AccountPage.class);
+        startActivity(intent);
+        overridePendingTransition(0,0);
+        finish();
     }
 }
