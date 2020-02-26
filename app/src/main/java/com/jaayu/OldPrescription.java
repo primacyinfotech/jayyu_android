@@ -88,10 +88,8 @@ private String Old_prescription_url="https://work.primacyinfotech.com/jaayu/api/
                             All_Plist_two.add(str);
                             old_Plist_two = new ArrayList<>();
                             old_Plist_two.addAll(All_Plist_two);
-
                             Gson gson = new Gson();
                             old_pres_id = gson.toJson(old_Plist_two);
-                          
                             System.out.println("OlD" + old_pres_id);
                             RequestQueue requestQueue = Volley.newRequestQueue(OldPrescription.this);
                             StringRequest postRequest = new StringRequest(Request.Method.POST, Old_prescription_url_add,
