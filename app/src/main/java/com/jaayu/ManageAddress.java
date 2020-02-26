@@ -30,8 +30,8 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-public class UpdateAddress extends AppCompatActivity {
-     private EditText first_name,last_name,mob_number,email_add,pin_number,address,lan_mark,city_mark,state_mark,other_mark;
+public class ManageAddress extends AppCompatActivity {
+    private EditText first_name,last_name,mob_number,email_add,pin_number,address,lan_mark,city_mark,state_mark,other_mark;
     private ImageView back_button;
     MultiStateToggleButton mstb_multi_id;
     String work_pref,work_pref2,f_nm,l_nm,mob_num,pin_no,addr,l_mark,e_mail,count,state,city;
@@ -42,10 +42,11 @@ public class UpdateAddress extends AppCompatActivity {
     SharedPreferences prefs_register;
     private  String fetch_addressUrl="https://work.primacyinfotech.com/jaayu/api/order_address_single";
     private  String update_addressUrl="https://work.primacyinfotech.com/jaayu/api/order_address_edit";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_update_address);
+        setContentView(R.layout.activity_manage_address);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         prefs_register = getSharedPreferences(
@@ -55,26 +56,25 @@ public class UpdateAddress extends AppCompatActivity {
         address_id=fetchADDID.getIntExtra("ADDRESS_ID",0);
         mstb_multi_id=(MultiStateToggleButton)findViewById(R.id.mstb_multi_id);
         first_name=(EditText)findViewById(R.id.first_name);
-       // last_name=(EditText)findViewById(R.id.last_name);
+       /* last_name=(EditText)findViewById(R.id.last_name);*/
         mob_number=(EditText)findViewById(R.id.mob_number);
         pin_number=(EditText)findViewById(R.id.pin_number);
         address=(EditText)findViewById(R.id.address);
         lan_mark=(EditText)findViewById(R.id.lan_mark);
-        email_add=(EditText)findViewById(R.id.email_add);
+       // email_add=(EditText)findViewById(R.id.email_add);
         // country=(EditText)findViewById(R.id.country);
-       // state_mark=(EditText)findViewById(R.id.state_mark);
-        //city_mark=(EditText)findViewById(R.id.city_mark);
+      /*  state_mark=(EditText)findViewById(R.id.state_mark);
+        city_mark=(EditText)findViewById(R.id.city_mark);*/
         other_mark=(EditText)findViewById(R.id.other_mark);
         label_other=(TextView)findViewById(R.id.label_other);
         other_mark.setVisibility(View.GONE);
         label_other.setVisibility(View.GONE);
         save=(Button)findViewById(R.id.save);
         back_button=(ImageView)toolbar.findViewById(R.id.back_button);
-        SingleAddressShow();
         back_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent gotoLocationAddress=new Intent(UpdateAddress.this,LocationAddress.class);
+                Intent gotoLocationAddress=new Intent(ManageAddress.this,LocationAddress.class);
                 startActivity(gotoLocationAddress);
                 finish();
             }
@@ -87,20 +87,20 @@ public class UpdateAddress extends AppCompatActivity {
                     other_mark.setVisibility(View.GONE);
                     label_other.setVisibility(View.GONE);
                     work_pref="Home";
-                  //  Toast.makeText(getApplicationContext(),work_pref,Toast.LENGTH_LONG).show();
+                    //  Toast.makeText(getApplicationContext(),work_pref,Toast.LENGTH_LONG).show();
                 }
                 else if(value==1){
                     other_mark.setVisibility(View.GONE);
                     label_other.setVisibility(View.GONE);
                     work_pref="work";
-                   // Toast.makeText(getApplicationContext(),work_pref,Toast.LENGTH_LONG).show();
+                    // Toast.makeText(getApplicationContext(),work_pref,Toast.LENGTH_LONG).show();
                 }
                 else if(value==2){
                     other_mark.setVisibility(View.VISIBLE);
                     label_other.setVisibility(View.VISIBLE);
 
-                   // work_pref="Other";
-                   // Toast.makeText(getApplicationContext(),work_pref,Toast.LENGTH_LONG).show();
+                    // work_pref="Other";
+                    // Toast.makeText(getApplicationContext(),work_pref,Toast.LENGTH_LONG).show();
                 }
 
 
@@ -112,9 +112,10 @@ public class UpdateAddress extends AppCompatActivity {
                 UpdatedAddress();
             }
         });
+        SingleAddressShow();
     }
     private void SingleAddressShow(){
-        RequestQueue requestQueue = Volley.newRequestQueue(UpdateAddress.this);
+        RequestQueue requestQueue = Volley.newRequestQueue(ManageAddress.this);
         StringRequest postRequest = new StringRequest(Request.Method.POST,fetch_addressUrl,
                 new Response.Listener<String>() {
                     @Override
@@ -127,25 +128,27 @@ public class UpdateAddress extends AppCompatActivity {
                             String status=person.getString("status");
                             if(status.equals("1")){
                                 JSONObject object=person.getJSONObject("address");
-                                String address_Id=object.getString("id");
+                                int address_Id=object.getInt("id");
                                 String firstname=object.getString("first_name");
                                 /*String lastname=object.getString("last_name");*/
                                 String phonenumber=object.getString("phone");
-                                String emailaddress=object.getString("email");
+                                //String emailaddress=object.getString("email");
                                 String addressNormal=object.getString("address");
-                                String landmark=object.getString("country");
+                                String landmark=object.getString("landmark");
                                /* String stateof=object.getString("state");
                                 String cityof=object.getString("city");*/
                                 String zipcode=object.getString("zip_code");
+                                int atype=object.getInt("atype");
                                 first_name.setText(firstname);
                                 //last_name.setText(lastname);
                                 mob_number.setText(phonenumber);
-                                email_add.setText(emailaddress);
+                               // email_add.setText(emailaddress);
                                 address.setText(addressNormal);
                                 lan_mark.setText(landmark);
-                               // state_mark.setText(stateof);
-                               // city_mark.setText(cityof);
+                                // state_mark.setText(stateof);
+                                // city_mark.setText(cityof);
                                 pin_number.setText(zipcode);
+
 
 
 
@@ -179,7 +182,8 @@ public class UpdateAddress extends AppCompatActivity {
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
 
-                params.put("aId", String.valueOf(address_id));
+                //params.put("aId", String.valueOf(address_id));
+                params.put("aId", "179");
 
                 return params;
             }
@@ -189,7 +193,7 @@ public class UpdateAddress extends AppCompatActivity {
     }
     private void  UpdatedAddress(){
         f_nm=first_name.getText().toString();
-      //  l_nm=last_name.getText().toString();
+        //  l_nm=last_name.getText().toString();
         mob_num=mob_number.getText().toString();
         pin_no=pin_number.getText().toString();
         addr=address.getText().toString();
@@ -199,7 +203,7 @@ public class UpdateAddress extends AppCompatActivity {
        /* state=state_mark.getText().toString();
         city=city_mark.getText().toString();*/
         work_pref2=other_mark.getText().toString();
-        RequestQueue requestQueue = Volley.newRequestQueue(UpdateAddress.this);
+        RequestQueue requestQueue = Volley.newRequestQueue(ManageAddress.this);
         StringRequest postRequest = new StringRequest(Request.Method.POST,update_addressUrl,
                 new Response.Listener<String>() {
                     @Override
@@ -211,7 +215,7 @@ public class UpdateAddress extends AppCompatActivity {
                             JSONObject person = new JSONObject(response);
                             String status=person.getString("status");
                             if(status.equals("1")){
-                                Intent gotoLocationAddress=new Intent(UpdateAddress.this,LocationAddress.class);
+                                Intent gotoLocationAddress=new Intent(ManageAddress.this,LocationAddress.class);
                                 startActivity(gotoLocationAddress);
                             }
                             else if(status.equals("2")) {
@@ -247,13 +251,13 @@ public class UpdateAddress extends AppCompatActivity {
                 params.put("aId", String.valueOf(address_id));
                 params.put("user_id", u_id);
                 params.put("first_name", f_nm);
-               // params.put("last_name", l_nm);
+                // params.put("last_name", l_nm);
                 params.put("phone", mob_num);
                 //params.put("email", e_mail);
                 params.put("address", addr);
                 params.put("landmark", l_mark);
                 //params.put("state", state);
-               // params.put("city", city);
+                // params.put("city", city);
                 params.put("zip_code", pin_no);
                 if(work_pref2.equals("")){
                     params.put("atype", work_pref);
@@ -268,6 +272,5 @@ public class UpdateAddress extends AppCompatActivity {
         };
 
         requestQueue.add(postRequest);
-
     }
 }
