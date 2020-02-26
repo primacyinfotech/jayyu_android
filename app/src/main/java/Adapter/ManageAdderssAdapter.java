@@ -27,7 +27,7 @@ public class ManageAdderssAdapter extends RecyclerView.Adapter<ManageAdderssAdap
     @Override
     public ManageAdderssAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.activity_list_manage, parent, false);
+                .inflate(R.layout.activity_list, parent, false);
 
         context = parent.getContext();
 
