@@ -63,7 +63,7 @@ public class ManagaAddressView extends AppCompatActivity {
         actionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent gotoAddress=new Intent(ManagaAddressView.this,AddresAddActivity.class);
+                Intent gotoAddress=new Intent(ManagaAddressView.this,ManageAddAddressActivity.class);
                 startActivity(gotoAddress);
             }
         });

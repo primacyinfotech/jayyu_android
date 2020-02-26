@@ -55,11 +55,11 @@
             <TextView
                 android:id="@+id/edit_add"
                 android:fontFamily="@font/clearsansbold"
-                android:textSize="15sp"
+                android:textSize="13sp"
                 android:text="EDIT"
                 android:textColor="#000"
                 android:drawableLeft="@drawable/icedit"
-                android:layout_marginLeft="40dp"
+                android:layout_marginLeft="30dp"
                 android:layout_marginTop="5dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
