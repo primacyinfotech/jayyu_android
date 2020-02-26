@@ -2,10 +2,6 @@ package com.jaayu;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.ProgressDialog;
@@ -13,9 +9,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Paint;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -34,12 +28,10 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.github.juanlabrador.badgecounter.BadgeCounter;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
-import com.google.gson.JsonObject;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -49,13 +41,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import Adapter.Item_view;
-import Adapter.OrderSummeryAdapter;
-import Adapter.Search_adapter;
 import Model.Item_model;
 import Model.ViewDialog;
-import fragment.Home;
-import fragment.Searchfragment;
-import me.leolin.shortcutbadger.ShortcutBadger;
 
 public class DetailsItems extends AppCompatActivity {
     TextView pin_set_txt,pin_set_button,comny_mame,comny_compo,comny_compo3,mrp,save_percernt,save_amt,qty_per;

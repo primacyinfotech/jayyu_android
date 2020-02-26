@@ -13,11 +13,9 @@ import android.view.View;
 import java.util.ArrayList;
 
 import Adapter.AccountPageListAdapter;
-import Adapter.Search_adapter;
 import Model.AccountPageListModel;
 import Model.ClickListener;
 import Model.RecyclerTouchListener;
-import Model.Searchmodel;
 
 public class AccountPage extends AppCompatActivity {
     RecyclerView recyclerView;
