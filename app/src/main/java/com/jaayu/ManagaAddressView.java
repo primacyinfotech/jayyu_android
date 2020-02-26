@@ -107,10 +107,11 @@ public class ManagaAddressView extends AppCompatActivity {
                                     // String state=object.getString("state");
                                     // String city=object.getString("city");
                                     String zip_code=object.getString("zip_code");
+                                    String landmark=object.getString("landmark");
                                     SharedPreferences.Editor editor = prefs_Address_pin.edit();
                                     editor.putString("SELECTED_PIN",zip_code);
                                     editor.commit();
-                                    String all_address=address+"\n"+"Pin Code-"+zip_code+","+"\n"+"phone:"+phone;
+                                    String all_address=landmark+"\n"+address+"\n"+"Pin Code-"+zip_code+","+"\n"+"phone:"+phone;
                                     addressModel.setAdd_id(object.getInt("id"));
                                     addressModel.setAddress_pref(object.getString("atype"));
                                     addressModel.setName(fullname);
