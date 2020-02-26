@@ -30,11 +30,7 @@ public class ManageAddressAdapter extends RecyclerView.Adapter<ManageAddressAdap
     @Override
     public ManageAddressAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.manage_address_item, parent, false);
-
-        context = parent.getContext();
-
-        return new MyViewHolder(itemView);
+                .inflate(R.layout.address_manage, parent, false);
     }
 
     @Override
