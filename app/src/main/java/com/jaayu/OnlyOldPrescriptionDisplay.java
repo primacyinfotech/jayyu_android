@@ -73,14 +73,14 @@ public class OnlyOldPrescriptionDisplay extends AppCompatActivity {
                         //System.out.println("OlD_v"+data);
                         old_Plist=new ArrayList<>();
                         old_Plist.add(String.valueOf(singleStudent.getOld_Pres_id()));
-                        old_Plist_two=new ArrayList<>();
-                        old_Plist_two.addAll(old_Plist);
+
                         for(String str:old_Plist){
                             All_Plist_two=new ArrayList<>();
                             All_Plist_two.add(str);
-
+                            old_Plist_two=new ArrayList<>();
+                            old_Plist_two.addAll(All_Plist_two);
                             Gson gson=new Gson();
-                            old_pres_id=gson.toJson( All_Plist_two);
+                            old_pres_id=gson.toJson(old_Plist_two);
                             System.out.println("OlD"+old_pres_id);
                             RequestQueue requestQueue = Volley.newRequestQueue(OnlyOldPrescriptionDisplay.this);
                             StringRequest postRequest = new StringRequest(Request.Method.POST,Old_prescription_url_add,

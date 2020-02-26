@@ -52,6 +52,7 @@ ArrayList<OldPrescriptionModel> oldPrescriptionModels;
     ArrayList<String> old_Plist;
     ArrayList<String> old_Plist_two;
     ArrayList<String> All_Plist_two;
+    int data;
 
 private String Old_prescription_url="https://work.primacyinfotech.com/jaayu/api/prescription_req_display_old";
     private String Old_prescription_url_add="https://work.primacyinfotech.com/jaayu/api/prescription_old_add";
@@ -74,13 +75,80 @@ private String Old_prescription_url="https://work.primacyinfotech.com/jaayu/api/
                 for (int i = 0; i < oldList.size(); i++) {
                     OldPrescriptionModel singleStudent = oldList.get(i);
                     if (singleStudent.isSelected()) {
-                        int data = singleStudent.getOld_Pres_id();
-                        //System.out.println("OlD_v"+data);
+                        data= singleStudent.getOld_Pres_id();
+                        Toast.makeText(getApplicationContext(),
+                                "Selected Students: \n" + data, Toast.LENGTH_LONG)
+                                .show();
+
                         old_Plist = new ArrayList<>();
+                        old_Plist.add(String.valueOf(data));
+
+                        for(String str:old_Plist) {
+                            All_Plist_two = new ArrayList<>();
+                            All_Plist_two.add(str);
+                            old_Plist_two = new ArrayList<>();
+                            old_Plist_two.addAll(All_Plist_two);
+
+                            Gson gson = new Gson();
+                            old_pres_id = gson.toJson(old_Plist_two);
+                          
+                            System.out.println("OlD" + old_pres_id);
+                            RequestQueue requestQueue = Volley.newRequestQueue(OldPrescription.this);
+                            StringRequest postRequest = new StringRequest(Request.Method.POST, Old_prescription_url_add,
+                                    new Response.Listener<String>() {
+                                        @Override
+                                        public void onResponse(String response) {
+                                            // response
+                                            Log.d("Response", response);
+                                            try {
+                                                //Do it with this it will work
+                                                JSONObject person = new JSONObject(response);
+                                                String status = person.getString("status");
+                                                if (status.equals("1")) {
+                                                    Intent goToUpload = new Intent(OldPrescription.this, UploadToPrescription.class);
+                                                    startActivity(goToUpload);
+                                                    overridePendingTransition(0, 0);
+                                                    finish();
+                                                }
+
+
+                                            } catch (JSONException e) {
+                                                e.printStackTrace();
+                                                Toast.makeText(getApplicationContext(), "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                                            }
+
+
+                                        }
+                                    },
+                                    new Response.ErrorListener() {
+                                        @Override
+                                        public void onErrorResponse(VolleyError error) {
+                                            // error
+
+                                        }
+                                    }
+                            ) {
+                                @Override
+                                protected Map<String, String> getParams() {
+                                    Map<String, String> params = new HashMap<String, String>();
+
+                                    params.put("user_id", u_id);
+                                    params.put("opid", old_pres_id);
+
+
+                                    return params;
+                                }
+
+                            };
+                            requestQueue.add(postRequest);
+
+                        }
+
+                       //System.out.println("OlD_v"+data);
+                     /*   old_Plist = new ArrayList<>();
                         old_Plist.add(String.valueOf(singleStudent.getOld_Pres_id()));
                         old_Plist_two = new ArrayList<>();
                         old_Plist_two.addAll(old_Plist);
-
                         for(String str:old_Plist){
                             All_Plist_two=new ArrayList<>();
                             All_Plist_two.add(str);
@@ -140,13 +208,18 @@ private String Old_prescription_url="https://work.primacyinfotech.com/jaayu/api/
                             };
                             requestQueue.add(postRequest);
 
-                    }
+                    }*/
 
 
 
                     }
+
+
 
                 }
+
+
+
 
 
 
