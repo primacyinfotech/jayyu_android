@@ -182,8 +182,8 @@ public class ManageAddress extends AppCompatActivity {
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
 
-                //params.put("aId", String.valueOf(address_id));
-                params.put("aId", "179");
+                params.put("aId", String.valueOf(address_id));
+                //params.put("aId", "179");
 
                 return params;
             }
@@ -215,7 +215,7 @@ public class ManageAddress extends AppCompatActivity {
                             JSONObject person = new JSONObject(response);
                             String status=person.getString("status");
                             if(status.equals("1")){
-                                Intent gotoLocationAddress=new Intent(ManageAddress.this,LocationAddress.class);
+                                Intent gotoLocationAddress=new Intent(ManageAddress.this,ManagaAddressView.class);
                                 startActivity(gotoLocationAddress);
                             }
                             else if(status.equals("2")) {

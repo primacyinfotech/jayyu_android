@@ -28,6 +28,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import Adapter.Search_adapter;
 import Model.Searchmodel;
 
 /**

@@ -22,6 +22,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.jaayu.LocationAddress;
+import com.jaayu.ManagaAddressView;
 import com.jaayu.ManageAddress;
 import com.jaayu.R;
 
@@ -83,7 +84,7 @@ public class ManageAdderssAdapter extends RecyclerView.Adapter<ManageAdderssAdap
                                         notifyItemRangeChanged(position,modelList.size());
                                         String message=person.getString("message");
                                         Toast.makeText(context,message,Toast.LENGTH_LONG).show();
-                                        Intent intent= new Intent(context, LocationAddress.class);
+                                        Intent intent= new Intent(context, ManagaAddressView.class);
                                         intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                                         context.startActivity(intent);
                                     }
