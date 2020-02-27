@@ -63,6 +63,7 @@ public class AccountPage extends AppCompatActivity {
                      Intent goToManageAddress=new Intent(AccountPage.this,ManagaAddressView.class);
                      overridePendingTransition(0,0);
                      startActivity(goToManageAddress);
+                     overridePendingTransition(0,0);
                      finish();
                  }
              }
@@ -73,5 +74,12 @@ public class AccountPage extends AppCompatActivity {
              }
          }));
 
+    }
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(AccountPage.this, MainActivity.class);
+        startActivity(intent);
+        overridePendingTransition(0,0);
+        finish();
     }
 }

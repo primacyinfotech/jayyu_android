@@ -74,7 +74,7 @@ public class ManageAddress extends AppCompatActivity {
         back_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent gotoLocationAddress=new Intent(ManageAddress.this,LocationAddress.class);
+                Intent gotoLocationAddress=new Intent(ManageAddress.this,ManagaAddressView.class);
                 startActivity(gotoLocationAddress);
                 finish();
             }
@@ -149,10 +149,6 @@ public class ManageAddress extends AppCompatActivity {
                                 // city_mark.setText(cityof);
                                 pin_number.setText(zipcode);
 
-                        
-
-
-
 
                             }
 
@@ -217,7 +213,9 @@ public class ManageAddress extends AppCompatActivity {
                             String status=person.getString("status");
                             if(status.equals("1")){
                                 Intent gotoLocationAddress=new Intent(ManageAddress.this,ManagaAddressView.class);
+                                overridePendingTransition(0,0);
                                 startActivity(gotoLocationAddress);
+                                finish();
                             }
                             else if(status.equals("2")) {
                                 String message=person.getString("message");
@@ -273,5 +271,12 @@ public class ManageAddress extends AppCompatActivity {
         };
 
         requestQueue.add(postRequest);
+    }
+    @Override
+    public void onBackPressed() {
+        Intent gotoLocationAddress=new Intent(ManageAddress.this,ManagaAddressView.class);
+        startActivity(gotoLocationAddress);
+        overridePendingTransition(0,0);
+        finish();
     }
 }
