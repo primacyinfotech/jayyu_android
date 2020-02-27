@@ -22,7 +22,7 @@ import Model.Item_model;
 public class HelpAdapter extends RecyclerView.Adapter<HelpAdapter.MyViewHolder> {
     ArrayList<HelpModel> helpModels;
     Context context;
-    
+
 
     public HelpAdapter(ArrayList<HelpModel> helpModels, Context context) {
         this.helpModels = helpModels;
