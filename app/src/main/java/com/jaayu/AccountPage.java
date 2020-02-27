@@ -73,6 +73,13 @@ public class AccountPage extends AppCompatActivity {
                      overridePendingTransition(0,0);
                      finish();
                  }
+                 if(position==7){
+                     Intent goToManageAddress=new Intent(AccountPage.this,Legal.class);
+
+                     startActivity(goToManageAddress);
+                     overridePendingTransition(0,0);
+                     finish();
+                 }
              }
 
              @Override
