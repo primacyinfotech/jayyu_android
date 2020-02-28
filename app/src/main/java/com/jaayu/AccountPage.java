@@ -87,7 +87,7 @@ public class AccountPage extends AppCompatActivity {
                      overridePendingTransition(0,0);
                      finish();
                  }
-                
+
              }
 
              @Override
