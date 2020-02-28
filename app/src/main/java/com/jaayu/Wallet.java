@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -46,6 +47,7 @@ public class Wallet extends AppCompatActivity {
     private String wallet_history_url="https://work.primacyinfotech.com/jaayu/api/normal_wallet_display";
     SharedPreferences prefs_register;
     String u_id;
+     TextView balance;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,6 +59,7 @@ public class Wallet extends AppCompatActivity {
         u_id=prefs_register.getString("USER_ID","");
         back_button=(ImageView)toolbar.findViewById(R.id.back_button);
         wallet_history=(RecyclerView)findViewById(R.id.wallet_history);
+        balance=(TextView)findViewById(R.id.balance);
         getWalletHistory();
         back_button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -80,7 +83,11 @@ public class Wallet extends AppCompatActivity {
                             //Do it with this it will work
                             JSONObject person = new JSONObject(response);
                             String status=person.getString("status");
+
+
                             if(status.equals("1")){
+                                String balance_og=person.getString("balance");
+                                balance.setText("\u20B9"+balance_og);
                                 normalWalletModels=new ArrayList<>();
                                 JSONArray jsonArray=person.getJSONArray("Wallet");
                                 for(int i=0;i<jsonArray.length();i++){

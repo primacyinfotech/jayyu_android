@@ -2,22 +2,45 @@ package com.jaayu;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
-import android.widget.TextView;
+import android.widget.Toast;
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+
+import Adapter.LegalAdapter;
+import Adapter.NormalWalletAdapter;
+import Model.LegalModel;
+import Model.NormalWalletModel;
 
 public class Legal extends AppCompatActivity {
+  RecyclerView legal_list;
     private ImageView back_button;
-    private CardView privacy_policy,terms_condition,disclaimer;
-    private TextView content_privacy,content_terms,content_disclaimer;
-    private Animation animationUp1,animationUp2,animationUp3;
-    private Animation animationDown1,animationDown2,animationDown3;
+    LegalAdapter legalAdapter;
+    ArrayList<LegalModel> legalModels;
+    private String Legal_Url="https://work.primacyinfotech.com/jaayu/api/jaayu_legal";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,77 +48,91 @@ public class Legal extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         back_button=(ImageView)toolbar.findViewById(R.id.back_button);
-        privacy_policy=(CardView)findViewById(R.id.privacy_policy);
-        terms_condition=(CardView)findViewById(R.id.terms_condition);
-        disclaimer=(CardView)findViewById(R.id.disclaimer);
-        content_privacy=(TextView)findViewById(R.id.content_privacy);
-        content_terms=(TextView)findViewById(R.id.content_terms);
-        content_disclaimer=(TextView)findViewById(R.id.content_disclaimer);
-        content_privacy.setVisibility(View.GONE);
-        content_terms.setVisibility(View.GONE);
-        content_disclaimer.setVisibility(View.GONE);
-        animationUp1 = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_up);
-        animationDown1 = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_down);
-        animationUp2 = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_up);
-        animationDown2 = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_down);
-        animationUp3 = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_up);
-        animationDown3 = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_down);
+        legal_list=(RecyclerView)findViewById(R.id.legal_list);
         back_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent backToAccount=new Intent(Legal.this,AccountPage.class);
-                startActivity(backToAccount);
+                Intent GotOaccount=new Intent(Legal.this,AccountPage.class);
+                startActivity(GotOaccount);
                 overridePendingTransition(0,0);
                 finish();
             }
         });
-        privacy_policy.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(content_privacy.isShown()){
-                    content_privacy.setVisibility(View.GONE);
-                    content_privacy.startAnimation(animationUp1);
-                }
-                else {
-                    content_privacy.setVisibility(View.VISIBLE);
-                    content_privacy.startAnimation(animationDown1);
-                }
-            }
-        });
-        terms_condition.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(content_terms.isShown()){
-                    content_terms.setVisibility(View.GONE);
-                    content_terms.startAnimation(animationUp2);
-                }
-                else {
-                    content_terms.setVisibility(View.VISIBLE);
-                    content_terms.startAnimation(animationDown2);
-                }
-            }
-        });
-
-     disclaimer.setOnClickListener(new View.OnClickListener() {
-         @Override
-         public void onClick(View v) {
-             if(content_disclaimer.isShown()){
-                 content_disclaimer.setVisibility(View.GONE);
-                 content_disclaimer.startAnimation(animationUp3);
-             }
-             else {
-                 content_disclaimer.setVisibility(View.VISIBLE);
-                 content_disclaimer.startAnimation(animationDown3);
-             }
-         }
-     });
-
+        GetLegal();
     }
-    @Override
-    public void onBackPressed() {
-        Intent backToAccount=new Intent(Legal.this,AccountPage.class);
-        startActivity(backToAccount);
-        overridePendingTransition(0,0);
-        finish();
+    private void GetLegal() {
+        RequestQueue requestQueue = Volley.newRequestQueue(Legal.this);
+        StringRequest postRequest = new StringRequest(Request.Method.POST, Legal_Url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        // response
+                        Log.d("Response", response);
+                        try {
+                            //Do it with this it will work
+                            JSONObject person = new JSONObject(response);
+                            String status = person.getString("status");
+
+
+                            if (status.equals("1")) {
+
+                                JSONArray jsonArray = person.getJSONArray("legal");
+                                legalModels = new ArrayList<>();
+                                for (int i = 0; i < jsonArray.length(); i++) {
+                                    LegalModel legalModel = new LegalModel();
+                                    JSONObject object = jsonArray.getJSONObject(i);
+                                    legalModel.setLegal_head(object.getString("heads"));
+                                    legalModel.setLegal_content(object.getString("conts"));
+                                    legalModels.add(legalModel);
+
+                                }
+                                legalAdapter = new LegalAdapter(legalModels, Legal.this);
+                                legal_list.setHasFixedSize(true);
+                                LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext(), RecyclerView.VERTICAL, false);
+                                //address_list.setLayoutManager(new LinearLayoutManager(LocationAddress.this));
+                                legal_list.setLayoutManager(layoutManager);
+
+                                legal_list.setAdapter(legalAdapter);
+                                legalAdapter.notifyDataSetChanged();
+
+                            }
+
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            Toast.makeText(getApplicationContext(), "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                        }
+
+
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // error
+
+                    }
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
+
+                // params.put("user_id" ,u_id);
+                /* params.put("user_id" ,"35");*/
+
+                return params;
+            }
+
+        };
+        requestQueue.add(postRequest);
     }
-}
+        @Override
+        public void onBackPressed() {
+            Intent GotOaccount=new Intent(Legal.this,AccountPage.class);
+            startActivity(GotOaccount);
+            overridePendingTransition(0,0);
+            finish();
+        }
+    }
+
