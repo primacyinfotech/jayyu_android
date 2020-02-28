@@ -32,6 +32,7 @@ public class AccountPage extends AppCompatActivity {
         ac_List.add(new AccountPageListModel(R.drawable.subscription,"Subscription"));
         ac_List.add(new AccountPageListModel(R.drawable.prescription,"Prescription"));
         ac_List.add(new AccountPageListModel(R.drawable.wallet,"Wallet"));
+        ac_List.add(new AccountPageListModel(R.drawable.wallet,"Jaayu Wallet"));
         ac_List.add(new AccountPageListModel(R.drawable.patient,"Mange Patient"));
         ac_List.add(new AccountPageListModel(R.drawable.address,"Manage Address"));
         ac_List.add(new AccountPageListModel(R.drawable.help,"Need Help"));
@@ -89,6 +90,13 @@ public class AccountPage extends AppCompatActivity {
                  }
                  if(position==6){
                      Intent goToManageAddress=new Intent(AccountPage.this,Help.class);
+
+                     startActivity(goToManageAddress);
+                     overridePendingTransition(0,0);
+                     finish();
+                 }
+                 if(position==4){
+                     Intent goToManageAddress=new Intent(AccountPage.this,JaayuWallet.class);
 
                      startActivity(goToManageAddress);
                      overridePendingTransition(0,0);
