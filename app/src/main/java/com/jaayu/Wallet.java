@@ -6,9 +6,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -56,6 +58,15 @@ public class Wallet extends AppCompatActivity {
         back_button=(ImageView)toolbar.findViewById(R.id.back_button);
         wallet_history=(RecyclerView)findViewById(R.id.wallet_history);
         getWalletHistory();
+        back_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent GotOaccount=new Intent(Wallet.this,AccountPage.class);
+                startActivity(GotOaccount);
+                overridePendingTransition(0,0);
+                finish();
+            }
+        });
     }
     private void  getWalletHistory(){
         RequestQueue requestQueue = Volley.newRequestQueue(Wallet.this);
@@ -133,5 +144,12 @@ public class Wallet extends AppCompatActivity {
 
         };
         requestQueue.add(postRequest);
+    }
+    @Override
+    public void onBackPressed() {
+        Intent GotOaccount=new Intent(Wallet.this,AccountPage.class);
+        startActivity(GotOaccount);
+        overridePendingTransition(0,0);
+        finish();
     }
 }
