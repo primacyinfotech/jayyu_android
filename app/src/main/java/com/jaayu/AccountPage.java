@@ -81,7 +81,11 @@ public class AccountPage extends AppCompatActivity {
                      finish();
                  }
                  if(position==3){
+                     Intent goToManageAddress=new Intent(AccountPage.this,Wallet.class);
 
+                     startActivity(goToManageAddress);
+                     overridePendingTransition(0,0);
+                     finish();
                  }
              }
 
