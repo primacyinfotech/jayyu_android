@@ -1,6 +1,8 @@
 package Adapter;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.jaayu.HelpDetails;
 import com.jaayu.R;
 
 import java.util.ArrayList;
@@ -42,8 +45,18 @@ public class HelpAdapter extends RecyclerView.Adapter<HelpAdapter.MyViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull final HelpAdapter.MyViewHolder holder, int position) {
-        HelpModel mList = helpModels.get(position);
+        final HelpModel mList = helpModels.get(position);
         holder.help_item.setText(mList.getHelpitem());
+        holder.help_card.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent goToHelpDetails=new Intent(context, HelpDetails.class);
+                goToHelpDetails.putExtra("Help_Id",String.valueOf(mList.getHelp_id()));
+                context.startActivity(goToHelpDetails);
+                ((Activity) context).overridePendingTransition(0,0);
+                ((Activity) context).finish();
+            }
+        });
 
 
     }
