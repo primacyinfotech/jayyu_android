@@ -46,7 +46,7 @@ public class AccountPage extends AppCompatActivity {
          recyclerView.addOnItemTouchListener(new RecyclerTouchListener(this, recyclerView, new ClickListener() {
              @Override
              public void onClick(View view, int position) {
-                 if(position==8){
+                 if(position==9){
                      SharedPreferences sp=getSharedPreferences("login",MODE_PRIVATE);
                      SharedPreferences.Editor e=sp.edit();
                      e.clear();
@@ -60,7 +60,7 @@ public class AccountPage extends AppCompatActivity {
                      startActivity(goTOLogin);
                      finish();
                  }
-                 if(position==5){
+                 if(position==6){
                      Intent goToManageAddress=new Intent(AccountPage.this,ManagaAddressView.class);
                      overridePendingTransition(0,0);
                      startActivity(goToManageAddress);
@@ -74,7 +74,7 @@ public class AccountPage extends AppCompatActivity {
                      overridePendingTransition(0,0);
                      finish();
                  }
-                 if(position==7){
+                 if(position==8){
                      Intent goToManageAddress=new Intent(AccountPage.this,Legal.class);
 
                      startActivity(goToManageAddress);
@@ -88,7 +88,7 @@ public class AccountPage extends AppCompatActivity {
                      overridePendingTransition(0,0);
                      finish();
                  }
-                 if(position==6){
+                 if(position==7){
                      Intent goToManageAddress=new Intent(AccountPage.this,Help.class);
 
                      startActivity(goToManageAddress);
