@@ -107,10 +107,10 @@ public class AccountPage extends AppCompatActivity {
 
              @Override
              public void onLongClick(View view, int position) {
-                 Intent goToManageAddress=new Intent(AccountPage.this,Wallet.class);
+                 /*Intent goToManageAddress=new Intent(AccountPage.this,Wallet.class);
                  startActivity(goToManageAddress);
                  overridePendingTransition(0,0);
-                 finish();
+                 finish();*/
              }
          }));
 
