@@ -4,6 +4,10 @@ public class HelpModel {
     private String helpitem;
     private int help_id;
 
+    public HelpModel() {
+
+    }
+
     public int getHelp_id() {
         return help_id;
     }

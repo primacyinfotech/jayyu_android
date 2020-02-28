@@ -43,6 +43,7 @@ public class HelpAdapter extends RecyclerView.Adapter<HelpAdapter.MyViewHolder> 
     @Override
     public void onBindViewHolder(@NonNull final HelpAdapter.MyViewHolder holder, int position) {
         HelpModel mList = helpModels.get(position);
+        holder.help_item.setText(mList.getHelpitem());
 
 
     }
