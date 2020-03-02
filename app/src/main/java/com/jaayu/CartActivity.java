@@ -13,6 +13,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -42,10 +43,14 @@ import java.util.Map;
 
 import Adapter.CartAdapter;
 import Adapter.CouponListAdapter;
+import Adapter.HelpAdapter;
 import Model.CartModel;
 import Model.CouponListModel;
+import Model.HelpModel;
+import Model.SaveCoupon;
 
 public class CartActivity extends AppCompatActivity {
+    SaveCoupon myDb;
     private ArrayList<CartModel> modelList;
     CartAdapter cartAdapter;
     private ArrayList<CouponListModel> couponListModelArrayList;
@@ -55,15 +60,18 @@ public class CartActivity extends AppCompatActivity {
    private LinearLayout apply_coupon_btn,new_item_add;
    CouponListAdapter couponListAdapter;
    private TextView place_apply_coupon,mrp_total,total_save_price,shipping_charge,payable_amount,save_amount,discount_limit_amt,main_pay,upper_save_amt;
-    String fetchCpn;
+    String fetchCpn,show_coupon;
+    int fetchCpnId;
     private String cart_items_url="https://work.primacyinfotech.com/jaayu/api/addtocart/all";
     private String cart_tiem_total_dataUrl="https://work.primacyinfotech.com/jaayu/api/addtocart/sum_value";
     private String Chk_data_hasCart_url="https://work.primacyinfotech.com/jaayu/api/addtocart_chk";
     private String quantity_update_url="https://work.primacyinfotech.com/jaayu/api/addtocart/quantity";
+    private String coupon_list_url="https://work.primacyinfotech.com/jaayu/api/coupon_listing";
     SharedPreferences prefs_register;
     SharedPreferences prefs_Quantity;
     private String u_id,p_id,qty,qty_u_id;
     SharedPreferences Cart_item_number_counter;
+    SharedPreferences Coupon_store;
     int count_one=0;
     ProgressDialog progressDialog;
     int prescription_req;
@@ -73,6 +81,8 @@ public class CartActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart);
         Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        myDb = new SaveCoupon(this);
         /* Intent pres_req=getIntent();
          prescription_req=pres_req.getIntExtra("P_Required",0);*/
         LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver, new IntentFilter("message_subject_intent"));
@@ -88,9 +98,24 @@ public class CartActivity extends AppCompatActivity {
         u_id=prefs_register.getString("USER_ID","");
         final Intent fetchCoupon=getIntent();
        fetchCpn=fetchCoupon.getStringExtra("Coupon Code");
+       fetchCpnId=fetchCoupon.getIntExtra("Coupon_id",0);
+      /*  Coupon_store = getSharedPreferences(
+                "COUPON_STORE", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = Coupon_store.edit();
+        editor.putString("COUPON_CODE",fetchCpn);
+        editor.putString("COUPON_CODE_id", String.valueOf(fetchCpnId));
+        editor.commit();
+       show_coupon=Coupon_store.getString("COUPON_CODE","");*/
+       /* boolean isUpdate=myDb.insertData(String.valueOf(fetchCpnId),fetchCpn);
+
+        if(isUpdate){
+            Toast.makeText(CartActivity.this,"Data Update",Toast.LENGTH_LONG).show();
+        }
+        else {
+            Toast.makeText(CartActivity.this,"Data not Updated",Toast.LENGTH_LONG).show();
+        }*/
 
 
-        setSupportActionBar(toolbar);
      /*   getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);*/
 
@@ -107,8 +132,21 @@ public class CartActivity extends AppCompatActivity {
         discount_limit_amt=(TextView)findViewById(R.id.discount_limit_amt);
         main_pay=(TextView)findViewById(R.id.main_pay);
         upper_save_amt=(TextView)findViewById(R.id.upper_save_amt);
+       Cursor res=myDb.getAllData();
+       while (res.moveToNext()){
+         show_coupon=res.getString(2);
+       }
+      /* res.moveToFirst();
+       show_coupon=res.getString(2);*/
+      if(show_coupon!=null){
+          place_apply_coupon.setText(show_coupon);
+          coupon_off_on.setImageResource(R.drawable.close);
+      }
+      else {
+          place_apply_coupon.setText("Apply Coupon");
+          coupon_off_on.setImageResource(R.drawable.rigth_arrow);
+      }
 
-        place_apply_coupon.setText(fetchCpn);
         submit_btn=(Button)findViewById(R.id.submit_btn);
         apply_coupon_btn=(LinearLayout)findViewById(R.id.apply_coupon_btn);
         recyclerView=(RecyclerView)findViewById(R.id.cart_items);
@@ -116,7 +154,7 @@ public class CartActivity extends AppCompatActivity {
        calcutate_section();
         IfCartDataCheck();
        // getCartAdapterData();
-       coupon_off_on.setImageResource(R.drawable.close);
+
        
       /*  coupon_off_on.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -142,8 +180,8 @@ public class CartActivity extends AppCompatActivity {
               dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
               dialog.setContentView(R.layout.coupon_dialog_layout);
               ImageView close_btn=(ImageView)dialog.findViewById(R.id.close_btn);
-              RecyclerView coupon_list=(RecyclerView)dialog.findViewById(R.id.coupon_list);
-              couponListModelArrayList.add(new CouponListModel(R.drawable.myntra,"MYNTRA","Flat Rs.250 off in Myntra","Get Rs.250 Voucher with in 7 days",
+              final RecyclerView coupon_list=(RecyclerView)dialog.findViewById(R.id.coupon_list);
+             /* couponListModelArrayList.add(new CouponListModel(R.drawable.myntra,"MYNTRA","Flat Rs.250 off in Myntra","Get Rs.250 Voucher with in 7 days",
                       "Expire In 2 Days"));
               couponListModelArrayList.add(new CouponListModel(R.drawable.myntra,"GOFERCE","Flat Rs.250 off in Myntra","Get Rs.250 Voucher with in 7 days",
                       "Expire In 2 Days"));
@@ -153,7 +191,79 @@ public class CartActivity extends AppCompatActivity {
               coupon_list.setHasFixedSize(true);
               coupon_list.setLayoutManager(new LinearLayoutManager(CartActivity.this));
               coupon_list.setAdapter(couponListAdapter);
-              couponListAdapter.notifyDataSetChanged();
+              couponListAdapter.notifyDataSetChanged();*/
+              RequestQueue requestQueue = Volley.newRequestQueue(CartActivity.this);
+              StringRequest postRequest = new StringRequest(Request.Method.POST,coupon_list_url,
+                      new Response.Listener<String>() {
+                          @Override
+                          public void onResponse(String response) {
+                              // response
+                              Log.d("Response", response);
+                              try {
+                                  //Do it with this it will work
+                                  JSONObject person = new JSONObject(response);
+                                  String status=person.getString("status");
+
+
+                                  if(status.equals("1")){
+
+
+                                      JSONArray jsonArray=person.getJSONArray("list");
+                                      for(int i=0;i<jsonArray.length();i++){
+                                         CouponListModel couponListModel=new CouponListModel();
+                                          JSONObject object=jsonArray.getJSONObject(i);
+                                          couponListModel.setCoupon_id(object.getInt("id"));
+                                          couponListModel.setCoupon_code(object.getString("coupon_code"));
+                                          couponListModel.setCoupon_img(object.getString("image"));
+                                          couponListModel.setCoupn_code_details(object.getString("sdescr"));
+                                          couponListModel.setCoupon_code_des(object.getString("descr"));
+
+                                          couponListModelArrayList.add(couponListModel);
+
+                                      }
+                                      couponListAdapter=new CouponListAdapter(couponListModelArrayList,CartActivity.this);
+                                      coupon_list.setHasFixedSize(true);
+                                      LinearLayoutManager layoutManager=new LinearLayoutManager(getApplicationContext(),RecyclerView.VERTICAL,false);
+                                      //address_list.setLayoutManager(new LinearLayoutManager(LocationAddress.this));
+                                      coupon_list.setLayoutManager(layoutManager);
+
+                                      coupon_list.setAdapter(couponListAdapter);
+                                      couponListAdapter.notifyDataSetChanged();
+
+                                  }
+
+
+
+
+
+                              } catch (JSONException e) {
+                                  e.printStackTrace();
+                                  Toast.makeText(getApplicationContext(), "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                              }
+
+
+                          }
+                      },
+                      new Response.ErrorListener() {
+                          @Override
+                          public void onErrorResponse(VolleyError error) {
+                              // error
+
+                          }
+                      }
+              ) {
+                  @Override
+                  protected Map<String, String> getParams() {
+                      Map<String, String> params = new HashMap<String, String>();
+
+                      /* params.put("user_id" ,u_id);*/
+                      /* params.put("user_id" ,"35");*/
+
+                      return params;
+                  }
+
+              };
+              requestQueue.add(postRequest);
               close_btn.setOnClickListener(new View.OnClickListener() {
                   @Override
                   public void onClick(View v) {
@@ -166,8 +276,15 @@ public class CartActivity extends AppCompatActivity {
     coupon_off_on.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+        /*    place_apply_coupon.setText("Apply Coupon");
+            coupon_off_on.setImageResource(R.drawable.rigth_arrow);
+        }*/
+             myDb.deleteData();
+            Toast.makeText(getApplicationContext(),"Data Deleted",Toast.LENGTH_LONG).show();
             place_apply_coupon.setText("Apply Coupon");
             coupon_off_on.setImageResource(R.drawable.rigth_arrow);
+
+
         }
     });
 

@@ -15,16 +15,18 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.jaayu.CartActivity;
 import com.jaayu.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
 import Model.CouponListModel;
-
+import Model.SaveCoupon;
 
 
 public class CouponListAdapter extends RecyclerView.Adapter<CouponListAdapter.MyViewHolder>{
     private ArrayList<CouponListModel> modelList;
     private Context context;
+    SaveCoupon myDb;
 
     public CouponListAdapter(ArrayList<CouponListModel> modelList, Context context) {
         this.modelList = modelList;
@@ -45,7 +47,9 @@ public class CouponListAdapter extends RecyclerView.Adapter<CouponListAdapter.My
     @Override
     public void onBindViewHolder(@NonNull final CouponListAdapter.MyViewHolder holder, int position) {
         final CouponListModel mList = modelList.get(position);
-        holder.cpm.setImageResource(mList.getCoupon_img());
+       // holder.cpm.setImageResource(mList.getCoupon_img());
+        myDb = new SaveCoupon(context);
+        Picasso.with(context).load("https://work.primacyinfotech.com/jaayu/upload/slider/"+mList.getCoupon_img()).into(holder.cpm);
         holder.cpn_txt.setText(mList.getCoupon_code());
         holder.main_off.setText(mList.getCoupon_code_des());
         holder.main_off_des.setText(mList.getCoupn_code_details());
@@ -54,10 +58,19 @@ public class CouponListAdapter extends RecyclerView.Adapter<CouponListAdapter.My
             @Override
             public void onClick(View v) {
                 String coupon_code=mList.getCoupon_code();
-            Toast.makeText(context,coupon_code,Toast.LENGTH_LONG).show();
+           // Toast.makeText(context,coupon_code,Toast.LENGTH_LONG).show();
                 Intent intentdataPass=new Intent(context, CartActivity.class);
                 intentdataPass.putExtra("Coupon Code",coupon_code);
+                intentdataPass.putExtra("Coupon_id",mList.getCoupon_id());
                 context.startActivity(intentdataPass);
+                boolean isUpdate=myDb.insertData(String.valueOf(mList.getCoupon_id()),coupon_code);
+
+                if(isUpdate){
+                    Toast.makeText(context,"Data Update",Toast.LENGTH_LONG).show();
+                }
+                else {
+                    Toast.makeText(context,"Data not Updated",Toast.LENGTH_LONG).show();
+                }
 
             }
         });

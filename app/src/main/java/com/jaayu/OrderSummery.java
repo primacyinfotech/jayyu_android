@@ -13,6 +13,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -52,20 +53,22 @@ import Adapter.CartAdapter;
 import Adapter.OrderSummeryAdapter;
 import Model.CartModel;
 import Model.OrderSummeryModel;
+import Model.SaveCoupon;
 import Model.ViewDialog;
 
 public class OrderSummery extends AppCompatActivity {
+    SaveCoupon myDb;
     private ArrayList<OrderSummeryModel> modelList;
     OrderSummeryAdapter orderSummeryAdapter;
     RecyclerView recyclerView;
-    private ImageView back_button;
+    private ImageView back_button,coupon_off_on;
     private Animation animationUp;
     private Button submit_btn;
     private Animation animationDown;
     private CheckBox chk_instant;
     private CardView card_view_istant;
     private TextView open_item,mrp_total,total_save_price,shipping_charge,payable_amount,save_amount,discount_limit_amt,main_pay,upper_save_amt,
-            customer_name,address_text,email_add,address_edit;
+            customer_name,address_text,email_add,address_edit,place_apply_coupon;
     private String order_summery_item_url="https://work.primacyinfotech.com/jaayu/api/addtocart/all";
     private String Order_tiem_total_dataUrl="https://work.primacyinfotech.com/jaayu/api/addtocart/sum_value";
     private  String orderLast_addressUrl="https://work.primacyinfotech.com/jaayu/api/order_address_single_last";
@@ -78,7 +81,7 @@ public class OrderSummery extends AppCompatActivity {
     SharedPreferences prefs_Address_pin;
     SharedPreferences prefs_Address_second;
     private String u_id,check_pincode_Second,check_pincode_first,add_zip,sing_zip_code;
-    String pin_cod,pin_cod2;
+    String pin_cod,pin_cod2,show_coupon;
     ProgressDialog progressDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,6 +89,7 @@ public class OrderSummery extends AppCompatActivity {
         setContentView(R.layout.activity_order_summery);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        myDb = new SaveCoupon(this);
         Intent fetchAddress=getIntent();
         prescription_requird=fetchAddress.getIntExtra("PRES_REQ",0);
         address_id=fetchAddress.getIntExtra("ADDRESS_ID",0);
@@ -135,6 +139,29 @@ public class OrderSummery extends AppCompatActivity {
         chk_instant=(CheckBox)findViewById(R.id.chk_instant);
         card_view_istant=(CardView)findViewById(R.id.card_view_istant);
         card_view_istant.setVisibility(View.GONE);
+        coupon_off_on=(ImageView)findViewById(R.id.coupon_off_on);
+        place_apply_coupon=(TextView)findViewById(R.id.place_apply_coupon);
+        Cursor res=myDb.getAllData();
+        while (res.moveToNext()){
+          show_coupon=res.getString(2);
+        }
+        if(show_coupon!=null){
+            place_apply_coupon.setText(show_coupon);
+            coupon_off_on.setImageResource(R.drawable.close);
+        }
+        else {
+            place_apply_coupon.setText("Apply Coupon");
+            coupon_off_on.setImageResource(R.drawable.rigth_arrow);
+        }
+        coupon_off_on.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                myDb.deleteData();
+                Toast.makeText(getApplicationContext(),"Data Deleted",Toast.LENGTH_LONG).show();
+                place_apply_coupon.setText("Apply Coupon");
+                coupon_off_on.setImageResource(R.drawable.rigth_arrow);
+            }
+        });
         chk_instant.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

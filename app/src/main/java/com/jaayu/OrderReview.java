@@ -10,6 +10,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -37,16 +38,18 @@ import java.util.Map;
 
 import Adapter.OrderSummeryAdapter;
 import Model.OrderSummeryModel;
+import Model.SaveCoupon;
 
 public class OrderReview extends AppCompatActivity {
+    SaveCoupon myDb;
     private ArrayList<OrderSummeryModel> modelList;
     OrderSummeryAdapter orderSummeryAdapter;
     RecyclerView recyclerView;
-    private ImageView back_button;
+    private ImageView back_button,coupon_off_on;
     private Button submit_btn;
     private CardView card_view_istant,card_view_date;
     private TextView open_item,mrp_total,total_save_price,shipping_charge,payable_amount,save_amount,discount_limit_amt,main_pay,upper_save_amt,
-            customer_name,address_text,email_add,address_edit,estimated_date;
+            customer_name,address_text,email_add,address_edit,estimated_date,place_apply_coupon;
     private String order_summery_item_url="https://work.primacyinfotech.com/jaayu/api/addtocart/all";
     private String Order_tiem_total_dataUrl="https://work.primacyinfotech.com/jaayu/api/addtocart/sum_value";
     private  String orderLast_addressUrl="https://work.primacyinfotech.com/jaayu/api/order_address_single_last";
@@ -55,7 +58,7 @@ public class OrderReview extends AppCompatActivity {
     private  String Change_instant_Url="https://work.primacyinfotech.com/jaayu/api/change_to_instant";
     private  String delivery_address_Url="https://work.primacyinfotech.com/jaayu/api/delivery_date";
     private  String Order_confirm_Url="https://work.primacyinfotech.com/jaayu/api/order_conform";
-    String user_id,user_add,day_time,duration,cod,net_bank,presc_img;
+    String user_id,user_add,day_time,duration,cod,net_bank,presc_img,show_coupon,coupon_id;
     String address,user_name,us_nm,us_add,sing_fullname,all_address,prescription_image,Common_Address,Common_Address2;
     int address_id,address_id_second,sing_add_id,prescription_requird,Addd_Second,Addd_first;
     SharedPreferences prefs_register;
@@ -72,6 +75,7 @@ public class OrderReview extends AppCompatActivity {
         setContentView(R.layout.activity_order_review);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        myDb = new SaveCoupon(this);
         Intent passDataFromDeliveryPage=getIntent();
         user_id=passDataFromDeliveryPage.getStringExtra("User_ID");
         user_add=passDataFromDeliveryPage.getStringExtra("User_add");
@@ -115,6 +119,31 @@ public class OrderReview extends AppCompatActivity {
         estimated_date=(TextView)findViewById(R.id.estimated_date);
         upper_save_amt=(TextView)findViewById(R.id.upper_save_amt);
         additional_note=(EditText)findViewById(R.id.additional_note);
+        coupon_off_on=(ImageView)findViewById(R.id.coupon_off_on);
+        place_apply_coupon=(TextView)findViewById(R.id.place_apply_coupon);
+        Cursor res=myDb.getAllData();
+        while (res.moveToNext()){
+            coupon_id=res.getString(1);
+            show_coupon=res.getString(2);
+        }
+        Toast.makeText(getApplicationContext(),coupon_id,Toast.LENGTH_LONG).show();
+        if(show_coupon!=null){
+            place_apply_coupon.setText(show_coupon);
+            coupon_off_on.setImageResource(R.drawable.close);
+        }
+        else {
+            place_apply_coupon.setText("Apply Coupon");
+            coupon_off_on.setImageResource(R.drawable.rigth_arrow);
+        }
+        coupon_off_on.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                myDb.deleteData();
+                Toast.makeText(getApplicationContext(),"Data Deleted",Toast.LENGTH_LONG).show();
+                place_apply_coupon.setText("Apply Coupon");
+                coupon_off_on.setImageResource(R.drawable.rigth_arrow);
+            }
+        });
         back_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -140,6 +169,7 @@ public class OrderReview extends AppCompatActivity {
                                     JSONObject person = new JSONObject(response);
                                     String status=person.getString("status");
                                     if(status.equals("1")){
+                                        myDb.deleteData();
                                         String Ord_id=person.getString("orderId");
                                         Intent goToIthankU=new Intent(OrderReview.this,ThankYouPage.class);
                                         goToIthankU.putExtra("OrderID",Ord_id);
@@ -172,6 +202,7 @@ public class OrderReview extends AppCompatActivity {
                         params.put("user_id", u_id);
                         params.put("conf", "1");
                         params.put("note", note);
+                        params.put("cpid", coupon_id);
 
                         return params;
                     }
