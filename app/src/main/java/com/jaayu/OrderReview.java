@@ -128,7 +128,7 @@ public class OrderReview extends AppCompatActivity {
         }
         Toast.makeText(getApplicationContext(),coupon_id,Toast.LENGTH_LONG).show();
         if(show_coupon!=null){
-            place_apply_coupon.setText(show_coupon);
+            place_apply_coupon.setText(show_coupon+" Applied");
             coupon_off_on.setImageResource(R.drawable.close);
         }
         else {

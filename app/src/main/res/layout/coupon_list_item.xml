@@ -59,6 +59,7 @@
     <TextView
         android:layout_marginLeft="20dp"
         android:id="@+id/main_off_des"
+        android:visibility="gone"
         android:fontFamily="@font/clearsansbold"
         android:text="Get Rs.250 Myntra Voucher within 7 days of your order Delivery"
         android:layout_width="wrap_content"
@@ -68,6 +69,7 @@
         android:id="@+id/main_off_time"
         android:fontFamily="@font/clearsansbold"
         android:text="Expire In 2 Days"
+        android:visibility="gone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
     <View

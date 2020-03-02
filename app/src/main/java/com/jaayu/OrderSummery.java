@@ -146,7 +146,7 @@ public class OrderSummery extends AppCompatActivity {
           show_coupon=res.getString(2);
         }
         if(show_coupon!=null){
-            place_apply_coupon.setText(show_coupon);
+            place_apply_coupon.setText(show_coupon+" Applied");
             coupon_off_on.setImageResource(R.drawable.close);
         }
         else {
