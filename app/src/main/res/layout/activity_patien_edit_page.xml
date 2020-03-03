@@ -32,7 +32,14 @@
                 android:fontFamily="@font/clearsansbold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
+            <ImageView
+                 android:src="@drawable/ic_delete"
+                android:id="@+id/delete_patient"
+                android:layout_width="32dp"
+                android:layout_marginLeft="155dp"
+                android:layout_height="32dp">
 
+            </ImageView>
         </LinearLayout>
     </androidx.appcompat.widget.Toolbar>
     <androidx.cardview.widget.CardView
