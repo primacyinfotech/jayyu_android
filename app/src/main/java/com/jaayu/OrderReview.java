@@ -126,7 +126,7 @@ public class OrderReview extends AppCompatActivity {
             coupon_id=res.getString(1);
             show_coupon=res.getString(2);
         }
-        Toast.makeText(getApplicationContext(),coupon_id,Toast.LENGTH_LONG).show();
+        //Toast.makeText(getApplicationContext(),coupon_id,Toast.LENGTH_LONG).show();
         if(show_coupon!=null){
             place_apply_coupon.setText(show_coupon+" Applied");
             coupon_off_on.setImageResource(R.drawable.close);
@@ -169,13 +169,14 @@ public class OrderReview extends AppCompatActivity {
                                     JSONObject person = new JSONObject(response);
                                     String status=person.getString("status");
                                     if(status.equals("1")){
-                                        myDb.deleteData();
+
                                         String Ord_id=person.getString("orderId");
                                         Intent goToIthankU=new Intent(OrderReview.this,ThankYouPage.class);
                                         goToIthankU.putExtra("OrderID",Ord_id);
                                         startActivity(goToIthankU);
                                         overridePendingTransition(0,0);
                                         finish();
+                                        myDb.deleteData();
 
                                     }
 
@@ -202,7 +203,11 @@ public class OrderReview extends AppCompatActivity {
                         params.put("user_id", u_id);
                         params.put("conf", "1");
                         params.put("note", note);
-                        params.put("cpid", coupon_id);
+                        if(coupon_id!=null){
+                            params.put("cpid", coupon_id);
+                        }
+                      /*  params.put("cpid", coupon_id);*/
+
 
                         return params;
                     }
