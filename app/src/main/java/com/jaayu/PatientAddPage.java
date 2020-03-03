@@ -16,13 +16,16 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.tobiasschuerg.prefixsuffix.PrefixSuffixEditText;
+
 import java.lang.reflect.Type;
 import java.util.Arrays;
 import java.util.Calendar;
 
 public class PatientAddPage extends AppCompatActivity {
     private ImageView back_button;
-    private EditText patient_name, patient_relation, dob, patient_gender, patient_blood, height, weight, medical_condition, reaction, medication;
+    private EditText patient_name, patient_relation, dob, patient_gender, patient_blood, height,weight,  medical_condition, reaction, medication;
+
     private Button view_prescrip;
     private TextView add_con_one, add_con_two;
     DatePickerDialog datePickerDialog;

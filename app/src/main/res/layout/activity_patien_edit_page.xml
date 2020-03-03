@@ -154,12 +154,35 @@
                             android:layout_height="wrap_content">
 
                         </TextView>
-                        <EditText
+                       <!-- <EditText
                             android:id="@+id/weight"
                             android:layout_width="195dp"
                             android:layout_height="wrap_content">
 
-                        </EditText>
+                        </EditText>-->
+                        <RelativeLayout
+                            android:orientation="vertical"
+                            android:layout_width="195dp"
+                            android:layout_height="wrap_content">
+                            <EditText
+                                android:id="@+id/weight"
+                                android:layout_width="195dp"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                />
+                            <TextView
+                                android:id="@+id/text_hint"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:layout_centerVertical="true"
+                                android:text="kg"
+
+                                android:textSize="18sp"
+                                android:layout_marginRight="100dp"
+                                android:textColor="#808080"
+                                />
+                        </RelativeLayout>
                     </LinearLayout>
                 </LinearLayout>
                 <TextView
