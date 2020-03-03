@@ -10,16 +10,19 @@ import android.os.Bundle;
 import android.text.InputType;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.Arrays;
+import java.util.Calendar;
 
 public class PatienEditPage extends AppCompatActivity {
     private ImageView back_button;
     private EditText patient_name, patient_relation, dob, patient_gender, patient_blood, height, weight, medical_condition, reaction, medication;
     private Button view_prescrip;
+    private int mYear, mMonth, mDay, mHour, mMinute;
     private TextView add_con_one, add_con_two;
     DatePickerDialog datePickerDialog;
     String[] value = new String[]{
@@ -62,6 +65,7 @@ public class PatienEditPage extends AppCompatActivity {
         patient_relation = (EditText) findViewById(R.id.patient_relation);
         patient_relation.setInputType(InputType.TYPE_NULL);
         dob = (EditText) findViewById(R.id.dob);
+        dob.setInputType(InputType.TYPE_NULL);
         patient_blood = (EditText) findViewById(R.id.patient_blood);
         patient_blood.setInputType(InputType.TYPE_NULL);
         height = (EditText) findViewById(R.id.height);
@@ -130,6 +134,27 @@ public class PatienEditPage extends AppCompatActivity {
                 AlertDialog dialogrelation = alertrelation.create();
 
                 dialogrelation.show();
+            }
+        });
+        dob.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final Calendar c = Calendar.getInstance();
+                mYear = c.get(Calendar.YEAR);
+                mMonth = c.get(Calendar.MONTH);
+                mDay = c.get(Calendar.DAY_OF_MONTH);
+                DatePickerDialog datePickerDialog = new DatePickerDialog(PatienEditPage.this,
+                        new DatePickerDialog.OnDateSetListener() {
+
+                            @Override
+                            public void onDateSet(DatePicker view, int year,
+                                                  int monthOfYear, int dayOfMonth) {
+
+                                dob.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
+
+                            }
+                        }, mYear, mMonth, mDay);
+                datePickerDialog.show();
             }
         });
     }
