@@ -25,7 +25,7 @@ import java.util.Calendar;
 public class PatientAddPage extends AppCompatActivity {
     private ImageView back_button;
     private EditText patient_name, patient_relation, dob, patient_gender, patient_blood, height,weight,  medical_condition, reaction, medication;
-
+    private int mYear, mMonth, mDay, mHour, mMinute;
     private Button view_prescrip;
     private TextView add_con_one, add_con_two;
     DatePickerDialog datePickerDialog;
@@ -70,6 +70,7 @@ public class PatientAddPage extends AppCompatActivity {
         patient_relation = (EditText) findViewById(R.id.patient_relation);
         patient_relation.setInputType(InputType.TYPE_NULL);
         dob = (EditText) findViewById(R.id.dob);
+        dob.setInputType(InputType.TYPE_NULL);
         patient_blood = (EditText) findViewById(R.id.patient_blood);
         patient_blood.setInputType(InputType.TYPE_NULL);
         height = (EditText) findViewById(R.id.height);
@@ -138,6 +139,27 @@ public class PatientAddPage extends AppCompatActivity {
                 AlertDialog dialogrelation = alertrelation.create();
 
                 dialogrelation.show();
+            }
+        });
+        dob.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final Calendar c = Calendar.getInstance();
+                mYear = c.get(Calendar.YEAR);
+                mMonth = c.get(Calendar.MONTH);
+                mDay = c.get(Calendar.DAY_OF_MONTH);
+                DatePickerDialog datePickerDialog = new DatePickerDialog(PatientAddPage.this,
+                        new DatePickerDialog.OnDateSetListener() {
+
+                            @Override
+                            public void onDateSet(DatePicker view, int year,
+                                                  int monthOfYear, int dayOfMonth) {
+
+                                dob.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
+
+                            }
+                        }, mYear, mMonth, mDay);
+                datePickerDialog.show();
             }
         });
     }
