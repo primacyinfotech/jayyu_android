@@ -154,13 +154,13 @@
                             android:layout_height="wrap_content">
 
                         </TextView>
-                       <!-- <EditText
+                        <EditText
                             android:id="@+id/weight"
                             android:layout_width="195dp"
                             android:layout_height="wrap_content">
 
-                        </EditText>-->
-                        <RelativeLayout
+                        </EditText>
+                       <!-- <RelativeLayout
                             android:orientation="vertical"
                             android:layout_width="195dp"
                             android:layout_height="wrap_content">
@@ -182,7 +182,7 @@
                                 android:layout_marginRight="100dp"
                                 android:textColor="#808080"
                                 />
-                        </RelativeLayout>
+                        </RelativeLayout>-->
                     </LinearLayout>
                 </LinearLayout>
                 <TextView

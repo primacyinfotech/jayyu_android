@@ -240,7 +240,7 @@ public class PatientAddPage extends AppCompatActivity {
 
 
                                     if(status.equals("1")){
-                                    Toast.makeText(getApplicationContext(),"Ok",Toast.LENGTH_LONG).show();
+                                    Toast.makeText(getApplicationContext(),"Add Patient Data",Toast.LENGTH_LONG).show();
                                         patient_name.getText().clear();
                                         patient_relation.getText().clear();
                                         dob.getText().clear();
@@ -252,6 +252,10 @@ public class PatientAddPage extends AppCompatActivity {
                                         reaction.getText().clear();
                                         reaction.getText().clear();
                                         medication.getText().clear();
+                                        Intent refreshPage=new Intent(getApplicationContext(),PatientListView.class);
+                                        overridePendingTransition(0,0);
+                                        startActivity(refreshPage);
+                                        finish();
 
                                     }
 

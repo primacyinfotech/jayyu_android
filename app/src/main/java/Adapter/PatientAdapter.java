@@ -1,6 +1,8 @@
 package Adapter;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.jaayu.PatienEditPage;
 import com.jaayu.R;
 
 import java.util.ArrayList;
@@ -39,9 +42,19 @@ public class PatientAdapter extends RecyclerView.Adapter<PatientAdapter.MyViewHo
 
     @Override
     public void onBindViewHolder(@NonNull PatientAdapter.MyViewHolder holder, int position) {
-        PatientListModel patientListModel=patientListModels.get(position);
+        final PatientListModel patientListModel=patientListModels.get(position);
         holder.patient_head.setText(patientListModel.getPatient_name());
         holder.patient_relation.setText(patientListModel.getRelation_patient());
+        holder.patient_card.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent goToPatientUpdate=new Intent(context, PatienEditPage.class);
+                goToPatientUpdate.putExtra("Patient_Id",patientListModel.getPatient_id());
+                ((Activity) context).overridePendingTransition(0,0);
+                context.startActivity(goToPatientUpdate);
+                ((Activity) context).finish();
+            }
+        });
 
     }
 
