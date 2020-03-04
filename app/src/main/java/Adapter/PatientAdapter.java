@@ -40,6 +40,8 @@ public class PatientAdapter extends RecyclerView.Adapter<PatientAdapter.MyViewHo
     @Override
     public void onBindViewHolder(@NonNull PatientAdapter.MyViewHolder holder, int position) {
         PatientListModel patientListModel=patientListModels.get(position);
+        holder.patient_head.setText(patientListModel.getPatient_name());
+        holder.patient_relation.setText(patientListModel.getRelation_patient());
 
     }
 

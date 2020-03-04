@@ -102,6 +102,13 @@ public class AccountPage extends AppCompatActivity {
                      overridePendingTransition(0,0);
                      finish();
                  }
+                 if(position==5){
+                     Intent goToManageAddress=new Intent(AccountPage.this,PatientListView.class);
+
+                     startActivity(goToManageAddress);
+                     overridePendingTransition(0,0);
+                     finish();
+                 }
 
              }
 
