@@ -219,7 +219,7 @@ public class PatientAddPage extends AppCompatActivity {
             p_gen=patient_gender.getText().toString();
             blood_group=patient_blood.getText().toString();
             height_of_patient=height.getText().toString();
-            weight_of_patient=weight.getText().toString();
+            weight_of_patient=weight.getText().toString()+"kg";
             m_condition=medical_condition.getText().toString();
             reaction_patient=reaction.getText().toString();
             medication_of_patient=medication.getText().toString();
