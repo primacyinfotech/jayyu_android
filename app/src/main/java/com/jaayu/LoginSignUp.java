@@ -151,4 +151,11 @@ private Button goTo_submit;
             ActivityCompat.requestPermissions(this, permission_list, 1);
         }
     }
+    @Override
+    public void onBackPressed() {
+
+        moveTaskToBack(true);
+
+        System.exit(1);
+    }
 }
