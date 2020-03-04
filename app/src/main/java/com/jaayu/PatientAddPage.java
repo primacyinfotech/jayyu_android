@@ -44,7 +44,8 @@ public class PatientAddPage extends AppCompatActivity {
     SharedPreferences prefs_register;
     private ImageView back_button;
     private Button add_btn;
-    private EditText patient_name, patient_relation, dob, patient_gender, patient_blood, height,weight,  medical_condition, reaction, medication;
+    private EditText patient_name, patient_relation, dob, patient_gender, patient_blood, height,weight,  medical_condition, reaction, medication,
+            ft,inch;
     private int mYear, mMonth, mDay, mHour, mMinute;
     private Button view_prescrip;
     private TextView add_con_one, add_con_two;
@@ -101,7 +102,9 @@ public class PatientAddPage extends AppCompatActivity {
         dob.setInputType(InputType.TYPE_NULL);
         patient_blood = (EditText) findViewById(R.id.patient_blood);
         patient_blood.setInputType(InputType.TYPE_NULL);
-        height = (EditText) findViewById(R.id.height);
+       // height = (EditText) findViewById(R.id.height);
+        ft=(EditText) findViewById(R.id.ft);
+        inch=(EditText) findViewById(R.id.inch);
         weight = (EditText) findViewById(R.id.weight);
         medical_condition = (EditText) findViewById(R.id.medical_condition);
         reaction = (EditText) findViewById(R.id.reaction);
@@ -218,7 +221,7 @@ public class PatientAddPage extends AppCompatActivity {
             date_of_birth=dob.getText().toString();
             p_gen=patient_gender.getText().toString();
             blood_group=patient_blood.getText().toString();
-            height_of_patient=height.getText().toString();
+            height_of_patient=ft.getText().toString()+"ft"+inch.getText().toString()+"inch";
             weight_of_patient=weight.getText().toString()+"kg";
             m_condition=medical_condition.getText().toString();
             reaction_patient=reaction.getText().toString();
@@ -246,7 +249,8 @@ public class PatientAddPage extends AppCompatActivity {
                                         dob.getText().clear();
                                         patient_gender.getText().clear();
                                         patient_blood.getText().clear();
-                                        height.getText().clear();
+                                        ft.getText().clear();
+                                        inch.getText().clear();
                                         weight.getText().clear();
                                         medical_condition.getText().clear();
                                         reaction.getText().clear();

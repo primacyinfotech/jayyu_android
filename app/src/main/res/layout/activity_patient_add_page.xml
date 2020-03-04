@@ -129,12 +129,63 @@
               android:layout_height="wrap_content">
 
           </TextView>
-          <EditText
+          <LinearLayout
+              android:orientation="horizontal"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content">
+          <!--<EditText
               android:id="@+id/height"
               android:layout_width="195dp"
               android:layout_height="wrap_content">
 
-          </EditText>
+          </EditText>-->
+              <RelativeLayout
+                  android:orientation="vertical"
+                  android:layout_width="98dp"
+                  android:layout_height="wrap_content">
+                  <EditText
+                      android:id="@+id/ft"
+                      android:layout_width="98dp"
+                      android:layout_height="wrap_content"
+                      android:layout_gravity="center"
+                      />
+                  <TextView
+                      android:id="@+id/text_hint_ft"
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:layout_alignParentRight="true"
+                      android:layout_centerVertical="true"
+                      android:text="ft"
+
+                      android:textSize="18sp"
+                      android:layout_marginRight="25dp"
+                      android:textColor="#808080"
+                      />
+              </RelativeLayout>
+              <RelativeLayout
+                  android:orientation="vertical"
+                  android:layout_width="98dp"
+                  android:layout_height="wrap_content">
+                  <EditText
+                      android:id="@+id/inch"
+                      android:layout_width="98dp"
+                      android:layout_height="wrap_content"
+                      android:layout_gravity="center"
+                      />
+                  <TextView
+                      android:id="@+id/text_hint_inch"
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:layout_alignParentRight="true"
+                      android:layout_centerVertical="true"
+                      android:text="inch"
+
+                      android:textSize="18sp"
+                      android:layout_marginRight="25dp"
+                      android:textColor="#808080"
+                      />
+              </RelativeLayout>
+          </LinearLayout>
       </LinearLayout>
       <LinearLayout
           android:orientation="vertical"
