@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="#EFEFEF"
-    tools:context=".MedicalPrescriptionReport">
+    tools:context=".UpdateMediacalReaportandprescription">
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
@@ -62,65 +62,65 @@
                         android:text="Upload New Prescription and Report"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
-                <LinearLayout
-                    android:layout_marginTop="10dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_gravity="center"
-                    android:background="@drawable/corner_round_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="60dp">
                     <LinearLayout
-                        android:id="@+id/camera_choose"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
                         android:layout_gravity="center"
-                        android:layout_margin="7dp"
-                        android:orientation="vertical"
-                        android:layout_width="150dp"
-                        android:layout_height="50dp">
-                        <ImageView
-                            android:layout_marginTop="5dp"
-                            android:src="@drawable/camera"
+                        android:background="@drawable/corner_round_button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="60dp">
+                        <LinearLayout
+                            android:id="@+id/camera_choose"
                             android:layout_gravity="center"
-                            android:layout_width="24dp"
-                            android:layout_height="24dp" />
-                        <TextView
-                            android:textSize="10sp"
-                            android:text="Camera"
-                            android:fontFamily="@font/clearsansbold"
+                            android:layout_margin="7dp"
+                            android:orientation="vertical"
+                            android:layout_width="150dp"
+                            android:layout_height="50dp">
+                            <ImageView
+                                android:layout_marginTop="5dp"
+                                android:src="@drawable/camera"
+                                android:layout_gravity="center"
+                                android:layout_width="24dp"
+                                android:layout_height="24dp" />
+                            <TextView
+                                android:textSize="10sp"
+                                android:text="Camera"
+                                android:fontFamily="@font/clearsansbold"
+                                android:layout_gravity="center"
+                                android:textColor="@color/white"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+                        </LinearLayout>
+                        <View
                             android:layout_gravity="center"
-                            android:textColor="@color/white"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
-                    </LinearLayout>
-                    <View
-                        android:layout_gravity="center"
-                        android:layout_width="2dp"
-                        android:background="@color/white"
-                        android:layout_height="40dp">
+                            android:layout_width="2dp"
+                            android:background="@color/white"
+                            android:layout_height="40dp">
 
-                    </View>
-                    <LinearLayout
-                        android:id="@+id/gallery_choose"
-                        android:layout_gravity="center"
-                        android:orientation="vertical"
-                        android:layout_width="150dp"
-                        android:layout_height="50dp">
-                        <ImageView
-                            android:layout_marginTop="5dp"
-                            android:src="@drawable/gallery"
+                        </View>
+                        <LinearLayout
+                            android:id="@+id/gallery_choose"
                             android:layout_gravity="center"
-                            android:layout_width="24dp"
-                            android:layout_height="24dp" />
-                        <TextView
-                            android:textSize="10sp"
-                            android:text="Gallery"
-                            android:fontFamily="@font/clearsansbold"
-                            android:layout_gravity="center"
-                            android:textColor="@color/white"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
+                            android:orientation="vertical"
+                            android:layout_width="150dp"
+                            android:layout_height="50dp">
+                            <ImageView
+                                android:layout_marginTop="5dp"
+                                android:src="@drawable/gallery"
+                                android:layout_gravity="center"
+                                android:layout_width="24dp"
+                                android:layout_height="24dp" />
+                            <TextView
+                                android:textSize="10sp"
+                                android:text="Gallery"
+                                android:fontFamily="@font/clearsansbold"
+                                android:layout_gravity="center"
+                                android:textColor="@color/white"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+                        </LinearLayout>
                     </LinearLayout>
-                </LinearLayout>
                     <View
                         android:background="#000"
                         android:layout_marginLeft="15dp"
