@@ -115,7 +115,15 @@ public class PatientAddPage extends AppCompatActivity {
         add_con_one = (TextView) findViewById(R.id.add_con_one);
         add_con_two = (TextView) findViewById(R.id.add_con_two);
         add_btn=(Button)findViewById(R.id.add_btn);
-
+       view_prescrip.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View v) {
+               Intent goTtoReport=new Intent(PatientAddPage.this,MedicalPrescriptionReport.class);
+               startActivity(goTtoReport);
+               overridePendingTransition(0,0);
+               finish();
+           }
+       });
         back_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
