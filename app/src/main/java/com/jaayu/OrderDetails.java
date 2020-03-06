@@ -235,7 +235,9 @@ public class OrderDetails extends AppCompatActivity {
                                     JSONObject jsonObject=jsonArray.getJSONObject(i);
                                     itemModel.setItem_Name(jsonObject.getString("title"));
                                     itemModel.setItem_unit(jsonObject.getString("strip"));
-                                    itemModel.setItem_amt(jsonObject.getString("price"));
+                                    itemModel.setItem_amt(jsonObject.getString("price_normal"));
+                                    itemModel.setItem_mrp(jsonObject.getString("price_normal"));
+                                    itemModel.setItem_qty(jsonObject.getString("quantity"));
                                     modelList.add(itemModel);
 
                                 }

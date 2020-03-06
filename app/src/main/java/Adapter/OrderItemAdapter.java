@@ -1,6 +1,7 @@
 package Adapter;
 
 import android.content.Context;
+import android.graphics.Paint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,6 +44,15 @@ public class OrderItemAdapter  extends RecyclerView.Adapter<OrderItemAdapter.MyV
         holder.item_name.setText(mList.getItem_Name());
         holder.amount.setText("Price: "+"\u20B9"+mList.getItem_amt());
         holder.unit.setText(mList.getItem_unit());
+        if (holder.mrp != null) {
+          /*  DecimalFormat format_tot = new DecimalFormat("##.##");
+            String formatted_sum = format_tot.format(mList.getTotal());*/
+
+            holder.mrp.setText("\u20B9"+mList.getItem_mrp());
+            // holder.item_total.setText(formatted_sum);
+            holder.mrp.setPaintFlags(holder.mrp.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+        }
+        holder.qyt.setText(mList.getItem_qty()+"x");
 
     }
 
@@ -52,12 +62,14 @@ public class OrderItemAdapter  extends RecyclerView.Adapter<OrderItemAdapter.MyV
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView item_name,amount,unit;
+        TextView item_name,amount,unit,mrp,qyt;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             item_name=(TextView)itemView.findViewById(R.id.item_name);
             amount=(TextView)itemView.findViewById(R.id.amount);
             unit=(TextView)itemView.findViewById(R.id.unit);
+            mrp=(TextView)itemView.findViewById(R.id.mrp);
+            qyt=(TextView)itemView.findViewById(R.id.qyt);
         }
     }
 }
