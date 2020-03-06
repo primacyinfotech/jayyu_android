@@ -15,6 +15,7 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.jaayu.OrderDetails;
+import com.jaayu.OrderStatusConfirm;
 import com.jaayu.PrescriptionOrderDetails;
 import com.jaayu.R;
 
@@ -57,7 +58,13 @@ public class OrderAdapter  extends RecyclerView.Adapter<OrderAdapter.MyViewHolde
             public void onClick(View v) {
                 String press_chk=mList.getPrescription_chk();
                 if(press_chk.equals("0")){
-                    Intent intentGotodetaails=new Intent(context, OrderDetails.class);
+                  /*  Intent intentGotodetaails=new Intent(context, OrderDetails.class);
+                    intentGotodetaails.putExtra("Order_id",mList.getTbl_order_id());
+                    intentGotodetaails.putExtra("Instant",mList.getInstant());
+                    context.startActivity(intentGotodetaails);
+                    ((Activity) context).overridePendingTransition(0,0);
+                    ((Activity) context).finish();*/
+                    Intent intentGotodetaails=new Intent(context, OrderStatusConfirm.class);
                     intentGotodetaails.putExtra("Order_id",mList.getTbl_order_id());
                     intentGotodetaails.putExtra("Instant",mList.getInstant());
                     context.startActivity(intentGotodetaails);

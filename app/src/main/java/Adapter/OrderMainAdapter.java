@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.jaayu.OldPresOrderDetailsPage;
 import com.jaayu.OrderDetails;
+import com.jaayu.OrderStatusConfirm;
 import com.jaayu.PrescriptionOrderDetails;
 import com.jaayu.R;
 
@@ -125,12 +126,19 @@ public class OrderMainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                     ((Activity) context).finish();*/
                     String press_chk=normalorder.getPrescription_chk();
                     if(press_chk.equals("0")){
-                        Intent intentGotodetaails=new Intent(context, OrderDetails.class);
+                      /*  Intent intentGotodetaails=new Intent(context, OrderDetails.class);
+                        intentGotodetaails.putExtra("Order_id",normalorder.getTbl_order_id());
+                        intentGotodetaails.putExtra("Instant",normalorder.getInstant());
+                        context.startActivity(intentGotodetaails);
+                        ((Activity) context).overridePendingTransition(0,0);
+                        ((Activity) context).finish();*/
+                        Intent intentGotodetaails=new Intent(context, OrderStatusConfirm.class);
                         intentGotodetaails.putExtra("Order_id",normalorder.getTbl_order_id());
                         intentGotodetaails.putExtra("Instant",normalorder.getInstant());
                         context.startActivity(intentGotodetaails);
                         ((Activity) context).overridePendingTransition(0,0);
                         ((Activity) context).finish();
+
                     }
                     if(press_chk.equals("1")){
                         Intent intentGotodetaails=new Intent(context, PrescriptionOrderDetails.class);
