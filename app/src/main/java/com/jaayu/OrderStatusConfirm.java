@@ -36,14 +36,18 @@ import java.util.Map;
 
 import Adapter.OrderItemAdapter;
 import Adapter.OrderStatusItemAdapter;
+import Adapter.OrderStatusPressAdapter;
 import Model.OderItemModel;
 import Model.OrderStatusItemModel;
+import Model.OrderStatusPressModel;
 
 public class OrderStatusConfirm extends AppCompatActivity {
-    RecyclerView cart_items;
+    RecyclerView cart_items,pres_list;
     ImageView back_button,expend_btn,order_details_icon;
     ArrayList<OrderStatusItemModel> orderStatusItemModels;
     OrderStatusItemAdapter orderStatusItemAdapter;
+    OrderStatusPressAdapter orderStatusPressAdapter;
+    ArrayList<OrderStatusPressModel> orderStatusPressModels;
     SharedPreferences prefs_register;
     private String Orderdetails_url="https://work.primacyinfotech.com/jaayu/api/order_details_profile";
     String u_id,instant_id,ship_status,delivery_date,ord_id,ord_date,mrp_amt,save_amt,shipping_charge,tot_pay,ship_add_name,ship_add_phone,
@@ -61,6 +65,7 @@ public class OrderStatusConfirm extends AppCompatActivity {
         setSupportActionBar(toolbar);
         LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver, new IntentFilter("message_order_intent"));
         orderStatusItemModels=new ArrayList<>();
+        orderStatusPressModels=new ArrayList<>();
         prefs_register = getSharedPreferences(
                 "Register Details", Context.MODE_PRIVATE);
         u_id=prefs_register.getString("USER_ID","");
@@ -68,6 +73,7 @@ public class OrderStatusConfirm extends AppCompatActivity {
         odr_id=gettheOrderData.getIntExtra("Order_id",0);
         instant_id=gettheOrderData.getStringExtra("Instant");
         cart_items=(RecyclerView)findViewById(R.id.cart_items);
+        pres_list=(RecyclerView)findViewById(R.id.pres_list);
         back_button=(ImageView)toolbar.findViewById(R.id.back_button);
         /*order_details_icon=(ImageView) findViewById(R.id.order_details_icon);*/
         mrp_amount=(TextView)findViewById(R.id.mrp_amount);
@@ -90,6 +96,71 @@ public class OrderStatusConfirm extends AppCompatActivity {
         });
         getOrderDetails();
         getListOFOrder();
+        getPrescription();
+    }
+    private void getPrescription(){
+        RequestQueue requestQueue = Volley.newRequestQueue(OrderStatusConfirm.this);
+        StringRequest postRequest = new StringRequest(Request.Method.POST,Orderdetails_url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        // response
+                        Log.d("Response", response);
+                        try {
+                            //Do it with this it will work
+                            JSONObject person = new JSONObject(response);
+                            String status = person.getString("status");
+                            if (status.equals("1")) {
+                                JSONArray jsonArray=person.getJSONArray("prescription");
+                                for (int i=0;i<jsonArray.length();i++){
+                                    OrderStatusPressModel orderStatusPressModel=new OrderStatusPressModel();
+                                    JSONObject jsonObject=jsonArray.getJSONObject(i);
+
+
+                                    orderStatusPressModel.setPress_img(jsonObject.getString("prescription"));
+                                    orderStatusPressModels.add(orderStatusPressModel);
+
+                                }
+
+
+                                orderStatusPressAdapter=new OrderStatusPressAdapter(orderStatusPressModels,OrderStatusConfirm.this);
+                                pres_list.setLayoutManager(new LinearLayoutManager(OrderStatusConfirm.this,RecyclerView.HORIZONTAL,false));
+                                pres_list.setHasFixedSize(true);
+                                pres_list.setAdapter(orderStatusPressAdapter);
+                                orderStatusPressAdapter.notifyDataSetChanged();
+
+
+                            }
+
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            Toast.makeText(getApplicationContext(), "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                        }
+
+
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // error
+
+                    }
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
+
+                params.put("user_id", u_id);
+                params.put("oid", String.valueOf(odr_id));
+                params.put("instant", instant_id);
+                return params;
+            }
+        };
+
+        requestQueue.add(postRequest);
     }
     private void getListOFOrder(){
         RequestQueue requestQueue = Volley.newRequestQueue(OrderStatusConfirm.this);
