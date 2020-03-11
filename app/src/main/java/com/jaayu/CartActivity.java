@@ -619,7 +619,7 @@ public class CartActivity extends AppCompatActivity {
                                 String p_amt=format.format(pay_amount);
                                 String main_pay_amt=format.format(Math.round(pay_amount));
                                 payable_amount.setText(p_amt);
-                                main_pay.setText("\u20B9"+main_pay_amt);
+                               /* main_pay.setText("\u20B9"+main_pay_amt);*/
                                 upper_save_amt.setText("You are Saveing"+"\u20B9"+" "+sav_amt_tot+" "+"on this order");
 
                               /*  Thread t = new Thread() {

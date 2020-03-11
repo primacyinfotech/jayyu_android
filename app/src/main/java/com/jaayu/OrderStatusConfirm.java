@@ -14,6 +14,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -49,6 +50,7 @@ public class OrderStatusConfirm extends AppCompatActivity {
     OrderStatusPressAdapter orderStatusPressAdapter;
     ArrayList<OrderStatusPressModel> orderStatusPressModels;
     SharedPreferences prefs_register;
+    private  Button submit_btn;
     private String Orderdetails_url="https://work.primacyinfotech.com/jaayu/api/order_details_profile";
     String u_id,instant_id,ship_status,delivery_date,ord_id,ord_date,mrp_amt,save_amt,shipping_charge,tot_pay,ship_add_name,ship_add_phone,
             ship_add_address,ship_add_land,ship_add_pin,payment_status;
@@ -81,6 +83,7 @@ public class OrderStatusConfirm extends AppCompatActivity {
         ship_charge=(TextView)findViewById(R.id.ship_charge);
         total_pay=(TextView)findViewById(R.id.total_pay);
         main_pay=(TextView)findViewById(R.id.main_pay);
+        submit_btn=(Button)findViewById(R.id.submit_btn);
         //ship_address=(TextView)findViewById(R.id.ship_address);
        // date_of_delivery=(TextView)findViewById(R.id.date_of_delivery);
        /* text_pay=(TextView)findViewById(R.id.text_pay);
@@ -90,6 +93,17 @@ public class OrderStatusConfirm extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(OrderStatusConfirm.this, OrderPage.class);
                 startActivity(intent);
+                overridePendingTransition(0,0);
+                finish();
+            }
+        });
+        submit_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent goToPaymentPage=new Intent(OrderStatusConfirm.this,Payment.class);
+                goToPaymentPage.putExtra("ORDER_ID",String.valueOf(odr_id));
+                goToPaymentPage.putExtra("INSTANT",instant_id);
+                startActivity(goToPaymentPage);
                 overridePendingTransition(0,0);
                 finish();
             }

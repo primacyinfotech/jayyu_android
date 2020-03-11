@@ -114,6 +114,7 @@
                     android:id="@+id/new_item_add"
                     android:layout_marginTop="10dp"
                     android:background="#fff"
+                    android:visibility="gone"
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="40dp">
@@ -142,6 +143,7 @@
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
                     android:orientation="horizontal"
+                    android:visibility="gone"
                     android:layout_width="match_parent"
                     android:layout_height="40dp">
                     <ImageView
