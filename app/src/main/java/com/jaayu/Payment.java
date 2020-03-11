@@ -592,7 +592,13 @@ public class Payment extends AppCompatActivity {
                 persentage=Double.parseDouble(tot_pay)*20/100;
              if(Double.parseDouble(balance_jy)>= persentage){
                  jywallet_amount_.setText("-"+new DecimalFormat("##.##").format(persentage));
-                 jy_wal_substract=reminder_bal-persentage;
+                 jy_wal_substract=Double.parseDouble(tot_pay)-reminder_bal-persentage;
+                 if(wallet.isChecked()==true){
+                     jy_wal_substract=reminder_bal-persentage;
+                 }
+                 else {
+                     jy_wal_substract=Double.parseDouble(tot_pay)-persentage;
+                 }
                  main_pay.setText("\u20B9"+new DecimalFormat("##.##").format(jy_wal_substract));
 
              }
@@ -601,7 +607,12 @@ public class Payment extends AppCompatActivity {
                  //reminder_bal_jy=Double.parseDouble(balance_jy)-persentage;
                  jywallet_amount_.setText("-"+new DecimalFormat("##.##").format(Double.parseDouble(balance_jy)));
                  //Double sum_val=reminder_bal-persentage;
-                jy_wal_substract=reminder_bal-Double.parseDouble(balance_jy);
+                 if(wallet.isChecked()==true){
+                     jy_wal_substract=reminder_bal-Double.parseDouble(balance_jy);
+                 }
+                 else {
+                     jy_wal_substract=Double.parseDouble(tot_pay)-Double.parseDouble(balance_jy);
+                 }
                  main_pay.setText("\u20B9"+new DecimalFormat("##.##").format(jy_wal_substract));
              }
              if(jy_wal_substract==0.0){
@@ -609,14 +620,20 @@ public class Payment extends AppCompatActivity {
                  credit_debit_card.setEnabled(false);
                  cash_delivery.setEnabled(false);
                  wallet.setEnabled(false);
+                 wallet.setChecked(false);
+                 netbank.setChecked(false);
+                 credit_debit_card.setChecked(false);
+                 cash_delivery.setChecked(false);
+
+
                  //wallet.setEnabled(true);
              }
-             else {
+           /*  else {
                  netbank.setEnabled(true);
                  credit_debit_card.setEnabled(true);
                  cash_delivery.setEnabled(true);
                  wallet.setEnabled(true);
-             }
+             }*/
 
 
             }
@@ -630,6 +647,22 @@ public class Payment extends AppCompatActivity {
 
 
                     main_pay.setText("\u20B9"+new DecimalFormat("##.##").format(reminder_bal));
+             /*   if(jy_wal_substract!=0.0){
+                    netbank.setEnabled(true);
+                    credit_debit_card.setEnabled(true);
+                    cash_delivery.setEnabled(true);
+                    wallet.setEnabled(true);
+                    wallet.setChecked(true);
+                    netbank.setChecked(true);
+                    credit_debit_card.setChecked(true);
+                    cash_delivery.setChecked(true);
+                }
+                else {
+                    jaayu_details.setEnabled(true);
+                    netbank.setEnabled(true);
+                    credit_debit_card.setEnabled(true);
+                    cash_delivery.setEnabled(true);
+                }*/
 
             }
         }
@@ -659,16 +692,23 @@ public class Payment extends AppCompatActivity {
                      }
                      if(reminder_bal==0.0){
                          jaayu_details.setEnabled(false);
+                        // wallet.setChecked(true);
                          netbank.setEnabled(false);
                          credit_debit_card.setEnabled(false);
                          cash_delivery.setEnabled(false);
+                         jaayu_details.setChecked(false);
+                         netbank.setChecked(false);
+                         credit_debit_card.setChecked(false);
+                         cash_delivery.setChecked(false);
+
+
                      }
-                     else {
+                     /*else {
                          jaayu_details.setEnabled(true);
                          netbank.setEnabled(true);
                          credit_debit_card.setEnabled(true);
                          cash_delivery.setEnabled(true);
-                     }
+                     }*/
 
               /*  reminder_bal=Double.parseDouble(balance_og)-Double.parseDouble(tot_pay);
                 wallet_amount_.setText("-"+reminder_bal);*/
@@ -680,6 +720,22 @@ public class Payment extends AppCompatActivity {
                // reminder_bal=Double.parseDouble(tot_pay)+Double.parseDouble(balance_og);
                 wallet_amount_.setText("00.00");
                 main_pay.setText("\u20B9"+new DecimalFormat("##.##").format(Double.parseDouble(tot_pay)));
+                if(reminder_bal!=0.0){
+                    jaayu_details.setEnabled(true);
+                    netbank.setEnabled(true);
+                    credit_debit_card.setEnabled(true);
+                    cash_delivery.setEnabled(true);
+                    jaayu_details.setChecked(true);
+                    netbank.setChecked(true);
+                    credit_debit_card.setChecked(true);
+                    cash_delivery.setChecked(true);
+                }
+               /* else {
+                    jaayu_details.setEnabled(true);
+                    netbank.setEnabled(true);
+                    credit_debit_card.setEnabled(true);
+                    cash_delivery.setEnabled(true);
+                }*/
             }
         }
     });
