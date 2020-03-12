@@ -149,6 +149,32 @@ public class OrderMainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                         ((Activity) context).finish();
                     }
 
+                  if(normalorder.getShip_status().equals("2")){
+                      Intent intentGotodetaails=new Intent(context, OrderDetails.class);
+                      intentGotodetaails.putExtra("Order_id",normalorder.getTbl_order_id());
+                      intentGotodetaails.putExtra("Instant",normalorder.getInstant());
+                      context.startActivity(intentGotodetaails);
+                      ((Activity) context).overridePendingTransition(0,0);
+                      ((Activity) context).finish();
+                    }
+                    if(normalorder.getShip_status().equals("3")){
+                        Intent intentGotodetaails=new Intent(context, OrderDetails.class);
+                        intentGotodetaails.putExtra("Order_id",normalorder.getTbl_order_id());
+                        intentGotodetaails.putExtra("Instant",normalorder.getInstant());
+                        context.startActivity(intentGotodetaails);
+                        ((Activity) context).overridePendingTransition(0,0);
+                        ((Activity) context).finish();
+                    }
+                    if(normalorder.getShip_status().equals("4")){
+                        Intent intentGotodetaails=new Intent(context, OrderDetails.class);
+                        intentGotodetaails.putExtra("Order_id",normalorder.getTbl_order_id());
+                        intentGotodetaails.putExtra("Instant",normalorder.getInstant());
+                        context.startActivity(intentGotodetaails);
+                        ((Activity) context).overridePendingTransition(0,0);
+                        ((Activity) context).finish();
+                    }
+
+
 
                 }
             });
@@ -180,6 +206,7 @@ public class OrderMainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 active_order_four.setVisibility(View.GONE);
                 active_order_five.setVisibility(View.GONE);
                 reoder_btn.setVisibility(View.GONE);
+
             }
             if(status.equals("3")){
                 order_status_icon.setImageResource(R.drawable.tick);
@@ -188,7 +215,7 @@ public class OrderMainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                active_order_three.setVisibility(View.GONE);
                 active_order_four.setVisibility(View.VISIBLE);
                active_order_five.setVisibility(View.GONE);
-                reoder_btn.setVisibility(View.GONE);
+                reoder_btn.setVisibility(View.VISIBLE);
             }
             if (status.equals("4")){
                 order_status_icon.setImageResource(R.drawable.tickyellow);

@@ -177,10 +177,9 @@ public class OrderDetails extends AppCompatActivity {
                                 active_order_three.setVisibility(View.GONE);
                                 active_order_four.setVisibility(View.GONE);
                                 active_order_five.setVisibility(View.GONE);
-                                if(payment_status.equals("0")){
-                                   text_cancel.setText("Cancel Order");
-                                   text_pay.setText("Help");
-                                }
+                                text_cancel.setText("Cancel Order");
+                                text_pay.setText("Help");
+
 
                             }
                             if (ship_status.equals("1")){
@@ -190,10 +189,12 @@ public class OrderDetails extends AppCompatActivity {
                                 active_order_three.setVisibility(View.GONE);
                                 active_order_four.setVisibility(View.GONE);
                                 active_order_five.setVisibility(View.GONE);
-                                 if(payment_status.equals("0")){
+                                text_cancel.setText("Cancel Order");
+                                text_pay.setText("Help");
+                                /* if(payment_status.equals("0")){
                                      text_cancel.setText("Cancel Order");
-                                     text_pay.setText("Pay Now");
-                                 }
+                                     text_pay.setText("Help");
+                                 }*/
 
                             }
                             if(ship_status.equals("2")){
@@ -204,7 +205,7 @@ public class OrderDetails extends AppCompatActivity {
                                 active_order_four.setVisibility(View.GONE);
                                 active_order_five.setVisibility(View.GONE);
                                 text_cancel.setText("Cancel Order");
-                                text_pay.setText("Pay Now");
+                                text_pay.setText("Help");
 
                             }
                             if(ship_status.equals("3")){
@@ -214,6 +215,8 @@ public class OrderDetails extends AppCompatActivity {
                                 active_order_three.setVisibility(View.GONE);
                                 active_order_four.setVisibility(View.VISIBLE);
                                 active_order_five.setVisibility(View.GONE);
+                                text_cancel.setText("Reorder");
+                                text_pay.setText("Help");
 
                             }
                             if(ship_status.equals("4")){
@@ -223,6 +226,8 @@ public class OrderDetails extends AppCompatActivity {
                                 active_order_three.setVisibility(View.GONE);
                                 active_order_four.setVisibility(View.GONE);
                                 active_order_five.setVisibility(View.VISIBLE);
+                                text_cancel.setText("Reorder");
+                                text_pay.setText("Help");
                             }
                             delivery_date=person.getString("Delivery date");
                             date_of_delivery.setText(delivery_date);
