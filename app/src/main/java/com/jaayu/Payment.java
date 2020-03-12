@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -62,6 +63,7 @@ public class Payment extends AppCompatActivity {
     private Button submit_btn;
     int w_bal,Jay_wal;
     double reminder_bal,reminder_bal_jy,jy_wal_substract,persentage;
+    ProgressDialog progressDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -104,10 +106,29 @@ public class Payment extends AppCompatActivity {
         day_time=passDataFromDeliveryPage.getStringExtra("DAY");
         duration=passDataFromDeliveryPage.getStringExtra("Duration");
         presc_img=passDataFromDeliveryPage.getStringExtra("presc_img");*/
+        progressDialog = new ProgressDialog(Payment.this);
+        progressDialog.setMessage("Downloading..."); // Setting Message
+        // progressDialog.setTitle("ADD TO CART...."); // Setting Title
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER); // Progress Dialog Style Spinner
+        progressDialog.show(); // Display Progress Dialog
+        progressDialog.setCancelable(false);
+        new Thread(new Runnable() {
+            public void run() {
+                try {
 
-        calcutate_section();
+                    calcutate_section();
+                    normal_wallet_amt_display();
+                    jaayu_wallet_amount_displat();
+                    Thread.sleep(6000);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                progressDialog.dismiss();
+            }
+        }).start();
+       /* calcutate_section();
         normal_wallet_amt_display();
-        jaayu_wallet_amount_displat();
+        jaayu_wallet_amount_displat();*/
         back_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -118,6 +139,8 @@ public class Payment extends AppCompatActivity {
                         .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                         .commit();*/
                 Intent intent = new Intent(Payment.this, OrderStatusConfirm.class);
+                intent.putExtra("Order_id",Integer.valueOf(order_id));
+                intent.putExtra("Instant",instant);
                 startActivity(intent);
                 overridePendingTransition(0,0);
                 finish();
@@ -1021,6 +1044,8 @@ public class Payment extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         Intent intent = new Intent(Payment.this, OrderStatusConfirm.class);
+        intent.putExtra("Order_id",Integer.valueOf(order_id));
+        intent.putExtra("Instant",instant);
         startActivity(intent);
         overridePendingTransition(0,0);
         finish();
