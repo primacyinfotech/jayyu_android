@@ -278,59 +278,24 @@ public class OrderStatusConfirm extends AppCompatActivity {
                             ship_add_land=person.getString("Landmark");
                             ship_add_pin=person.getString("Pincode");
                             //ship_address.setText(ship_add_name+"\n"+ship_add_address+"\n"+ship_add_land+","+"Pin:"+ship_add_pin+"\n"+"Mobile:"+ship_add_phone);
-                            /*if(ship_status.equals("0")){
-                                order_details_icon.setImageResource(R.drawable.tickyellow);
-                                active_order.setVisibility(View.VISIBLE);
-                                active_order_two.setVisibility(View.GONE);
-                                active_order_three.setVisibility(View.GONE);
-                                active_order_four.setVisibility(View.GONE);
-                                active_order_five.setVisibility(View.GONE);
-                                if(payment_status.equals("0")){
-                                    text_cancel.setText("Cancel Order");
-                                    text_pay.setText("Help");
-                                }
+                            if(ship_status.equals("0")){
+                               submit_btn.setEnabled(false);
 
                             }
                             if (ship_status.equals("1")){
-                                order_details_icon.setImageResource(R.drawable.tick);
-                                active_order.setVisibility(View.GONE);
-                                active_order_two.setVisibility(View.VISIBLE);
-                                active_order_three.setVisibility(View.GONE);
-                                active_order_four.setVisibility(View.GONE);
-                                active_order_five.setVisibility(View.GONE);
-                                if(payment_status.equals("0")){
-                                    text_cancel.setText("Cancel Order");
-                                    text_pay.setText("Pay Now");
-                                }
 
+                                submit_btn.setEnabled(true);
                             }
-                            if(ship_status.equals("2")){
-                                order_details_icon.setImageResource(R.drawable.tick);
-                                active_order.setVisibility(View.GONE);
-                                active_order_two.setVisibility(View.GONE);
-                                active_order_three.setVisibility(View.VISIBLE);
-                                active_order_four.setVisibility(View.GONE);
-                                active_order_five.setVisibility(View.GONE);
-                                text_cancel.setText("Cancel Order");
-                                text_pay.setText("Pay Now");
+                          /*  if(ship_status.equals("2")){
+
 
                             }
                             if(ship_status.equals("3")){
-                                order_details_icon.setImageResource(R.drawable.tick);
-                                active_order.setVisibility(View.GONE);
-                                active_order_two.setVisibility(View.GONE);
-                                active_order_three.setVisibility(View.GONE);
-                                active_order_four.setVisibility(View.VISIBLE);
-                                active_order_five.setVisibility(View.GONE);
+
 
                             }
                             if(ship_status.equals("4")){
-                                order_details_icon.setImageResource(R.drawable.tickyellow);
-                                active_order.setVisibility(View.GONE);
-                                active_order_two.setVisibility(View.GONE);
-                                active_order_three.setVisibility(View.GONE);
-                                active_order_four.setVisibility(View.GONE);
-                                active_order_five.setVisibility(View.VISIBLE);
+
                             }*/
                           /*  delivery_date=person.getString("Delivery date");
                             date_of_delivery.setText(delivery_date);*/
@@ -397,4 +362,11 @@ public class OrderStatusConfirm extends AppCompatActivity {
             getOrderDetails();
         }
     };
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(OrderStatusConfirm.this, OrderPage.class);
+        startActivity(intent);
+        overridePendingTransition(0,0);
+        finish();
+    }
 }
