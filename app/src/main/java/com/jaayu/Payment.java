@@ -31,6 +31,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.razorpay.Checkout;
+import com.razorpay.PaymentResultListener;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -47,12 +49,12 @@ import java.util.Map;
 import Adapter.NormalWalletAdapter;
 import Model.NormalWalletModel;
 
-public class Payment extends AppCompatActivity {
+public class Payment extends AppCompatActivity implements PaymentResultListener {
     ImageView back_button;
     private CheckBox paytm,amazon_pay,ola_money,paypal_pay,netbank,credit_debit_card,jaayu_details,cash_delivery,wallet;
     private RadioGroup radio_three;
     String user_id,user_add,day_time,duration,cod,nor_wallet,jy_wallet,net_bank,presc_img,order_id,instant,u_id,mrp_amt,save_amt,shippingcharge,tot_pay,
-            balance_og,balance_jy,pay_status;
+            balance_og,balance_jy,pay_status,u_email,u_phone;
     SharedPreferences prefs_register;
     private String Orderdetails_url="https://work.primacyinfotech.com/jaayu/api/order_details_profile";
     private String Place_order_url="https://work.primacyinfotech.com/jaayu/api/order_payment";
@@ -64,16 +66,20 @@ public class Payment extends AppCompatActivity {
     int w_bal,Jay_wal;
     double reminder_bal,reminder_bal_jy,jy_wal_substract,persentage;
     ProgressDialog progressDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payment);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        Checkout.preload(getApplicationContext());
         //LocalBroadcastManager.getInstance(Payment.this).registerReceiver(mMessageReceiver, new IntentFilter("message_wallet_intent"));
         prefs_register = getSharedPreferences(
                 "Register Details", Context.MODE_PRIVATE);
         u_id=prefs_register.getString("USER_ID","");
+        u_email=prefs_register.getString("USER_EMAIL","");
+        u_phone=prefs_register.getString("USER_PHONE","");
         Intent ftch_Order=getIntent();
         order_id=ftch_Order.getStringExtra("ORDER_ID");
         instant=ftch_Order.getStringExtra("INSTANT");
@@ -540,6 +546,7 @@ public class Payment extends AppCompatActivity {
         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
             if(netbank.isChecked()){
                 cod="netbank";
+                pay_status="1";
                 Toast.makeText(getApplicationContext(),cod,Toast.LENGTH_LONG).show();
                 netbank.setSelected(true);
                 netbank.setChecked(true);
@@ -559,6 +566,7 @@ public class Payment extends AppCompatActivity {
         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
             if(credit_debit_card.isChecked()){
                 cod="credit_debit_card";
+                pay_status="1";
                 Toast.makeText(getApplicationContext(),cod,Toast.LENGTH_LONG).show();
                 credit_debit_card.setSelected(true);
                 credit_debit_card.setChecked(true);
@@ -624,7 +632,7 @@ public class Payment extends AppCompatActivity {
                 }*/
                 persentage=Double.parseDouble(tot_pay)*20/100;
              if(Double.parseDouble(balance_jy)>= persentage){
-                 jywallet_amount_.setText("-"+new DecimalFormat("##.##").format(persentage));
+                 jywallet_amount_.setText(""+new DecimalFormat("##.##").format(persentage));
                  jy_wal_substract=Double.parseDouble(tot_pay)-reminder_bal-persentage;
                  if(wallet.isChecked()==true){
                      jy_wal_substract=reminder_bal-persentage;
@@ -839,8 +847,12 @@ public class Payment extends AppCompatActivity {
                                        JSONObject person = new JSONObject(response);
                                        String status=person.getString("status");
                                        if(status.equals("1")){
-                                           String message=person.getString("Message");
-                                           Toast.makeText(getApplicationContext(),message,Toast.LENGTH_LONG).show();
+                                           /*String message=person.getString("Message");
+                                           Toast.makeText(getApplicationContext(),message,Toast.LENGTH_LONG).show();*/
+                                           Intent goToThankPage=new Intent(Payment.this,ThankYouPayment.class);
+                                           startActivity(goToThankPage);
+                                           overridePendingTransition(0,0);
+                                           finish();
                                        }
 
                                    } catch (JSONException e) {
@@ -870,7 +882,7 @@ public class Payment extends AppCompatActivity {
                            params.put("total_payment",tot_pay);
                            params.put("n_wallet",wallet_amount_.getText().toString());
                            params.put("j_wallet",jywallet_amount_.getText().toString());
-                           params.put("cod_pay",main_pay.getText().toString());
+                           params.put("cod_pay", String.valueOf(Math.round(Double.parseDouble(main_pay.getText().toString()))));
                            // params.put("spid", presc_img);
 
                           // params.put("status", "1");
@@ -879,6 +891,9 @@ public class Payment extends AppCompatActivity {
                    };
 
                    requestQueue.add(postRequest);
+               }
+               else {
+                   startPayment();
                }
 
             }
@@ -1055,7 +1070,31 @@ public class Payment extends AppCompatActivity {
         };
         requestQueue.add(postRequest);
     }
+ public void startPayment(){
+     final Activity activity = this;
 
+     final Checkout co = new Checkout();
+
+     try {
+         JSONObject options = new JSONObject();
+         options.put("name","JAAYU");
+         options.put("description", "Payment Charges");
+         options.put("image", "https://s3.amazonaws.com/rzp-mobile/images/rzp.png");
+         options.put("currency", "INR");
+         double total = Math.round(Double.parseDouble(main_pay.getText().toString()));
+         total = total * 100;
+         options.put("amount", Math.round(total));
+         JSONObject preFill = new JSONObject();
+         preFill.put("email", u_email);
+         preFill.put("contact", u_phone);
+         options.put("prefill", preFill);
+         co.open(activity, options);
+     } catch (JSONException e) {
+        // e.printStackTrace();
+         Toast.makeText(activity, "Error in payment: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+         e.printStackTrace();
+     }
+ }
     @Override
     public void onBackPressed() {
         Intent intent = new Intent(Payment.this, OrderStatusConfirm.class);
@@ -1066,4 +1105,73 @@ public class Payment extends AppCompatActivity {
         finish();
     }
 
+    @Override
+    public void onPaymentSuccess(final String razorpayPaymentID) {
+        //Toast.makeText(this,  razorpayPaymentID, Toast.LENGTH_SHORT).show();
+        RequestQueue requestQueue = Volley.newRequestQueue(Payment.this);
+        StringRequest postRequest = new StringRequest(Request.Method.POST,Place_order_url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        // response
+                        Log.d("Response", response);
+                        try {
+                            //Do it with this it will work
+                            JSONObject person = new JSONObject(response);
+                            String status=person.getString("status");
+                            if(status.equals("1")){
+                               /* String message=person.getString("Message");
+                                Toast.makeText(getApplicationContext(),message,Toast.LENGTH_LONG).show();*/
+                                Intent goToThankPage=new Intent(Payment.this,ThankYouPayment.class);
+                                startActivity(goToThankPage);
+                                overridePendingTransition(0,0);
+                                finish();
+                            }
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            Toast.makeText(getApplicationContext(), "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                        }
+
+
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // error
+
+                    }
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
+
+                params.put("user_id", u_id);
+                params.put("order_id", order_id);
+                params.put("payment_status", pay_status);
+                params.put("payment_id", razorpayPaymentID);
+                params.put("total_payment",tot_pay);
+                params.put("n_wallet",wallet_amount_.getText().toString());
+                params.put("j_wallet",jywallet_amount_.getText().toString());
+                params.put("online_pay", String.valueOf(Math.round(Double.parseDouble(main_pay.getText().toString()))));
+                // params.put("spid", presc_img);
+
+                // params.put("status", "1");
+                return params;
+            }
+        };
+
+        requestQueue.add(postRequest);
+    }
+
+    @Override
+    public void onPaymentError(int i, String s) {
+        try {
+            Toast.makeText(this, "Payment error please try again", Toast.LENGTH_SHORT).show();
+        } catch (Exception e) {
+            Log.e("OnPaymentError", "Exception in onPaymentError", e);
+        }
+    }
 }
