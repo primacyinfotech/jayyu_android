@@ -41,6 +41,7 @@ import Adapter.OrderStatusPressAdapter;
 import Model.OderItemModel;
 import Model.OrderStatusItemModel;
 import Model.OrderStatusPressModel;
+import Model.ViewDialog;
 
 public class OrderStatusConfirm extends AppCompatActivity {
     RecyclerView cart_items,pres_list;
@@ -280,7 +281,8 @@ public class OrderStatusConfirm extends AppCompatActivity {
                             //ship_address.setText(ship_add_name+"\n"+ship_add_address+"\n"+ship_add_land+","+"Pin:"+ship_add_pin+"\n"+"Mobile:"+ship_add_phone);
                             if(ship_status.equals("0")){
                                submit_btn.setEnabled(false);
-
+                                ViewDialog alert = new ViewDialog();
+                                alert.showDialog(OrderStatusConfirm.this, "Order Not to be Confirm......");
                             }
                             if (ship_status.equals("1")){
 
