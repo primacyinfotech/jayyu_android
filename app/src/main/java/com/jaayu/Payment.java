@@ -100,15 +100,18 @@ public class Payment extends AppCompatActivity {
         jy_wallwt_amount=(TextView)findViewById(R.id.jy_wallwt_amount);
         wallet_amount_=(TextView)findViewById(R.id.wallet_amount_);
         jywallet_amount_=(TextView)findViewById(R.id.jywallet_amount_);
+        calcutate_section();
+        normal_wallet_amt_display();
+        jaayu_wallet_amount_displat();
       /*  Intent passDataFromDeliveryPage=getIntent();
         user_id=passDataFromDeliveryPage.getStringExtra("User_ID");
         user_add=passDataFromDeliveryPage.getStringExtra("User_add");
         day_time=passDataFromDeliveryPage.getStringExtra("DAY");
         duration=passDataFromDeliveryPage.getStringExtra("Duration");
         presc_img=passDataFromDeliveryPage.getStringExtra("presc_img");*/
-        progressDialog = new ProgressDialog(Payment.this);
+      /*  progressDialog = new ProgressDialog(Payment.this);
         progressDialog.setMessage("Downloading..."); // Setting Message
-        // progressDialog.setTitle("ADD TO CART...."); // Setting Title
+
         progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER); // Progress Dialog Style Spinner
         progressDialog.show(); // Display Progress Dialog
         progressDialog.setCancelable(false);
@@ -125,10 +128,15 @@ public class Payment extends AppCompatActivity {
                 }
                 progressDialog.dismiss();
             }
-        }).start();
+        }).start();*/
        /* calcutate_section();
         normal_wallet_amt_display();
         jaayu_wallet_amount_displat();*/
+        progressDialog = new ProgressDialog(Payment.this);
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progressDialog.show();
+        progressDialog.setMessage("Downloading...");
+        progressDialog.setCancelable(false);
         back_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -588,7 +596,7 @@ public class Payment extends AppCompatActivity {
         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
             if(jaayu_details.isChecked()){
                 jy_wallet="Jaayu_Wallet";
-                pay_status="1";
+               // pay_status="1";
                 Toast.makeText(getApplicationContext(),cod,Toast.LENGTH_LONG).show();
                 jaayu_details.setSelected(true);
                 jaayu_details.setChecked(true);
@@ -641,6 +649,7 @@ public class Payment extends AppCompatActivity {
                  main_pay.setText(""+new DecimalFormat("##.##").format(jy_wal_substract));
              }
              if(jy_wal_substract==0.0){
+                 pay_status="1";
                  netbank.setEnabled(false);
                  credit_debit_card.setEnabled(false);
                  cash_delivery.setEnabled(false);
@@ -697,7 +706,7 @@ public class Payment extends AppCompatActivity {
         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
             if(wallet.isChecked()){
                 nor_wallet="Wallet";
-                pay_status="1";
+               // pay_status="1";
                 wallet.setSelected(true);
                 wallet.setChecked(true);
                /* jaayu_details.setChecked(false);
@@ -717,6 +726,7 @@ public class Payment extends AppCompatActivity {
                          main_pay.setText(""+new DecimalFormat("##.##").format(reminder_bal));
                      }
                      if(reminder_bal==0.0){
+                         pay_status="1";
                          jaayu_details.setEnabled(false);
                         // wallet.setChecked(true);
                          netbank.setEnabled(false);
@@ -884,6 +894,7 @@ public class Payment extends AppCompatActivity {
                         Log.d("Response", response);
                         try {
                             //Do it with this it will work
+                            progressDialog.dismiss();
                             JSONObject person = new JSONObject(response);
                             mrp_amt=person.getString("MRP");
                             save_amt=person.getString("Saving");
@@ -912,6 +923,7 @@ public class Payment extends AppCompatActivity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         // error
+                        progressDialog.dismiss();
 
                     }
                 }
@@ -946,6 +958,7 @@ public class Payment extends AppCompatActivity {
 
 
                             if(status.equals("1")){
+                                progressDialog.dismiss();
                                  balance_og=person.getString("balance");
                                  wallwt_amount.setText("("+"\u20B9"+balance_og+")");
 
@@ -968,6 +981,7 @@ public class Payment extends AppCompatActivity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         // error
+                        progressDialog.dismiss();
 
                     }
                 }
@@ -1000,7 +1014,8 @@ public class Payment extends AppCompatActivity {
 
 
                             if(status.equals("1")){
-                                balance_jy=person.getString("balance");
+                                progressDialog.dismiss();
+                                        balance_jy=person.getString("balance");
 
                                 jy_wallwt_amount.setText("("+"\u20B9"+balance_jy+")");
 
@@ -1023,7 +1038,7 @@ public class Payment extends AppCompatActivity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         // error
-
+                        progressDialog.dismiss();
                     }
                 }
         ) {
