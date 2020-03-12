@@ -29,14 +29,13 @@
                     android:fontFamily="@font/clearsansbold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
-                <Spinner
+              <!--  <Spinner
                     android:id="@+id/show_pin"
                     android:fontFamily="@font/clearsansbold"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-                </Spinner>
-
+                </Spinner>-->
                 <Button
 
                     android:gravity="left"

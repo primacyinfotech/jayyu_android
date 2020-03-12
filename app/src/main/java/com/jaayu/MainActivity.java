@@ -36,6 +36,7 @@ import androidx.fragment.app.FragmentTransaction;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -57,6 +58,7 @@ public class MainActivity extends AppCompatActivity
     int notifiCart;
     int notti=0;
     TextView showpinbtn;
+
     int count_cart;
     ProgressDialog progressDialog;
  //   private String Chk_data_hasCart_url="https://work.primacyinfotech.com/jaayu/api/addtocart/all";
