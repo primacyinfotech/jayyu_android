@@ -6,6 +6,7 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -58,6 +59,7 @@ public class OrderStatusConfirm extends AppCompatActivity {
     int odr_id;
     private TextView mrp_amount,save_amount,ship_charge,total_pay,ship_address,date_of_delivery,main_pay;
     private LinearLayout cancel_btn,paynow_btn;
+    ProgressDialog progressDialog;
     private TextView active_order_two,active_order_three,active_order,active_order_four,active_order_five,order_id,order_date,text_cancel,text_pay;
 
     @Override
@@ -112,6 +114,11 @@ public class OrderStatusConfirm extends AppCompatActivity {
         getOrderDetails();
         getListOFOrder();
         getPrescription();
+        progressDialog = new ProgressDialog(OrderStatusConfirm.this);
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progressDialog.show();
+        progressDialog.setMessage("Downloading...");
+        progressDialog.setCancelable(false);
     }
     private void getPrescription(){
         RequestQueue requestQueue = Volley.newRequestQueue(OrderStatusConfirm.this);
@@ -126,6 +133,7 @@ public class OrderStatusConfirm extends AppCompatActivity {
                             JSONObject person = new JSONObject(response);
                             String status = person.getString("status");
                             if (status.equals("1")) {
+                                progressDialog.dismiss();
                                 JSONArray jsonArray=person.getJSONArray("prescription");
                                 for (int i=0;i<jsonArray.length();i++){
                                     OrderStatusPressModel orderStatusPressModel=new OrderStatusPressModel();
@@ -190,6 +198,7 @@ public class OrderStatusConfirm extends AppCompatActivity {
                             JSONObject person = new JSONObject(response);
                             String status = person.getString("status");
                             if (status.equals("1")) {
+                                progressDialog.dismiss();
                                 JSONArray jsonArray=person.getJSONArray("Items");
                                 for (int i=0;i<jsonArray.length();i++){
                                     OrderStatusItemModel itemModel=new OrderStatusItemModel();
@@ -255,6 +264,7 @@ public class OrderStatusConfirm extends AppCompatActivity {
                         // response
                         Log.d("Response", response);
                         try {
+                            progressDialog.dismiss();
                             //Do it with this it will work
                             JSONObject person = new JSONObject(response);
                             //String status = person.getString("status");
