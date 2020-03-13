@@ -445,11 +445,12 @@ public class PinSearchActivity extends AppCompatActivity implements LocationList
                         Log.i("tag","getting checked address id"+addressid);
 
                         defaultaddresschange();
-                        if(whetherchekedornotdefault == true && specialidfordefault != null)
+                        if(whetherchekedornotdefault && specialidfordefault != null)
                         {
                             if (mid.get(position).contentEquals(specialidfordefault))
                             {
                                 cheboxclick.setChecked(true);
+                                
                             }
                             else
                             {
