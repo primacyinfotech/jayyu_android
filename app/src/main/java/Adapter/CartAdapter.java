@@ -238,7 +238,12 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
       holder.cart_plus_img.setOnClickListener(new View.OnClickListener() {
           @Override
           public void onClick(View v) {
-
+              progressDialog = new ProgressDialog(context);
+              progressDialog.setMessage("loading..."); // Setting Message
+              // progressDialog.setTitle("ADD TO CART...."); // Setting Title
+              progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER); // Progress Dialog Style Spinner
+              progressDialog.show(); // Display Progress Dialog
+              progressDialog.setCancelable(false);
               int count= Integer.parseInt(String.valueOf(holder.cart_product_quantity_tv.getText()));
               if(count<=29){
                   count++;
@@ -282,6 +287,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
                                           intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                                           LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
                                           ((Activity) context).overridePendingTransition(0,0);
+                                          progressDialog.dismiss();
 
                                           // Toast.makeText(context,status+" "+"Removed",Toast.LENGTH_LONG).show();
                                       }
@@ -332,6 +338,12 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
       holder.cart_minus_img.setOnClickListener(new View.OnClickListener() {
           @Override
           public void onClick(View v) {
+              progressDialog = new ProgressDialog(context);
+              progressDialog.setMessage("loading..."); // Setting Message
+              // progressDialog.setTitle("ADD TO CART...."); // Setting Title
+              progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER); // Progress Dialog Style Spinner
+              progressDialog.show(); // Display Progress Dialog
+              progressDialog.setCancelable(false);
              int count= Integer.parseInt(String.valueOf(holder.cart_product_quantity_tv.getText()));
 
               if (count == 1) {
@@ -361,6 +373,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
                                           intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                                           LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
                                           ((Activity) context).overridePendingTransition(0,0);
+                                          progressDialog.dismiss();
                                         //  Toast.makeText(context,status,Toast.LENGTH_LONG).show();
                                       }
                                       else {
@@ -427,6 +440,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
                                           intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                                           LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
                                           ((Activity) context).overridePendingTransition(0,0);
+                                          progressDialog.dismiss();
                                          // Toast.makeText(context,status+" "+"Removed",Toast.LENGTH_LONG).show();
                                       }
                                       else {
