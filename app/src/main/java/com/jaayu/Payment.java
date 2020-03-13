@@ -883,6 +883,7 @@ public class Payment extends AppCompatActivity implements PaymentResultListener 
                            params.put("n_wallet", String.valueOf(Math.round(Double.parseDouble(wallet_amount_.getText().toString()))));
                            params.put("j_wallet",String.valueOf(Math.round(Double.parseDouble(jywallet_amount_.getText().toString()))));
                            params.put("cod_pay", String.valueOf(Math.round(Double.parseDouble(main_pay.getText().toString()))));
+                           params.put("online_pay", "0");
                            // params.put("spid", presc_img);
 
                           // params.put("status", "1");

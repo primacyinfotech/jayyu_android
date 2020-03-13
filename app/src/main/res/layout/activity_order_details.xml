@@ -427,7 +427,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/clearsansbold"
-                                android:text="To Be Pay"
+                                android:text="Total Pay"
                                 android:textColor="#000"
                                 android:textSize="15sp" />
 
@@ -439,6 +439,122 @@
 
                             <TextView
                                 android:id="@+id/total_pay"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/clearsansbold"
+                                android:text=""
+                                android:textSize="15sp" />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="10dp"
+                            android:id="@+id/wraper_wallet"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/clearsansbold"
+                                android:text="Wallet"
+                                android:textColor="#000"
+                                android:textSize="15sp" />
+
+                            <View
+                                android:layout_width="170dp"
+                                android:layout_height="0dp">
+
+                            </View>
+
+                            <TextView
+                                android:id="@+id/wallet_pay"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/clearsansbold"
+                                android:text=""
+                                android:textSize="15sp" />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="10dp"
+                            android:id="@+id/wraper_jaayu_cash"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/clearsansbold"
+                                android:text="Jaayu Cash"
+                                android:textColor="#000"
+                                android:textSize="15sp" />
+
+                            <View
+                                android:layout_width="170dp"
+                                android:layout_height="0dp">
+
+                            </View>
+
+                            <TextView
+                                android:id="@+id/jaayu_pay"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/clearsansbold"
+                                android:text=""
+                                android:textSize="15sp" />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="10dp"
+                            android:id="@+id/wraper_online_cash"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/clearsansbold"
+                                android:text="Online pay"
+                                android:textColor="#000"
+                                android:textSize="15sp" />
+
+                            <View
+                                android:layout_width="170dp"
+                                android:layout_height="0dp">
+
+                            </View>
+
+                            <TextView
+                                android:id="@+id/online_pay"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/clearsansbold"
+                                android:text=""
+                                android:textSize="15sp" />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="10dp"
+                            android:id="@+id/wraper_cod_cash"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/clearsansbold"
+                                android:text="Cod"
+                                android:textColor="#000"
+                                android:textSize="15sp" />
+
+                            <View
+                                android:layout_width="200dp"
+                                android:layout_height="0dp">
+
+                            </View>
+
+                            <TextView
+                                android:id="@+id/cod_pay"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/clearsansbold"

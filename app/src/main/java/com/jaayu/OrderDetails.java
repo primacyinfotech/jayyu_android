@@ -50,14 +50,15 @@ public class OrderDetails extends AppCompatActivity {
     OrderItemAdapter orderItemAdapter;
     private Animation animationUp;
     private Animation animationDown;
-    private TextView active_order_two,active_order_three,active_order,active_order_four,active_order_five,order_id,order_date,text_cancel,text_pay;
+    private TextView active_order_two,active_order_three,active_order,active_order_four,active_order_five,order_id,order_date,text_cancel,text_pay,
+            wallet_pay,jaayu_pay,online_pay,cod_pay;
     SharedPreferences prefs_register;
     private String Orderdetails_url="https://work.primacyinfotech.com/jaayu/api/order_details_profile";
     String u_id,instant_id,ship_status,delivery_date,ord_id,ord_date,mrp_amt,save_amt,shipping_charge,tot_pay,ship_add_name,ship_add_phone,
-    ship_add_address,ship_add_land,ship_add_pin,payment_status;
+    ship_add_address,ship_add_land,ship_add_pin,payment_status,w_cash,j_cash,onli_cash,c_cash;
     int odr_id;
     private TextView mrp_amount,save_amount,ship_charge,total_pay,ship_address,date_of_delivery;
-    private LinearLayout cancel_btn,paynow_btn;
+    private LinearLayout cancel_btn,paynow_btn,wraper_wallet,wraper_jaayu_cash,wraper_online_cash,wraper_cod_cash;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,9 +95,20 @@ public class OrderDetails extends AppCompatActivity {
         date_of_delivery=(TextView)findViewById(R.id.date_of_delivery);
         text_pay=(TextView)findViewById(R.id.text_pay);
         text_cancel=(TextView)findViewById(R.id.text_cancel);
+        wallet_pay=(TextView)findViewById(R.id.wallet_pay);
+        jaayu_pay=(TextView)findViewById(R.id.jaayu_pay);
+        online_pay=(TextView)findViewById(R.id.online_pay);
+        cod_pay=(TextView)findViewById(R.id.cod_pay);
         cancel_btn=(LinearLayout)findViewById(R.id.cancel_btn);
         paynow_btn=(LinearLayout)findViewById(R.id.paynow_btn);
-
+        wraper_wallet=(LinearLayout)findViewById(R.id.wraper_wallet);
+        wraper_jaayu_cash=(LinearLayout)findViewById(R.id.wraper_jaayu_cash);
+        wraper_online_cash=(LinearLayout)findViewById(R.id.wraper_online_cash);
+        wraper_cod_cash=(LinearLayout)findViewById(R.id.wraper_cod_cash);
+        wraper_wallet.setVisibility(View.GONE);
+        wraper_jaayu_cash.setVisibility(View.GONE);
+        wraper_online_cash.setVisibility(View.GONE);
+        wraper_cod_cash.setVisibility(View.GONE);
 
         active_order.setVisibility(View.GONE);
         active_order_two.setVisibility(View.GONE);
@@ -160,6 +172,32 @@ public class OrderDetails extends AppCompatActivity {
                             save_amt=person.getString("Saving");
                             shipping_charge=person.getString("Shipping charge");
                             tot_pay=person.getString("Total Pay");
+                            w_cash=person.getString("normal_wallet");
+                            j_cash=person.getString("jaayu_wallet");
+
+                            onli_cash=person.getString("online_pay");
+                            c_cash=person.getString("cod_pay");
+
+                         if(!w_cash.equals("0")){
+                             wraper_wallet.setVisibility(View.VISIBLE);
+                             wallet_pay.setText(w_cash);
+
+                         }
+                            if(!j_cash.equals("0")){
+                                wraper_jaayu_cash.setVisibility(View.VISIBLE);
+                                jaayu_pay.setText(j_cash);
+
+                            }
+                            if(!onli_cash.equals("0")){
+                                wraper_online_cash.setVisibility(View.VISIBLE);
+                                online_pay.setText(onli_cash);
+
+                            }
+                            if(!c_cash.equals("0")){
+                                wraper_cod_cash.setVisibility(View.VISIBLE);
+                                cod_pay.setText(c_cash);
+
+                            }
                             mrp_amount.setText(mrp_amt);
                             save_amount.setText(save_amt);
                             ship_charge.setText(shipping_charge);
