@@ -684,7 +684,7 @@ public class Payment extends AppCompatActivity implements PaymentResultListener 
 
                     //reminder_bal_jy=Double.parseDouble(balance_jy)-persentage;
                    // jywallet_amount_.setText("-"+new DecimalFormat("##.##").format(Double.parseDouble(balance_jy)));
-                    jywallet_amount_.setText("00.00");
+                    jywallet_amount_.setText("0");
                     //Double sum_val=reminder_bal-persentage;
 
 
@@ -762,7 +762,7 @@ public class Payment extends AppCompatActivity implements PaymentResultListener 
             }
             else {
                // reminder_bal=Double.parseDouble(tot_pay)+Double.parseDouble(balance_og);
-                wallet_amount_.setText("00.00");
+                wallet_amount_.setText("0");
                 main_pay.setText(""+new DecimalFormat("##.##").format(Double.parseDouble(tot_pay)));
 
                     jaayu_details.setEnabled(true);
@@ -880,8 +880,8 @@ public class Payment extends AppCompatActivity implements PaymentResultListener 
                            params.put("payment_status", pay_status);
                            params.put("payment_id", "1");
                            params.put("total_payment",tot_pay);
-                           params.put("n_wallet",wallet_amount_.getText().toString());
-                           params.put("j_wallet",jywallet_amount_.getText().toString());
+                           params.put("n_wallet", String.valueOf(Math.round(Double.parseDouble(wallet_amount_.getText().toString()))));
+                           params.put("j_wallet",String.valueOf(Math.round(Double.parseDouble(jywallet_amount_.getText().toString()))));
                            params.put("cod_pay", String.valueOf(Math.round(Double.parseDouble(main_pay.getText().toString()))));
                            // params.put("spid", presc_img);
 
