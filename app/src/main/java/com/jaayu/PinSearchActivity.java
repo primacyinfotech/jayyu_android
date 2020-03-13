@@ -78,7 +78,7 @@ public class PinSearchActivity extends AppCompatActivity implements LocationList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pin_search);
-        addlist = findViewById(R.id.addresslist);
+        addlist = (ListView) findViewById(R.id.addresslist);
         editpinet = findViewById(R.id.editpinet);
         checkbtn = findViewById(R.id.checkbtn);
         closebtn = findViewById(R.id.closebtn);
@@ -127,6 +127,7 @@ public class PinSearchActivity extends AppCompatActivity implements LocationList
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String ziptosend = zipcode.get(position);
                 pincodeck(ziptosend);
+                Toast.makeText(PinSearchActivity.this, "This Pin is unavailable at the moment", Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -134,6 +135,7 @@ public class PinSearchActivity extends AppCompatActivity implements LocationList
 
             }
         });
+
 
 
         closebtn.setOnClickListener(new View.OnClickListener()

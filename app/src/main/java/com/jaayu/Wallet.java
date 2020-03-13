@@ -89,7 +89,7 @@ public class Wallet extends AppCompatActivity {
                                 String balance_og=person.getString("balance");
                                 balance.setText("\u20B9"+balance_og);
                                 normalWalletModels=new ArrayList<>();
-                                JSONArray jsonArray=person.getJSONArray("Wallet");
+                                JSONArray jsonArray=person.getJSONArray("history");
                                 for(int i=0;i<jsonArray.length();i++){
                                     NormalWalletModel walletModel=new NormalWalletModel();
                                     JSONObject object=jsonArray.getJSONObject(i);

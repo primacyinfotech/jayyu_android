@@ -51,7 +51,7 @@ public class JaayuWalletAdapter extends RecyclerView.Adapter<JaayuWalletAdapter.
             holder.txt_recived.setVisibility(View.GONE);
             holder.received_amount.setVisibility(View.GONE);
         }
-        if(Integer.valueOf(walletModel.getCredit())>0){
+      /*  if(Integer.valueOf(walletModel.getCredit())>0){
             holder.debit_amount.setText("\u20B9"+walletModel.getDebit());
             holder.txt_debit.setVisibility(View.VISIBLE);
             holder.txt_credit.setVisibility(View.GONE);
@@ -66,7 +66,7 @@ public class JaayuWalletAdapter extends RecyclerView.Adapter<JaayuWalletAdapter.
             holder.txt_debit.setVisibility(View.GONE);
             holder.debit_amount.setVisibility(View.GONE);
 
-        }
+        }*/
         holder.remark.setText(walletModel.getRemark());
         holder.date_value.setText(walletModel.getDate_val());
 
