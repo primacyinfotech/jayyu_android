@@ -83,12 +83,18 @@ public class OrderSummery extends AppCompatActivity {
     private String u_id,check_pincode_Second,check_pincode_first,add_zip,sing_zip_code;
     String pin_cod,pin_cod2,show_coupon;
     ProgressDialog progressDialog;
+    ProgressDialog progressDialogLoader;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_summery);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        progressDialogLoader = new ProgressDialog(OrderSummery.this);
+        progressDialogLoader.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progressDialogLoader.show();
+        progressDialogLoader.setMessage("Downloading...");
+        progressDialogLoader.setCancelable(false);
         myDb = new SaveCoupon(this);
         Intent fetchAddress=getIntent();
         prescription_requird=fetchAddress.getIntExtra("PRES_REQ",0);
@@ -490,6 +496,7 @@ public class OrderSummery extends AppCompatActivity {
                             JSONObject person = new JSONObject(response);
                             String status = person.getString("status");
                             if (status.equals("1")) {
+                                progressDialogLoader.dismiss();
                                 JSONArray jsonArray=person.getJSONArray("cart");
 
                                 for(int i=0;i<jsonArray.length();i++){
@@ -562,6 +569,7 @@ public class OrderSummery extends AppCompatActivity {
                         // response
                         Log.d("Response", response);
                         try {
+                            progressDialogLoader.dismiss();
                             //Do it with this it will work
                             JSONObject person = new JSONObject(response);
                             Double total_mrp_value = person.getDouble("MRP");
@@ -710,6 +718,7 @@ public class OrderSummery extends AppCompatActivity {
                             JSONObject person = new JSONObject(response);
                             String status = person.getString("status");
                             if (status.equals("1")) {
+                                progressDialogLoader.dismiss();
                                 JSONObject object=person.getJSONObject("address");
                                  sing_add_id=object.getInt("id");
                                  address_id_second=sing_add_id;
@@ -807,7 +816,7 @@ public class OrderSummery extends AppCompatActivity {
                               JSONObject person = new JSONObject(response);
                               String status=person.getString("status");
                               if(status.equals("1")){
-
+                                  progressDialogLoader.dismiss();
                                   card_view_istant.setVisibility(View.VISIBLE);
                                  /* prefs_Address_second = getSharedPreferences(
                                           "SECOND_ADDRESS", Context.MODE_PRIVATE);
@@ -867,7 +876,7 @@ public class OrderSummery extends AppCompatActivity {
                               JSONObject person = new JSONObject(response);
                               String status=person.getString("status");
                               if(status.equals("1")){
-
+                                  progressDialogLoader.dismiss();
                                   card_view_istant.setVisibility(View.VISIBLE);
                                 /*  prefs_Address = getSharedPreferences(
                                           "Address Details", Context.MODE_PRIVATE);

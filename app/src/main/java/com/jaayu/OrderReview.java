@@ -75,6 +75,11 @@ public class OrderReview extends AppCompatActivity {
         setContentView(R.layout.activity_order_review);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        progressDialog = new ProgressDialog(OrderReview.this);
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progressDialog.show();
+        progressDialog.setMessage("Downloading...");
+        progressDialog.setCancelable(false);
         myDb = new SaveCoupon(this);
         Intent passDataFromDeliveryPage=getIntent();
         user_id=passDataFromDeliveryPage.getStringExtra("User_ID");
@@ -237,6 +242,7 @@ public class OrderReview extends AppCompatActivity {
                             JSONObject person = new JSONObject(response);
                             String status = person.getString("status");
                             if (status.equals("1")) {
+                                progressDialog.dismiss();
                                 JSONArray jsonArray=person.getJSONArray("cart");
 
                                 for(int i=0;i<jsonArray.length();i++){
@@ -309,6 +315,7 @@ public class OrderReview extends AppCompatActivity {
                         // response
                         Log.d("Response", response);
                         try {
+                            progressDialog.dismiss();
                             //Do it with this it will work
                             JSONObject person = new JSONObject(response);
                             Double total_mrp_value = person.getDouble("MRP");
@@ -376,6 +383,7 @@ public class OrderReview extends AppCompatActivity {
                             JSONObject person = new JSONObject(response);
                             String status = person.getString("status");
                             if (status.equals("1")) {
+                                progressDialog.dismiss();
                                 JSONObject object=person.getJSONObject("address");
                                 sing_add_id=object.getInt("id");
                                 address_id_second=sing_add_id;
@@ -468,6 +476,7 @@ public class OrderReview extends AppCompatActivity {
                             JSONObject person = new JSONObject(response);
                             String status = person.getString("status");
                             if (status.equals("1")) {
+                                progressDialog.dismiss();
                                 JSONObject object=person.getJSONObject("address");
                                 sing_add_id=object.getInt("id");
                                 address_id_second=sing_add_id;
@@ -560,6 +569,7 @@ public class OrderReview extends AppCompatActivity {
                             JSONObject person = new JSONObject(response);
                             String status = person.getString("status");
                             if (status.equals("1")) {
+                                progressDialog.dismiss();
                          String del_add=person.getString("Delivery date");
                          estimated_date.setText(del_add);
 
