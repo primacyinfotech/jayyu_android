@@ -450,7 +450,7 @@ public class PinSearchActivity extends AppCompatActivity implements LocationList
                             if (mid.get(position).contentEquals(specialidfordefault))
                             {
                                 cheboxclick.setChecked(true);
-                                
+
                             }
                             else
                             {
@@ -486,6 +486,7 @@ public class PinSearchActivity extends AppCompatActivity implements LocationList
                             String status=jsonres.getString("status");
                             if(status.contentEquals("1")) {
                                Log.i("tag","default address change");
+
                             }
                             else
                             {
