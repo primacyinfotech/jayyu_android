@@ -342,7 +342,7 @@ public class DetailsItems extends AppCompatActivity {
                             String pr_mn=person.getString("product_name");
                             String cmm_name=person.getString("com_name");
                             String compo=person.getString("composition");
-                            String save_per=person.getString("save_percent");
+                            String save_per=person.getString("normal_disct");
                             String mrp_priz=person.getString("mrp");
                             String qty_per_prod=person.getString("box");
                             String save_amt_of=person.getString("offer_price");
@@ -362,7 +362,7 @@ public class DetailsItems extends AppCompatActivity {
                             String product_name=preferences.getString("Product Name","");
                             String company_name=preferences.getString("Company Name","");
                             String composition=preferences.getString("compo Name","");
-                            String save_percen=preferences.getString("sav_percent","");
+                            String                                                                          save_percen=preferences.getString("sav_percent","");
                             String mrp_price=preferences.getString("Mrp Price","");
                             String qty_per_pro=preferences.getString("Product Qty Per","");
                             String save_ammount=preferences.getString("Saving Amount","");
