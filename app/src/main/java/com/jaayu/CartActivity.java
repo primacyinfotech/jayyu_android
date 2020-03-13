@@ -83,6 +83,11 @@ public class CartActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         myDb = new SaveCoupon(this);
+        progressDialog = new ProgressDialog(CartActivity.this);
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progressDialog.show();
+        progressDialog.setMessage("Downloading...");
+        progressDialog.setCancelable(false);
         /* Intent pres_req=getIntent();
          prescription_req=pres_req.getIntExtra("P_Required",0);*/
         LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver, new IntentFilter("message_subject_intent"));
@@ -206,7 +211,7 @@ public class CartActivity extends AppCompatActivity {
 
 
                                   if(status.equals("1")){
-
+                                      progressDialog.dismiss();
 
                                       JSONArray jsonArray=person.getJSONArray("list");
                                       for(int i=0;i<jsonArray.length();i++){
@@ -441,6 +446,7 @@ public class CartActivity extends AppCompatActivity {
                             JSONObject person = new JSONObject(response);
                             String status = person.getString("status");
                             if (status.equals("1")) {
+                                progressDialog.dismiss();
                                 //findViewById(R.id.progressbar).setVisibility(View.VISIBLE);
                                 JSONArray jsonArray = person.getJSONArray("cart");
 
@@ -599,7 +605,7 @@ public class CartActivity extends AppCompatActivity {
                             final JSONObject person = new JSONObject(response);
                             String status=person.getString("status");
                             if(status.equals("success")){
-
+                                progressDialog.dismiss();
                                final Double total_mrp_value = person.getDouble("MRP");
 
 
@@ -715,6 +721,7 @@ public class CartActivity extends AppCompatActivity {
                          String status=person.getString("status");
                         int count_cart=person.getInt("count");
                          if(status.equals("0")){
+                             progressDialog.dismiss();
                              Intent intentCart=new Intent(CartActivity.this,EmptyCart.class);
                              startActivity(intentCart);
                              overridePendingTransition(0,0);
