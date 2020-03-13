@@ -180,7 +180,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".PinSearchActivity"></activity>
+        <activity android:name=".PinSearchActivity"
+            android:hardwareAccelerated="true"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity android:name=".ThankYouPayment"
             android:configChanges="orientation|screenSize"
             android:hardwareAccelerated="true"
