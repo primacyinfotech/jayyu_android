@@ -1154,8 +1154,9 @@ public class Payment extends AppCompatActivity implements PaymentResultListener 
                 params.put("payment_status", pay_status);
                 params.put("payment_id", razorpayPaymentID);
                 params.put("total_payment",tot_pay);
-                params.put("n_wallet",wallet_amount_.getText().toString());
-                params.put("j_wallet",jywallet_amount_.getText().toString());
+                params.put("n_wallet", String.valueOf(Math.round(Double.parseDouble(wallet_amount_.getText().toString()))));
+                params.put("j_wallet",String.valueOf(Math.round(Double.parseDouble(jywallet_amount_.getText().toString()))));
+                params.put("cod_pay", "0");
                 params.put("online_pay", String.valueOf(Math.round(Double.parseDouble(main_pay.getText().toString()))));
                 // params.put("spid", presc_img);
 
