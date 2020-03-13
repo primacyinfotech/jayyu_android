@@ -3,6 +3,7 @@ package Adapter;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,6 +29,7 @@ public class OrderMainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     private final static int TYPE_NORMAL=1,TYPE_PRESS=2;
     ArrayList<Object> normalandPress=new ArrayList<>();
     Context context;
+    SharedPreferences ord_id_instant;
 
     public OrderMainAdapter(Context context) {
         this.context = context;
@@ -113,6 +115,12 @@ public class OrderMainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             // holder.order_name.setText(order_people_name);
            order_id.setText(normalorder.getOrder_id());
             order_date.setText(normalorder.getOrder_date());
+            ord_id_instant = context.getSharedPreferences(
+                    "Order_id Details", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = ord_id_instant.edit();
+            editor.putInt("OrderID",normalorder.getTbl_order_id());
+            editor.putString("INSTANT",normalorder.getInstant());
+            editor.commit();
             active_order_two.setVisibility(View.GONE);
            active_order_three.setVisibility(View.GONE);
            card_order.setOnClickListener(new View.OnClickListener() {
@@ -142,6 +150,14 @@ public class OrderMainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                     }
                     if(press_chk.equals("1")){
                         Intent intentGotodetaails=new Intent(context, PrescriptionOrderDetails.class);
+                        intentGotodetaails.putExtra("Order_id",normalorder.getTbl_order_id());
+                        intentGotodetaails.putExtra("Instant",normalorder.getInstant());
+                        context.startActivity(intentGotodetaails);
+                        ((Activity) context).overridePendingTransition(0,0);
+                        ((Activity) context).finish();
+                    }
+                    if(normalorder.getShip_status().equals("0")){
+                        Intent intentGotodetaails=new Intent(context, OrderDetails.class);
                         intentGotodetaails.putExtra("Order_id",normalorder.getTbl_order_id());
                         intentGotodetaails.putExtra("Instant",normalorder.getInstant());
                         context.startActivity(intentGotodetaails);

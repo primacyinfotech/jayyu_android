@@ -41,6 +41,7 @@ public class OrderStatusItemAdapter extends RecyclerView.Adapter<OrderStatusItem
     private ArrayList<OrderStatusItemModel> modelList;
     private Context context;
     SharedPreferences prefs_register;
+    SharedPreferences ord_id_instant;
     private String u_id,spin_no;
     private String Order_quantity_update_url="https://work.primacyinfotech.com/jaayu/api/order_quantity_edit";
     private String Order_Item_Delete="https://work.primacyinfotech.com/jaayu/api/order_del_con";
@@ -313,10 +314,21 @@ public class OrderStatusItemAdapter extends RecyclerView.Adapter<OrderStatusItem
                                         notifyItemRemoved(position);
                                         notifyItemRangeChanged(position, modelList.size());
                                         Toast.makeText(context,msg,Toast.LENGTH_LONG).show();
+                                        ord_id_instant = context.getSharedPreferences(
+                                                "Order_id Details", Context.MODE_PRIVATE);
+                                        int od_id=ord_id_instant.getInt("OrderID",0);
+                                        String od_instant=ord_id_instant.getString("INSTANT","");
                                         Intent intent= new Intent(context, OrderStatusConfirm.class);
+                                        intent.putExtra("Order_id",od_id);
+                                        intent.putExtra("Instant",od_instant);
                                         intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                                         ((Activity) context).overridePendingTransition(0,0);
                                         context.startActivity(intent);
+                                       /* Intent intent= new Intent("message_delete_intent");
+
+                                        intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                                        LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
+                                        ((Activity) context).overridePendingTransition(0,0);*/
 
                                     }
 

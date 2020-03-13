@@ -69,6 +69,8 @@ public class OrderStatusConfirm extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver, new IntentFilter("message_order_intent"));
+        //LocalBroadcastManager.getInstance(this).registerReceiver(mdeleteReceiver, new IntentFilter("message_delete_intent"));
+
         orderStatusItemModels=new ArrayList<>();
         orderStatusPressModels=new ArrayList<>();
         prefs_register = getSharedPreferences(
@@ -374,6 +376,12 @@ public class OrderStatusConfirm extends AppCompatActivity {
             getOrderDetails();
         }
     };
+   /* public BroadcastReceiver mdeleteReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            getListOFOrder();
+        }
+    };*/
     @Override
     public void onBackPressed() {
         Intent intent = new Intent(OrderStatusConfirm.this, OrderPage.class);
