@@ -225,6 +225,7 @@
 
                 </EditText>
                 <Button
+                    android:id="@+id/view_prescrip"
                     android:layout_margin="10dp"
                     android:text="Medical Prescription and Report"
                     android:textAllCaps="false"
