@@ -33,8 +33,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.StringJoiner;
 import java.util.stream.Collectors;
 
 import Adapter.CartAdapter;
@@ -50,9 +53,12 @@ ArrayList<OldPrescriptionModel> oldPrescriptionModels;
     private String u_id,old_pres_id;
     private Button upload_prescription;
     ArrayList<String> old_Plist;
-    ArrayList<String> old_Plist_two;
-    ArrayList<String> All_Plist_two;
+    List<String> old_Plist_two;
+    List<String> All_Plist_two;
+    List<String>l;
     int data;
+    StringBuffer stringBuffer=null;
+
 
 private String Old_prescription_url="https://work.primacyinfotech.com/jaayu/api/prescription_req_display_old";
     private String Old_prescription_url_add="https://work.primacyinfotech.com/jaayu/api/prescription_old_add";
@@ -62,6 +68,7 @@ private String Old_prescription_url="https://work.primacyinfotech.com/jaayu/api/
         setContentView(R.layout.activity_old_prescription);
         prefs_register = getSharedPreferences(
                 "Register Details", Context.MODE_PRIVATE);
+
         u_id=prefs_register.getString("USER_ID","");
         old_prescription_list=(RecyclerView)findViewById(R.id.old_prescription_list);
         upload_prescription=(Button)findViewById(R.id.upload_prescription);
@@ -71,7 +78,9 @@ private String Old_prescription_url="https://work.primacyinfotech.com/jaayu/api/
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onClick(View v) {
+
                 List<OldPrescriptionModel> oldList = ((OldPrescriptionAdapter) oldPrescriptionAdapter).getOldPrescription();
+
                 for (int i = 0; i < oldList.size(); i++) {
                     OldPrescriptionModel singleStudent = oldList.get(i);
                     if (singleStudent.isSelected()) {
@@ -83,7 +92,19 @@ private String Old_prescription_url="https://work.primacyinfotech.com/jaayu/api/
                         old_Plist = new ArrayList<>();
                         old_Plist.add(String.valueOf(data));
 
-                        for(String str:old_Plist) {
+
+
+
+                       /* All_Plist_two=new List[1];
+                        All_Plist_two[0]=old_Plist;
+                        for (int j=0;j<All_Plist_two.length;j++){
+                            l=All_Plist_two[j];
+                            System.out.println("Ol"+l);
+
+
+                        }*/
+
+                       for(String str:old_Plist) {
                             All_Plist_two = new ArrayList<>();
                             All_Plist_two.add(str);
                             old_Plist_two = new ArrayList<>();
@@ -143,7 +164,7 @@ private String Old_prescription_url="https://work.primacyinfotech.com/jaayu/api/
                         }
 
                        //System.out.println("OlD_v"+data);
-                     /*   old_Plist = new ArrayList<>();
+                      /*  old_Plist = new ArrayList<>();
                         old_Plist.add(String.valueOf(singleStudent.getOld_Pres_id()));
                         old_Plist_two = new ArrayList<>();
                         old_Plist_two.addAll(old_Plist);
@@ -219,9 +240,12 @@ private String Old_prescription_url="https://work.primacyinfotech.com/jaayu/api/
 
 
 
+            }
 
 
-                }
+
+
+
 
 
 

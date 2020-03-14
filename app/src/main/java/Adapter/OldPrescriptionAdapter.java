@@ -17,12 +17,13 @@ import com.jaayu.R;
 import java.util.ArrayList;
 import java.util.List;
 
+import Model.ClickListener;
 import Model.OldPrescriptionModel;
 
 public class OldPrescriptionAdapter   extends RecyclerView.Adapter<OldPrescriptionAdapter.MyViewHolder>{
     ArrayList<OldPrescriptionModel> oldPrescriptionModels;
     Context context;
-
+     ArrayList<OldPrescriptionModel> oldPrescriptionModelArrayList=new ArrayList<>();
     public OldPrescriptionAdapter(ArrayList<OldPrescriptionModel> oldPrescriptionModels, Context context) {
         this.oldPrescriptionModels = oldPrescriptionModels;
         this.context = context;
@@ -45,6 +46,7 @@ public class OldPrescriptionAdapter   extends RecyclerView.Adapter<OldPrescripti
         Glide.with(context).load("https://work.primacyinfotech.com/jaayu/upload/prescription/"+oldPrescriptionModels.get(position).getOldprescription_url()).into(holder.prescription_img);
         holder.select_prescription.setChecked(oldPrescriptionModels.get(position).isSelected());
         holder.select_prescription.setTag(oldPrescriptionModels.get(position));
+
         holder.select_prescription.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -52,6 +54,12 @@ public class OldPrescriptionAdapter   extends RecyclerView.Adapter<OldPrescripti
                 OldPrescriptionModel oldPModel=(OldPrescriptionModel) cb.getTag();
                 oldPModel.setSelected(cb.isChecked());
                 oldPrescriptionModels.get(position).setSelected(cb.isChecked());
+           /*  if(cb.isChecked()){
+                 oldPrescriptionModelArrayList.add(oldPrescriptionModels.get(position));
+             }
+             else if(!cb.isChecked()){
+                 oldPrescriptionModelArrayList.remove(oldPrescriptionModels.get(position));
+             }*/
             }
         });
     }
@@ -61,18 +69,24 @@ public class OldPrescriptionAdapter   extends RecyclerView.Adapter<OldPrescripti
         return oldPrescriptionModels.size();
     }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder {
+    public class MyViewHolder extends RecyclerView.ViewHolder  {
         ImageView prescription_img;
         TextView date_prescription;
         CheckBox select_prescription;
+      //  ClickListener clickListener;
+
+
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             prescription_img=(ImageView)itemView.findViewById(R.id.prescription_img);
             date_prescription=(TextView)itemView.findViewById(R.id.date_prescription);
             select_prescription=(CheckBox)itemView.findViewById(R.id.select_prescription);
+           // select_prescription.setOnClickListener(this);
 
         }
+
+
     }
     public ArrayList<OldPrescriptionModel> getOldPrescription() {
         return oldPrescriptionModels;
