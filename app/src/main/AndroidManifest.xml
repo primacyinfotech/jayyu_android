@@ -170,6 +170,9 @@
         <screen
             android:screenDensity="480"
             android:screenSize="xlarge" />
+        <screen
+            android:screenDensity="560"
+            android:screenSize="xlarge" />
     </compatible-screens>
 
     <application
