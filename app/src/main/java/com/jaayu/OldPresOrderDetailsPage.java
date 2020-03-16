@@ -39,8 +39,8 @@ public class OldPresOrderDetailsPage extends AppCompatActivity {
     SharedPreferences prefs_register;
     private String Orderdetails_url="https://work.primacyinfotech.com/jaayu/api/profile_prescription_display_single";
     String u_id,instant_id,ship_status,delivery_date,ord_id,ord_date,mrp_amt,save_amt,shipping_charge,tot_pay,ship_add_name,ship_add_phone,
-            ship_add_address,ship_add_land,ship_add_pin,payment_status;
-    int odr_id;
+            ship_add_address,ship_add_land,ship_add_pin,payment_status,odr_id;
+    int tbl_ord_id;
     private TextView mrp_amount,save_amount,ship_charge,total_pay,ship_address,date_of_delivery;
     private LinearLayout cancel_btn,paynow_btn;
 
@@ -54,7 +54,8 @@ public class OldPresOrderDetailsPage extends AppCompatActivity {
                 "Register Details", Context.MODE_PRIVATE);
         u_id=prefs_register.getString("USER_ID","");
         Intent gettheOrderData=getIntent();
-        odr_id=gettheOrderData.getIntExtra("Order_id",0);
+       odr_id=gettheOrderData.getStringExtra("Order_id");
+       tbl_ord_id=gettheOrderData.getIntExtra("table_id",0);
        // instant_id=gettheOrderData.getStringExtra("Instant");
         back_button=(ImageView)toolbar.findViewById(R.id.back_button);
         order_details_icon=(ImageView) findViewById(R.id.order_details_icon);
@@ -249,7 +250,8 @@ public class OldPresOrderDetailsPage extends AppCompatActivity {
                 Map<String, String> params = new HashMap<String, String>();
 
               //  params.put("user_id", u_id);
-                params.put("odr_id", String.valueOf(odr_id));
+                params.put("odr_id", odr_id);
+                params.put("id", String.valueOf(tbl_ord_id));
                // params.put("instant", instant_id);
                 return params;
             }

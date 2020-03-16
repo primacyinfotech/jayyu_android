@@ -280,7 +280,8 @@ public class OrderMainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                     String press_chk=pressorder.getPrescription_chk();
                     if(press_chk.equals("0")){
                         Intent intentGotodetaails=new Intent(context, OldPresOrderDetailsPage.class);
-                        intentGotodetaails.putExtra("Order_id",pressorder.getTbl_order_id());
+                        intentGotodetaails.putExtra("Order_id",pressorder.getOrder_id());
+                        intentGotodetaails.putExtra("table_id",pressorder.getTbl_order_id());
                         //intentGotodetaails.putExtra("Instant",normalorder.getInstant());
                         context.startActivity(intentGotodetaails);
                         ((Activity) context).overridePendingTransition(0,0);
