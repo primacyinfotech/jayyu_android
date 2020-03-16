@@ -42,121 +42,103 @@ public class OnlyOldPrescriptionDisplay extends AppCompatActivity {
     OnlyOldPresciptionAdapter oldPrescriptionAdapter;
     ArrayList<OnlyOldPrescriptionModel> oldPrescriptionModels;
     SharedPreferences prefs_register;
-    private String u_id,old_pres_id;
+    private String u_id, old_pres_id;
     private Button upload_prescription;
     ArrayList<String> old_Plist;
-    ArrayList<String> old_Plist_two;
-    ArrayList<String> All_Plist_two;
-    private String Old_prescription_url="https://work.primacyinfotech.com/jaayu/api/prescription_req_display_old_press";
-    private String Old_prescription_url_add="https://work.primacyinfotech.com/jaayu/api/prescription_old_add_press";
+    List<String>[] old_Plist_two;
+    List<String> All_Plist_two = new ArrayList<>();
+    ;
+    List<String> l;
+    private String Old_prescription_url = "https://work.primacyinfotech.com/jaayu/api/prescription_req_display_old_press";
+    private String Old_prescription_url_add = "https://work.primacyinfotech.com/jaayu/api/prescription_old_add_press";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_only_old_prescription_display);
+        oldPrescriptionModels = new ArrayList<>();
         prefs_register = getSharedPreferences(
                 "Register Details", Context.MODE_PRIVATE);
-        u_id=prefs_register.getString("USER_ID","");
-        old_prescription_list=(RecyclerView)findViewById(R.id.old_prescription_list);
-        upload_prescription=(Button)findViewById(R.id.upload_prescription);
+        u_id = prefs_register.getString("USER_ID", "");
+        old_prescription_list = (RecyclerView) findViewById(R.id.old_prescription_list);
+        upload_prescription = (Button) findViewById(R.id.upload_prescription);
 
-        fetchOldPrescription();
+        oldPrescriptionModels = fetchOldPrescription(false);
         upload_prescription.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                List<OnlyOldPrescriptionModel> oldList=((OnlyOldPresciptionAdapter) oldPrescriptionAdapter).getOldPrescription();
-                for (int i=0;i<oldList.size();i++){
-                    OnlyOldPrescriptionModel singleStudent = oldList.get(i);
-                    if(singleStudent.isSelected()){
-                        int  data=singleStudent.getOld_Pres_id();
-                        //System.out.println("OlD_v"+data);
-                        old_Plist=new ArrayList<>();
-                        old_Plist.add(String.valueOf(singleStudent.getOld_Pres_id()));
-
-                        for(String str:old_Plist){
-                            All_Plist_two=new ArrayList<>();
-                            All_Plist_two.add(str);
-                            old_Plist_two=new ArrayList<>();
-                            old_Plist_two.addAll(All_Plist_two);
-                            Gson gson=new Gson();
-                            old_pres_id=gson.toJson(old_Plist_two);
-                            System.out.println("OlD"+old_pres_id);
-                            RequestQueue requestQueue = Volley.newRequestQueue(OnlyOldPrescriptionDisplay.this);
-                            StringRequest postRequest = new StringRequest(Request.Method.POST,Old_prescription_url_add,
-                                    new Response.Listener<String>() {
-                                        @Override
-                                        public void onResponse(String response) {
-                                            // response
-                                            Log.d("Response", response);
-                                            try {
-                                                //Do it with this it will work
-                                                JSONObject person = new JSONObject(response);
-                                                String status = person.getString("status");
-                                                if (status.equals("1")) {
-                                                    Intent goToUpload=new Intent(OnlyOldPrescriptionDisplay.this,OnlyUploadPrescription.class);
-                                                    startActivity(goToUpload);
-                                                    overridePendingTransition(0,0);
-                                                    finish();
-                                                }
-
-
-
-
-                                            } catch (JSONException e) {
-                                                e.printStackTrace();
-                                                Toast.makeText(getApplicationContext(), "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
-                                            }
-
-
-                                        }
-                                    },
-                                    new Response.ErrorListener() {
-                                        @Override
-                                        public void onErrorResponse(VolleyError error) {
-                                            // error
-
-                                        }
-                                    }
-                            )
-                            {
+                for (int i = 0; i < OnlyOldPresciptionAdapter.oldPrescriptionModels.size(); i++) {
+                    if (OnlyOldPresciptionAdapter.oldPrescriptionModels.get(i).getSelected()) {
+                        old_Plist = new ArrayList<>();
+                        old_Plist.add(String.valueOf(OnlyOldPresciptionAdapter.oldPrescriptionModels.get(i).getOld_Pres_id()));
+                        All_Plist_two.addAll(old_Plist);
+                    }
+                }
+                old_Plist_two = new List[1];
+                old_Plist_two[0] = All_Plist_two;
+                for (int j = 0; j < old_Plist_two.length; j++) {
+                    l = old_Plist_two[j];
+                    Gson gson = new Gson();
+                    old_pres_id = gson.toJson(l);
+                    RequestQueue requestQueue = Volley.newRequestQueue(OnlyOldPrescriptionDisplay.this);
+                    StringRequest postRequest = new StringRequest(Request.Method.POST, Old_prescription_url_add,
+                            new Response.Listener<String>() {
                                 @Override
-                                protected Map<String, String> getParams ()
-                                {
-                                    Map<String, String> params = new HashMap<String, String>();
+                                public void onResponse(String response) {
+                                    // response
+                                    Log.d("Response", response);
+                                    try {
+                                        //Do it with this it will work
+                                        JSONObject person = new JSONObject(response);
+                                        String status = person.getString("status");
+                                        if (status.equals("1")) {
+                                            Intent goToUpload = new Intent(OnlyOldPrescriptionDisplay.this, OnlyUploadPrescription.class);
+                                            startActivity(goToUpload);
+                                            overridePendingTransition(0, 0);
+                                            finish();
+                                        }
 
-                                    params.put("user_id", u_id);
-                                    params.put("opid", old_pres_id);
+
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                        Toast.makeText(getApplicationContext(), "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                                    }
 
 
-                                    return params;
                                 }
+                            },
+                            new Response.ErrorListener() {
+                                @Override
+                                public void onErrorResponse(VolleyError error) {
+                                    // error
 
-                            };
-                            requestQueue.add(postRequest);
+                                }
+                            }
+                    ) {
+                        @Override
+                        protected Map<String, String> getParams() {
+                            Map<String, String> params = new HashMap<String, String>();
 
+                            params.put("user_id", u_id);
+                            params.put("opid", old_pres_id);
+
+
+                            return params;
                         }
 
-
-
-
-                    }
-
-
+                    };
+                    requestQueue.add(postRequest);
                 }
-
-
 
 
             }
 
 
-
-
-
         });
     }
-    private void fetchOldPrescription() {
+
+    private ArrayList<OnlyOldPrescriptionModel> fetchOldPrescription(final boolean isSelect) {
         oldPrescriptionModels = new ArrayList<>();
         RequestQueue requestQueue = Volley.newRequestQueue(OnlyOldPrescriptionDisplay.this);
         StringRequest postRequest = new StringRequest(Request.Method.POST, Old_prescription_url,
@@ -218,5 +200,6 @@ public class OnlyOldPrescriptionDisplay extends AppCompatActivity {
 
         };
         requestQueue.add(postRequest);
+        return oldPrescriptionModels;
     }
 }
