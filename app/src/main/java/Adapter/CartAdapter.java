@@ -324,9 +324,6 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
                           params.put("quantity", String.valueOf(cou));
                           params.put("cart_id", String.valueOf(mList.getCart_id()));
                           params.put("user_id", u_id);
-
-
-
                           return params;
                       }
                   };
