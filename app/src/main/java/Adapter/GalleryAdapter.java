@@ -1,12 +1,16 @@
 package Adapter;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
+import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -22,6 +26,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
+
 import com.jaayu.CartActivity;
 import com.jaayu.R;
 import com.jaayu.UploadToPrescription;
@@ -67,10 +72,31 @@ public class GalleryAdapter  extends RecyclerView.Adapter<GalleryAdapter.MyViewH
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, final int position) {
+        Picasso.with(context).load("https://work.primacyinfotech.com/jaayu/upload/prescription/" + prescriptionModels.get(position).getPrescription_img()).into(holder.ivGallery);
 
+        holder.ivGallery.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final Dialog settingsDialog = new Dialog(context);
+                settingsDialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+                settingsDialog.getWindow().setBackgroundDrawable(null);
+                settingsDialog.setContentView(R.layout.full_screen_image);
+                ImageView  imageView=(ImageView)settingsDialog.findViewById(R.id.full_screen);
+                ImageView  imageView2=(ImageView)settingsDialog.findViewById(R.id.close_full_img);
+                Picasso.with(context)
 
+                        .load("https://work.primacyinfotech.com/jaayu/upload/prescription/" + prescriptionModels.get(position).getPrescription_img())
+                        .into(imageView);
+                imageView2.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        settingsDialog.dismiss();
+                    }
+                });
+                settingsDialog.show();
+            }
+        });
 
-            Picasso.with(context).load("https://work.primacyinfotech.com/jaayu/upload/prescription/" + prescriptionModels.get(position).getPrescription_img()).into(holder.ivGallery);
             holder.img_id.setText("" +prescriptionModels.get(position).getProduct_id());
             holder.delete_prescription.setOnClickListener(new View.OnClickListener() {
                 @Override

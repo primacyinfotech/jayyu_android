@@ -50,6 +50,7 @@ public class CouponListAdapter extends RecyclerView.Adapter<CouponListAdapter.My
        // holder.cpm.setImageResource(mList.getCoupon_img());
         myDb = new SaveCoupon(context);
         Picasso.with(context).load("https://work.primacyinfotech.com/jaayu/upload/slider/"+mList.getCoupon_img()).into(holder.cpm);
+
         holder.cpn_txt.setText(mList.getCoupon_code());
         holder.main_off.setText(mList.getCoupon_code_des());
         holder.main_off_des.setText(mList.getCoupn_code_details());
