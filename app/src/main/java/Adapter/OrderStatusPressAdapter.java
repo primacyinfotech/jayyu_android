@@ -1,9 +1,11 @@
 package Adapter;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
@@ -33,8 +35,30 @@ public class OrderStatusPressAdapter  extends RecyclerView.Adapter<OrderStatusPr
     }
 
     @Override
-    public void onBindViewHolder(@NonNull OrderStatusPressAdapter.MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull OrderStatusPressAdapter.MyViewHolder holder, final int position) {
         Picasso.with(context).load("https://work.primacyinfotech.com/jaayu/upload/prescription/" + orderStatusPressModels.get(position).getPress_img()).into(holder.ivGallery);
+        holder.ivGallery.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final Dialog settingsDialog = new Dialog(context);
+                settingsDialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+                settingsDialog.getWindow().setBackgroundDrawable(null);
+                settingsDialog.setContentView(R.layout.full_screen_image);
+                ImageView  imageView=(ImageView)settingsDialog.findViewById(R.id.full_screen);
+                ImageView  imageView2=(ImageView)settingsDialog.findViewById(R.id.close_full_img);
+                Picasso.with(context)
+
+                        .load("https://work.primacyinfotech.com/jaayu/upload/prescription/" + orderStatusPressModels.get(position).getPress_img())
+                        .into(imageView);
+                imageView2.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        settingsDialog.dismiss();
+                    }
+                });
+                settingsDialog.show();
+            }
+        });
 
     }
 
