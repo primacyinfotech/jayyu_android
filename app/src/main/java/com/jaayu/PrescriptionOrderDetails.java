@@ -73,7 +73,7 @@ public class PrescriptionOrderDetails extends AppCompatActivity {
         ship_charge=(TextView)findViewById(R.id.ship_charge);
         total_pay=(TextView)findViewById(R.id.total_pay);
         ship_address=(TextView)findViewById(R.id.ship_address);
-       // date_of_delivery=(TextView)findViewById(R.id.date_of_delivery);
+        date_of_delivery=(TextView)findViewById(R.id.date_of_delivery);
         text_pay=(TextView)findViewById(R.id.text_pay);
         text_cancel=(TextView)findViewById(R.id.text_cancel);
         cancel_btn=(LinearLayout)findViewById(R.id.cancel_btn);
@@ -136,10 +136,12 @@ public class PrescriptionOrderDetails extends AppCompatActivity {
                                 active_order_three.setVisibility(View.GONE);
                                 active_order_four.setVisibility(View.GONE);
                                 active_order_five.setVisibility(View.GONE);
-                                if(payment_status.equals("0")){
+                                /*if(payment_status.equals("0")){
                                     text_cancel.setText("Cancel Order");
                                     text_pay.setText("Help");
-                                }
+                                }*/
+                                text_cancel.setText("Cancel Order");
+                                text_pay.setText("Help");
 
                             }
                             if (ship_status.equals("1")){
@@ -149,10 +151,12 @@ public class PrescriptionOrderDetails extends AppCompatActivity {
                                 active_order_three.setVisibility(View.GONE);
                                 active_order_four.setVisibility(View.GONE);
                                 active_order_five.setVisibility(View.GONE);
-                                if(payment_status.equals("0")){
+                              /*  if(payment_status.equals("0")){
                                     text_cancel.setText("Cancel Order");
                                     text_pay.setText("Pay Now");
-                                }
+                                }*/
+                                text_cancel.setText("Cancel Order");
+                                text_pay.setText("Help");
 
                             }
                             if(ship_status.equals("2")){
@@ -162,14 +166,16 @@ public class PrescriptionOrderDetails extends AppCompatActivity {
                                 active_order_three.setVisibility(View.VISIBLE);
                                 active_order_four.setVisibility(View.GONE);
                                 active_order_five.setVisibility(View.GONE);
-                                if(payment_status.equals("0")){
+                               /* if(payment_status.equals("0")){
                                     text_cancel.setText("Cancel Order");
                                     text_pay.setText("Pay Now");
                                 }
                                 if(payment_status.equals("1")){
                                     text_cancel.setText("Cancel Order");
                                     text_pay.setText("Help");
-                                }
+                                }*/
+                                text_cancel.setText("Cancel Order");
+                                text_pay.setText("Help");
 
 
                             }
@@ -180,14 +186,16 @@ public class PrescriptionOrderDetails extends AppCompatActivity {
                                 active_order_three.setVisibility(View.GONE);
                                 active_order_four.setVisibility(View.VISIBLE);
                                 active_order_five.setVisibility(View.GONE);
-                                if(payment_status.equals("0")){
+                               /* if(payment_status.equals("0")){
                                     text_cancel.setText("Cancel Order");
                                     text_pay.setText("Pay Now");
                                 }
                                 if(payment_status.equals("1")){
                                     text_cancel.setText("Help");
                                     text_pay.setText("Reorder");
-                                }
+                                }*/
+                                text_cancel.setText("Reorder");
+                                text_pay.setText("Help");
 
                             }
                             if(ship_status.equals("4")){
@@ -197,17 +205,19 @@ public class PrescriptionOrderDetails extends AppCompatActivity {
                                 active_order_three.setVisibility(View.GONE);
                                 active_order_four.setVisibility(View.GONE);
                                 active_order_five.setVisibility(View.VISIBLE);
-                                if(payment_status.equals("0")){
+                               /* if(payment_status.equals("0")){
                                     text_cancel.setText("Cancel Order");
                                     text_pay.setText("Pay Now");
                                 }
                                 if(payment_status.equals("1")){
                                     text_cancel.setText("Help");
                                     text_pay.setText("Reorder");
-                                }
+                                }*/
+                                text_cancel.setText("Reorder");
+                                text_pay.setText("Help");
                             }
-                            /*delivery_date=person.getString("Delivery date");
-                            date_of_delivery.setText(delivery_date);*/
+                            delivery_date=person.getString("Delivery date");
+                            date_of_delivery.setText(delivery_date);
 
 
                             if (status.equals("1")) {
@@ -217,7 +227,9 @@ public class PrescriptionOrderDetails extends AppCompatActivity {
                                     JSONObject jsonObject=jsonArray.getJSONObject(i);
                                     itemModel.setItem_Name(jsonObject.getString("title"));
                                     itemModel.setItem_unit(jsonObject.getString("strip"));
-                                    itemModel.setItem_amt(jsonObject.getString("price"));
+                                    itemModel.setItem_amt(jsonObject.getString("price_normal"));
+                                    itemModel.setItem_mrp(jsonObject.getString("mrp_price"));
+                                    itemModel.setItem_qty(jsonObject.getString("quantity"));
                                     modelList.add(itemModel);
 
                                 }
