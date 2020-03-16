@@ -30,11 +30,10 @@ public class OldPrescriptionModel {
         this.old_prescription_date = old_prescription_date;
     }
 
-    public boolean isSelected() {
-        return isSelected;
-    }
-
     public void setSelected(boolean selected) {
         isSelected = selected;
+    }
+    public boolean getSelected() {
+        return isSelected;
     }
 }

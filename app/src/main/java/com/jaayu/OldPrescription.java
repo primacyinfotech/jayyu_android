@@ -53,8 +53,8 @@ ArrayList<OldPrescriptionModel> oldPrescriptionModels;
     private String u_id,old_pres_id;
     private Button upload_prescription;
     ArrayList<String> old_Plist;
-    List<String> old_Plist_two;
-    List<String> All_Plist_two;
+    List<String>[] old_Plist_two;
+    List<String> All_Plist_two=new ArrayList<>();;
     List<String>l;
     int data;
     StringBuffer stringBuffer=null;
@@ -66,175 +66,89 @@ private String Old_prescription_url="https://work.primacyinfotech.com/jaayu/api/
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_old_prescription);
+        oldPrescriptionModels=new ArrayList<>();
         prefs_register = getSharedPreferences(
                 "Register Details", Context.MODE_PRIVATE);
 
         u_id=prefs_register.getString("USER_ID","");
         old_prescription_list=(RecyclerView)findViewById(R.id.old_prescription_list);
         upload_prescription=(Button)findViewById(R.id.upload_prescription);
-
-        fetchOldPrescription();
+        oldPrescriptionModels=fetchOldPrescription(false);
+       // fetchOldPrescription();
         upload_prescription.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onClick(View v) {
+                for(int i=0;i<OldPrescriptionAdapter.oldPrescriptionModels.size();i++){
+         if(OldPrescriptionAdapter.oldPrescriptionModels.get(i).getSelected()){
+         old_Plist=new ArrayList<>();
+         old_Plist.add(String.valueOf(OldPrescriptionAdapter.oldPrescriptionModels.get(i).getOld_Pres_id()));
+         All_Plist_two.addAll(old_Plist);
 
-                List<OldPrescriptionModel> oldList = ((OldPrescriptionAdapter) oldPrescriptionAdapter).getOldPrescription();
+         }
 
-                for (int i = 0; i < oldList.size(); i++) {
-                    OldPrescriptionModel singleStudent = oldList.get(i);
-                    if (singleStudent.isSelected()) {
-                        data= singleStudent.getOld_Pres_id();
-                        Toast.makeText(getApplicationContext(),
-                                "Selected Students: \n" + data, Toast.LENGTH_LONG)
-                                .show();
+     }
+                old_Plist_two=new List[1];
+                old_Plist_two[0]=All_Plist_two;
 
-                        old_Plist = new ArrayList<>();
-                        old_Plist.add(String.valueOf(data));
-
-
-
-
-                       /* All_Plist_two=new List[1];
-                        All_Plist_two[0]=old_Plist;
-                        for (int j=0;j<All_Plist_two.length;j++){
-                            l=All_Plist_two[j];
-                            System.out.println("Ol"+l);
-
-
-                        }*/
-
-                       for(String str:old_Plist) {
-                            All_Plist_two = new ArrayList<>();
-                            All_Plist_two.add(str);
-                            old_Plist_two = new ArrayList<>();
-                            old_Plist_two.addAll(All_Plist_two);
-                            Gson gson = new Gson();
-                            old_pres_id = gson.toJson(old_Plist_two);
-                            System.out.println("OlD" + old_pres_id);
-                            RequestQueue requestQueue = Volley.newRequestQueue(OldPrescription.this);
-                            StringRequest postRequest = new StringRequest(Request.Method.POST, Old_prescription_url_add,
-                                    new Response.Listener<String>() {
-                                        @Override
-                                        public void onResponse(String response) {
-                                            // response
-                                            Log.d("Response", response);
-                                            try {
-                                                //Do it with this it will work
-                                                JSONObject person = new JSONObject(response);
-                                                String status = person.getString("status");
-                                                if (status.equals("1")) {
-                                                    Intent goToUpload = new Intent(OldPrescription.this, UploadToPrescription.class);
-                                                    startActivity(goToUpload);
-                                                    overridePendingTransition(0, 0);
-                                                    finish();
-                                                }
-
-
-                                            } catch (JSONException e) {
-                                                e.printStackTrace();
-                                                Toast.makeText(getApplicationContext(), "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
-                                            }
-
-
-                                        }
-                                    },
-                                    new Response.ErrorListener() {
-                                        @Override
-                                        public void onErrorResponse(VolleyError error) {
-                                            // error
-
-                                        }
-                                    }
-                            ) {
+                for(int j=0;j<old_Plist_two.length;j++){
+                    l=old_Plist_two[j];
+                   // System.out.println("OlD"+l);
+         Gson gson = new Gson();
+         old_pres_id = gson.toJson(l);
+                     System.out.println("OlD"+old_pres_id);
+                    RequestQueue requestQueue = Volley.newRequestQueue(OldPrescription.this);
+                    StringRequest postRequest = new StringRequest(Request.Method.POST,Old_prescription_url_add,
+                            new Response.Listener<String>() {
                                 @Override
-                                protected Map<String, String> getParams() {
-                                    Map<String, String> params = new HashMap<String, String>();
+                                public void onResponse(String response) {
+                                    // response
+                                    Log.d("Response", response);
+                                    try {
+                                        //Do it with this it will work
+                                        JSONObject person = new JSONObject(response);
+                                        String status = person.getString("status");
+                                        if (status.equals("1")) {
+                                            Intent goToUpload=new Intent(OldPrescription.this,UploadToPrescription.class);
+                                            startActivity(goToUpload);
+                                            overridePendingTransition(0,0);
+                                            finish();
+                                        }
 
-                                    params.put("user_id", u_id);
-                                    params.put("opid", old_pres_id);
 
 
-                                    return params;
+
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                        Toast.makeText(getApplicationContext(), "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                                    }
+
+
                                 }
+                            },
+                            new Response.ErrorListener() {
+                                @Override
+                                public void onErrorResponse(VolleyError error) {
+                                    // error
 
-                            };
-                            requestQueue.add(postRequest);
+                                }
+                            }
+                    )
+                    {
+                        @Override
+                        protected Map<String, String> getParams ()
+                        {
+                            Map<String, String> params = new HashMap<String, String>();
 
+                            params.put("user_id", u_id);
+                            params.put("opid", old_pres_id);
+
+
+                            return params;
                         }
 
-                       //System.out.println("OlD_v"+data);
-                      /*  old_Plist = new ArrayList<>();
-                        old_Plist.add(String.valueOf(singleStudent.getOld_Pres_id()));
-                        old_Plist_two = new ArrayList<>();
-                        old_Plist_two.addAll(old_Plist);
-                        for(String str:old_Plist){
-                            All_Plist_two=new ArrayList<>();
-                            All_Plist_two.add(str);
-                            Gson gson=new Gson();
-                            old_pres_id=gson.toJson(All_Plist_two);
-                            System.out.println("OlD"+old_pres_id);
-                            RequestQueue requestQueue = Volley.newRequestQueue(OldPrescription.this);
-                            StringRequest postRequest = new StringRequest(Request.Method.POST,Old_prescription_url_add,
-                                    new Response.Listener<String>() {
-                                        @Override
-                                        public void onResponse(String response) {
-                                            // response
-                                            Log.d("Response", response);
-                                            try {
-                                                //Do it with this it will work
-                                                JSONObject person = new JSONObject(response);
-                                                String status = person.getString("status");
-                                                if (status.equals("1")) {
-                                                    Intent goToUpload=new Intent(OldPrescription.this,UploadToPrescription.class);
-                                                    startActivity(goToUpload);
-                                                    overridePendingTransition(0,0);
-                                                    finish();
-                                                }
-
-
-
-
-                                            } catch (JSONException e) {
-                                                e.printStackTrace();
-                                                Toast.makeText(getApplicationContext(), "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
-                                            }
-
-
-                                        }
-                                    },
-                                    new Response.ErrorListener() {
-                                        @Override
-                                        public void onErrorResponse(VolleyError error) {
-                                            // error
-
-                                        }
-                                    }
-                            )
-                            {
-                                @Override
-                                protected Map<String, String> getParams ()
-                                {
-                                    Map<String, String> params = new HashMap<String, String>();
-
-                                    params.put("user_id", u_id);
-                                    params.put("opid", old_pres_id);
-
-
-                                    return params;
-                                }
-
-                            };
-                            requestQueue.add(postRequest);
-
-                    }*/
-
-
-
-                    }
-
-
-
+                    };
+                    requestQueue.add(postRequest);
                 }
 
 
@@ -256,8 +170,8 @@ private String Old_prescription_url="https://work.primacyinfotech.com/jaayu/api/
 
         });
     }
-    private void fetchOldPrescription(){
-        oldPrescriptionModels=new ArrayList<>();
+    private  ArrayList<OldPrescriptionModel> fetchOldPrescription(final boolean isSelect){
+      //  oldPrescriptionModels=new ArrayList<>();
         RequestQueue requestQueue = Volley.newRequestQueue(OldPrescription.this);
         StringRequest postRequest = new StringRequest(Request.Method.POST,Old_prescription_url,
                 new Response.Listener<String>() {
@@ -322,6 +236,7 @@ private String Old_prescription_url="https://work.primacyinfotech.com/jaayu/api/
 
         };
         requestQueue.add(postRequest);
+        return oldPrescriptionModels;
     }
     @Override
     public void onBackPressed() {
