@@ -162,14 +162,21 @@
         <!-- xxhdpi -->
 
         <screen
-            android:screenDensity="480"
+            android:screenDensity="560"
             android:screenSize="normal" />
         <screen
-            android:screenDensity="480"
+            android:screenDensity="560"
             android:screenSize="large" />
         <screen
-            android:screenDensity="480"
+            android:screenDensity="560"
             android:screenSize="xlarge" />
+        <screen
+            android:screenDensity="560"
+            android:screenSize="normal" />
+        <screen
+            android:screenDensity="560"
+            android:screenSize="large" />
+
         <screen
             android:screenDensity="560"
             android:screenSize="xlarge" />
