@@ -274,6 +274,7 @@
                 android:layout_margin="10dp"
                 android:text="Medical Prescription and Report"
                 android:textAllCaps="false"
+                android:visibility="gone"
                 android:textColor="@color/white"
                  android:background="@color/colorAccent"
                 android:layout_width="match_parent"

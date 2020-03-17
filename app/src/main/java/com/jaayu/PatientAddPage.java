@@ -111,7 +111,7 @@ public class PatientAddPage extends AppCompatActivity {
         medication = (EditText) findViewById(R.id.medication);
         patient_gender = (EditText) findViewById(R.id.patient_gender);
         patient_gender.setInputType(InputType.TYPE_NULL);
-        view_prescrip = (Button) findViewById(R.id.view_prescrip);
+       // view_prescrip = (Button) findViewById(R.id.view_prescrip);
         add_con_one = (TextView) findViewById(R.id.add_con_one);
         add_con_two = (TextView) findViewById(R.id.add_con_two);
         add_btn=(Button)findViewById(R.id.add_btn);
