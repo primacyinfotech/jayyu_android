@@ -2,12 +2,14 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.jaayu">
+
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.ACCESS_GPS" />
-    <uses-feature android:name="android.hardware.location.gps"/>
+
+    <uses-feature android:name="android.hardware.location.gps" />
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
@@ -176,7 +178,6 @@
         <screen
             android:screenDensity="560"
             android:screenSize="large" />
-
         <screen
             android:screenDensity="560"
             android:screenSize="xlarge" />
@@ -190,19 +191,23 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".PinSearchActivity"
+        <activity android:name=".AccountPrescription"
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
 
         </activity>
-        <activity android:name=".ThankYouPayment"
+        <activity
+            android:name=".PinSearchActivity"
+            android:hardwareAccelerated="true"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".ThankYouPayment"
             android:configChanges="orientation|screenSize"
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar">
-
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
             android:name=".OrderStatusConfirm"
             android:configChanges="orientation|screenSize"
@@ -322,7 +327,7 @@
             android:configChanges="orientation|screenSize"
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".OnlyOldPrescriptionDisplay"
             android:configChanges="orientation|screenSize"
