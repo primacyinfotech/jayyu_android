@@ -39,7 +39,8 @@ public class AccountPresPatientAdapter extends RecyclerView.Adapter<AccountPresP
     @Override
     public void onBindViewHolder(@NonNull AccountPresPatientAdapter.MyViewHolder holder, int position) {
         final AccountPresPatientModel mList = accountPresPatientModels.get(position);
-        
+
+
 
     }
 
