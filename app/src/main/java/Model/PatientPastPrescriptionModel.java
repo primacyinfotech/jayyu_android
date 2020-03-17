@@ -2,6 +2,15 @@ package Model;
 
 public class PatientPastPrescriptionModel {
     String past_pres_head,past_pres_date,past_pres_img;
+    int patient_pres_id;
+
+    public int getPatient_pres_id() {
+        return patient_pres_id;
+    }
+
+    public void setPatient_pres_id(int patient_pres_id) {
+        this.patient_pres_id = patient_pres_id;
+    }
 
     public String getPast_pres_head() {
         return past_pres_head;
