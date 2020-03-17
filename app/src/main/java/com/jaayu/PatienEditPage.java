@@ -120,6 +120,7 @@ public class PatienEditPage extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent goTtoReport=new Intent(PatienEditPage.this,MedicalPrescriptionReport.class);
+                goTtoReport.putExtra("Patient_Id",patient_id);
                 startActivity(goTtoReport);
                 overridePendingTransition(0,0);
                 finish();

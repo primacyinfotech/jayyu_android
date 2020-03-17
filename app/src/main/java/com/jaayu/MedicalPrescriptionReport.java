@@ -69,6 +69,7 @@ public class MedicalPrescriptionReport extends AppCompatActivity {
     ProgressDialog progressDialog;
     private int mYear, mMonth, mDay, mHour, mMinute;
     String u_id;
+    int patient_id;
     SharedPreferences prefs_register;
     private String Patient_upload_prescription_url="https://work.primacyinfotech.com/jaayu/api/patient_prescription_add";
     private String Patient_fetch_prescription_url="https://work.primacyinfotech.com/jaayu/api/patient_prescription_list";
@@ -80,6 +81,8 @@ public class MedicalPrescriptionReport extends AppCompatActivity {
         setContentView(R.layout.activity_medical_prescription_report);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        Intent fetchP_id=getIntent();
+        patient_id=fetchP_id.getIntExtra("Patient_Id",0);
         prefs_register = getSharedPreferences(
                 "Register Details", Context.MODE_PRIVATE);
         u_id=prefs_register.getString("USER_ID","");
@@ -337,6 +340,7 @@ public class MedicalPrescriptionReport extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent GoBack=new Intent(MedicalPrescriptionReport.this,PatienEditPage.class);
+                GoBack.putExtra("Patient_Id",patient_id);
                 startActivity(GoBack);
                 overridePendingTransition(0,0);
                 finish();
@@ -502,6 +506,7 @@ public class MedicalPrescriptionReport extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         Intent GoBack=new Intent(MedicalPrescriptionReport.this,PatienEditPage.class);
+        GoBack.putExtra("Patient_Id",patient_id);
         startActivity(GoBack);
         overridePendingTransition(0,0);
         finish();
