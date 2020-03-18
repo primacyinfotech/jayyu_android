@@ -3,6 +3,15 @@ package Model;
 public class AssignPatientModel {
     int Assign_patient_id;
     String assign_patient_name;
+    String user_id;
+
+    public String getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(String user_id) {
+        this.user_id = user_id;
+    }
 
     public int getAssign_patient_id() {
         return Assign_patient_id;

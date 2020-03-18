@@ -80,6 +80,7 @@ public class AssignPatient extends AppCompatActivity {
                                     AssignPatientModel patientListModel=new AssignPatientModel();
                                     JSONObject object=jsonArray.getJSONObject(i);
                                     patientListModel.setAssign_patient_id(object.getInt("id"));
+                                    patientListModel.setUser_id(object.getString("user_id"));
                                     patientListModel.setAssign_patient_name(object.getString("name"));
 
 
