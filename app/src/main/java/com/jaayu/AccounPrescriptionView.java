@@ -6,9 +6,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -52,6 +54,15 @@ public class AccounPrescriptionView extends AppCompatActivity {
         back_button=(ImageView)toolbar.findViewById(R.id.back_button);
         assign_prescription=(RecyclerView)findViewById(R.id.assign_prescription);
         fetchAssignPress();
+        back_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent GotOaccount=new Intent(AccounPrescriptionView.this,AccountPrescription.class);
+                startActivity(GotOaccount);
+                overridePendingTransition(0,0);
+                finish();
+            }
+        });
     }
     private void fetchAssignPress(){
         assignPrescriptionModels=new ArrayList<>();
@@ -119,5 +130,12 @@ public class AccounPrescriptionView extends AppCompatActivity {
 
         };
         requestQueue.add(postRequest);
+    }
+    @Override
+    public void onBackPressed() {
+        Intent GotOaccount=new Intent(AccounPrescriptionView.this,AccountPrescription.class);
+        startActivity(GotOaccount);
+        overridePendingTransition(0,0);
+        finish();
     }
 }
