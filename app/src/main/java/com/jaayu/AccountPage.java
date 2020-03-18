@@ -109,6 +109,13 @@ public class AccountPage extends AppCompatActivity {
                      overridePendingTransition(0,0);
                      finish();
                  }
+                 if(position==2){
+                     Intent goToManageAddress=new Intent(AccountPage.this,AccountPrescription.class);
+
+                     startActivity(goToManageAddress);
+                     overridePendingTransition(0,0);
+                     finish();
+                 }
 
              }
 
