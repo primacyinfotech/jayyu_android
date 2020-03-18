@@ -39,6 +39,8 @@ public class AccountPresPatientAdapter extends RecyclerView.Adapter<AccountPresP
     @Override
     public void onBindViewHolder(@NonNull AccountPresPatientAdapter.MyViewHolder holder, int position) {
         final AccountPresPatientModel mList = accountPresPatientModels.get(position);
+        holder.patient_name.setText(mList.getPatient_name());
+        holder.pres_count.setText("("+""+mList.getPrescription_count()+")");
 
 
 

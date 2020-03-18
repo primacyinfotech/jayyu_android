@@ -2,24 +2,57 @@ package com.jaayu;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
+import Adapter.AccountPresPatientAdapter;
+import Adapter.AssignPrescriptionAdapter;
+import Model.AccountPresPatientModel;
+import Model.AssignPrescriptionModel;
 
 public class AccountPrescription extends AppCompatActivity {
     private ImageView back_button;
     RecyclerView patient_assign;
     LinearLayout all_prescription;
+    AccountPresPatientAdapter accountPresPatientAdapter;
+    ArrayList<AccountPresPatientModel> accountPresPatientModels;
+    SharedPreferences prefs_register;
+    private String u_id;
+    private String patient_assign_list_url="http://work.primacyinfotech.com/jaayu/api/patient_assign_list";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account_prescription);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        prefs_register = getSharedPreferences(
+                "Register Details", Context.MODE_PRIVATE);
+        u_id=prefs_register.getString("USER_ID","");
         back_button=(ImageView)toolbar.findViewById(R.id.back_button);
         patient_assign=(RecyclerView)findViewById(R.id.patient_assign);
         all_prescription=(LinearLayout)findViewById(R.id.all_prescription);
@@ -41,7 +74,76 @@ public class AccountPrescription extends AppCompatActivity {
                 finish();
             }
         });
+        getUpdateAssignPatient();
 
+    }
+    private void getUpdateAssignPatient(){
+        accountPresPatientModels=new ArrayList<>();
+        RequestQueue requestQueue = Volley.newRequestQueue(AccountPrescription.this);
+        StringRequest postRequest = new StringRequest(Request.Method.POST,patient_assign_list_url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        // response
+                        Log.d("Response", response);
+                        try {
+                            //Do it with this it will work
+                            JSONObject person = new JSONObject(response);
+                            String status = person.getString("status");
+                            if (status.equals("1")) {
+                                JSONArray jsonArray=person.getJSONArray("patient_list");
+                                for(int i=0;i<jsonArray.length();i++){
+                                    AccountPresPatientModel assignPrescriptionModel=new AccountPresPatientModel();
+                                    JSONObject object=jsonArray.getJSONObject(i);
+                                    assignPrescriptionModel.setPatient_id(object.getInt("patient_id"));
+                                    assignPrescriptionModel.setPatient_name(object.getString("pres_name"));
+
+                                    assignPrescriptionModel.setPrescription_count(object.getInt("count"));
+                                    accountPresPatientModels.add(assignPrescriptionModel);
+
+                                }
+
+                                accountPresPatientAdapter=new AccountPresPatientAdapter(accountPresPatientModels,AccountPrescription.this);
+                                patient_assign.setHasFixedSize(true);
+                                patient_assign.setLayoutManager(new LinearLayoutManager(AccountPrescription.this));
+                                patient_assign.setAdapter(accountPresPatientAdapter);
+                                accountPresPatientAdapter.notifyDataSetChanged();
+
+                            }
+
+
+
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            Toast.makeText(getApplicationContext(), "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                        }
+
+
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // error
+
+                    }
+                }
+        )
+        {
+            @Override
+            protected Map<String, String> getParams ()
+            {
+                Map<String, String> params = new HashMap<String, String>();
+
+                params.put("user_id", u_id);
+
+
+                return params;
+            }
+
+        };
+        requestQueue.add(postRequest);
     }
     @Override
     public void onBackPressed() {
