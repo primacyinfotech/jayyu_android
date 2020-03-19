@@ -91,7 +91,7 @@ public class MainActivity extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
         toggle.setDrawerIndicatorEnabled(false);
-        toggle.setHomeAsUpIndicator(R.drawable.logoapp);
+        toggle.setHomeAsUpIndicator(R.drawable.wlogo);
         buttonBarLayout=(BottomifyNavigationView)findViewById(R.id.bottomify_nav);
         buttonBarLayout.setOnNavigationItemChangedListener(new OnNavigationItemChangeListener() {
             @Override
