@@ -22,6 +22,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.jaayu.Model.BaseUrl;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -38,7 +39,7 @@ private EditText edt_single_day,edt_single_delivery;
 private LinearLayout custom_part_delivery;
     private Button confirm_btn;
     String user_id,user_add,One_Day,thirty_Day,fortifive_day,sixty_day,three_days_deliveries,six_days_delivery,single_day,single_delivery,day_portion,duration,prescription_img;
-    private String Place_order_url="https://work.primacyinfotech.com/jaayu/api/addorder";
+    private String Place_order_url= BaseUrl.BaseUrlNew+"addorder";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

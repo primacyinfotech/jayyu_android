@@ -26,6 +26,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.jaayu.Model.BaseUrl;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -50,14 +51,14 @@ public class OrderReview extends AppCompatActivity {
     private CardView card_view_istant,card_view_date;
     private TextView open_item,mrp_total,total_save_price,shipping_charge,payable_amount,save_amount,discount_limit_amt,main_pay,upper_save_amt,
             customer_name,address_text,email_add,address_edit,estimated_date,place_apply_coupon;
-    private String order_summery_item_url="https://work.primacyinfotech.com/jaayu/api/addtocart/all";
-    private String Order_tiem_total_dataUrl="https://work.primacyinfotech.com/jaayu/api/addtocart/sum_value";
-    private  String orderLast_addressUrl="https://work.primacyinfotech.com/jaayu/api/order_address_single_last";
-    private  String orderSingle_addressUrl="https://work.primacyinfotech.com/jaayu/api/order_address_single";
+    private String order_summery_item_url= BaseUrl.BaseUrlNew+"addtocart/all";
+    private String Order_tiem_total_dataUrl=BaseUrl.BaseUrlNew+"addtocart/sum_value";
+    private  String orderLast_addressUrl=BaseUrl.BaseUrlNew+"order_address_single_last";
+    private  String orderSingle_addressUrl=BaseUrl.BaseUrlNew+"order_address_single";
     private  String InstantOrderChkUrl="https://work.primacyinfotech.com/jaayu/api/instant_chk";
     private  String Change_instant_Url="https://work.primacyinfotech.com/jaayu/api/change_to_instant";
-    private  String delivery_address_Url="https://work.primacyinfotech.com/jaayu/api/delivery_date";
-    private  String Order_confirm_Url="https://work.primacyinfotech.com/jaayu/api/order_conform";
+    private  String delivery_address_Url=BaseUrl.BaseUrlNew+"delivery_date";
+    private  String Order_confirm_Url=BaseUrl.BaseUrlNew+"order_conform";
     String user_id,user_add,day_time,duration,cod,net_bank,presc_img,show_coupon,coupon_id;
     String address,user_name,us_nm,us_add,sing_fullname,all_address,prescription_image,Common_Address,Common_Address2;
     int address_id,address_id_second,sing_add_id,prescription_requird,Addd_Second,Addd_first;

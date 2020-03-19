@@ -36,6 +36,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.github.juanlabrador.badgecounter.BadgeCounter;
 import com.google.gson.Gson;
+import com.jaayu.Model.BaseUrl;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -85,14 +86,14 @@ public class UploadToPrescription extends AppCompatActivity {
     String gson_prescription_id;
 
 
-    private  String Upload_prescription_url="https://work.primacyinfotech.com/jaayu/api/prescription_required";
-    private  String fetchnew_prescription_url="https://work.primacyinfotech.com/jaayu/api/prescription_req_display";
-    private  String fetchold_prescription_url="https://work.primacyinfotech.com/jaayu/api/press_disp_old_add";
+    private  String Upload_prescription_url= BaseUrl.BaseUrlNew+"prescription_required";
+    private  String fetchnew_prescription_url=BaseUrl.BaseUrlNew+"prescription_req_display";
+    private  String fetchold_prescription_url=BaseUrl.BaseUrlNew+"press_disp_old_add";
 
 
 
     private LinearLayout camera_choose, gallery_choose, past_prescription_choose;
-    private String Chk_data_hasCart_url = "https://work.primacyinfotech.com/jaayu/api/addtocart_chk";
+    private String Chk_data_hasCart_url = BaseUrl.BaseUrlNew+"addtocart_chk";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

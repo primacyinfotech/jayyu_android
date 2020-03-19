@@ -31,6 +31,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.jaayu.Model.BaseUrl;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -62,11 +63,11 @@ public class CartActivity extends AppCompatActivity {
    private TextView place_apply_coupon,mrp_total,total_save_price,shipping_charge,payable_amount,save_amount,discount_limit_amt,main_pay,upper_save_amt;
     String fetchCpn,show_coupon;
     int fetchCpnId;
-    private String cart_items_url="https://work.primacyinfotech.com/jaayu/api/addtocart/all";
-    private String cart_tiem_total_dataUrl="https://work.primacyinfotech.com/jaayu/api/addtocart/sum_value";
-    private String Chk_data_hasCart_url="https://work.primacyinfotech.com/jaayu/api/addtocart_chk";
-    private String quantity_update_url="https://work.primacyinfotech.com/jaayu/api/addtocart/quantity";
-    private String coupon_list_url="https://work.primacyinfotech.com/jaayu/api/coupon_listing";
+    private String cart_items_url=BaseUrl.BaseUrlNew+"addtocart/all";
+    private String cart_tiem_total_dataUrl=BaseUrl.BaseUrlNew+"addtocart/sum_value";
+    private String Chk_data_hasCart_url=BaseUrl.BaseUrlNew+"addtocart_chk";
+    private String quantity_update_url=BaseUrl.BaseUrlNew+"addtocart/quantity";
+    private String coupon_list_url= BaseUrl.BaseUrlNew+"coupon_listing";
     SharedPreferences prefs_register;
     SharedPreferences prefs_Quantity;
     private String u_id,p_id,qty,qty_u_id;

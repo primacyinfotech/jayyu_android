@@ -38,6 +38,7 @@ import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.JsonObject;
+import com.jaayu.Model.BaseUrl;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -69,11 +70,11 @@ public class OrderSummery extends AppCompatActivity {
     private CardView card_view_istant;
     private TextView open_item,mrp_total,total_save_price,shipping_charge,payable_amount,save_amount,discount_limit_amt,main_pay,upper_save_amt,
             customer_name,address_text,email_add,address_edit,place_apply_coupon;
-    private String order_summery_item_url="https://work.primacyinfotech.com/jaayu/api/addtocart/all";
-    private String Order_tiem_total_dataUrl="https://work.primacyinfotech.com/jaayu/api/addtocart/sum_value";
-    private  String orderLast_addressUrl="https://work.primacyinfotech.com/jaayu/api/order_address_single_last";
-    private  String InstantOrderChkUrl="https://work.primacyinfotech.com/jaayu/api/instant_chk";
-    private  String Change_instant_Url="https://work.primacyinfotech.com/jaayu/api/change_to_instant";
+    private String order_summery_item_url= BaseUrl.BaseUrlNew+"addtocart/all";
+    private String Order_tiem_total_dataUrl=BaseUrl.BaseUrlNew+"addtocart/sum_value";
+    private  String orderLast_addressUrl=BaseUrl.BaseUrlNew+"order_address_single_last";
+    private  String InstantOrderChkUrl=BaseUrl.BaseUrlNew+"instant_chk";
+    private  String Change_instant_Url=BaseUrl.BaseUrlNew+"change_to_instant";
     String address,user_name,us_nm,us_add,sing_fullname,all_address,prescription_image,Common_Address,Common_Address2;
     int address_id,address_id_second,sing_add_id,prescription_requird,Addd_Second,Addd_first;
     SharedPreferences prefs_register;
