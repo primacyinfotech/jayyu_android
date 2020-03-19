@@ -12,7 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.jaayu.R;
+import com.medicinestall.R;
 
 import java.util.ArrayList;
 

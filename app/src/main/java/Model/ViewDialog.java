@@ -7,7 +7,7 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.jaayu.R;
+import com.medicinestall.R;
 
 public class ViewDialog {
     public void showDialog(Activity activity, String msg){

@@ -23,10 +23,10 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
-import com.jaayu.CustomSlider;
-import com.jaayu.Model.BaseUrl;
-import com.jaayu.OnlyUploadPrescription;
-import com.jaayu.R;
+import com.medicinestall.CustomSlider;
+import com.medicinestall.Model.BaseUrl;
+import com.medicinestall.OnlyUploadPrescription;
+import com.medicinestall.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;

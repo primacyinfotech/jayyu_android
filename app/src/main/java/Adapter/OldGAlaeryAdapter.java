@@ -4,8 +4,6 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Resources;
-import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,10 +24,9 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
-import com.jaayu.Model.BaseUrl;
-import com.jaayu.OnlyUploadPrescription;
-import com.jaayu.R;
-import com.jaayu.UploadToPrescription;
+import com.medicinestall.Model.BaseUrl;
+import com.medicinestall.OnlyUploadPrescription;
+import com.medicinestall.R;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
@@ -40,7 +37,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import Model.NewPrescriptionMoel;
-import Model.PrescriptionModel;
 
 public class OldGAlaeryAdapter extends RecyclerView.Adapter<OldGAlaeryAdapter.MyViewHolder>{
     ArrayList<NewPrescriptionMoel>prescriptionModels2;

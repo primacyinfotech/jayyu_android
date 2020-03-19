@@ -12,14 +12,11 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.jaayu.DetailsItems;
-import com.jaayu.R;
+import com.medicinestall.R;
 
 import java.util.ArrayList;
 
 import Model.Item_model;
-import Model.Searchmodel;
-import Model.Service;
 
 public class Item_view  extends RecyclerView.Adapter<Item_view.MyViewHolder>{
     private ArrayList<Item_model> modelList;

@@ -12,12 +12,10 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.jaayu.R;
+import com.medicinestall.R;
 
 import java.util.ArrayList;
-import java.util.List;
 
-import Model.ClickListener;
 import Model.OldPrescriptionModel;
 
 public class OldPrescriptionAdapter   extends RecyclerView.Adapter<OldPrescriptionAdapter.MyViewHolder>{

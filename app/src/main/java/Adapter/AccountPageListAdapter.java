@@ -10,12 +10,11 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.jaayu.R;
+import com.medicinestall.R;
 
 import java.util.ArrayList;
 
 import Model.AccountPageListModel;
-import Model.CartModel;
 
 public class AccountPageListAdapter extends RecyclerView.Adapter<AccountPageListAdapter.MyViewHolder> {
     private ArrayList<AccountPageListModel> modelList;

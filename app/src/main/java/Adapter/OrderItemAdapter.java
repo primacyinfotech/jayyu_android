@@ -10,12 +10,11 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.jaayu.R;
+import com.medicinestall.R;
 
 import java.util.ArrayList;
 
 import Model.OderItemModel;
-import Model.OrderModel;
 
 
 public class OrderItemAdapter  extends RecyclerView.Adapter<OrderItemAdapter.MyViewHolder>  {

@@ -23,10 +23,9 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.jaayu.Model.BaseUrl;
-import com.jaayu.OnlyUploadPrescription;
-import com.jaayu.R;
-import com.jaayu.UploadToPrescription;
+import com.medicinestall.Model.BaseUrl;
+import com.medicinestall.OnlyUploadPrescription;
+import com.medicinestall.R;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;

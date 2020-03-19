@@ -22,12 +22,10 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.jaayu.CartActivity;
-import com.jaayu.LocationAddress;
-import com.jaayu.Model.BaseUrl;
-import com.jaayu.OrderSummery;
-import com.jaayu.R;
-import com.jaayu.UpdateAddress;
+import com.medicinestall.LocationAddress;
+import com.medicinestall.Model.BaseUrl;
+import com.medicinestall.OrderSummery;
+import com.medicinestall.R;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -36,7 +34,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import Model.AccountPageListModel;
 import Model.AddressModel;
 
 public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyViewHolder> {

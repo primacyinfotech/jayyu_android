@@ -6,21 +6,18 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.jaayu.HelpDetails;
-import com.jaayu.R;
+import com.medicinestall.HelpDetails;
+import com.medicinestall.R;
 
 import java.util.ArrayList;
 
 import Model.HelpModel;
-import Model.Item_model;
 
 public class HelpAdapter extends RecyclerView.Adapter<HelpAdapter.MyViewHolder> {
     ArrayList<HelpModel> helpModels;

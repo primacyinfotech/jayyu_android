@@ -4,8 +4,6 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Resources;
-import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,12 +23,10 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.bumptech.glide.Glide;
 
-import com.jaayu.CartActivity;
-import com.jaayu.Model.BaseUrl;
-import com.jaayu.R;
-import com.jaayu.UploadToPrescription;
+import com.medicinestall.Model.BaseUrl;
+import com.medicinestall.R;
+import com.medicinestall.UploadToPrescription;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
@@ -40,7 +36,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import Model.Item_model;
 import Model.PrescriptionModel;
 
 public class GalleryAdapter  extends RecyclerView.Adapter<GalleryAdapter.MyViewHolder> {

@@ -12,12 +12,11 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.jaayu.PatienEditPage;
-import com.jaayu.R;
+import com.medicinestall.PatienEditPage;
+import com.medicinestall.R;
 
 import java.util.ArrayList;
 
-import Model.LegalModel;
 import Model.PatientListModel;
 
 public class PatientAdapter extends RecyclerView.Adapter<PatientAdapter.MyViewHolder> {

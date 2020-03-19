@@ -13,8 +13,8 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.jaayu.AssignPatient;
-import com.jaayu.R;
+import com.medicinestall.AssignPatient;
+import com.medicinestall.R;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;

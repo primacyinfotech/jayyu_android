@@ -13,7 +13,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.Request;
@@ -22,12 +21,10 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.jaayu.AccountPrescription;
-import com.jaayu.AssignPatient;
-import com.jaayu.Model.BaseUrl;
-import com.jaayu.R;
+import com.medicinestall.AccountPrescription;
+import com.medicinestall.Model.BaseUrl;
+import com.medicinestall.R;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 

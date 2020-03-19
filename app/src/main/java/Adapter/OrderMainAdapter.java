@@ -14,11 +14,11 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.jaayu.OldPresOrderDetailsPage;
-import com.jaayu.OrderDetails;
-import com.jaayu.OrderStatusConfirm;
-import com.jaayu.PrescriptionOrderDetails;
-import com.jaayu.R;
+import com.medicinestall.OldPresOrderDetailsPage;
+import com.medicinestall.OrderDetails;
+import com.medicinestall.OrderStatusConfirm;
+import com.medicinestall.PrescriptionOrderDetails;
+import com.medicinestall.R;
 
 import java.util.ArrayList;
 
