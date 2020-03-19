@@ -22,6 +22,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.jaayu.Model.BaseUrl;
 import com.jaayu.OrderSummery;
 import com.jaayu.PrescriptionOrderSummery;
 import com.jaayu.R;
@@ -40,8 +41,8 @@ public class AddressPresAdapter extends RecyclerView.Adapter<AddressPresAdapter.
     private Context context;
     private int selectedStarPosition = -1;
     private AdapterView.OnItemClickListener onItemClickListener;
-    private  String address_delete_url="https://work.primacyinfotech.com/jaayu/api/order_address_del";
-    private  String Instant_Uncheck_api="https://work.primacyinfotech.com/jaayu/api/instant_unchecke";
+    private  String address_delete_url= BaseUrl.BaseUrlNew+"order_address_del";
+    private  String Instant_Uncheck_api=BaseUrl.BaseUrlNew+"instant_unchecke";
     SharedPreferences prefs_register;
 
     public AddressPresAdapter(ArrayList<AddressModel> modelList, Context context) {

@@ -26,6 +26,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import com.jaayu.Model.BaseUrl;
 import com.jaayu.OnlyUploadPrescription;
 import com.jaayu.R;
 import com.jaayu.UploadToPrescription;
@@ -44,7 +45,7 @@ import Model.PrescriptionModel;
 public class OldGAlaeryAdapter extends RecyclerView.Adapter<OldGAlaeryAdapter.MyViewHolder>{
     ArrayList<NewPrescriptionMoel>prescriptionModels2;
     private Context context;
-    private String Oldprescription_delete_url="https://work.primacyinfotech.com/jaayu/api/prescription_old_del";
+    private String Oldprescription_delete_url= BaseUrl.BaseUrlNew+"prescription_old_del";
 
     public OldGAlaeryAdapter(ArrayList<NewPrescriptionMoel> prescriptionModels2, Context context) {
         this.prescriptionModels2 = prescriptionModels2;

@@ -24,6 +24,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.jaayu.AccountPrescription;
 import com.jaayu.AssignPatient;
+import com.jaayu.Model.BaseUrl;
 import com.jaayu.R;
 
 import org.json.JSONArray;
@@ -42,7 +43,7 @@ public class AssignPatientAdapter extends RecyclerView.Adapter<AssignPatientAdap
     private int selectedPosition = -1;
     SharedPreferences assign_press_id;
     String ass_p_id;
-    private String assign_patient_with_presscription_url="http://work.primacyinfotech.com/jaayu/api/patient_add_pres";
+    private String assign_patient_with_presscription_url= BaseUrl.BaseUrlNew+"patient_add_pres";
 
     public AssignPatientAdapter(ArrayList<AssignPatientModel> assignPatientModels, Context context) {
         this.assignPatientModels = assignPatientModels;

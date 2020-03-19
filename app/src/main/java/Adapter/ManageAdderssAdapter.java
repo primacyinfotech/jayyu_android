@@ -24,6 +24,7 @@ import com.android.volley.toolbox.Volley;
 import com.jaayu.LocationAddress;
 import com.jaayu.ManagaAddressView;
 import com.jaayu.ManageAddress;
+import com.jaayu.Model.BaseUrl;
 import com.jaayu.R;
 
 import org.json.JSONException;
@@ -38,7 +39,7 @@ import Model.AddressModel;
 public class ManageAdderssAdapter extends RecyclerView.Adapter<ManageAdderssAdapter.MyViewHolder> {
     private ArrayList<AddressModel> modelList;
     private Context context;
-    private  String address_delete_url="https://work.primacyinfotech.com/jaayu/api/order_address_del";
+    private  String address_delete_url= BaseUrl.BaseUrlNew+"order_address_del";
     SharedPreferences prefs_register;
 
     public ManageAdderssAdapter(ArrayList<AddressModel> modelList, Context context) {

@@ -28,6 +28,7 @@ import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 
 import com.jaayu.CartActivity;
+import com.jaayu.Model.BaseUrl;
 import com.jaayu.R;
 import com.jaayu.UploadToPrescription;
 import com.squareup.picasso.Picasso;
@@ -47,8 +48,8 @@ public class GalleryAdapter  extends RecyclerView.Adapter<GalleryAdapter.MyViewH
     ArrayList<PrescriptionModel> prescriptionModels2;
     private Context context;
     private Context ctx;
-    private String prescription_delete_url="https://work.primacyinfotech.com/jaayu/api/prescription_req_del";
-    private String Oldprescription_delete_url="https://work.primacyinfotech.com/jaayu/api/prescription_old_del";
+    private String prescription_delete_url= BaseUrl.BaseUrlNew+"prescription_req_del";
+    private String Oldprescription_delete_url=BaseUrl.BaseUrlNew+"prescription_old_del";
 
 
     public GalleryAdapter(ArrayList<PrescriptionModel> prescriptionModels, Context context) {

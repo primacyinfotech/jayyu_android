@@ -24,6 +24,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.jaayu.MedicalPrescriptionReport;
+import com.jaayu.Model.BaseUrl;
 import com.jaayu.R;
 import com.jaayu.UploadToPrescription;
 import com.squareup.picasso.Picasso;
@@ -40,7 +41,7 @@ import Model.PatientPastPrescriptionModel;
 public class PatientPastPrescrptionAdapter extends RecyclerView.Adapter<PatientPastPrescrptionAdapter.MyViewHolder> {
       ArrayList<PatientPastPrescriptionModel> patientPastPrescriptionModels;
       Context context;
-    private String prescription_delete_url="https://work.primacyinfotech.com/jaayu/api/patient_prescription_delete";
+    private String prescription_delete_url= BaseUrl.BaseUrlNew+"patient_prescription_delete";
 
     public PatientPastPrescrptionAdapter(ArrayList<PatientPastPrescriptionModel> patientPastPrescriptionModels, Context context) {
         this.patientPastPrescriptionModels = patientPastPrescriptionModels;

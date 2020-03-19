@@ -25,6 +25,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.jaayu.CartActivity;
+import com.jaayu.Model.BaseUrl;
 import com.jaayu.OrderStatusConfirm;
 import com.jaayu.R;
 import com.jaayu.UploadToPrescription;
@@ -45,8 +46,8 @@ public class OrderStatusItemAdapter extends RecyclerView.Adapter<OrderStatusItem
     SharedPreferences prefs_register;
     SharedPreferences ord_id_instant;
     private String u_id,spin_no;
-    private String Order_quantity_update_url="https://work.primacyinfotech.com/jaayu/api/order_quantity_edit";
-    private String Order_Item_Delete="https://work.primacyinfotech.com/jaayu/api/order_del_con";
+    private String Order_quantity_update_url= BaseUrl.BaseUrlNew+"order_quantity_edit";
+    private String Order_Item_Delete=BaseUrl.BaseUrlNew+"order_del_con";
     ProgressDialog progressDialog;
 
     public OrderStatusItemAdapter(ArrayList<OrderStatusItemModel> modelList, Context context) {

@@ -24,6 +24,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.jaayu.CartActivity;
 import com.jaayu.LocationAddress;
+import com.jaayu.Model.BaseUrl;
 import com.jaayu.OrderSummery;
 import com.jaayu.R;
 import com.jaayu.UpdateAddress;
@@ -43,8 +44,8 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyViewHo
     private Context context;
     private int selectedStarPosition = -1;
     private AdapterView.OnItemClickListener onItemClickListener;
-    private  String address_delete_url="https://work.primacyinfotech.com/jaayu/api/order_address_del";
-    private  String Instant_Uncheck_api="https://work.primacyinfotech.com/jaayu/api/instant_unchecke";
+    private  String address_delete_url= BaseUrl.BaseUrlNew+"order_address_del";
+    private  String Instant_Uncheck_api=BaseUrl.BaseUrlNew+"instant_unchecke";
     SharedPreferences prefs_register;
 
    /* private static RadioButton lastChecked = null;

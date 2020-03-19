@@ -32,6 +32,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.jaayu.CartActivity;
 import com.jaayu.DetailsItems;
+import com.jaayu.Model.BaseUrl;
 import com.jaayu.R;
 
 import org.json.JSONException;
@@ -50,8 +51,8 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
     private ArrayList<CartModel> modelList;
     private Context context;
     ArrayList<String> Categories2;;
-    private String product_delete_url="https://work.primacyinfotech.com/jaayu/api/del_cart";
-    private String quantity_update_url="https://work.primacyinfotech.com/jaayu/api/addtocart/quantity";
+    private String product_delete_url= BaseUrl.BaseUrlNew+"del_cart";
+    private String quantity_update_url=BaseUrl.BaseUrlNew+"addtocart/quantity";
     SharedPreferences prefs_register;
     SharedPreferences prefs_Quantity;
     private String u_id,spin_no;
