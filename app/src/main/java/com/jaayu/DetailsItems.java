@@ -32,6 +32,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.github.juanlabrador.badgecounter.BadgeCounter;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import com.jaayu.Model.BaseUrl;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -53,10 +54,10 @@ public class DetailsItems extends AppCompatActivity {
     ArrayList<String> Categories2;;
     private Spinner country_select;
     private  int pro_id,spinner_no;
-    private String product_details_url="https://work.primacyinfotech.com/jaayu/api/product/single";
-    private String product_add_cart="https://work.primacyinfotech.com/jaayu/api/addtocart";
+    private String product_details_url= BaseUrl.BaseUrlNew+"product/single";
+    private String product_add_cart=BaseUrl.BaseUrlNew+"addtocart";
    /* private String Chk_data_hasCart_url="https://work.primacyinfotech.com/jaayu/api/addtocart/all";*/
-   private String Chk_data_hasCart_url="https://work.primacyinfotech.com/jaayu/api/addtocart_chk";
+   private String Chk_data_hasCart_url=BaseUrl.BaseUrlNew+"addtocart_chk";
     private Button add_cart;
     private ScrollView tcuch_scroll;
     LinearLayout linearLayout_sheet;

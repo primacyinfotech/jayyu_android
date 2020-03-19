@@ -20,6 +20,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
+import com.jaayu.Model.BaseUrl;
 import com.jaayu.R;
 
 import org.json.JSONArray;
@@ -39,7 +40,7 @@ public class Searchfragment extends Fragment {
     RecyclerView recyclerView;
     Search_adapter searchAdapter;
     ArrayList<Searchmodel> names;
-    private String search_url="https://work.primacyinfotech.com/jaayu/api/product/all";
+   // private String search_url="https://work.primacyinfotech.com/jaayu/api/product/all";
 
 
     public Searchfragment() {
@@ -105,7 +106,7 @@ public class Searchfragment extends Fragment {
         RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(
                 Request.Method.GET,
-                search_url,
+                BaseUrl.BaseUrlNew+"product/all",
                 null,
                 new Response.Listener<JSONArray>() {
                     @Override

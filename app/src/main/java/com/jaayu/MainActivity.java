@@ -21,6 +21,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.github.juanlabrador.badgecounter.BadgeCounter;
 import com.google.android.material.navigation.NavigationView;
+import com.jaayu.Model.BaseUrl;
 import com.jaayu.Model.SharedPref;
 import com.volcaniccoder.bottomify.BottomifyNavigationView;
 import com.volcaniccoder.bottomify.OnNavigationItemChangeListener;
@@ -62,7 +63,7 @@ public class MainActivity extends AppCompatActivity
     int count_cart;
     ProgressDialog progressDialog;
  //   private String Chk_data_hasCart_url="https://work.primacyinfotech.com/jaayu/api/addtocart/all";
-    private String Chk_data_hasCart_url="https://work.primacyinfotech.com/jaayu/api/addtocart_chk";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -159,7 +160,7 @@ public class MainActivity extends AppCompatActivity
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
         RequestQueue queue2 = Volley.newRequestQueue(MainActivity.this);
-        StringRequest postRequest2 = new StringRequest(Request.Method.POST, Chk_data_hasCart_url,
+        StringRequest postRequest2 = new StringRequest(Request.Method.POST, BaseUrl.BaseUrlNew+"addtocart_chk",
                 new Response.Listener<String>()
                 {
                     @Override
@@ -278,7 +279,7 @@ public class MainActivity extends AppCompatActivity
            // BadgeCounter.update(item, notifiCart);
 
             RequestQueue queue2 = Volley.newRequestQueue(MainActivity.this);
-            StringRequest postRequest2 = new StringRequest(Request.Method.POST, Chk_data_hasCart_url,
+            StringRequest postRequest2 = new StringRequest(Request.Method.POST, BaseUrl.BaseUrlNew+"addtocart_chk",
                     new Response.Listener<String>()
                     {
                         @Override

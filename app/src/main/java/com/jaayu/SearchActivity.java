@@ -18,6 +18,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
+import com.jaayu.Model.BaseUrl;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -34,7 +35,7 @@ public class SearchActivity extends AppCompatActivity {
     Search_adapter searchAdapter;
     ArrayList<Searchmodel> names;
     ImageView back_button;
-    private String search_url="https://work.primacyinfotech.com/jaayu/api/product/all";
+    //private String search_url="https://work.primacyinfotech.com/jaayu/api/product/all";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,7 +103,7 @@ public class SearchActivity extends AppCompatActivity {
         RequestQueue requestQueue = Volley.newRequestQueue(SearchActivity.this);
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(
                 Request.Method.GET,
-                search_url,
+                BaseUrl.BaseUrlNew+"product/all",
                 null,
                 new Response.Listener<JSONArray>() {
                     @Override
