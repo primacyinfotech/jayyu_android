@@ -1,18 +1,21 @@
 package Adapter;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.github.chrisbanes.photoview.PhotoView;
 import com.jaayu.AssignPatient;
 import com.jaayu.R;
 import com.squareup.picasso.Picasso;
@@ -62,6 +65,28 @@ public class AssignPrescriptionAdapter extends RecyclerView.Adapter<AssignPrescr
                 editor.commit();
 
 
+            }
+        });
+        holder.assign_prescription.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final Dialog settingsDialog = new Dialog(context);
+                settingsDialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+                settingsDialog.getWindow().setBackgroundDrawable(null);
+                settingsDialog.setContentView(R.layout.full_screen_image);
+                PhotoView imageView=(PhotoView)settingsDialog.findViewById(R.id.full_screen);
+                ImageView  imageView2=(ImageView)settingsDialog.findViewById(R.id.close_full_img);
+                Picasso.with(context)
+
+                        .load("https://work.primacyinfotech.com/jaayu/upload/prescription/" +assignPrescriptionModel.getPress_img())
+                        .into(imageView);
+                imageView2.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        settingsDialog.dismiss();
+                    }
+                });
+                settingsDialog.show();
             }
         });
 
