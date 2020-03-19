@@ -20,8 +20,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
-import com.medicinestall.Model.BaseUrl;
-import com.medicinestall.R;
+import com.jaayu.Model.BaseUrl;
+import com.jaayu.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;

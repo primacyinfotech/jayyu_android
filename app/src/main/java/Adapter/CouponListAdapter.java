@@ -13,8 +13,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.medicinestall.CartActivity;
-import com.medicinestall.R;
+import com.jaayu.CartActivity;
+import com.jaayu.R;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.medicinestall">
+    package="com.jaayu">
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
@@ -191,224 +191,224 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name="com.medicinestall.PatientwisePrescriptionView"
+        <activity android:name="com.jaayu.PatientwisePrescriptionView"
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
-            android:name="com.medicinestall.AssignPatient"
+            android:name="com.jaayu.AssignPatient"
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.medicinestall.AccounPrescriptionView"
+            android:name="com.jaayu.AccounPrescriptionView"
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.medicinestall.AccountPrescription"
+            android:name="com.jaayu.AccountPrescription"
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.medicinestall.PinSearchActivity"
+            android:name="com.jaayu.PinSearchActivity"
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.medicinestall.ThankYouPayment"
+            android:name="com.jaayu.ThankYouPayment"
             android:configChanges="orientation|screenSize"
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.medicinestall.OrderStatusConfirm"
+            android:name="com.jaayu.OrderStatusConfirm"
             android:configChanges="orientation|screenSize"
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.medicinestall.UpdateMediacalReaportandprescription"
+            android:name="com.jaayu.UpdateMediacalReaportandprescription"
             android:configChanges="orientation|screenSize"
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.medicinestall.MedicalPrescriptionReport"
+            android:name="com.jaayu.MedicalPrescriptionReport"
             android:configChanges="orientation|screenSize"
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.medicinestall.PatientListView"
+            android:name="com.jaayu.PatientListView"
             android:configChanges="orientation|screenSize"
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.medicinestall.PatienEditPage"
+            android:name="com.jaayu.PatienEditPage"
             android:configChanges="orientation|screenSize"
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.medicinestall.PatientAddPage"
+            android:name="com.jaayu.PatientAddPage"
             android:configChanges="orientation|screenSize"
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.medicinestall.JaayuWallet"
+            android:name="com.jaayu.JaayuWallet"
             android:configChanges="orientation|screenSize"
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.medicinestall.HelpDetails"
+            android:name="com.jaayu.HelpDetails"
             android:configChanges="orientation|screenSize"
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.medicinestall.Legal"
+            android:name="com.jaayu.Legal"
             android:configChanges="orientation|screenSize"
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.medicinestall.Wallet"
+            android:name="com.jaayu.Wallet"
             android:configChanges="orientation|screenSize"
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.medicinestall.Help"
+            android:name="com.jaayu.Help"
             android:configChanges="orientation|screenSize"
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.medicinestall.ManageAddAddressActivity"
+            android:name="com.jaayu.ManageAddAddressActivity"
             android:configChanges="orientation|screenSize"
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.medicinestall.ManagaAddressView"
+            android:name="com.jaayu.ManagaAddressView"
             android:configChanges="orientation|screenSize"
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.medicinestall.ManageAddress"
+            android:name="com.jaayu.ManageAddress"
             android:configChanges="orientation|screenSize"
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.medicinestall.OldPresOrderDetailsPage"
+            android:name="com.jaayu.OldPresOrderDetailsPage"
             android:configChanges="orientation|screenSize"
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.medicinestall.PrescriptionOrderDetails"
+            android:name="com.jaayu.PrescriptionOrderDetails"
             android:configChanges="orientation|screenSize"
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.medicinestall.PrescriptionThankYouPage"
+            android:name="com.jaayu.PrescriptionThankYouPage"
             android:configChanges="orientation|screenSize"
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.medicinestall.PrescriptionLocationAddress"
+            android:name="com.jaayu.PrescriptionLocationAddress"
             android:configChanges="orientation|screenSize"
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.medicinestall.PrescriptionOrderSummery"
+            android:name="com.jaayu.PrescriptionOrderSummery"
             android:configChanges="orientation|screenSize"
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.medicinestall.OrderPrescriptionInfo"
+            android:name="com.jaayu.OrderPrescriptionInfo"
             android:configChanges="orientation|screenSize"
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.medicinestall.OnlyOldPrescriptionDisplay"
+            android:name="com.jaayu.OnlyOldPrescriptionDisplay"
             android:configChanges="orientation|screenSize"
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.medicinestall.OnlyUploadPrescription"
+            android:name="com.jaayu.OnlyUploadPrescription"
             android:configChanges="orientation|screenSize"
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.medicinestall.ThankYouPage"
+            android:name="com.jaayu.ThankYouPage"
             android:configChanges="orientation|screenSize"
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.medicinestall.OrderDetails"
+            android:name="com.jaayu.OrderDetails"
             android:configChanges="orientation|screenSize"
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.medicinestall.OrderReview"
+            android:name="com.jaayu.OrderReview"
             android:configChanges="orientation|screenSize"
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.medicinestall.OldPrescription"
+            android:name="com.jaayu.OldPrescription"
             android:configChanges="orientation|screenSize"
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.medicinestall.UploadToPrescription"
+            android:name="com.jaayu.UploadToPrescription"
             android:configChanges="orientation|screenSize"
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.medicinestall.UpdateAddress"
+            android:name="com.jaayu.UpdateAddress"
             android:configChanges="orientation|screenSize"
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.medicinestall.AddresAddActivity"
+            android:name="com.jaayu.AddresAddActivity"
             android:configChanges="orientation|screenSize"
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.medicinestall.LocationAddress"
+            android:name="com.jaayu.LocationAddress"
             android:configChanges="orientation|screenSize"
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.medicinestall.SubscriptionDelivery"
+            android:name="com.jaayu.SubscriptionDelivery"
             android:configChanges="orientation|screenSize"
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.medicinestall.JaayuSplash"
+            android:name="com.jaayu.JaayuSplash"
             android:configChanges="orientation|screenSize"
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait"
@@ -420,89 +420,89 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.medicinestall.EmptyCart"
+            android:name="com.jaayu.EmptyCart"
             android:configChanges="orientation|screenSize"
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.medicinestall.ViewOtp"
+            android:name="com.jaayu.ViewOtp"
             android:configChanges="orientation|screenSize"
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.medicinestall.Registration"
+            android:name="com.jaayu.Registration"
             android:configChanges="orientation|screenSize"
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.medicinestall.LoginSignUp"
+            android:name="com.jaayu.LoginSignUp"
             android:configChanges="orientation|screenSize"
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.medicinestall.Payment"
+            android:name="com.jaayu.Payment"
             android:configChanges="orientation|screenSize"
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.medicinestall.DeliverySubscription"
+            android:name="com.jaayu.DeliverySubscription"
             android:configChanges="orientation|screenSize"
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.medicinestall.ReminderList"
+            android:name="com.jaayu.ReminderList"
             android:label="@string/title_activity_reminder_list"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.medicinestall.LoginPage"
+            android:name="com.jaayu.LoginPage"
             android:configChanges="orientation|screenSize"
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.medicinestall.AccountPage"
+            android:name="com.jaayu.AccountPage"
             android:configChanges="orientation|screenSize"
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.medicinestall.SearchActivity"
+            android:name="com.jaayu.SearchActivity"
             android:configChanges="orientation|screenSize"
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.medicinestall.OrderSummery"
+            android:name="com.jaayu.OrderSummery"
             android:configChanges="orientation|screenSize"
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.medicinestall.OrderPage"
+            android:name="com.jaayu.OrderPage"
             android:configChanges="orientation|screenSize"
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.medicinestall.CartActivity"
+            android:name="com.jaayu.CartActivity"
             android:configChanges="orientation|screenSize"
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.medicinestall.DetailsItems"
+            android:name="com.jaayu.DetailsItems"
             android:configChanges="orientation|screenSize"
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.medicinestall.MainActivity"
+            android:name="com.jaayu.MainActivity"
             android:configChanges="orientation|screenSize"
             android:label="@string/app_name"
             android:screenOrientation="portrait"

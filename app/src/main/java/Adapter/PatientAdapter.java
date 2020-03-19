@@ -12,8 +12,8 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.medicinestall.PatienEditPage;
-import com.medicinestall.R;
+import com.jaayu.PatienEditPage;
+import com.jaayu.R;
 
 import java.util.ArrayList;
 

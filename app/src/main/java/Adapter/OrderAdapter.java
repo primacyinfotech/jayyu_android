@@ -13,9 +13,9 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.medicinestall.OrderStatusConfirm;
-import com.medicinestall.PrescriptionOrderDetails;
-import com.medicinestall.R;
+import com.jaayu.OrderStatusConfirm;
+import com.jaayu.PrescriptionOrderDetails;
+import com.jaayu.R;
 
 import java.util.ArrayList;
 

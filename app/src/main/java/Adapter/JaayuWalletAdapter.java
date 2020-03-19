@@ -9,7 +9,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.medicinestall.R;
+import com.jaayu.R;
 
 import java.util.ArrayList;
 

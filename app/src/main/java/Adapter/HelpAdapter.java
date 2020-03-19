@@ -12,8 +12,8 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.medicinestall.HelpDetails;
-import com.medicinestall.R;
+import com.jaayu.HelpDetails;
+import com.jaayu.R;
 
 import java.util.ArrayList;
 

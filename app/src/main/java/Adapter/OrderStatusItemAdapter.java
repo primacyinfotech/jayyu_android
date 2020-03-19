@@ -24,9 +24,9 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.medicinestall.Model.BaseUrl;
-import com.medicinestall.OrderStatusConfirm;
-import com.medicinestall.R;
+import com.jaayu.Model.BaseUrl;
+import com.jaayu.OrderStatusConfirm;
+import com.jaayu.R;
 
 import org.json.JSONException;
 import org.json.JSONObject;

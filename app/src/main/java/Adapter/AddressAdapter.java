@@ -22,10 +22,10 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.medicinestall.LocationAddress;
-import com.medicinestall.Model.BaseUrl;
-import com.medicinestall.OrderSummery;
-import com.medicinestall.R;
+import com.jaayu.LocationAddress;
+import com.jaayu.Model.BaseUrl;
+import com.jaayu.OrderSummery;
+import com.jaayu.R;
 
 import org.json.JSONException;
 import org.json.JSONObject;

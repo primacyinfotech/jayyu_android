@@ -21,10 +21,10 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.medicinestall.ManagaAddressView;
-import com.medicinestall.ManageAddress;
-import com.medicinestall.Model.BaseUrl;
-import com.medicinestall.R;
+import com.jaayu.ManagaAddressView;
+import com.jaayu.ManageAddress;
+import com.jaayu.Model.BaseUrl;
+import com.jaayu.R;
 
 import org.json.JSONException;
 import org.json.JSONObject;

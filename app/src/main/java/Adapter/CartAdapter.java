@@ -25,9 +25,9 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.medicinestall.CartActivity;
-import com.medicinestall.Model.BaseUrl;
-import com.medicinestall.R;
+import com.jaayu.CartActivity;
+import com.jaayu.Model.BaseUrl;
+import com.jaayu.R;
 
 import org.json.JSONException;
 import org.json.JSONObject;

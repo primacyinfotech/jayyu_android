@@ -12,8 +12,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.medicinestall.DetailsItems;
-import com.medicinestall.R;
+import com.jaayu.DetailsItems;
+import com.jaayu.R;
 
 import java.util.ArrayList;
 import java.util.List;

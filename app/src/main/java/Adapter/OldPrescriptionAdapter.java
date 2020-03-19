@@ -12,7 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.medicinestall.R;
+import com.jaayu.R;
 
 import java.util.ArrayList;
 
