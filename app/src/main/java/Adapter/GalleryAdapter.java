@@ -24,6 +24,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import com.github.chrisbanes.photoview.PhotoView;
 import com.jaayu.Model.BaseUrl;
 import com.jaayu.R;
 import com.jaayu.UploadToPrescription;
@@ -77,7 +78,7 @@ public class GalleryAdapter  extends RecyclerView.Adapter<GalleryAdapter.MyViewH
                 settingsDialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
                 settingsDialog.getWindow().setBackgroundDrawable(null);
                 settingsDialog.setContentView(R.layout.full_screen_image);
-                ImageView  imageView=(ImageView)settingsDialog.findViewById(R.id.full_screen);
+                PhotoView imageView=(PhotoView)settingsDialog.findViewById(R.id.full_screen);
                 ImageView  imageView2=(ImageView)settingsDialog.findViewById(R.id.close_full_img);
                 Picasso.with(context)
 

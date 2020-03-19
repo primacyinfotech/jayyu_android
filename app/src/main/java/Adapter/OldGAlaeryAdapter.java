@@ -24,6 +24,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import com.github.chrisbanes.photoview.PhotoView;
 import com.jaayu.Model.BaseUrl;
 import com.jaayu.OnlyUploadPrescription;
 import com.jaayu.R;
@@ -64,7 +65,7 @@ public class OldGAlaeryAdapter extends RecyclerView.Adapter<OldGAlaeryAdapter.My
                 final Dialog settingsDialog = new Dialog(context);
                 settingsDialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
                 settingsDialog.setContentView(R.layout.full_screen_image);
-                ImageView  imageView=(ImageView)settingsDialog.findViewById(R.id.full_screen);
+                PhotoView imageView=(PhotoView)settingsDialog.findViewById(R.id.full_screen);
                 ImageView  imageView2=(ImageView)settingsDialog.findViewById(R.id.close_full_img);
                 Picasso.with(context).load("https://work.primacyinfotech.com/jaayu/upload/prescription/" + prescriptionModels2.get(position).getPrescription_img()).into(imageView);
                 imageView2.setOnClickListener(new View.OnClickListener() {

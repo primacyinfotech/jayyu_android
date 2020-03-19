@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.github.chrisbanes.photoview.PhotoView;
 import com.jaayu.R;
 import com.squareup.picasso.Picasso;
 
@@ -44,7 +45,7 @@ public class OrderStatusPressAdapter  extends RecyclerView.Adapter<OrderStatusPr
                 settingsDialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
                 settingsDialog.getWindow().setBackgroundDrawable(null);
                 settingsDialog.setContentView(R.layout.full_screen_image);
-                ImageView  imageView=(ImageView)settingsDialog.findViewById(R.id.full_screen);
+                PhotoView imageView=(PhotoView)settingsDialog.findViewById(R.id.full_screen);
                 ImageView  imageView2=(ImageView)settingsDialog.findViewById(R.id.close_full_img);
                 Picasso.with(context)
 
