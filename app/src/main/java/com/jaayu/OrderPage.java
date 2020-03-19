@@ -20,6 +20,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.jaayu.Model.BaseUrl;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -41,8 +42,8 @@ public class OrderPage extends AppCompatActivity {
     private ImageView back_button;
     OrderAdapter orderAdapter;
     OrderMainAdapter orderMainAdapter;
-    private String order_track_url="https://work.primacyinfotech.com/jaayu/api/order_display_profile";
-    private String Press_order_track_url="https://work.primacyinfotech.com/jaayu/api/profile_prescription_order";
+    private String order_track_url= BaseUrl.BaseUrlNew+"order_display_profile";
+    private String Press_order_track_url=BaseUrl.BaseUrlNew+"profile_prescription_order";
     SharedPreferences prefs_register;
     String order_people_name,u_id;
     @Override

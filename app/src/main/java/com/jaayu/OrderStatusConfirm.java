@@ -27,6 +27,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.jaayu.Model.BaseUrl;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -53,7 +54,7 @@ public class OrderStatusConfirm extends AppCompatActivity {
     ArrayList<OrderStatusPressModel> orderStatusPressModels;
     SharedPreferences prefs_register;
     private  Button submit_btn;
-    private String Orderdetails_url="https://work.primacyinfotech.com/jaayu/api/order_details_profile";
+    private String Orderdetails_url= BaseUrl.BaseUrlNew+"order_details_profile";
     String u_id,instant_id,ship_status,delivery_date,ord_id,ord_date,mrp_amt,save_amt,shipping_charge,tot_pay,ship_add_name,ship_add_phone,
             ship_add_address,ship_add_land,ship_add_pin,payment_status;
     int odr_id;

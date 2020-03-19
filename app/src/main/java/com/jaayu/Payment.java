@@ -31,6 +31,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.jaayu.Model.BaseUrl;
 import com.razorpay.Checkout;
 import com.razorpay.PaymentResultListener;
 
@@ -56,10 +57,10 @@ public class Payment extends AppCompatActivity implements PaymentResultListener 
     String user_id,user_add,day_time,duration,cod,nor_wallet,jy_wallet,net_bank,presc_img,order_id,instant,u_id,mrp_amt,save_amt,shippingcharge,tot_pay,
             balance_og,balance_jy,pay_status,u_email,u_phone;
     SharedPreferences prefs_register;
-    private String Orderdetails_url="https://work.primacyinfotech.com/jaayu/api/order_details_profile";
-    private String Place_order_url="https://work.primacyinfotech.com/jaayu/api/order_payment";
-    private String Normal_wallet_url="https://work.primacyinfotech.com/jaayu/api/normal_wallet_display";
-    private String Jaayu_wallet_url="https://work.primacyinfotech.com/jaayu/api/jaayu_wallet_display";
+    private String Orderdetails_url= BaseUrl.BaseUrlNew+"order_details_profile";
+    private String Place_order_url=BaseUrl.BaseUrlNew+"order_payment";
+    private String Normal_wallet_url=BaseUrl.BaseUrlNew+"normal_wallet_display";
+    private String Jaayu_wallet_url=BaseUrl.BaseUrlNew+"jaayu_wallet_display";
     private TextView open_item,mrp_total,total_save_price,shipping_charge,payable_amount,save_amount,discount_limit_amt,main_pay,
             customer_name,address_text,email_add,wallwt_amount,jy_wallwt_amount,wallet_amount_,jywallet_amount_;
     private Button submit_btn;
