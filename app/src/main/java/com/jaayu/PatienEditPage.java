@@ -30,6 +30,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.jaayu.Model.BaseUrl;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -53,9 +54,9 @@ public class PatienEditPage extends AppCompatActivity {
     ProgressDialog progressDialog;
     private static  int RQS_PICK_CONTACT=1;
     private static  int RQS_PICK_CONTACT_SECOND=2;
-    private String fetch_update_patient_url="https://work.primacyinfotech.com/jaayu/api/patient_single";
-    private String update_patient_url="https://work.primacyinfotech.com/jaayu/api/patient_edit";
-    private String delete_patient_url="https://work.primacyinfotech.com/jaayu/api/patient_delete";
+    private String fetch_update_patient_url= BaseUrl.BaseUrlNew+"patient_single";
+    private String update_patient_url=BaseUrl.BaseUrlNew+"patient_edit";
+    private String delete_patient_url=BaseUrl.BaseUrlNew+"patient_delete";
     String[] value = new String[]{
             "Not Set",
             "A+",

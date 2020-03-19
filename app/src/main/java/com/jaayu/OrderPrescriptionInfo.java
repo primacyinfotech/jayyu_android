@@ -25,6 +25,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.jaayu.Model.BaseUrl;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -43,9 +44,9 @@ public class OrderPrescriptionInfo extends AppCompatActivity {
     SharedPreferences prefs_register;
     String data,val1,val2,val3,val4,val_sub_1,val_sub_2,val_sub3,val_sub4,result;
     SharedPreferences prefs_Pass_Value1,prefs_Pass_Value2,prefs_Pass_Value3,prefs_Pass_Value4;
-    private String Choose_first_url="https://work.primacyinfotech.com/jaayu/api/prescription_order_subscription_first";
-    private String Choose_second_url="https://work.primacyinfotech.com/jaayu/api/prescription_order_subscription_second";
-    private String Choose_third_url="https://work.primacyinfotech.com/jaayu/api/prescription_order_subscription_third";
+    private String Choose_first_url= BaseUrl.BaseUrlNew+"prescription_order_subscription_first";
+    private String Choose_second_url=BaseUrl.BaseUrlNew+"prescription_order_subscription_second";
+    private String Choose_third_url=BaseUrl.BaseUrlNew+"prescription_order_subscription_third";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

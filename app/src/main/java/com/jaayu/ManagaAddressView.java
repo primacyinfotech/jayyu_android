@@ -21,6 +21,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.jaayu.Model.BaseUrl;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -39,7 +40,7 @@ public class ManagaAddressView extends AppCompatActivity {
     ManageAdderssAdapter mAdapter;
     private ImageView back_button;
     private ArrayList<AddressModel> modelList;
-    private  String order_addressUrl="https://work.primacyinfotech.com/jaayu/api/order_address";
+    private  String order_addressUrl= BaseUrl.BaseUrlNew+"order_address";
     SharedPreferences prefs_register;
     private String u_id;
     FloatingActionButton actionButton;

@@ -29,6 +29,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.jaayu.Model.BaseUrl;
 import com.tobiasschuerg.prefixsuffix.PrefixSuffixEditText;
 
 import org.json.JSONException;
@@ -54,7 +55,7 @@ public class PatientAddPage extends AppCompatActivity {
     medication_of_patient,con1,con2;
     private static  int RQS_PICK_CONTACT=1;
     private static  int RQS_PICK_CONTACT_SECOND=2;
-    private String patient_add_url="https://work.primacyinfotech.com/jaayu/api/patient_add";
+    private String patient_add_url= BaseUrl.BaseUrlNew+"patient_add";
     String[] value = new String[]{
             "Not Set",
             "A+",

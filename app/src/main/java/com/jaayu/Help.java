@@ -18,6 +18,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.jaayu.Model.BaseUrl;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -41,7 +42,7 @@ private RecyclerView help_list;
     HelpAdapter helpAdapter;
 
     ArrayList<HelpModel> helpModels;
-    private String help_topic_url="https://work.primacyinfotech.com/jaayu/api/jaayu_tropic";
+    private String help_topic_url= BaseUrl.BaseUrlNew+"jaayu_tropic";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

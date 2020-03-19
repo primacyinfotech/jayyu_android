@@ -23,6 +23,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.jaayu.Model.BaseUrl;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -35,7 +36,7 @@ public class Registration extends AppCompatActivity {
     private Button goTo_submit;
     String u_name,u_email,u_phone;
     int GET_MY_PERMISSION = 1;
-    private String regUrl="https://work.primacyinfotech.com/jaayu/api/customer_reg";
+    private String regUrl= BaseUrl.BaseUrlNew+"customer_reg";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

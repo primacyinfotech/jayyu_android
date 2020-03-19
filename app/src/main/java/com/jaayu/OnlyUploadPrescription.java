@@ -30,6 +30,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.jaayu.Model.BaseUrl;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -79,9 +80,9 @@ public class OnlyUploadPrescription extends AppCompatActivity {
     String gson_prescription_id;
 
 
-    private  String Upload_prescription_url="https://work.primacyinfotech.com/jaayu/api/prescription_required_press";
-    private  String fetchnew_prescription_url="https://work.primacyinfotech.com/jaayu/api/prescription_req_display_press";
-    private  String fetchold_prescription_url="https://work.primacyinfotech.com/jaayu/api/press_disp_old_add_press";
+    private  String Upload_prescription_url= BaseUrl.BaseUrlNew+"prescription_required_press";
+    private  String fetchnew_prescription_url=BaseUrl.BaseUrlNew+"prescription_req_display_press";
+    private  String fetchold_prescription_url=BaseUrl.BaseUrlNew+"press_disp_old_add_press";
 
 
 

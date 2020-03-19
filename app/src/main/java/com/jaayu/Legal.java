@@ -18,6 +18,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.jaayu.Model.BaseUrl;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -40,7 +41,7 @@ public class Legal extends AppCompatActivity {
     private ImageView back_button;
     LegalAdapter legalAdapter;
     ArrayList<LegalModel> legalModels;
-    private String Legal_Url="https://work.primacyinfotech.com/jaayu/api/jaayu_legal";
+    private String Legal_Url= BaseUrl.BaseUrlNew+"jaayu_legal";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -22,6 +22,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.jaayu.Model.BaseUrl;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -32,7 +33,7 @@ import java.util.Map;
 public class LoginSignUp extends AppCompatActivity {
 private Button goTo_submit;
     int GET_MY_PERMISSION = 1;
-    private String Login_Otp_url="https://work.primacyinfotech.com/jaayu/api/login_otp";
+    private String Login_Otp_url= BaseUrl.BaseUrlNew+"login_otp";
     private EditText input_mobile;
     private  String u_phone;
     SharedPreferences sp;

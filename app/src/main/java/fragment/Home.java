@@ -24,6 +24,7 @@ import com.android.volley.toolbox.Volley;
 import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.jaayu.CustomSlider;
+import com.jaayu.Model.BaseUrl;
 import com.jaayu.OnlyUploadPrescription;
 import com.jaayu.R;
 
@@ -40,7 +41,7 @@ import java.util.HashMap;
 public class Home extends Fragment {
     LinearLayout search_layout;
     private Button upload_prescription;
-    private String sliderUrl="https://work.primacyinfotech.com/jaayu/api/slider";
+    private String sliderUrl= BaseUrl.BaseUrlNew+"slider";
     private SliderLayout banner_slider;
     public Home() {
         // Required empty public constructor

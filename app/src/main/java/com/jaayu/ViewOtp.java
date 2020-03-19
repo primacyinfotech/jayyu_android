@@ -21,6 +21,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.jaayu.Model.BaseUrl;
 import com.stfalcon.smsverifycatcher.OnSmsCatchListener;
 import com.stfalcon.smsverifycatcher.SmsVerifyCatcher;
 
@@ -43,8 +44,8 @@ public class ViewOtp extends AppCompatActivity {
    // private EditText view_otp;
     private TextView resend_btn;
     String code,OTP_Code,OTP_Code_Two,cell_number;
-    private String OTP_URL="https://work.primacyinfotech.com/jaayu/api/verify_otp";
-    private String resend_Otp_url="https://work.primacyinfotech.com/jaayu/api/resend_otp";
+    private String OTP_URL= BaseUrl.BaseUrlNew+"verify_otp";
+    private String resend_Otp_url=BaseUrl.BaseUrlNew+"resend_otp";
     SharedPreferences prefs ;
     SharedPreferences prefs_register;
 

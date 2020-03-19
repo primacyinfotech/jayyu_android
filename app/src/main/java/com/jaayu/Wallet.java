@@ -21,6 +21,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.jaayu.Model.BaseUrl;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -44,7 +45,7 @@ public class Wallet extends AppCompatActivity {
     NormalWalletAdapter normalWalletAdapter;
     private ImageView back_button;
     ArrayList<NormalWalletModel> normalWalletModels;
-    private String wallet_history_url="https://work.primacyinfotech.com/jaayu/api/normal_wallet_display";
+    private String wallet_history_url= BaseUrl.BaseUrlNew+"normal_wallet_display";
     SharedPreferences prefs_register;
     String u_id;
      TextView balance;

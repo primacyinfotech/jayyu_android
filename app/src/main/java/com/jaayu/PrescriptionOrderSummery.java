@@ -25,6 +25,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.jaayu.Model.BaseUrl;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -45,11 +46,11 @@ public class PrescriptionOrderSummery extends AppCompatActivity {
             customer_name,address_text,email_add,address_edit,items_view;
     private String order_summery_item_url="https://work.primacyinfotech.com/jaayu/api/addtocart/all";
     private String Order_tiem_total_dataUrl="https://work.primacyinfotech.com/jaayu/api/addtocart/sum_value";
-    private  String orderLast_addressUrl="https://work.primacyinfotech.com/jaayu/api/order_address_single_last";
-    private  String InstantOrderChkUrl="https://work.primacyinfotech.com/jaayu/api/instant_chk";
+    private  String orderLast_addressUrl= BaseUrl.BaseUrlNew+"order_address_single_last";
+    private  String InstantOrderChkUrl=BaseUrl.BaseUrlNew+"instant_chk";
     private  String Change_instant_Url="https://work.primacyinfotech.com/jaayu/api/change_to_instant";
-    private  String pass_val_url="https://work.primacyinfotech.com/jaayu/api/subscription_status";
-    private  String press_Order_url="https://work.primacyinfotech.com/jaayu/api/prescription_order";
+    private  String pass_val_url=BaseUrl.BaseUrlNew+"subscription_status";
+    private  String press_Order_url=BaseUrl.BaseUrlNew+"prescription_order";
     String address,user_name,us_nm,us_add,sing_fullname,all_address,prescription_image,Common_Address,Common_Address2;
     int address_id,address_id_second,sing_add_id,prescription_requird,Addd_Second,Addd_first;
     SharedPreferences prefs_register;

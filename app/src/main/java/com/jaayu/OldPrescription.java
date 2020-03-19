@@ -23,6 +23,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
+import com.jaayu.Model.BaseUrl;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -60,8 +61,8 @@ ArrayList<OldPrescriptionModel> oldPrescriptionModels;
     StringBuffer stringBuffer=null;
 
 
-private String Old_prescription_url="https://work.primacyinfotech.com/jaayu/api/prescription_req_display_old";
-    private String Old_prescription_url_add="https://work.primacyinfotech.com/jaayu/api/prescription_old_add";
+private String Old_prescription_url= BaseUrl.BaseUrlNew+"prescription_req_display_old";
+    private String Old_prescription_url_add=BaseUrl.BaseUrlNew+"prescription_old_add";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

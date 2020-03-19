@@ -35,6 +35,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.jaayu.Model.BaseUrl;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -71,8 +72,8 @@ public class MedicalPrescriptionReport extends AppCompatActivity {
     String u_id;
     int patient_id;
     SharedPreferences prefs_register;
-    private String Patient_upload_prescription_url="https://work.primacyinfotech.com/jaayu/api/patient_prescription_add";
-    private String Patient_fetch_prescription_url="https://work.primacyinfotech.com/jaayu/api/patient_prescription_list";
+    private String Patient_upload_prescription_url= BaseUrl.BaseUrlNew+"patient_prescription_add";
+    private String Patient_fetch_prescription_url=BaseUrl.BaseUrlNew+"patient_prescription_list";
     PatientPastPrescrptionAdapter patientPastPrescrptionAdapter;
     ArrayList<PatientPastPrescriptionModel> patientPastPrescriptionModels;
     @Override

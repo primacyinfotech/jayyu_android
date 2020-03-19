@@ -19,6 +19,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.jaayu.Model.BaseUrl;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -39,7 +40,7 @@ public class HelpDetails extends AppCompatActivity {
  RecyclerView help_details_list;
     HelpDetailsAdapter helpDetailsAdapter;
     ArrayList<HelpDetailsModel> helpDetailsModels;
-    private String Help_Url="https://work.primacyinfotech.com/jaayu/api/jaayu_help";
+    private String Help_Url= BaseUrl.BaseUrlNew+"jaayu_help";
     String help_data;
     @Override
     protected void onCreate(Bundle savedInstanceState) {

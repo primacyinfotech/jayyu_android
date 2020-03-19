@@ -24,6 +24,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.jaayu.Model.BaseUrl;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -38,7 +39,7 @@ public class JaayuSplash extends AppCompatActivity {
     String Otp,sp_otp,sp_phone;
     private String u_id;
     SharedPreferences prefs_register;
-    private String session_user_otpUrl="https://work.primacyinfotech.com/jaayu/api/login_user_otp";
+    private String session_user_otpUrl= BaseUrl.BaseUrlNew+"login_user_otp";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -22,6 +22,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.jaayu.Model.BaseUrl;
 
 import org.honorato.multistatetogglebutton.MultiStateToggleButton;
 import org.honorato.multistatetogglebutton.ToggleButton;
@@ -45,7 +46,7 @@ public class AddresAddActivity extends AppCompatActivity {
     private Button save;
     private String u_id;
     SharedPreferences prefs_register;
-    private  String add_addressUrl="https://work.primacyinfotech.com/jaayu/api/order_address_add";
+    private  String add_addressUrl= BaseUrl.BaseUrlNew+"order_address_add";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

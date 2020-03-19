@@ -21,6 +21,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.jaayu.Model.BaseUrl;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -43,7 +44,7 @@ public class AccountPrescription extends AppCompatActivity {
     ArrayList<AccountPresPatientModel> accountPresPatientModels;
     SharedPreferences prefs_register;
     private String u_id;
-    private String patient_assign_list_url="http://work.primacyinfotech.com/jaayu/api/patient_assign_list";
+    private String patient_assign_list_url= BaseUrl.BaseUrlNew+"patient_assign_list";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

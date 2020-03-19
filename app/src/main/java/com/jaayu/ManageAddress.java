@@ -21,6 +21,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.jaayu.Model.BaseUrl;
 
 import org.honorato.multistatetogglebutton.MultiStateToggleButton;
 import org.honorato.multistatetogglebutton.ToggleButton;
@@ -40,8 +41,8 @@ public class ManageAddress extends AppCompatActivity {
     private TextView label_other;
     int address_id;
     SharedPreferences prefs_register;
-    private  String fetch_addressUrl="https://work.primacyinfotech.com/jaayu/api/order_address_single";
-    private  String update_addressUrl="https://work.primacyinfotech.com/jaayu/api/order_address_edit";
+    private  String fetch_addressUrl= BaseUrl.BaseUrlNew+"order_address_single";
+    private  String update_addressUrl=BaseUrl.BaseUrlNew+"order_address_edit";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

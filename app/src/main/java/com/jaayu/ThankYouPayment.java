@@ -18,6 +18,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.jaayu.Model.BaseUrl;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -30,7 +31,7 @@ public class ThankYouPayment extends AppCompatActivity {
     private LinearLayout order_track_btn,help_ord_btn;
     String ordID,u_id;
     SharedPreferences prefs_register;
-    private  String delivery_address_Url="https://work.primacyinfotech.com/jaayu/api/delivery_date";
+    private  String delivery_address_Url= BaseUrl.BaseUrlNew+"delivery_date";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -19,6 +19,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.jaayu.Model.BaseUrl;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -40,7 +41,7 @@ public class AssignPatient extends AppCompatActivity {
     ArrayList<AssignPatientModel> assignPatientModels;
     RecyclerView assign_patient_list;
     Button assign_patient_btn;
-    private String patient_list_url="https://work.primacyinfotech.com/jaayu/api/patient_list";
+    private String patient_list_url= BaseUrl.BaseUrlNew+"patient_list";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
