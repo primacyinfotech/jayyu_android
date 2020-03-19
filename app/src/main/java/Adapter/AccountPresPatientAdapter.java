@@ -1,14 +1,18 @@
 package Adapter;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.jaayu.PatientwisePrescriptionView;
 import com.jaayu.R;
 
 import java.util.ArrayList;
@@ -41,7 +45,17 @@ public class AccountPresPatientAdapter extends RecyclerView.Adapter<AccountPresP
         final AccountPresPatientModel mList = accountPresPatientModels.get(position);
         holder.patient_name.setText(mList.getPatient_name());
         holder.pres_count.setText("("+""+mList.getPrescription_count()+")");
+        holder.patient_card.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent sendTo=new Intent(context, PatientwisePrescriptionView.class);
+                sendTo.putExtra("Patient_id",mList.getPatient_id());
+                ((Activity) context).overridePendingTransition(0,0);
+                context.startActivity(sendTo);
+                ((Activity) context).finish();
 
+            }
+        });
 
 
     }
@@ -53,10 +67,12 @@ public class AccountPresPatientAdapter extends RecyclerView.Adapter<AccountPresP
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         TextView patient_name,pres_count;
+        LinearLayout patient_card;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             patient_name=(TextView)itemView.findViewById(R.id.patient_name);
             pres_count=(TextView)itemView.findViewById(R.id.pres_count);
+            patient_card=(LinearLayout)itemView.findViewById(R.id.patient_card);
         }
     }
 }

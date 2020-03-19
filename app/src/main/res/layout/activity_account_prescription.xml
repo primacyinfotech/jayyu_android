@@ -62,6 +62,7 @@
             android:layout_marginLeft="20dp"
             android:fontFamily="@font/clearsansbold"
             android:text="All"
+            android:visibility="gone"
             android:textColor="#000"
             android:textSize="13dp">
 
