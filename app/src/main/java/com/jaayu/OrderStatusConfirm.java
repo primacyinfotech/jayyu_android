@@ -55,6 +55,7 @@ public class OrderStatusConfirm extends AppCompatActivity {
     String u_id,instant_id,ship_status,delivery_date,ord_id,ord_date,mrp_amt,save_amt,shipping_charge,tot_pay,ship_add_name,ship_add_phone,
             ship_add_address,ship_add_land,ship_add_pin,payment_status;
     int odr_id;
+    String Ord_vid;
     private TextView mrp_amount,save_amount,ship_charge,total_pay,ship_address,date_of_delivery,main_pay;
     private LinearLayout cancel_btn,paynow_btn;
     ProgressDialog progressDialog;
@@ -76,6 +77,7 @@ public class OrderStatusConfirm extends AppCompatActivity {
         u_id=prefs_register.getString("USER_ID","");
         Intent gettheOrderData=getIntent();
         odr_id=gettheOrderData.getIntExtra("Order_id",0);
+        Ord_vid=gettheOrderData.getStringExtra("Order_Vid");
         instant_id=gettheOrderData.getStringExtra("Instant");
         cart_items=(RecyclerView)findViewById(R.id.cart_items);
         pres_list=(RecyclerView)findViewById(R.id.pres_list);
@@ -178,6 +180,7 @@ public class OrderStatusConfirm extends AppCompatActivity {
 
                 params.put("user_id", u_id);
                 params.put("oid", String.valueOf(odr_id));
+                params.put("order_id", Ord_vid);
                 params.put("instant", instant_id);
                 return params;
             }
@@ -246,6 +249,7 @@ public class OrderStatusConfirm extends AppCompatActivity {
 
                 params.put("user_id", u_id);
                 params.put("oid", String.valueOf(odr_id));
+                params.put("order_id", Ord_vid);
                 params.put("instant", instant_id);
                 return params;
             }
@@ -361,6 +365,7 @@ public class OrderStatusConfirm extends AppCompatActivity {
 
                 params.put("user_id", u_id);
                 params.put("oid", String.valueOf(odr_id));
+                params.put("order_id", Ord_vid);
                 params.put("instant", instant_id);
                 return params;
             }

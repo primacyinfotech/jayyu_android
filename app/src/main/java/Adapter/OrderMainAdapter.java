@@ -141,6 +141,7 @@ public class OrderMainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                         ((Activity) context).overridePendingTransition(0,0);
                         ((Activity) context).finish();*/
                         Intent intentGotodetaails=new Intent(context, OrderStatusConfirm.class);
+                        intentGotodetaails.putExtra("Order_Vid",normalorder.getOrder_id());
                         intentGotodetaails.putExtra("Order_id",normalorder.getTbl_order_id());
                         intentGotodetaails.putExtra("Instant",normalorder.getInstant());
                         context.startActivity(intentGotodetaails);
@@ -149,7 +150,14 @@ public class OrderMainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
                     }
                     if(press_chk.equals("1")){
-                        Intent intentGotodetaails=new Intent(context, PrescriptionOrderDetails.class);
+                       /* Intent intentGotodetaails=new Intent(context, PrescriptionOrderDetails.class);
+                        intentGotodetaails.putExtra("Order_id",normalorder.getTbl_order_id());
+                        intentGotodetaails.putExtra("Instant",normalorder.getInstant());
+                        context.startActivity(intentGotodetaails);
+                        ((Activity) context).overridePendingTransition(0,0);
+                        ((Activity) context).finish();*/
+                        Intent intentGotodetaails=new Intent(context, OrderStatusConfirm.class);
+                        intentGotodetaails.putExtra("Order_Vid",normalorder.getOrder_id());
                         intentGotodetaails.putExtra("Order_id",normalorder.getTbl_order_id());
                         intentGotodetaails.putExtra("Instant",normalorder.getInstant());
                         context.startActivity(intentGotodetaails);
@@ -286,6 +294,7 @@ public class OrderMainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                         context.startActivity(intentGotodetaails);
                         ((Activity) context).overridePendingTransition(0,0);
                         ((Activity) context).finish();
+
                     }
 
                 }
