@@ -34,6 +34,9 @@
 
         </LinearLayout>
     </androidx.appcompat.widget.Toolbar>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
@@ -49,6 +52,190 @@
 
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
+        <androidx.cardview.widget.CardView
+            android:layout_margin="5dp"
+            android:backgroundTint="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+            <TextView
+                android:text="Reapeat"
+                android:fontFamily="@font/clearsansbold"
+                android:textColorHighlight="#000"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <RadioButton
+                android:id="@+id/daily_time"
+                android:layout_marginTop="10dp"
+                android:text="Daily"
+                android:textSize="15sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+                <View
+                    android:background="@color/light_gray"
+                    android:layout_width="match_parent"
+                    android:layout_height="3dp">
+
+                </View>
+                <LinearLayout
+                    android:id="@+id/section_daily_time"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp">
+                              <RadioButton
+                                  android:layout_gravity="center"
+                                  android:id="@+id/until_stop"
+                                  android:textSize="15sp"
+                                  android:text="Until Stop"
+                                  android:layout_width="wrap_content"
+                                  android:layout_height="wrap_content" />
+                    <Spinner
+                        android:layout_gravity="center"
+                        android:id="@+id/days_count"
+                        android:layout_marginLeft="10dp"
+                        android:layout_width="80dp"
+                        android:layout_height="wrap_content">
+
+                    </Spinner>
+                    <TextView
+                        android:text="Days"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="10dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+                <View
+                    android:background="@color/light_gray"
+                    android:layout_width="match_parent"
+                    android:layout_height="3dp"></View>
+                <RadioButton
+                    android:id="@+id/weekly_time"
+                    android:layout_marginTop="10dp"
+                    android:text="Weekly"
+                    android:textSize="15sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <View
+                    android:background="@color/light_gray"
+                    android:layout_width="match_parent"
+                    android:layout_height="3dp"></View>
+                <LinearLayout
+                    android:id="@+id/section_of_week"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <CheckBox
+                        android:id="@+id/sunday"
+                        android:text="Sunday"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <CheckBox
+                        android:id="@+id/monday"
+                        android:text="Monday"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <CheckBox
+                        android:id="@+id/tuesday"
+                        android:text="Tuesday"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <CheckBox
+                        android:id="@+id/wednessday"
+                        android:text="Wednesday"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <CheckBox
+                        android:id="@+id/thirstday"
+                        android:text="Thirstday"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <CheckBox
+                        android:id="@+id/friday"
+                        android:text="Friday"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <CheckBox
+                        android:id="@+id/saturday"
+                        android:text="Saturday"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+                <View
+                    android:background="@color/light_gray"
+                    android:layout_width="match_parent"
+                    android:layout_height="3dp"></View>
+                <RadioButton
+                    android:id="@+id/monthly_time"
+                    android:layout_marginTop="10dp"
+                    android:text="Monthly"
+                    android:textSize="15sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <View
+                    android:background="@color/light_gray"
+                    android:layout_width="match_parent"
+                    android:layout_height="3dp"></View>
+            <LinearLayout
+                android:id="@+id/section_of_month"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="80dp">
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                <Spinner
+                    android:layout_gravity="center"
+                    android:id="@+id/month_date"
+                    android:layout_width="100dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_height="wrap_content">
+
+                </Spinner>
+                <TextView
+                    android:layout_gravity="center"
+                    android:text="Of Every Month"
+                    android:textColor="#000"
+                    android:layout_marginLeft="20dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:id="@+id/add_new_time"
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <ImageView
+                            android:layout_marginLeft="20dp"
+                            android:src="@drawable/ic_action_plus"
+                            android:layout_width="24dp"
+                            android:layout_height="24dp" />
+                        <TextView
+                            android:text="Add new Time"
+                            android:textSize="18dp"
+                            android:layout_marginLeft="10dp"
+                            android:textColor="@color/colorAccent"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+                </LinearLayout>
+                <View
+                    android:background="@color/light_gray"
+                    android:layout_width="match_parent"
+                    android:layout_height="3dp"></View>
+            </LinearLayout>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
     </LinearLayout>
-    
+    </ScrollView>
 </LinearLayout>
