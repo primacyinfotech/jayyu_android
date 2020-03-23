@@ -85,7 +85,7 @@ public class CartActivity extends AppCompatActivity {
         progressDialog = new ProgressDialog(CartActivity.this);
         progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         progressDialog.show();
-        progressDialog.setMessage("Downloading...");
+        progressDialog.setMessage("Downloading....");
         progressDialog.setCancelable(false);
         /* Intent pres_req=getIntent();
          prescription_req=pres_req.getIntExtra("P_Required",0);*/
