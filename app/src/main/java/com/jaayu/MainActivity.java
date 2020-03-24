@@ -105,8 +105,10 @@ public class MainActivity extends AppCompatActivity
                             .commit();
                 }
                 if(navigationItem.getPosition()==1){
-                   Intent intentGotoReminder=new Intent(MainActivity.this,ReminderList.class);
-                   startActivity(intentGotoReminder);
+                 /*  Intent intentGotoReminder=new Intent(MainActivity.this,ReminderList.class);
+                   startActivity(intentGotoReminder);*/
+                    Intent intentGotoReminder=new Intent(MainActivity.this,ReminderAddPage.class);
+                    startActivity(intentGotoReminder);
                 }
                 if (navigationItem.getPosition()==2){
                Intent intentGoOrder=new Intent(MainActivity.this,OrderPage.class);

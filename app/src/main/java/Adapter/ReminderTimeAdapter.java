@@ -21,6 +21,12 @@ public class ReminderTimeAdapter extends RecyclerView.Adapter<ReminderTimeAdapte
     ArrayList<ReminderTimeModel> reminderTimeModels;
     Context context;
     private int selectedPosition = -1;
+
+    public ReminderTimeAdapter(ArrayList<ReminderTimeModel> reminderTimeModels, Context context) {
+        this.reminderTimeModels = reminderTimeModels;
+        this.context = context;
+    }
+
     @NonNull
     @Override
     public ReminderTimeAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {

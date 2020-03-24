@@ -191,7 +191,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".ReminderAddPage"></activity>
+        <activity android:name=".ReminderAddPage"
+            android:hardwareAccelerated="true"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" ></activity>
         <activity
             android:name=".PatientwisePrescriptionView"
             android:hardwareAccelerated="true"

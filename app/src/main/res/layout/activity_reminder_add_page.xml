@@ -36,11 +36,11 @@
     </androidx.appcompat.widget.Toolbar>
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="500dp">
+        android:layout_height="450dp">
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="500dp">
+        android:layout_height="450dp">
         <TextView
             android:text="Selected Medicine"
             android:layout_marginLeft="10dp"
@@ -281,7 +281,7 @@
     </LinearLayout>
     </ScrollView>
     <LinearLayout
-        android:layout_margin="20dp"
+        android:layout_margin="10dp"
         android:orientation="horizontal"
         android:id="@+id/new_time"
         android:background="@color/white"
@@ -308,7 +308,8 @@
         android:textSize="18dp"
         android:background="@drawable/corner_round_button"
         android:text="Save"
-        android:layout_margin="20dp"
+       android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 </LinearLayout>
