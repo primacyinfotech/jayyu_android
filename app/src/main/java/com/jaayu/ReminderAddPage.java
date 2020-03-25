@@ -14,8 +14,10 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
@@ -24,28 +26,58 @@ import android.widget.Spinner;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import com.google.gson.Gson;
+import com.jaayu.Model.BaseUrl;
 import com.jaayu.Model.TimerDatabase;
 
-import java.util.ArrayList;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import Adapter.OldPrescriptionAdapter;
 import Adapter.ReminderTimeAdapter;
 import Model.ReminderTimeModel;
 
 public class ReminderAddPage extends AppCompatActivity {
- private Spinner edit_medicine,days_count,month_date;
- RadioButton daily_time,until_stop,weekly_time,monthly_time;
+ private Spinner edit_medicine,days_count,month_date,week_count,month_count;
+ RadioButton daily_time,until_stop,weekly_time,monthly_time,until_stop_week,until_stop_month;
  LinearLayout section_daily_time,section_of_week,section_of_month,new_time;
  private CheckBox sunday,monday,tuesday,wednessday,thirstday,friday,saturday;
- String s_day,m_day,t_day,w_day,th_day,f_day,sat_day,daytime,weektime,monthtime;
+ String s_day,m_day,t_day,w_day,th_day,f_day,sat_day,daytime,weektime,monthtime,SendWeek,time_view_list;
  RecyclerView  timer_list;
+ private Button btn_save;
  ArrayList<String> daycountList;
     ArrayList<String> mothList;
+    ArrayList<String> medicinList;
+    ArrayList<String> weekList;
+    ArrayList<String> weekListcount;
+    ArrayList<String> monthListcount;
+    ArrayList<String>allWeekList=new ArrayList<>();
+    ArrayList<String>timegetList;
+    List<String> All_Plist_two=new ArrayList<>();
+    List<String>[] old_Plist_two;
+    List<String>l;
+
+
  int clickCount=0;
     int hour, mhour, minute;
+    String fetchTIME;
     String format;
     TimerDatabase timerDatabase;
     ReminderTimeAdapter reminderTimeAdapter;
     ArrayList<ReminderTimeModel> reminderTimeModels;
+    private String medicineList_url= BaseUrl.BaseUrlNew+"jaayu_medicine_list";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -127,8 +159,38 @@ public class ReminderAddPage extends AppCompatActivity {
         dataAdaptermonth.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         month_date.setAdapter(dataAdaptermonth);
         dataAdaptermonth.notifyDataSetChanged();
+        week_count=(Spinner)findViewById(R.id.week_count);
+        weekListcount=new ArrayList<>();
+        weekListcount.add("1");
+        weekListcount.add("2");
+        weekListcount.add("3");
+        weekListcount.add("4");
+        weekListcount.add("5");
+        weekListcount.add("6");
+        weekListcount.add("7");
+        weekListcount.add("8");
+        weekListcount.add("9");
+        weekListcount.add("10");
+        weekListcount.add("11");
+        weekListcount.add("12");
+        ArrayAdapter<String> dataAdapterweekcount = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, weekListcount);
+        dataAdapterweekcount.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        week_count.setAdapter(dataAdapterweekcount);
+        dataAdapterweekcount.notifyDataSetChanged();
+        month_count=(Spinner)findViewById(R.id.month_count);
+        monthListcount=new ArrayList<>();
+        monthListcount.add("1");
+        monthListcount.add("2");
+        monthListcount.add("3");
+        monthListcount.add("4");
+        ArrayAdapter<String> dataAdaptermonthcount = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, monthListcount);
+        dataAdaptermonthcount.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        month_count.setAdapter(dataAdaptermonthcount);
+        dataAdaptermonthcount.notifyDataSetChanged();
         daily_time=(RadioButton)findViewById(R.id.daily_time);
         until_stop=(RadioButton)findViewById(R.id.until_stop);
+        until_stop_week=(RadioButton)findViewById(R.id.until_stop_week);
+        until_stop_month=(RadioButton)findViewById(R.id.until_stop_month);
         weekly_time=(RadioButton)findViewById(R.id.weekly_time);
         monthly_time=(RadioButton)findViewById(R.id.monthly_time);
         section_daily_time=(LinearLayout)findViewById(R.id.section_daily_time);
@@ -143,40 +205,43 @@ public class ReminderAddPage extends AppCompatActivity {
         friday=(CheckBox)findViewById(R.id.friday);
         saturday=(CheckBox)findViewById(R.id.saturday);
         timer_list=(RecyclerView)findViewById(R.id.timer_list);
+        btn_save=(Button)findViewById(R.id.btn_save);
         section_daily_time.setVisibility(View.GONE);
         section_of_week.setVisibility(View.GONE);
         section_of_month.setVisibility(View.GONE);
         new_time.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                clickCount=clickCount+1;
-                if(clickCount<=3){
+              /*  clickCount=clickCount+1;
+                if(clickCount<=3){*/
 
-                    TimePickerDialog timePickerDialog=new TimePickerDialog(ReminderAddPage.this, new TimePickerDialog.OnTimeSetListener() {
+                    TimePickerDialog timePickerDialog = new TimePickerDialog(ReminderAddPage.this, new TimePickerDialog.OnTimeSetListener() {
                         @Override
                         public void onTimeSet(TimePicker timePicker, int hour, int minute) {
                             hour = selectedTimeFormat(hour);
-                            String time_input=hour+":"+minute+format;
-                            boolean isUpdate=timerDatabase.insertData(time_input);
-                            if(isUpdate){
-                                Intent intent= new Intent("message_time_intent");
+                            String time_input = hour + ":" + minute + format;
+                            int count = 0;
+                            int countOf=3;
+                            if (count<=countOf) {
+                                boolean isUpdate = timerDatabase.insertData(time_input);
+                                if (isUpdate) {
+                                    Intent intent = new Intent("message_time_intent");
 
-                                intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                                LocalBroadcastManager.getInstance(ReminderAddPage.this).sendBroadcast(intent);
-                                overridePendingTransition(0,0);
-                            }
-                            else {
+                                    intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                                    LocalBroadcastManager.getInstance(ReminderAddPage.this).sendBroadcast(intent);
+                                    overridePendingTransition(0, 0);
+                                } else {
 
+                                }
+                                count++;
                             }
 
                         }
-                    },hour,minute,true);
+
+                    }, hour, minute, true);
                     timePickerDialog.show();
-                }
-                else {
-                    Toast.makeText(getApplicationContext(),"Stop",Toast.LENGTH_LONG).show();
-                    new_time.setEnabled(true);
-                }
+
+
             }
         });
         sunday.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -294,8 +359,65 @@ public class ReminderAddPage extends AppCompatActivity {
                 }
             }
         });
+        btn_save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+               // reminderTimeAdapter.getSelectedItem();
+                for(int i = 0; i< ReminderTimeAdapter.reminderTimeModels.size(); i++)
+                    if( ReminderTimeAdapter.reminderTimeModels.get(i).getSelected()){
+                      String med_time=ReminderTimeAdapter.reminderTimeModels.get(i).getTime_scheduled();
+                      timegetList=new ArrayList<>();
+                      timegetList.add(med_time);
+                      All_Plist_two.addAll(timegetList);
+                        Toast.makeText(getApplicationContext(),med_time,Toast.LENGTH_LONG);
+
+                    }
+                old_Plist_two=new List[1];
+                old_Plist_two[0]=All_Plist_two;
+                for(int j=0;j<old_Plist_two.length;j++){
+                    l=old_Plist_two[j];
+                    // System.out.println("OlD"+l);
+                    Gson gson = new Gson();
+                    time_view_list= gson.toJson(l);
+                    System.out.println("OlD"+time_view_list);
+                }
+
+
+                weekList=new ArrayList<>();
+                if(s_day!=null){
+                   weekList.add(s_day);
+                }
+                if(m_day!=null){
+                    weekList.add(m_day);
+                }
+                if(t_day!=null){
+                    weekList.add(t_day);
+                }
+                if (w_day!=null){
+                    weekList.add(w_day);
+
+                }
+                if(th_day!=null){
+                    weekList.add(th_day);
+
+                }
+                if(f_day!=null){
+                    weekList.add(f_day);
+                }
+                if(sat_day!=null){
+                    weekList.add(sat_day);
+                }
+                allWeekList.addAll(weekList);
+                Gson weekJson=new Gson();
+                SendWeek=weekJson.toJson(allWeekList);
+                Toast.makeText(getApplicationContext(),SendWeek,Toast.LENGTH_LONG);
+
+
+            }
+        });
 
         getTime();
+        getmedList();
 
     }
     public int selectedTimeFormat(int hour){
@@ -335,6 +457,65 @@ public class ReminderAddPage extends AppCompatActivity {
 
 
     }
+    private void  getmedList(){
+        medicinList=new ArrayList<>();
+        RequestQueue queue = Volley.newRequestQueue(ReminderAddPage.this);
+        StringRequest postRequest = new StringRequest(Request.Method.POST, medicineList_url,
+                new Response.Listener<String>()
+                {
+                    @Override
+                    public void onResponse(String response) {
+                        // response
+                        Log.d("Response", response);
+                        try {
+                            //Do it with this it will work
+                            JSONObject person = new JSONObject(response);
+                            String status=person.getString("status");
+                            if(status.equals("1")) {
+                                JSONArray jsonArray = person.getJSONArray("message");
+                                for (int i = 0; i < jsonArray.length(); i++){
+                                    JSONObject serch = jsonArray.getJSONObject(i);
+                                    String med_list=serch.getString("medicine_name");
+                                    medicinList.add(med_list);
+                                }
+                                ArrayAdapter<String> dataAdaptermedi = new ArrayAdapter<String>(ReminderAddPage.this, android.R.layout.simple_spinner_item,  medicinList);
+                                dataAdaptermedi.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                                edit_medicine.setAdapter(dataAdaptermedi);
+                                dataAdaptermedi.notifyDataSetChanged();
+                            }
+
+
+
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+
+                        }
+
+
+                    }
+                },
+                new Response.ErrorListener()
+                {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // error
+
+                    }
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams()
+            {
+                Map<String, String>  params = new HashMap<String, String>();
+
+                return params;
+            }
+        };
+        queue.add(postRequest);
+
+    }
+
     public BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {

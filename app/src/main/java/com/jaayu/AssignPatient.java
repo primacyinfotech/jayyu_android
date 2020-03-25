@@ -54,6 +54,9 @@ public class AssignPatient extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 assignPatientAdapter.getSelectedItem();
+
+
+
             }
         });
 

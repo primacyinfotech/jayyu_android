@@ -15,7 +15,7 @@
         android:layout_marginTop="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <RadioButton
+        <CheckBox
             android:id="@+id/selected_time"
             android:layout_marginLeft="10dp"
             android:layout_width="wrap_content"

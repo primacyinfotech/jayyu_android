@@ -176,7 +176,36 @@
                         android:text="Saturday"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
+                    <LinearLayout
+                        android:id="@+id/section_week"
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="80dp">
+                        <RadioButton
+                            android:layout_gravity="center"
+                            android:id="@+id/until_stop_week"
+                            android:textSize="15sp"
+                            android:text="Until Stop"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                        <Spinner
+                            android:layout_gravity="center"
+                            android:id="@+id/week_count"
+                            android:layout_marginLeft="10dp"
+                            android:layout_width="80dp"
+                            android:layout_height="wrap_content">
+
+                        </Spinner>
+                        <TextView
+                            android:text="Week"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="10dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                    </LinearLayout>
                 </LinearLayout>
+
                 <View
                     android:background="@color/light_gray"
                     android:layout_width="match_parent"
@@ -196,7 +225,7 @@
                 android:id="@+id/section_of_month"
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="80dp">
+                android:layout_height="150dp">
                 <LinearLayout
                     android:orientation="vertical"
                     android:layout_width="match_parent"
@@ -241,12 +270,44 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" />
                     </LinearLayout>
+                    <LinearLayout
+                        android:id="@+id/section_month"
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="80dp">
+                        <RadioButton
+                            android:layout_gravity="center"
+                            android:id="@+id/until_stop_month"
+                            android:textSize="15sp"
+                            android:text="Until Stop"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                        <Spinner
+                            android:layout_gravity="center"
+                            android:id="@+id/month_count"
+                            android:layout_marginLeft="10dp"
+                            android:layout_width="80dp"
+                            android:layout_height="wrap_content">
+
+                        </Spinner>
+                        <TextView
+                            android:text="months"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="10dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                    </LinearLayout>
                 </LinearLayout>
+
+
                 <View
                     android:background="@color/light_gray"
                     android:layout_width="match_parent"
                     android:layout_height="3dp"></View>
+
             </LinearLayout>
+
             </LinearLayout>
         </androidx.cardview.widget.CardView>
         <androidx.cardview.widget.CardView
