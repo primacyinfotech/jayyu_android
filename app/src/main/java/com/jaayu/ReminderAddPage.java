@@ -16,6 +16,7 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.Spinner;
@@ -34,6 +35,7 @@ public class ReminderAddPage extends AppCompatActivity {
  RadioButton daily_time,until_stop,weekly_time,monthly_time;
  LinearLayout section_daily_time,section_of_week,section_of_month,new_time;
  private CheckBox sunday,monday,tuesday,wednessday,thirstday,friday,saturday;
+ String s_day,m_day,t_day,w_day,th_day,f_day,sat_day,daytime,weektime,monthtime;
  RecyclerView  timer_list;
  int clickCount=0;
     int hour, mhour, minute;
@@ -103,6 +105,121 @@ public class ReminderAddPage extends AppCompatActivity {
                 else {
                     Toast.makeText(getApplicationContext(),"Stop",Toast.LENGTH_LONG).show();
                     new_time.setEnabled(true);
+                }
+            }
+        });
+        sunday.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                if(sunday.isChecked()){
+                    s_day="Sunday";
+                    sunday.setSelected(true);
+                    sunday.setChecked(true);
+                }
+            }
+        });
+        monday.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                if(monday.isChecked()){
+                    m_day="MonDay";
+                    monday.setSelected(true);
+                    monday.setChecked(true);
+                }
+            }
+        });
+        tuesday.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                if(tuesday.isChecked()){
+                    t_day="Tuesday";
+                    tuesday.setSelected(true);
+                    tuesday.setChecked(true);
+                }
+            }
+        });
+        wednessday.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                if(wednessday.isChecked()){
+                    w_day="Wednesday";
+                    wednessday.setSelected(true);
+                    wednessday.setChecked(true);
+                }
+            }
+        });
+        thirstday.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                if(thirstday.isChecked()){
+                    th_day="Thirstday";
+                    thirstday.setSelected(true);
+                    thirstday.setChecked(true);
+                }
+            }
+        });
+        friday.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                if(friday.isChecked()){
+                    f_day="Friday";
+                    friday.setSelected(true);
+                    friday.setChecked(true);
+                }
+            }
+        });
+        saturday.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                if(saturday.isChecked()){
+                    sat_day="Saturday";
+                    saturday.setSelected(true);
+                    saturday.setChecked(true);
+                }
+            }
+        });
+        daily_time.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean isCheck) {
+                if(daily_time.isChecked()){
+                    daytime="Daily";
+                    section_daily_time.setVisibility(View.VISIBLE);
+                    section_of_week.setVisibility(View.GONE);
+                    section_of_month.setVisibility(View.GONE);
+                    daily_time.setSelected(true);
+                    daily_time.setChecked(true);
+                    weekly_time.setChecked(false);
+                    monthly_time.setChecked(false);
+                }
+            }
+        });
+        weekly_time.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean isCheck) {
+                if(weekly_time.isChecked()){
+                    weektime="Weekly";
+                    section_of_week.setVisibility(View.VISIBLE);
+                    section_daily_time.setVisibility(View.GONE);
+                    section_of_month.setVisibility(View.GONE);
+                    weekly_time.setSelected(true);
+                    weekly_time.setChecked(true);
+                    daily_time.setChecked(false);
+                    monthly_time.setChecked(false);
+                }
+            }
+        });
+        monthly_time.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean isCheck) {
+                if(monthly_time.isChecked()){
+                    monthtime="Monthly";
+                    section_of_month.setVisibility(View.VISIBLE);
+                    section_of_week.setVisibility(View.GONE);
+                    section_daily_time.setVisibility(View.GONE);
+                    monthly_time.setSelected(true);
+                    monthly_time.setChecked(true);
+                    weekly_time.setChecked(false);
+                    daily_time.setChecked(false);
                 }
             }
         });
