@@ -6,6 +6,7 @@ import androidx.appcompat.widget.Toolbar;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.InputFilter;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
@@ -30,6 +31,8 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import Model.MinMaxFilter;
 
 public class SubscriptionDelivery extends AppCompatActivity {
     ImageView back_button;
@@ -61,9 +64,12 @@ private LinearLayout custom_part_delivery;
         selected_six_delivery=(CheckBox)findViewById(R.id.selected_six_delivery);
         single_delivery_order=(CheckBox)findViewById(R.id.single_delivery_order);
         edt_single_day=(EditText)findViewById(R.id.edt_single_day);
-        edt_single_day.setEnabled(false);
+        //edt_single_day.setFilters( new InputFilter[]{ new MinMaxFilter( "15" , "99" )}) ;
 
+        edt_single_day.setEnabled(false);
+        /**/
         edt_single_delivery=(EditText)findViewById(R.id.edt_single_delivery);
+        edt_single_delivery.setFilters( new InputFilter[]{ new MinMaxFilter( "1" , "12" )}) ;
         custom_part_delivery=(LinearLayout)findViewById(R.id.custom_part_delivery);
         confirm_btn=(Button)findViewById(R.id.confirm_btn);
         back_button.setOnClickListener(new View.OnClickListener() {
