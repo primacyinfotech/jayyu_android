@@ -7,11 +7,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
@@ -35,6 +37,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 import com.jaayu.Model.BaseUrl;
+import com.jaayu.Model.ReminderDataFromServerDatabase;
 import com.jaayu.Model.TimerDatabase;
 
 import org.json.JSONArray;
@@ -56,7 +59,7 @@ public class ReminderAddPage extends AppCompatActivity {
  LinearLayout section_daily_time,section_of_week,section_of_month,new_time;
  private CheckBox sunday,monday,tuesday,wednessday,thirstday,friday,saturday;
  String s_day,m_day,t_day,w_day,th_day,f_day,sat_day,daytime,weektime,monthtime,SendWeek,time_view_list,daySpin,monthSpin,
-    weekcountSpinn,monthcountSpinner,repeat;
+    weekcountSpinn,monthcountSpinner,repeat,duration,medSelected;
  RecyclerView  timer_list;
  private Button btn_save;
  ArrayList<String> daycountList;
@@ -70,7 +73,9 @@ public class ReminderAddPage extends AppCompatActivity {
     List<String> All_Plist_two=new ArrayList<>();
     List<String>[] old_Plist_two;
     List<String>l;
-
+    SharedPreferences prefs_register;
+    private String u_id;
+    ReminderDataFromServerDatabase reminderDataFromServerDatabase;
 
  int clickCount=0;
     int hour, mhour, minute;
@@ -80,17 +85,35 @@ public class ReminderAddPage extends AppCompatActivity {
     ReminderTimeAdapter reminderTimeAdapter;
     ArrayList<ReminderTimeModel> reminderTimeModels;
     private String medicineList_url= BaseUrl.BaseUrlNew+"jaayu_medicine_list";
+    private String addreminder_url= BaseUrl.BaseUrlNew+"jaayu_reminder";
+    private String fetchreminder_url= BaseUrl.BaseUrlNew+"jaayu_reminder_listing";
+    ProgressDialog progressDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reminder_add_page);
+        prefs_register = getSharedPreferences(
+                "Register Details", Context.MODE_PRIVATE);
+        u_id=prefs_register.getString("USER_ID","");
         LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver, new IntentFilter("message_time_intent"));
 
         timerDatabase=new TimerDatabase(this);
+        reminderDataFromServerDatabase=new ReminderDataFromServerDatabase(this);
          reminderTimeModels=new ArrayList<>();
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         edit_medicine=(Spinner)findViewById(R.id.edit_medicine);
+        edit_medicine.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                medSelected=edit_medicine.getSelectedItem().toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
         days_count=(Spinner)findViewById(R.id.days_count);
         daycountList=new ArrayList<>();
         daycountList.add("1");
@@ -290,6 +313,49 @@ public class ReminderAddPage extends AppCompatActivity {
 
             }
         });
+
+        until_stop.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                if(until_stop.isChecked()){
+                    duration="0";
+                    until_stop.setSelected(true);
+                    until_stop.setChecked(true);
+                    until_stop_week.setChecked(false);
+                    until_stop_month.setChecked(false);
+
+                }
+
+            }
+        });
+        until_stop_week.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                if(until_stop_week.isChecked()){
+                    duration="0";
+                    until_stop_week.setSelected(true);
+                    until_stop_week.setChecked(true);
+                    until_stop.setChecked(false);
+                    until_stop_month.setChecked(false);
+
+                }
+
+            }
+        });
+        until_stop_month.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                if(until_stop_month.isChecked()){
+                    duration="0";
+                    until_stop_month.setSelected(true);
+                    until_stop_month.setChecked(true);
+                    until_stop_week.setChecked(false);
+                    until_stop.setChecked(false);
+
+                }
+
+            }
+        });
         sunday.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
@@ -326,7 +392,7 @@ public class ReminderAddPage extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
                 if(wednessday.isChecked()){
-                    w_day="Wednesday";
+                    w_day="1";
                     wednessday.setSelected(true);
                     wednessday.setChecked(true);
                 }
@@ -336,7 +402,7 @@ public class ReminderAddPage extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
                 if(thirstday.isChecked()){
-                    th_day="Thirstday";
+                    th_day="1";
                     thirstday.setSelected(true);
                     thirstday.setChecked(true);
                 }
@@ -346,7 +412,7 @@ public class ReminderAddPage extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
                 if(friday.isChecked()){
-                    f_day="Friday";
+                    f_day="1";
                     friday.setSelected(true);
                     friday.setChecked(true);
                 }
@@ -356,7 +422,7 @@ public class ReminderAddPage extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
                 if(saturday.isChecked()){
-                    sat_day="Saturday";
+                    sat_day="1";
                     saturday.setSelected(true);
                     saturday.setChecked(true);
                 }
@@ -366,7 +432,7 @@ public class ReminderAddPage extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isCheck) {
                 if(daily_time.isChecked()){
-                    repeat="Daily";
+                    repeat="1";
                     section_daily_time.setVisibility(View.VISIBLE);
                     section_of_week.setVisibility(View.GONE);
                     section_of_month.setVisibility(View.GONE);
@@ -381,7 +447,7 @@ public class ReminderAddPage extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isCheck) {
                 if(weekly_time.isChecked()){
-                    repeat="Weekly";
+                    repeat="2";
                     section_of_week.setVisibility(View.VISIBLE);
                     section_daily_time.setVisibility(View.GONE);
                     section_of_month.setVisibility(View.GONE);
@@ -396,7 +462,7 @@ public class ReminderAddPage extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isCheck) {
                 if(monthly_time.isChecked()){
-                    repeat="Monthly";
+                    repeat="3";
                     section_of_month.setVisibility(View.VISIBLE);
                     section_of_week.setVisibility(View.GONE);
                     section_daily_time.setVisibility(View.GONE);
@@ -411,6 +477,11 @@ public class ReminderAddPage extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                // reminderTimeAdapter.getSelectedItem();
+                progressDialog = new ProgressDialog(ReminderAddPage.this);
+                progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+                progressDialog.show();
+                progressDialog.setMessage("Upload Data To Server....");
+                progressDialog.setCancelable(false);
                 for(int i = 0; i< ReminderTimeAdapter.reminderTimeModels.size(); i++)
                     if( ReminderTimeAdapter.reminderTimeModels.get(i).getSelected()){
                       String med_time=ReminderTimeAdapter.reminderTimeModels.get(i).getTime_scheduled();
@@ -420,18 +491,19 @@ public class ReminderAddPage extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(),med_time,Toast.LENGTH_LONG);
 
                     }
+
                 old_Plist_two=new List[1];
                 old_Plist_two[0]=All_Plist_two;
-                for(int j=0;j<old_Plist_two.length;j++){
-                    l=old_Plist_two[j];
+                for(int j=0;j<old_Plist_two.length;j++) {
+                    l = old_Plist_two[j];
                     // System.out.println("OlD"+l);
                     Gson gson = new Gson();
-                    time_view_list= gson.toJson(l);
-                    System.out.println("OlD"+time_view_list);
-                }
+                    time_view_list = gson.toJson(l);
+                    System.out.println("OlD" + time_view_list);
 
 
-                weekList=new ArrayList<>();
+
+              /*  weekList=new ArrayList<>();
                 if(s_day!=null){
                    weekList.add(s_day);
                 }
@@ -484,9 +556,133 @@ public class ReminderAddPage extends AppCompatActivity {
                 allWeekList.addAll(weekList);
                 Gson weekJson=new Gson();
                 SendWeek=weekJson.toJson(allWeekList);
-                Toast.makeText(getApplicationContext(),SendWeek,Toast.LENGTH_LONG);
+                Toast.makeText(getApplicationContext(),SendWeek,Toast.LENGTH_LONG);*/
+
+                    RequestQueue queue = Volley.newRequestQueue(ReminderAddPage.this);
+                    StringRequest postRequest = new StringRequest(Request.Method.POST, addreminder_url,
+                            new Response.Listener<String>() {
+                                @Override
+                                public void onResponse(String response) {
+                                    // response
+                                    Log.d("Response", response);
+                                    try {
+                                        //Do it with this it will work
+                                        JSONObject person = new JSONObject(response);
+                                        String status = person.getString("status");
+                                        if (status.equals("1")) {
+                                            progressDialog.dismiss();
+                                            l.clear();
+                                            fetchReminderData();
+
+                                        }
 
 
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+
+
+                                }
+                            },
+                            new Response.ErrorListener() {
+                                @Override
+                                public void onErrorResponse(VolleyError error) {
+                                    // error
+
+                                }
+                            }
+                    ) {
+                        @Override
+                        protected Map<String, String> getParams() {
+                            Map<String, String> params = new HashMap<String, String>();
+                            params.put("user_id", u_id);
+                            params.put("medicine_name", medSelected);
+                            params.put("repeat", repeat);
+                            if(s_day!=null){
+                                params.put("sun", s_day);
+                            }
+                            else{
+                                s_day="0";
+                                params.put("sun", s_day);
+                            }
+                            if(m_day!=null){
+                                params.put("mon", m_day);
+                            }
+                            else {
+                                m_day="0";
+                                params.put("mon", m_day);
+                            }
+                            if(t_day!=null){
+                                params.put("tue", t_day);
+                            }
+                            else {
+                                t_day="0";
+                                params.put("tue", t_day);
+
+                            }
+                            if (w_day!=null){
+                                params.put("wed", w_day);
+                            }
+                            else {
+                                w_day="0";
+                                params.put("wed", w_day);
+                            }
+                            if(th_day!=null){
+                                params.put("thu", th_day);
+                            }
+                            else {
+                                th_day="0";
+                                params.put("thu", th_day);
+
+                            }
+                            if(f_day!=null){
+                                params.put("fri", f_day);
+                            }
+                            else {
+                                f_day="0";
+                                params.put("fri", f_day);
+
+                            }
+                            if(sat_day!=null){
+                                params.put("sat", sat_day);
+                            }
+                            else {
+                                sat_day="0";
+                                params.put("sat", sat_day);
+                            }
+
+                            if(monthSpin!=null){
+                                params.put("month_date", monthSpin);
+                            }
+
+                            if (daySpin != null) {
+                                params.put("duration", daySpin);
+                            } else if (duration != null) {
+
+                                params.put("duration", duration);
+                            }
+                            if (weekcountSpinn != null) {
+                                params.put("duration", weekcountSpinn);
+                            } else if (duration != null) {
+
+                                params.put("duration", duration);
+                            }
+                            if (monthcountSpinner != null) {
+                                params.put("duration", monthcountSpinner);
+                            } else if (duration != null) {
+
+                                params.put("duration", duration);
+                            }
+
+
+                            params.put("set_time", time_view_list);
+
+
+                            return params;
+                        }
+                    };
+                    queue.add(postRequest);
+                }
             }
         });
 
@@ -596,5 +792,83 @@ public class ReminderAddPage extends AppCompatActivity {
             getTime();
         }
     };
+  private void  fetchReminderData(){
+      RequestQueue queue = Volley.newRequestQueue(ReminderAddPage.this);
+      StringRequest postRequest = new StringRequest(Request.Method.POST, fetchreminder_url,
+              new Response.Listener<String>()
+              {
+                  @Override
+                  public void onResponse(String response) {
+                      // response
+                      Log.d("Response", response);
+                      try {
+                          //Do it with this it will work
+                          JSONObject person = new JSONObject(response);
+                          JSONObject reminder=person.getJSONObject("reminder");
+                          String med_name=reminder.getString("medicine_name");
+                          String us_id=reminder.getString("user_id");
+                          String rep=reminder.getString("repeat_ed");
+                          String sund=reminder.getString("sun");
+                          String mond=reminder.getString("mon");
+                          String tued=reminder.getString("tue");
+                          String wedd=reminder.getString("wed");
+                          String thud=reminder.getString("thu");
+                          String frid=reminder.getString("fri");
+                          String satd=reminder.getString("sat");
+                          String mondate=reminder.getString("month_date");
+                          String start_date=reminder.getString("start_date");
+                          String end_date=reminder.getString("end_date");
+                          String due=reminder.getString("duration");
+                          boolean isUpdate = reminderDataFromServerDatabase.insertData(med_name,us_id,rep,sund,tued,wedd,thud,mond,frid,
+                                  satd,mondate,start_date,end_date,due);
+                          if (isUpdate) {
 
+                          } else {
+
+                          }
+                          JSONArray jsonArray=person.getJSONArray("set_time");
+                          for(int i=0;i<jsonArray.length();i++){
+                              JSONObject object=jsonArray.getJSONObject(i);
+                              String set_time=object.getString("set_time");
+                              boolean isTime = reminderDataFromServerDatabase.insertTime(set_time);
+                              if (isTime) {
+
+                              } else {
+
+                              }
+                          }
+
+
+
+
+
+
+                      } catch (JSONException e) {
+                          e.printStackTrace();
+
+                      }
+
+
+                  }
+              },
+              new Response.ErrorListener()
+              {
+                  @Override
+                  public void onErrorResponse(VolleyError error) {
+                      // error
+
+                  }
+              }
+      ) {
+          @Override
+          protected Map<String, String> getParams()
+          {
+              Map<String, String>  params = new HashMap<String, String>();
+              params.put("user_id", u_id);
+              return params;
+          }
+      };
+      queue.add(postRequest);
+
+  }
 }
