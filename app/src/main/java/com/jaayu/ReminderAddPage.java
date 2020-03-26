@@ -16,6 +16,7 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -54,7 +55,8 @@ public class ReminderAddPage extends AppCompatActivity {
  RadioButton daily_time,until_stop,weekly_time,monthly_time,until_stop_week,until_stop_month;
  LinearLayout section_daily_time,section_of_week,section_of_month,new_time;
  private CheckBox sunday,monday,tuesday,wednessday,thirstday,friday,saturday;
- String s_day,m_day,t_day,w_day,th_day,f_day,sat_day,daytime,weektime,monthtime,SendWeek,time_view_list;
+ String s_day,m_day,t_day,w_day,th_day,f_day,sat_day,daytime,weektime,monthtime,SendWeek,time_view_list,daySpin,monthSpin,
+    weekcountSpinn,monthcountSpinner,repeat;
  RecyclerView  timer_list;
  private Button btn_save;
  ArrayList<String> daycountList;
@@ -124,6 +126,17 @@ public class ReminderAddPage extends AppCompatActivity {
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         days_count.setAdapter(dataAdapter);
         dataAdapter.notifyDataSetChanged();
+        days_count.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                daySpin=days_count.getSelectedItem().toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
         month_date=(Spinner)findViewById(R.id.month_date);
         mothList=new ArrayList<>();
         mothList.add("1st");
@@ -159,6 +172,17 @@ public class ReminderAddPage extends AppCompatActivity {
         dataAdaptermonth.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         month_date.setAdapter(dataAdaptermonth);
         dataAdaptermonth.notifyDataSetChanged();
+        month_date.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                monthSpin=month_date.getSelectedItem().toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
         week_count=(Spinner)findViewById(R.id.week_count);
         weekListcount=new ArrayList<>();
         weekListcount.add("1");
@@ -177,6 +201,17 @@ public class ReminderAddPage extends AppCompatActivity {
         dataAdapterweekcount.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         week_count.setAdapter(dataAdapterweekcount);
         dataAdapterweekcount.notifyDataSetChanged();
+        week_count.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                weekcountSpinn=week_count.getSelectedItem().toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
         month_count=(Spinner)findViewById(R.id.month_count);
         monthListcount=new ArrayList<>();
         monthListcount.add("1");
@@ -186,6 +221,17 @@ public class ReminderAddPage extends AppCompatActivity {
         ArrayAdapter<String> dataAdaptermonthcount = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, monthListcount);
         dataAdaptermonthcount.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         month_count.setAdapter(dataAdaptermonthcount);
+        month_count.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                monthcountSpinner=month_count.getSelectedItem().toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
         dataAdaptermonthcount.notifyDataSetChanged();
         daily_time=(RadioButton)findViewById(R.id.daily_time);
         until_stop=(RadioButton)findViewById(R.id.until_stop);
@@ -248,27 +294,29 @@ public class ReminderAddPage extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
                 if(sunday.isChecked()){
-                    s_day="Sunday";
+                    s_day="1";
                     sunday.setSelected(true);
                     sunday.setChecked(true);
                 }
+
             }
         });
         monday.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
                 if(monday.isChecked()){
-                    m_day="MonDay";
+                    m_day="1";
                     monday.setSelected(true);
                     monday.setChecked(true);
                 }
+
             }
         });
         tuesday.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
                 if(tuesday.isChecked()){
-                    t_day="Tuesday";
+                    t_day="1";
                     tuesday.setSelected(true);
                     tuesday.setChecked(true);
                 }
@@ -318,7 +366,7 @@ public class ReminderAddPage extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isCheck) {
                 if(daily_time.isChecked()){
-                    daytime="Daily";
+                    repeat="Daily";
                     section_daily_time.setVisibility(View.VISIBLE);
                     section_of_week.setVisibility(View.GONE);
                     section_of_month.setVisibility(View.GONE);
@@ -333,7 +381,7 @@ public class ReminderAddPage extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isCheck) {
                 if(weekly_time.isChecked()){
-                    weektime="Weekly";
+                    repeat="Weekly";
                     section_of_week.setVisibility(View.VISIBLE);
                     section_daily_time.setVisibility(View.GONE);
                     section_of_month.setVisibility(View.GONE);
@@ -348,7 +396,7 @@ public class ReminderAddPage extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isCheck) {
                 if(monthly_time.isChecked()){
-                    monthtime="Monthly";
+                    repeat="Monthly";
                     section_of_month.setVisibility(View.VISIBLE);
                     section_of_week.setVisibility(View.GONE);
                     section_daily_time.setVisibility(View.GONE);
@@ -387,10 +435,23 @@ public class ReminderAddPage extends AppCompatActivity {
                 if(s_day!=null){
                    weekList.add(s_day);
                 }
+                else {
+                    s_day="0";
+                    weekList.add(s_day);
+
+                }
                 if(m_day!=null){
                     weekList.add(m_day);
                 }
+                else {
+                    m_day="0";
+                    weekList.add(m_day);
+                }
                 if(t_day!=null){
+                    weekList.add(t_day);
+                }
+                else {
+                    t_day="0";
                     weekList.add(t_day);
                 }
                 if (w_day!=null){
@@ -401,10 +462,23 @@ public class ReminderAddPage extends AppCompatActivity {
                     weekList.add(th_day);
 
                 }
+                else {
+                    th_day="0";
+                    weekList.add(th_day);
+
+                }
                 if(f_day!=null){
                     weekList.add(f_day);
                 }
+                else {
+                    f_day="0";
+                    weekList.add(f_day);
+                }
                 if(sat_day!=null){
+                    weekList.add(sat_day);
+                }
+                else {
+                    sat_day="0";
                     weekList.add(sat_day);
                 }
                 allWeekList.addAll(weekList);
