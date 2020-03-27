@@ -59,12 +59,14 @@ public class OrderSummery extends AppCompatActivity {
     private CheckBox chk_instant;
     private CardView card_view_istant;
     private TextView open_item,mrp_total,total_save_price,shipping_charge,payable_amount,save_amount,discount_limit_amt,main_pay,upper_save_amt,
-            customer_name,address_text,email_add,address_edit,place_apply_coupon;
+            customer_name,address_text,email_add,address_edit,place_apply_coupon,instan_content,disclaimer;
     private String order_summery_item_url= BaseUrl.BaseUrlNew+"addtocart/all";
     private String Order_tiem_total_dataUrl=BaseUrl.BaseUrlNew+"addtocart/sum_value";
     private  String orderLast_addressUrl=BaseUrl.BaseUrlNew+"order_address_single_last";
     private  String InstantOrderChkUrl=BaseUrl.BaseUrlNew+"instant_chk";
     private  String Change_instant_Url=BaseUrl.BaseUrlNew+"change_to_instant";
+    private  String instan_content_url=BaseUrl.BaseUrlNew+"instant_content";
+    private  String disclaimer_url=BaseUrl.BaseUrlNew+"disclaimer";
     String address,user_name,us_nm,us_add,sing_fullname,all_address,prescription_image,Common_Address,Common_Address2;
     int address_id,address_id_second,sing_add_id,prescription_requird,Addd_Second,Addd_first;
     SharedPreferences prefs_register;
@@ -133,12 +135,16 @@ public class OrderSummery extends AppCompatActivity {
         customer_name=(TextView)findViewById(R.id.customer_name);
         address_text=(TextView)findViewById(R.id.address_text);
         email_add=(TextView)findViewById(R.id.email_add);
+        instan_content=(TextView)findViewById(R.id.instan_content);
+        disclaimer=(TextView)findViewById(R.id.disclaimer);
         chk_instant=(CheckBox)findViewById(R.id.chk_instant);
         card_view_istant=(CardView)findViewById(R.id.card_view_istant);
         card_view_istant.setVisibility(View.GONE);
         coupon_off_on=(ImageView)findViewById(R.id.coupon_off_on);
         place_apply_coupon=(TextView)findViewById(R.id.place_apply_coupon);
         Cursor res=myDb.getAllData();
+        getInstantContent();
+        getDisclimer();
         while (res.moveToNext()){
           show_coupon=res.getString(2);
         }
@@ -924,8 +930,104 @@ public class OrderSummery extends AppCompatActivity {
 
 
 
+private  void  getInstantContent(){
+    RequestQueue requestQueue = Volley.newRequestQueue(OrderSummery.this);
+    StringRequest postRequest = new StringRequest(Request.Method.POST,instan_content_url,
+            new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    // response
+                    Log.d("Response", response);
+                    try {
+                        //Do it with this it will work
+                        JSONObject person = new JSONObject(response);
+                        String status=person.getString("status");
+                        if(status.equals("1")){
+                        JSONObject ins_con=person.getJSONObject("instt");
+                        String content_ins=ins_con.getString("body");
+                            instan_content.setText(content_ins);
+                        }
+                            /*else {
+                                card_view_istant.setVisibility(View.GONE);
+                            }
+*/
 
 
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                        Toast.makeText(getApplicationContext(), "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+
+
+                }
+            },
+            new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    // error
+
+                }
+            }
+    ) {
+        @Override
+        protected Map<String, String> getParams() {
+            Map<String, String> params = new HashMap<String, String>();
+            return params;
+        }
+
+    };
+    requestQueue.add(postRequest);
+}
+private void getDisclimer(){
+    RequestQueue requestQueue = Volley.newRequestQueue(OrderSummery.this);
+    StringRequest postRequest = new StringRequest(Request.Method.POST,disclaimer_url,
+            new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    // response
+                    Log.d("Response", response);
+                    try {
+                        //Do it with this it will work
+                        JSONObject person = new JSONObject(response);
+                        String status=person.getString("status");
+                        if(status.equals("1")){
+                            JSONObject ins_con=person.getJSONObject("discm");
+                            String content_ins=ins_con.getString("body");
+                            disclaimer.setText(content_ins);
+                        }
+                            /*else {
+                                card_view_istant.setVisibility(View.GONE);
+                            }
+*/
+
+
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                        Toast.makeText(getApplicationContext(), "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+
+
+                }
+            },
+            new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    // error
+
+                }
+            }
+    ) {
+        @Override
+        protected Map<String, String> getParams() {
+            Map<String, String> params = new HashMap<String, String>();
+            return params;
+        }
+
+    };
+    requestQueue.add(postRequest);
+}
 
 
 

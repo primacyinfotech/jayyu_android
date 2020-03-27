@@ -58,7 +58,8 @@ public class CartActivity extends AppCompatActivity {
    private Button submit_btn;
    private LinearLayout apply_coupon_btn,new_item_add;
    CouponListAdapter couponListAdapter;
-   private TextView place_apply_coupon,mrp_total,total_save_price,shipping_charge,payable_amount,save_amount,discount_limit_amt,main_pay,upper_save_amt;
+   private TextView place_apply_coupon,mrp_total,total_save_price,shipping_charge,payable_amount,save_amount,discount_limit_amt,main_pay,upper_save_amt,
+           disclaimer;
     String fetchCpn,show_coupon;
     int fetchCpnId;
     private String cart_items_url=BaseUrl.BaseUrlNew+"addtocart/all";
@@ -66,6 +67,7 @@ public class CartActivity extends AppCompatActivity {
     private String Chk_data_hasCart_url=BaseUrl.BaseUrlNew+"addtocart_chk";
     private String quantity_update_url=BaseUrl.BaseUrlNew+"addtocart/quantity";
     private String coupon_list_url= BaseUrl.BaseUrlNew+"coupon_listing";
+    private  String disclaimer_url=BaseUrl.BaseUrlNew+"disclaimer";
     SharedPreferences prefs_register;
     SharedPreferences prefs_Quantity;
     private String u_id,p_id,qty,qty_u_id;
@@ -133,10 +135,12 @@ public class CartActivity extends AppCompatActivity {
         shipping_charge=(TextView)findViewById(R.id.shipping_charge);
         payable_amount=(TextView)findViewById(R.id.payable_amount);
         save_amount=(TextView)findViewById(R.id.save_amount);
+        disclaimer=(TextView)findViewById(R.id.disclaimer);
         discount_limit_amt=(TextView)findViewById(R.id.discount_limit_amt);
         main_pay=(TextView)findViewById(R.id.main_pay);
         upper_save_amt=(TextView)findViewById(R.id.upper_save_amt);
        Cursor res=myDb.getAllData();
+        getDisclimer();
        while (res.moveToNext()){
          show_coupon=res.getString(2);
        }
@@ -839,6 +843,55 @@ public class CartActivity extends AppCompatActivity {
      };
      queue.add(postRequest);
  }*/
+ private void getDisclimer(){
+     RequestQueue requestQueue = Volley.newRequestQueue(CartActivity.this);
+     StringRequest postRequest = new StringRequest(Request.Method.POST,disclaimer_url,
+             new Response.Listener<String>() {
+                 @Override
+                 public void onResponse(String response) {
+                     // response
+                     Log.d("Response", response);
+                     try {
+                         //Do it with this it will work
+                         JSONObject person = new JSONObject(response);
+                         String status=person.getString("status");
+                         if(status.equals("1")){
+                             JSONObject ins_con=person.getJSONObject("discm");
+                             String content_ins=ins_con.getString("body");
+                             disclaimer.setText(content_ins);
+                         }
+                            /*else {
+                                card_view_istant.setVisibility(View.GONE);
+                            }
+*/
+
+
+
+                     } catch (JSONException e) {
+                         e.printStackTrace();
+                         Toast.makeText(getApplicationContext(), "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                     }
+
+
+                 }
+             },
+             new Response.ErrorListener() {
+                 @Override
+                 public void onErrorResponse(VolleyError error) {
+                     // error
+
+                 }
+             }
+     ) {
+         @Override
+         protected Map<String, String> getParams() {
+             Map<String, String> params = new HashMap<String, String>();
+             return params;
+         }
+
+     };
+     requestQueue.add(postRequest);
+ }
  public BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
      @Override
      public void onReceive(Context context, Intent intent) {

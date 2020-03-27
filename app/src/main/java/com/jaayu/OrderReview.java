@@ -50,7 +50,7 @@ public class OrderReview extends AppCompatActivity {
     private Button submit_btn;
     private CardView card_view_istant,card_view_date;
     private TextView open_item,mrp_total,total_save_price,shipping_charge,payable_amount,save_amount,discount_limit_amt,main_pay,upper_save_amt,
-            customer_name,address_text,email_add,address_edit,estimated_date,place_apply_coupon;
+            customer_name,address_text,email_add,address_edit,estimated_date,place_apply_coupon, disclaimer;
     private String order_summery_item_url= BaseUrl.BaseUrlNew+"addtocart/all";
     private String Order_tiem_total_dataUrl=BaseUrl.BaseUrlNew+"addtocart/sum_value";
     private  String orderLast_addressUrl=BaseUrl.BaseUrlNew+"order_address_single_last";
@@ -59,6 +59,7 @@ public class OrderReview extends AppCompatActivity {
     private  String Change_instant_Url="https://work.primacyinfotech.com/jaayu/api/change_to_instant";
     private  String delivery_address_Url=BaseUrl.BaseUrlNew+"delivery_date";
     private  String Order_confirm_Url=BaseUrl.BaseUrlNew+"order_conform";
+    private  String disclaimer_url=BaseUrl.BaseUrlNew+"disclaimer";
     String user_id,user_add,day_time,duration,cod,net_bank,presc_img,show_coupon,coupon_id;
     String address,user_name,us_nm,us_add,sing_fullname,all_address,prescription_image,Common_Address,Common_Address2;
     int address_id,address_id_second,sing_add_id,prescription_requird,Addd_Second,Addd_first;
@@ -124,10 +125,12 @@ public class OrderReview extends AppCompatActivity {
         card_view_date=(CardView)findViewById(R.id.card_view_date);
         estimated_date=(TextView)findViewById(R.id.estimated_date);
         upper_save_amt=(TextView)findViewById(R.id.upper_save_amt);
+        disclaimer=(TextView)findViewById(R.id.disclaimer);
         additional_note=(EditText)findViewById(R.id.additional_note);
         coupon_off_on=(ImageView)findViewById(R.id.coupon_off_on);
         place_apply_coupon=(TextView)findViewById(R.id.place_apply_coupon);
         Cursor res=myDb.getAllData();
+        getDisclimer();
         while (res.moveToNext()){
             coupon_id=res.getString(1);
             show_coupon=res.getString(2);
@@ -604,6 +607,55 @@ public class OrderReview extends AppCompatActivity {
             }
         };
 
+        requestQueue.add(postRequest);
+    }
+    private void getDisclimer(){
+        RequestQueue requestQueue = Volley.newRequestQueue(OrderReview.this);
+        StringRequest postRequest = new StringRequest(Request.Method.POST,disclaimer_url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        // response
+                        Log.d("Response", response);
+                        try {
+                            //Do it with this it will work
+                            JSONObject person = new JSONObject(response);
+                            String status=person.getString("status");
+                            if(status.equals("1")){
+                                JSONObject ins_con=person.getJSONObject("discm");
+                                String content_ins=ins_con.getString("body");
+                                disclaimer.setText(content_ins);
+                            }
+                            /*else {
+                                card_view_istant.setVisibility(View.GONE);
+                            }
+*/
+
+
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            Toast.makeText(getApplicationContext(), "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                        }
+
+
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // error
+
+                    }
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
+                return params;
+            }
+
+        };
         requestQueue.add(postRequest);
     }
     @Override

@@ -501,6 +501,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                     <TextView
+                        android:id="@+id/disclaimer"
                         android:text="Jaayu is technology platform to connect buyers and sellers
 and is not involved is sales of any products"
                         android:textSize="15sp"
