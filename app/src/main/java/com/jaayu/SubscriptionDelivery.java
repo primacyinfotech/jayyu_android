@@ -25,6 +25,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.jaayu.Model.BaseUrl;
+import com.jaayu.Model.InputFilterIntRange;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -41,6 +42,7 @@ private CheckBox one_time_order,thirty_day_order,fortyfive_day_order,sixty_day_o
 private EditText edt_single_day,edt_single_delivery;
 private LinearLayout custom_part_delivery;
     private Button confirm_btn;
+    int min=15, max=99;
     String user_id,user_add,One_Day,thirty_Day,fortifive_day,sixty_day,three_days_deliveries,six_days_delivery,single_day,single_delivery,day_portion,duration,prescription_img;
     private String Place_order_url= BaseUrl.BaseUrlNew+"addorder";
     @Override
@@ -65,6 +67,9 @@ private LinearLayout custom_part_delivery;
         single_delivery_order=(CheckBox)findViewById(R.id.single_delivery_order);
         edt_single_day=(EditText)findViewById(R.id.edt_single_day);
         //edt_single_day.setFilters( new InputFilter[]{ new MinMaxFilter( "15" , "99" )}) ;
+        InputFilterIntRange rangeFilter = new InputFilterIntRange(15, 99);
+        edt_single_day.setFilters(new InputFilter[]{rangeFilter});
+        edt_single_day.setOnFocusChangeListener(rangeFilter);
 
         edt_single_day.setEnabled(false);
         /**/
