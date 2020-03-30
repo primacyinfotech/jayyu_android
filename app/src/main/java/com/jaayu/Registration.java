@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -36,13 +37,24 @@ public class Registration extends AppCompatActivity {
     int GET_MY_PERMISSION = 1;
     private String regUrl= BaseUrl.BaseUrlNew+"customer_reg";
     ProgressDialog progressDialog;
-
+    private TextView term_condition;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
 
-        progressDialog.setCancelable(false);
+
+        term_condition=(TextView)findViewById(R.id.term_condition) ;
+        term_condition.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+               /* Intent goToManageAddress=new Intent(Registration.this,Legal.class);
+
+                startActivity(goToManageAddress);
+                overridePendingTransition(0,0);
+                finish();*/
+            }
+        });
         requestSmsPermission();
         if(ContextCompat.checkSelfPermission(Registration.this,Manifest.permission.READ_SMS)
                 != PackageManager.PERMISSION_GRANTED){
@@ -67,6 +79,7 @@ public class Registration extends AppCompatActivity {
                 progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
                 progressDialog.show();
                 progressDialog.setMessage("loading....");
+                progressDialog.setCancelable(false);
                 u_name=user_name.getText().toString();
                 u_email=user_email.getText().toString();
                 u_phone=user_phone.getText().toString();

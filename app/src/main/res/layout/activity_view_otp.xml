@@ -11,8 +11,9 @@
         android:layout_gravity="center"
         android:textSize="25dp"
         android:layout_marginTop="100dp"
+
         android:textColor="@color/colorAccent"
-        android:fontFamily="@string/normal_string"
+        android:fontFamily="@font/clearsansbold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
     <in.aabhasjindal.otptextview.OtpTextView

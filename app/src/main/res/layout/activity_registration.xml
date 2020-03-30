@@ -110,12 +110,13 @@
             android:textColor="@color/white"
             android:textSize="20sp" />
         <TextView
-            android:layout_marginTop="5dp"
+            android:id="@+id/term_condition"
+            android:layout_marginTop="10dp"
             android:layout_gravity="center"
             android:gravity="center"
             android:fontFamily="@font/clearsansbold"
-            android:textColor="#000"
-            android:textSize="13sp"
+
+            android:textSize="11sp"
 
             android:text="@string/normal_string"
             android:layout_width="wrap_content"

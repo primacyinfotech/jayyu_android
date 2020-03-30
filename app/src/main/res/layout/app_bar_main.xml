@@ -27,7 +27,7 @@
                 <TextView
                     android:text="Delivered to"
                     android:textColor="#fff"
-                    android:layout_marginLeft="80dp"
+                    android:layout_marginLeft="10dp"
                     android:fontFamily="@font/clearsansbold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
@@ -41,10 +41,10 @@
                 <Button
 
                     android:gravity="left"
-                    android:layout_gravity="center"
+                   android:layout_marginLeft="10dp"
                     android:drawableTint="#ffffff"
                     android:id="@+id/show_pin"
-                    android:layout_marginLeft="30dp"
+
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@android:color/transparent"

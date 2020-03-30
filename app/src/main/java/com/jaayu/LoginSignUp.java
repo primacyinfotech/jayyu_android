@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -37,6 +38,7 @@ private Button goTo_submit;
     private String Login_Otp_url= BaseUrl.BaseUrlNew+"login_otp";
     private EditText input_mobile;
     private  String u_phone;
+    private TextView term_condition;
     SharedPreferences sp;
     SharedPreferences prefs_register;
     ProgressDialog progressDialog;
@@ -50,6 +52,17 @@ private Button goTo_submit;
         prefs_register = getSharedPreferences(
                 "Register Details", Context.MODE_PRIVATE);
         input_mobile=(EditText)findViewById(R.id.input_mobile);
+        term_condition=(TextView)findViewById(R.id.term_condition) ;
+        term_condition.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+            /*    Intent goToManageAddress=new Intent(LoginSignUp.this,Legal.class);
+
+                startActivity(goToManageAddress);
+                overridePendingTransition(0,0);
+                finish();*/
+            }
+        });
         requestSmsPermission();
         if(ContextCompat.checkSelfPermission(LoginSignUp.this, Manifest.permission.READ_SMS)
                 != PackageManager.PERMISSION_GRANTED) {
@@ -70,7 +83,7 @@ private Button goTo_submit;
                 progressDialog = new ProgressDialog(LoginSignUp.this);
                 progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
                 progressDialog.show();
-                progressDialog.setMessage("Downloading....");
+                progressDialog.setMessage("loading....");
                 progressDialog.setCancelable(false);
                 u_phone=input_mobile.getText().toString();
                 RequestQueue queue = Volley.newRequestQueue(LoginSignUp.this);
@@ -88,14 +101,14 @@ private Button goTo_submit;
 
 
                                     if(status.equals("1")){
-                                        progressDialog.dismiss();
+                                          progressDialog.dismiss();
                                         Intent goViewOtp=new Intent(LoginSignUp.this,ViewOtp.class);
                                          goViewOtp.putExtra("PHONE",u_phone);
                                         startActivity(goViewOtp);
                                         finish();
                                     }
                                     if(status.equals("0")) {
-
+                                        progressDialog.dismiss();
                                         Intent goViewOtp=new Intent(LoginSignUp.this,Registration.class);
                                         startActivity(goViewOtp);
                                         finish();
