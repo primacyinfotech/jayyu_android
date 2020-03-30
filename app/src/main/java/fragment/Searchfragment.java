@@ -1,6 +1,7 @@
 package fragment;
 
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -40,6 +41,7 @@ public class Searchfragment extends Fragment {
     RecyclerView recyclerView;
     Search_adapter searchAdapter;
     ArrayList<Searchmodel> names;
+    ProgressDialog progressDialog;
    // private String search_url="https://work.primacyinfotech.com/jaayu/api/product/all";
 
 
@@ -53,6 +55,10 @@ public class Searchfragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view =inflater.inflate(R.layout.fragment_searchfragment, container, false);
+        progressDialog = new ProgressDialog(getActivity());
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progressDialog.show();
+        progressDialog.setMessage("loading....");
         Search_View();
 
       /*  names.add(new Searchmodel("Calpol",R.drawable.ic_action_arrow));
@@ -113,12 +119,13 @@ public class Searchfragment extends Fragment {
                     public void onResponse(JSONArray response) {
                         // Do something with response
                         //mTextView.setText(response.toString());
-
+                       progressDialog.dismiss();
                         // Process the JSON
                         // Loop through the array elements
                         for(int i=0;i<response.length();i++){
                             Searchmodel searchmodel=new Searchmodel();
                             try {
+
                                 JSONObject serch=response.getJSONObject(i);
                                 searchmodel.setSearch_id(serch.getInt("id"));
                                searchmodel.setSearch_item(serch.getString("product_name"));

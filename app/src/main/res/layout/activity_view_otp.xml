@@ -7,7 +7,7 @@
     android:orientation="vertical"
     tools:context=".ViewOtp">
     <TextView
-        android:text="Verification OTP"
+        android:text="ENTER OTP"
         android:layout_gravity="center"
         android:textSize="25dp"
         android:layout_marginTop="100dp"
@@ -45,7 +45,7 @@
         android:background="@drawable/corner_round_button"
         android:fontFamily="@font/clearsansbold"
         android:text="Verify"
-        android:textAllCaps="false"
+        android:textAllCaps="true"
         android:textColor="@color/white"
         android:textSize="20sp" />
     <TextView
@@ -56,7 +56,7 @@
         android:fontFamily="@font/clearsansbold"
         android:textColor="@color/colorAccent"
         android:textSize="18sp"
-        android:layout_margin="25dp"
+        android:layout_margin="15dp"
         android:text="Resend"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
@@ -67,17 +67,20 @@
         android:fontFamily="@font/clearsansbold"
         android:textColor="#000"
         android:textSize="15sp"
+        android:visibility="gone"
         android:layout_margin="25dp"
         android:text="@string/normal_string"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
     <LinearLayout
+
         android:orientation="horizontal"
         android:layout_marginTop="10dp"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
         android:background="@drawable/dotted_back"
         android:layout_width="match_parent"
+        android:visibility="gone"
         android:layout_height="50dp">
         <LinearLayout
             android:layout_marginTop="15dp"

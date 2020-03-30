@@ -3,6 +3,7 @@ package com.jaayu;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -47,11 +48,13 @@ public class ViewOtp extends AppCompatActivity {
     private String resend_Otp_url=BaseUrl.BaseUrlNew+"resend_otp";
     SharedPreferences prefs ;
     SharedPreferences prefs_register;
+    ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_otp);
+
         otpTextView = findViewById(R.id.otp_view);
         goTo_submit=(Button)findViewById(R.id.goTo_submit);
         resend_btn=(TextView)findViewById(R.id.resend_btn);
@@ -103,6 +106,11 @@ public class ViewOtp extends AppCompatActivity {
        goTo_submit.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View v) {
+               progressDialog = new ProgressDialog(ViewOtp.this);
+               progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+               progressDialog.show();
+               progressDialog.setMessage("loading....");
+               progressDialog.setCancelable(false);
                RequestQueue queue = Volley.newRequestQueue(ViewOtp.this);
                StringRequest postRequest = new StringRequest(Request.Method.POST, OTP_URL,
                        new Response.Listener<String>()
@@ -116,6 +124,7 @@ public class ViewOtp extends AppCompatActivity {
                                    JSONObject person = new JSONObject(response);
                                    String status=person.getString("status");
                                    if(status.equals("1")){
+                                       progressDialog.dismiss();
                                        JSONObject object=person.getJSONObject("user");
                                        String user_id=object.getString("id");
                                        String user_name=object.getString("name");
@@ -174,7 +183,11 @@ public class ViewOtp extends AppCompatActivity {
        resend_btn.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View v) {
-
+               progressDialog = new ProgressDialog(ViewOtp.this);
+               progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+               progressDialog.show();
+               progressDialog.setMessage("loading....");
+               progressDialog.setCancelable(false);
                final String mob_no=prefs.getString("MOBILE","");
                RequestQueue queue2 = Volley.newRequestQueue(ViewOtp.this);
                StringRequest postRequest2 = new StringRequest(Request.Method.POST, resend_Otp_url,
@@ -189,6 +202,7 @@ public class ViewOtp extends AppCompatActivity {
                                    JSONObject person = new JSONObject(response);
                                    String status=person.getString("status");
                                    if(status.equals("1")){
+                                       progressDialog.dismiss();
                                        String message=person.getString("message");
                                        Toast.makeText(getApplicationContext(),message,Toast.LENGTH_LONG).show();
                                    }

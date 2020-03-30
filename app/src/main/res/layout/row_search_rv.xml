@@ -43,6 +43,7 @@
         android:layout_marginTop="10dp"
         android:layout_marginLeft="10dp"
         android:textSize="13sp"
+        android:visibility="gone"
         android:scrollbarSize="20sp"
         android:text="Calpol Teblets 500"
 

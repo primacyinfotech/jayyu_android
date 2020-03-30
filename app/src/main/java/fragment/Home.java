@@ -1,6 +1,7 @@
 package fragment;
 
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -23,6 +24,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
+import com.jaayu.CartActivity;
 import com.jaayu.CustomSlider;
 import com.jaayu.Model.BaseUrl;
 import com.jaayu.OnlyUploadPrescription;
@@ -43,6 +45,7 @@ public class Home extends Fragment {
     private Button upload_prescription;
     private String sliderUrl= BaseUrl.BaseUrlNew+"slider";
     private SliderLayout banner_slider;
+    ProgressDialog progressDialog;
     public Home() {
         // Required empty public constructor
     }
@@ -55,6 +58,11 @@ public class Home extends Fragment {
         final View view= inflater.inflate(R.layout.fragment_home, container, false);
         banner_slider = (SliderLayout) view.findViewById(R.id.relative_banner);
         search_layout=(LinearLayout)view.findViewById(R.id.search_layout);
+        progressDialog = new ProgressDialog(getActivity());
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progressDialog.show();
+        progressDialog.setMessage("Downloading....");
+        progressDialog.setCancelable(false);
         upload_prescription=(Button)view.findViewById(R.id.upload_prescription);
         upload_prescription.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -122,6 +130,7 @@ private void makeGetBannerSliderRequest(){
                         JSONObject person = new JSONObject(response);
                         String status=person.getString("status");
                         if(status.equals("1")){
+                            progressDialog.dismiss();
                             ArrayList<HashMap<String, String>> listarray = new ArrayList<>();
                             JSONArray jsonArray=person.getJSONArray("slider");
                             for (int i=0;i<jsonArray.length();i++){

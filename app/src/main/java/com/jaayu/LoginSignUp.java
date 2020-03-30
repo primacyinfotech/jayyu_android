@@ -5,6 +5,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -38,11 +39,13 @@ private Button goTo_submit;
     private  String u_phone;
     SharedPreferences sp;
     SharedPreferences prefs_register;
+    ProgressDialog progressDialog;
     String Otp,sp_otp,sp_phone;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_sign_up);
+
         sp=getSharedPreferences("login",MODE_PRIVATE);
         prefs_register = getSharedPreferences(
                 "Register Details", Context.MODE_PRIVATE);
@@ -64,6 +67,11 @@ private Button goTo_submit;
         goTo_submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                progressDialog = new ProgressDialog(LoginSignUp.this);
+                progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+                progressDialog.show();
+                progressDialog.setMessage("Downloading....");
+                progressDialog.setCancelable(false);
                 u_phone=input_mobile.getText().toString();
                 RequestQueue queue = Volley.newRequestQueue(LoginSignUp.this);
                 StringRequest postRequest = new StringRequest(Request.Method.POST, Login_Otp_url,
@@ -80,6 +88,7 @@ private Button goTo_submit;
 
 
                                     if(status.equals("1")){
+                                        progressDialog.dismiss();
                                         Intent goViewOtp=new Intent(LoginSignUp.this,ViewOtp.class);
                                          goViewOtp.putExtra("PHONE",u_phone);
                                         startActivity(goViewOtp);

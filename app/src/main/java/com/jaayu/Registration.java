@@ -5,6 +5,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -34,11 +35,14 @@ public class Registration extends AppCompatActivity {
     String u_name,u_email,u_phone;
     int GET_MY_PERMISSION = 1;
     private String regUrl= BaseUrl.BaseUrlNew+"customer_reg";
+    ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
+
+        progressDialog.setCancelable(false);
         requestSmsPermission();
         if(ContextCompat.checkSelfPermission(Registration.this,Manifest.permission.READ_SMS)
                 != PackageManager.PERMISSION_GRANTED){
@@ -59,6 +63,10 @@ public class Registration extends AppCompatActivity {
         goTo_submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                progressDialog = new ProgressDialog(Registration.this);
+                progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+                progressDialog.show();
+                progressDialog.setMessage("loading....");
                 u_name=user_name.getText().toString();
                 u_email=user_email.getText().toString();
                 u_phone=user_phone.getText().toString();
@@ -75,6 +83,7 @@ public class Registration extends AppCompatActivity {
                                     JSONObject person = new JSONObject(response);
                                     String status=person.getString("status");
                                     if(status.equals("1")){
+                                        progressDialog.dismiss();
                                         Intent goViewOtp=new Intent(Registration.this,ViewOtp.class);
                                         goViewOtp.putExtra("PHONE",u_phone);
                                         startActivity(goViewOtp);
