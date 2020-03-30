@@ -37,6 +37,7 @@ public class AccountPage extends AppCompatActivity {
         ac_List.add(new AccountPageListModel(R.drawable.address,"Manage Address"));
         ac_List.add(new AccountPageListModel(R.drawable.help,"Need Help"));
         ac_List.add(new AccountPageListModel(R.drawable.legal,"Legal"));
+        ac_List.add(new AccountPageListModel(R.drawable.legal,"AboutUs"));
         ac_List.add(new AccountPageListModel(R.drawable.logout,"Logout"));
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -46,7 +47,7 @@ public class AccountPage extends AppCompatActivity {
          recyclerView.addOnItemTouchListener(new RecyclerTouchListener(this, recyclerView, new ClickListener() {
              @Override
              public void onClick(View view, int position) {
-                 if(position==9){
+                 if(position==10){
                      SharedPreferences sp=getSharedPreferences("login",MODE_PRIVATE);
                      SharedPreferences.Editor e=sp.edit();
                      e.clear();
@@ -111,6 +112,14 @@ public class AccountPage extends AppCompatActivity {
                  }
                  if(position==2){
                      Intent goToManageAddress=new Intent(AccountPage.this,AccountPrescription.class);
+
+                 startActivity(goToManageAddress);
+                 overridePendingTransition(0,0);
+                 finish();
+             }
+                 if ((position == 9)) {
+
+                     Intent goToManageAddress=new Intent(AccountPage.this,AboutUS.class);
 
                      startActivity(goToManageAddress);
                      overridePendingTransition(0,0);
