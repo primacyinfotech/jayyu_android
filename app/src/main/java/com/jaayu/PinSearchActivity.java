@@ -488,7 +488,9 @@ public class PinSearchActivity extends AppCompatActivity implements LocationList
                             String status=jsonres.getString("status");
                             if(status.contentEquals("1")) {
                                Log.i("tag","default address change");
-
+                               // locationgetter();
+                                String pin_st=jsonres.getString("pincode");
+                                pincodeck(pin_st);
                             }
                             else
                             {
@@ -539,7 +541,10 @@ public class PinSearchActivity extends AppCompatActivity implements LocationList
                             String status=jsonres.getString("status");
                             if(status.contentEquals("1")) {
                                specialidfordefault  = jsonres.getString("aId");
+                             /*  String pin_st=jsonres.getString("pincode");
+                                pincodeck(pin_st);*/
                               whetherchekedornotdefault = true;
+
                             }
                             else
                             {

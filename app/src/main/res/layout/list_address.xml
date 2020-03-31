@@ -56,7 +56,10 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"></CheckBox>
+                android:checked="false"
+                android:layout_height="wrap_content">
+
+            </CheckBox>
         </androidx.constraintlayout.widget.ConstraintLayout>
         <TextView
             android:id="@+id/nametv"
