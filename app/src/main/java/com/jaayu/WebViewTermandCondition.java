@@ -2,6 +2,7 @@ package com.jaayu;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.webkit.WebView;
@@ -26,5 +27,12 @@ public class WebViewTermandCondition extends AppCompatActivity {
             view.loadUrl(url);
             return true;
         }
+    }
+    @Override
+    public void onBackPressed() {
+        Intent GotOaccount=new Intent(WebViewTermandCondition.this,LoginSignUp.class);
+        startActivity(GotOaccount);
+        overridePendingTransition(0,0);
+        finish();
     }
 }

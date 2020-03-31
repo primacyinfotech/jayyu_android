@@ -410,19 +410,20 @@ public class PinSearchActivity extends AppCompatActivity implements LocationList
             {
                 addresstv.setText(maddress.get(position));
             }
-            if (matype.get(position) != null && mfirstname.get(position) != null)
+            if (matype.get(position) != null)
             {
-                namdtypetv.setText(mfirstname.get(position) + " "+matype.get(position));
+               // namdtypetv.setText(mfirstname.get(position) + " "+matype.get(position));
+                namdtypetv.setText(matype.get(position));
             }
-            else if (matype.get(position) == null && mfirstname.get(position) != null)
+          /*  else if (matype.get(position) == null && mfirstname.get(position) != null)
             {
-              namdtypetv.setText(mfirstname.get(position));
+             // namdtypetv.setText(mfirstname.get(position));
             }
             else if (matype.get(position) != null && mfirstname.get(position) == null)
             {
                 namdtypetv.setText(matype.get(position));
-            }
-            if (matype.get(position) != null)
+            }*/
+            /*if (matype.get(position) != null)
             {
                 if (matype.get(position).contentEquals("home"))
                 {
@@ -436,7 +437,7 @@ public class PinSearchActivity extends AppCompatActivity implements LocationList
             else
             {
                 typeicon.setImageResource(R.drawable.ic_belon_location);
-            }
+            }*/
 
             cheboxclick.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override

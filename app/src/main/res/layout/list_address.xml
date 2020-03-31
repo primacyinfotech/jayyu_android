@@ -21,10 +21,22 @@
     <ImageView
         android:tint="@color/colorPrimary"
         android:id="@+id/typeicon"
+        android:visibility="gone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/activity_horizontal_margin"
-        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:layout_marginTop="@dimen/activity_vertical_margin">
+
+    </ImageView>
+    <CheckBox
+        android:id="@+id/checkboxclick"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="wrap_content"
+        android:checked="false"
+        android:layout_height="wrap_content">
+
+    </CheckBox>
 
        />
 </LinearLayout>
@@ -51,7 +63,7 @@
             android:textColor="@color/black"
             android:layout_height="wrap_content"/>
 
-            <CheckBox
+           <!-- <CheckBox
                 android:id="@+id/checkboxclick"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -59,7 +71,7 @@
                 android:checked="false"
                 android:layout_height="wrap_content">
 
-            </CheckBox>
+            </CheckBox>-->
         </androidx.constraintlayout.widget.ConstraintLayout>
         <TextView
             android:id="@+id/nametv"
