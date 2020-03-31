@@ -48,11 +48,11 @@ public class Registration extends AppCompatActivity {
         term_condition.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               /* Intent goToManageAddress=new Intent(Registration.this,Legal.class);
+                Intent goToManageAddress=new Intent(Registration.this,WebViewTermandCondition.class);
 
                 startActivity(goToManageAddress);
                 overridePendingTransition(0,0);
-                finish();*/
+                finish();
             }
         });
         requestSmsPermission();

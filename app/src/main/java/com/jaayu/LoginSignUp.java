@@ -56,11 +56,11 @@ private Button goTo_submit;
         term_condition.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-            /*    Intent goToManageAddress=new Intent(LoginSignUp.this,Legal.class);
+                Intent goToManageAddress=new Intent(LoginSignUp.this,WebViewTermandCondition.class);
 
                 startActivity(goToManageAddress);
                 overridePendingTransition(0,0);
-                finish();*/
+                finish();
             }
         });
         requestSmsPermission();

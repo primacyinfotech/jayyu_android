@@ -27,6 +27,7 @@
                 <TextView
                     android:text="Delivered to"
                     android:textColor="#fff"
+                    android:textSize="14dp"
                     android:layout_marginLeft="10dp"
                     android:fontFamily="@font/clearsansbold"
                     android:layout_width="wrap_content"
