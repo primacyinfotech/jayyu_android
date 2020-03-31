@@ -103,7 +103,7 @@
                 <TextView
                     android:textColor="#000"
                     android:text="Quick Order With Prescription"
-                    android:textSize="15sp"
+                    android:textSize="13sp"
                     android:layout_marginLeft="10dp"
                     android:fontFamily="@font/clearsansbold"
                     android:layout_width="wrap_content"
@@ -122,7 +122,7 @@
 
             <Button
                 android:id="@+id/upload_prescription"
-                android:layout_width="80dp"
+                android:layout_width="100dp"
                 android:layout_height="40dp"
                 android:textSize="10dp"
                 android:layout_gravity="center"
@@ -167,7 +167,7 @@ Order Once and relax."
                     android:layout_height="40dp"
                     android:layout_gravity="center"
                     android:textSize="10dp"
-                    android:layout_marginLeft="5dp"
+                    android:layout_marginLeft="15dp"
                     android:background="@drawable/corner_round_button"
                     android:elevation="15dp"
                     android:fontFamily="@font/clearsansbold"

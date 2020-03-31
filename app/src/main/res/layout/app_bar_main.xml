@@ -21,6 +21,7 @@
             app:popupTheme="@style/AppTheme.PopupOverlay" >
 
             <LinearLayout
+                android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
@@ -39,7 +40,22 @@
                     android:layout_height="wrap_content">
 
                 </Spinner>-->
-                <Button
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:gravity="left"
+                        android:layout_marginLeft="20dp"
+                        android:textColor="#fff"
+                        android:id="@+id/show_pin"
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/transparent"
+
+                        android:fontFamily="@font/clearsansbold" />
+                <!--<Button
 
                     android:gravity="left"
                    android:layout_marginLeft="10dp"
@@ -49,9 +65,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@android:color/transparent"
-                    android:drawableRight="@drawable/down_spinn"
+
                     android:fontFamily="@font/clearsansbold">
-                </Button>
+                </Button>-->
+                    <ImageView
+                        android:layout_gravity="center"
+                       android:src="@drawable/drop_down"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp" />
+                </LinearLayout>
 
             </LinearLayout>
 
@@ -77,7 +99,6 @@
         app:item_text_size="15sp"
         app:item_padding="5dp"
         app:animation_duration="500"
-
         app:scale_percent="3" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
