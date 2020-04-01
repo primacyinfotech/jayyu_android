@@ -74,7 +74,7 @@ public class GalleryAdapter  extends RecyclerView.Adapter<GalleryAdapter.MyViewH
         holder.ivGallery.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final Dialog settingsDialog = new Dialog(context);
+                final Dialog settingsDialog = new Dialog(context,R.style.AppBaseTheme);
                 settingsDialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
                 settingsDialog.getWindow().setBackgroundDrawable(null);
                 settingsDialog.setContentView(R.layout.full_screen_image);

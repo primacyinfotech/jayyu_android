@@ -78,7 +78,7 @@
                     android:background="@drawable/back_border"
                     android:gravity="top"
                     android:fontFamily="@font/clearsansbold"
-                    android:hint="Search Products"
+                    android:hint="Search Medicines"
                     android:textColor="#000"
 
                     android:textSize="12sp" />

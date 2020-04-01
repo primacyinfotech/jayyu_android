@@ -61,7 +61,7 @@ public class OnlyOldGAlaeryAdapter extends RecyclerView.Adapter<OnlyOldGAlaeryAd
         holder.ivGallery.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final Dialog settingsDialog = new Dialog(context);
+                final Dialog settingsDialog = new Dialog(context,R.style.AppBaseTheme);
                 settingsDialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
                 settingsDialog.setContentView(R.layout.full_screen_image);
                 PhotoView imageView=(PhotoView)settingsDialog.findViewById(R.id.full_screen);
