@@ -64,7 +64,7 @@
                             android:gravity="top"
 
                             android:fontFamily="@font/clearsansbold"
-                           android:hint="Search Medicines.."
+                           android:hint="Search Medicines"
                             android:textSize="15sp" />
                     </RelativeLayout>
                 </LinearLayout>
@@ -103,17 +103,17 @@
                 <TextView
                     android:textColor="#000"
                     android:text="Quick Order With Prescription"
-                    android:textSize="13sp"
-                    android:layout_marginLeft="10dp"
+                    android:textSize="12sp"
 
+                    android:layout_marginLeft="5dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
                 <TextView
 
-                    android:text="Upload prescription and let us what you require"
+                    android:text="Upload Prescription and lets us know what you require."
                     android:textSize="10sp"
                     android:fontFamily="@font/clearsansbold"
-                    android:layout_marginLeft="10dp"
+                   android:layout_marginLeft="5dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
@@ -126,7 +126,7 @@
                 android:layout_height="40dp"
 
                 android:layout_gravity="center"
-                android:layout_marginLeft="5dp"
+
                 android:textAllCaps="true"
                 android:fontFamily="@font/clearsansbold"
                 android:background="@drawable/corner_round_button"
@@ -149,8 +149,7 @@
                     android:layout_height="wrap_content">
                     <TextView
                         android:textColor="#000"
-                        android:text="Need Medicines On Regular Basis?\n
-        Order Once and relax."
+                        android:text="Need Medicines On Regular Basis?\nOrder Once and relax."
                         android:textSize="12sp"
 
                         android:layout_marginLeft="5dp"
@@ -164,7 +163,7 @@
                     android:layout_height="40dp"
                     android:layout_gravity="center"
                     android:textSize="11dp"
-                    android:layout_marginLeft="25dp"
+                    android:layout_marginLeft="62dp"
                     android:background="@drawable/corner_round_button"
                     android:elevation="15dp"
                     android:fontFamily="@font/clearsansbold"

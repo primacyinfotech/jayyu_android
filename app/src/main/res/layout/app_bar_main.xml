@@ -15,6 +15,7 @@
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
+            android:layout_marginLeft="10dp"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
@@ -26,7 +27,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
                 <TextView
-                    android:text="Deliver  To"
+                    android:text="Deliver To"
                     android:textColor="#fff"
                     android:textSize="13dp"
                     android:layout_marginLeft="10dp"
@@ -50,7 +51,7 @@
                         android:layout_marginLeft="10dp"
                         android:textColor="#fff"
                          android:id="@+id/show_text"
-                        android:textSize="17dp"
+                        android:textSize="18dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@android:color/transparent"
@@ -72,8 +73,8 @@
                     <ImageView
                         android:layout_gravity="center"
                        android:src="@drawable/drop_down"
-                        android:layout_width="24dp"
-                        android:layout_height="24dp" />
+                        android:layout_width="26dp"
+                        android:layout_height="26dp" />
                 </LinearLayout>
 
             </LinearLayout>
