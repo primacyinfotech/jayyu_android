@@ -89,7 +89,7 @@ public class AddresAddActivity extends AppCompatActivity {
                 else if(value==1){
                     other_mark.setVisibility(View.GONE);
                     label_other.setVisibility(View.GONE);
-                    work_pref="work";
+                    work_pref="Work";
                    // Toast.makeText(getApplicationContext(),work_pref,Toast.LENGTH_LONG).show();
                 }
                 else if(value==2){

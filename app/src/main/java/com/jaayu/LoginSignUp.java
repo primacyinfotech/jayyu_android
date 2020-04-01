@@ -38,7 +38,7 @@ private Button goTo_submit;
     private String Login_Otp_url= BaseUrl.BaseUrlNew+"login_otp";
     private EditText input_mobile;
     private  String u_phone;
-    private TextView term_condition;
+    private TextView term_condition,privacy_policy;
     SharedPreferences sp;
     SharedPreferences prefs_register;
     ProgressDialog progressDialog;
@@ -53,6 +53,7 @@ private Button goTo_submit;
                 "Register Details", Context.MODE_PRIVATE);
         input_mobile=(EditText)findViewById(R.id.input_mobile);
         term_condition=(TextView)findViewById(R.id.term_condition) ;
+        privacy_policy=(TextView)findViewById(R.id.privacy_policy) ;
         term_condition.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -63,6 +64,18 @@ private Button goTo_submit;
                 finish();
             }
         });
+
+        privacy_policy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent goToManageAddress=new Intent(LoginSignUp.this,WebPrivacyPolicy.class);
+
+                startActivity(goToManageAddress);
+                overridePendingTransition(0,0);
+                finish();
+            }
+        });
+
         requestSmsPermission();
         if(ContextCompat.checkSelfPermission(LoginSignUp.this, Manifest.permission.READ_SMS)
                 != PackageManager.PERMISSION_GRANTED) {

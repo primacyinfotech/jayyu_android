@@ -37,18 +37,28 @@ public class Registration extends AppCompatActivity {
     int GET_MY_PERMISSION = 1;
     private String regUrl= BaseUrl.BaseUrlNew+"customer_reg";
     ProgressDialog progressDialog;
-    private TextView term_condition;
+    private TextView term_condition,privacy_policy;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
 
-
+        privacy_policy=(TextView)findViewById(R.id.privacy_policy) ;
         term_condition=(TextView)findViewById(R.id.term_condition) ;
         term_condition.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent goToManageAddress=new Intent(Registration.this,WebViewTermandCondition.class);
+
+                startActivity(goToManageAddress);
+                overridePendingTransition(0,0);
+                finish();
+            }
+        });
+        privacy_policy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent goToManageAddress=new Intent(Registration.this,WebPrivacyPolicy.class);
 
                 startActivity(goToManageAddress);
                 overridePendingTransition(0,0);

@@ -35,6 +35,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.view.Menu;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -54,7 +55,8 @@ public class MainActivity extends AppCompatActivity
     private String u_id,status;
     int notifiCart;
     int notti=0;
-    TextView showpinbtn;
+    LinearLayout showpinbtn;
+    TextView show_text;
 
     int count_cart;
     ProgressDialog progressDialog;
@@ -71,6 +73,7 @@ public class MainActivity extends AppCompatActivity
         u_id=prefs_register.getString("USER_ID","");
 
         showpinbtn = findViewById(R.id.show_pin);
+        show_text=findViewById(R.id.show_text);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -122,7 +125,7 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-        showpinbtn.setText(new SharedPref(getApplicationContext()).getpincode());
+        show_text.setText(new SharedPref(getApplicationContext()).getpincode());
 
 
         showpinbtn.setOnClickListener(new View.OnClickListener() {
