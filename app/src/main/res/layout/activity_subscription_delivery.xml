@@ -44,7 +44,7 @@
             <TextView
                 android:layout_marginTop="20dp"
                 android:layout_marginLeft="10dp"
-                android:text="Selected Delivery interval"
+                android:text="Select Delivery Interval"
                 android:textColor="#000"
                 android:textSize="20dp"
                 android:fontFamily="@font/clearsansbold"
@@ -161,6 +161,7 @@
                     android:inputType="number"
                     android:gravity="center"
                     android:maxLength="2"
+
                     android:layout_marginLeft="10dp"
                     android:background="@drawable/spinner_back"
                     android:layout_height="40dp" />
@@ -205,7 +206,7 @@
             <CheckBox
                 android:id="@+id/selected_three_delivery"
                 android:layout_marginLeft="10dp"
-                android:text="3 Deliveries"
+                android:text="3 Delivery"
                 android:textSize="18sp"
                 android:fontFamily="@font/clearsansbold"
                 android:layout_width="wrap_content"
@@ -222,7 +223,7 @@
             <CheckBox
                 android:id="@+id/selected_six_delivery"
                 android:layout_marginLeft="10dp"
-                android:text="6 Deliveries"
+                android:text="6 Delivery"
                 android:textSize="18sp"
                 android:fontFamily="@font/clearsansbold"
                 android:layout_width="wrap_content"
@@ -262,7 +263,7 @@
                     android:layout_height="40dp" />
                 <TextView
 
-                    android:text="Deliveries"
+                    android:text="Delivery"
                     android:textSize="18sp"
                     android:layout_marginLeft="10dp"
                     android:fontFamily="@font/clearsansbold"

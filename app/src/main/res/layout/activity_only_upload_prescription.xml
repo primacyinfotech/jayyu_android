@@ -77,7 +77,7 @@
                         android:textSize="15sp"
                         android:textColor="#000"
                         android:fontFamily="@font/clearsansbold"
-                        android:text="Upload New Prescription and Report"
+                        android:text="Upload  Prescription"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
                 <LinearLayout
@@ -176,15 +176,16 @@
                         android:layout_height="wrap_content">
                         <ImageView
                             android:src="@drawable/p1"
-                            android:layout_width="70dp"
-                            android:layout_marginLeft="20dp"
-                            android:layout_height="70dp" />
+                            android:layout_width="40dp"
+                            android:layout_marginLeft="37dp"
+                            android:layout_height="40dp" />
                         <TextView
                             android:layout_gravity="center"
                             android:text="Your attached prescription will be secure and private.
-Only our pharmacist will review it."
+  Only our pharmacist will review it."
                             android:textSize="12sp"
-                            android:fontFamily="@font/clearsansbold"
+                            android:textColor="#000"
+                            android:layout_marginLeft="10dp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" />
                     </LinearLayout>
@@ -195,15 +196,15 @@ Only our pharmacist will review it."
                         android:layout_height="wrap_content">
                         <ImageView
                             android:src="@drawable/p2"
-                            android:layout_marginLeft="20dp"
+                            android:layout_marginLeft="35dp"
                             android:layout_width="40dp"
                             android:layout_height="40dp" />
                         <TextView
                             android:text="Government regulations require a prescription for ordering
-some  medicines"
+some  medicines"           android:layout_marginLeft="10dp"
                             android:textColor="#000"
                             android:textSize="12sp"
-                            android:fontFamily="@font/clearsansbold"
+
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" />
                     </LinearLayout>

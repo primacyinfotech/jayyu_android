@@ -103,6 +103,7 @@ private void fetchAddress(){
                                 String phone=object.getString("phone");
                                 //String email=object.getString("email");
                                 String address=object.getString("address");
+                                String landMark=object.getString("landmark");
                                // String country=object.getString("country");
                                // String state=object.getString("state");
                                // String city=object.getString("city");
@@ -110,12 +111,15 @@ private void fetchAddress(){
                                 SharedPreferences.Editor editor = prefs_Address_pin.edit();
                                 editor.putString("SELECTED_PIN",zip_code);
                                 editor.commit();
-                                String all_address=address+"\n"+"Pin Code-"+zip_code+","+"\n"+"phone:"+phone;
+                                String all_address=address;
                                 addressModel.setAdd_id(object.getInt("id"));
                                 addressModel.setAddress_pref(object.getString("atype"));
                                 addressModel.setName(fullname);
                                 addressModel.setAddress(all_address);
                                 addressModel.setZip_code(zip_code);
+                                addressModel.setLanmark(landMark);
+                                addressModel.setPhone(phone);
+
 
                                 modelList.add(addressModel);
 

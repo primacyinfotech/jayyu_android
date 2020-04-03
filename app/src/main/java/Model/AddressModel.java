@@ -2,8 +2,23 @@ package Model;
 
 public class AddressModel {
     int add_id;
-    String address_pref,name,address,zip_code;
+    String address_pref,name,address,zip_code,lanmark,phone;
 
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getLanmark() {
+        return lanmark;
+    }
+
+    public void setLanmark(String lanmark) {
+        this.lanmark = lanmark;
+    }
 
     public int getAdd_id() {
         return add_id;

@@ -43,7 +43,7 @@ public class OrderSummeryAdapter extends RecyclerView.Adapter<OrderSummeryAdapte
        // holder.item_total.setText(mList.getTotal());
         holder.unit.setText(mList.getUnit());
         holder.percentage.setText(mList.getSaveings_percentage());
-        holder.percentage_amt.setText("\u20B9"+mList.getSave_amount());
+       // holder.percentage_amt.setText("\u20B9"+mList.getSave_amount());
         holder.price_amt.setText("\u20B9"+mList.getPrice_amt());
         holder.company_nam.setText(mList.getCompany_name());
         holder.quantity.setText("Qty :"+mList.getQuantity());

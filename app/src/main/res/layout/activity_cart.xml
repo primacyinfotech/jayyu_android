@@ -64,7 +64,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="150dp"
+            android:layout_height="130dp"
             android:background="#fff"
             android:orientation="vertical"
             android:padding="5dp">
@@ -89,9 +89,9 @@
                     <TextView
                         android:id="@+id/upper_save_amt"
                         android:layout_marginLeft="10dp"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginTop="15dp"
                         android:textSize="15sp"
-                        android:fontFamily="@font/clearsansbold"
+                        android:textColor="#000"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
                 </LinearLayout>
@@ -108,13 +108,14 @@
                         />
 
                     <TextView
-                        android:text="Free Delivery above Rs.350|Save more !"
+                        android:text="Free Delivery above Rs.350 | Save more !"
                         android:layout_marginLeft="10dp"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginTop="15dp"
                         android:textSize="15sp"
+                        android:textColor="#000"
                         android:layout_marginBottom="20dp"
 
-                        android:fontFamily="@font/clearsansbold"
+
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
                 </LinearLayout>
@@ -124,6 +125,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
+                android:visibility="gone"
                 android:orientation="horizontal">
 
                 <TextView
@@ -150,8 +152,7 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/cart_items"
-            android:layout_marginTop="5dp"
-            android:padding="5dp"
+
 
             android:layout_width="match_parent"
             android:background="#EFEFEF"
@@ -169,11 +170,12 @@
             <TextView
                 android:textSize="18sp"
                 android:textColor="@color/colorAccent"
-                android:text="Add More Items"
-                android:fontFamily="@font/clearsansbold"
+                android:text="ADD MORE ITEMS"
+
                 android:layout_marginLeft="10dp"
                 android:layout_gravity="center"
-                android:layout_width="wrap_content"
+                android:gravity="center"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
             <ImageView
 
@@ -210,12 +212,21 @@
                 android:layout_gravity="center"
                 android:layout_width="210dp"
                 android:layout_height="wrap_content" />
-            <ImageView
+            <!--<ImageView
                android:id="@+id/coupon_off_on"
                 android:src="@drawable/rigth_arrow"
                 android:layout_gravity="center"
                 android:layout_marginLeft="55dp"
                 android:layout_width="20dp"
+                android:layout_height="20dp" />-->
+            <TextView
+                android:id="@+id/coupon_off_on"
+                android:textColor="#000"
+                android:text="Remove"
+                android:src="@drawable/rigth_arrow"
+                android:layout_gravity="center"
+                android:layout_marginLeft="55dp"
+                android:layout_width="wrap_content"
                 android:layout_height="20dp" />
         </LinearLayout>
        <!-- <LinearLayout
@@ -261,8 +272,8 @@
               <TextView
                   android:textColor="#000"
                   android:textSize="15sp"
-                  android:text="M.R.P.Total"
-                  android:fontFamily="@font/clearsansbold"
+                  android:text="M.R.P. Total"
+
                   android:layout_width="150dp"
                   android:layout_height="wrap_content" />
               <View
@@ -285,10 +296,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <TextView
+                    android:id="@+id/sav_prescrtn"
                     android:textColor="#000"
                     android:textSize="15sp"
-                    android:text="Saving**    "
-                    android:fontFamily="@font/clearsansbold"
                     android:layout_width="150dp"
                     android:layout_height="wrap_content" />
                 <View
@@ -313,8 +323,8 @@
                 <TextView
                     android:textColor="#000"
                     android:textSize="15sp"
-                    android:text="Shipping Charges"
-                    android:fontFamily="@font/clearsansbold"
+                    android:text="Delivery Charges"
+
                     android:layout_width="150dp"
                     android:layout_height="wrap_content" />
                 <View
@@ -340,8 +350,8 @@
                 <TextView
                     android:textColor="#000"
                     android:textSize="15sp"
-                    android:text="To Be Pay"
-                    android:fontFamily="@font/clearsansbold"
+                    android:text="Total Amount"
+
                     android:layout_width="150dp"
                     android:layout_height="wrap_content" />
                 <View
@@ -362,6 +372,7 @@
         <LinearLayout
             android:background="#f0fff0"
             android:orientation="horizontal"
+            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="40dp">
         <TextView
@@ -385,6 +396,7 @@
         <LinearLayout
             android:background="#fff8dc"
             android:orientation="horizontal"
+            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="50dp">
           <TextView

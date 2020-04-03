@@ -46,7 +46,7 @@ import Model.Item_model;
 import Model.ViewDialog;
 
 public class DetailsItems extends AppCompatActivity {
-    TextView pin_set_txt,pin_set_button,comny_mame,comny_compo,comny_compo3,mrp,save_percernt,save_amt,qty_per;
+    TextView pin_set_txt,pin_set_button,comny_mame,comny_compo,comny_compo3,mrp,save_percernt,save_amt,qty_per,disclaimar_txt;
     RecyclerView recyclerView;
     private ArrayList<Item_model> modelList;
     Item_view item_view;
@@ -58,6 +58,7 @@ public class DetailsItems extends AppCompatActivity {
     private String product_add_cart=BaseUrl.BaseUrlNew+"addtocart";
    /* private String Chk_data_hasCart_url="https://work.primacyinfotech.com/jaayu/api/addtocart/all";*/
    private String Chk_data_hasCart_url=BaseUrl.BaseUrlNew+"addtocart_chk";
+    private  String disclaimer_url=BaseUrl.BaseUrlNew+"disclaimer";
     private Button add_cart;
     private ScrollView tcuch_scroll;
     LinearLayout linearLayout_sheet;
@@ -98,6 +99,7 @@ public class DetailsItems extends AppCompatActivity {
         country_select=(Spinner)findViewById(R.id.country_select);
         tcuch_scroll=(ScrollView)findViewById(R.id.tcuch_scroll);
         linearLayout_sheet=(LinearLayout)findViewById(R.id.bottom_sheet);
+        disclaimar_txt=(TextView)findViewById(R.id.disclaimar_txt);
 
        //bottomSheetBehavior=BottomSheetBehavior.from(linearLayout_sheet);
         /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -256,6 +258,7 @@ public class DetailsItems extends AppCompatActivity {
             }
         });
         GetItems();
+        getDisclimer();
       //  GetItems();
         pin_set_txt=(TextView)findViewById(R.id.pin_set_txt);
         pin_set_button=(TextView)findViewById(R.id.pin_set_button);
@@ -372,7 +375,7 @@ public class DetailsItems extends AppCompatActivity {
                             comny_mame.setText(product_name);
                             comny_compo.setText(company_name);
                             comny_compo3.setText(composition);
-                            save_percernt.setText("Save@"+save_percen+"%");
+                            save_percernt.setText("Save@"+save_percen);
                             if (mrp != null) {
                                 mrp.setText(mrp_price);
                                 mrp.setPaintFlags(mrp.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
@@ -385,7 +388,7 @@ public class DetailsItems extends AppCompatActivity {
                             }
                             else {
                                 required_pres_img.setVisibility(View.VISIBLE);
-                                required_pres_img.setImageResource(R.drawable.prescriptionrequired);
+                                required_pres_img.setImageResource(R.drawable.prescriptionrequired2);
                             }
 
 
@@ -601,6 +604,55 @@ public class DetailsItems extends AppCompatActivity {
     }
     private void  cart_count(){
 
+    }
+    private void getDisclimer(){
+        RequestQueue requestQueue = Volley.newRequestQueue(DetailsItems.this);
+        StringRequest postRequest = new StringRequest(Request.Method.POST,disclaimer_url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        // response
+                        Log.d("Response", response);
+                        try {
+                            //Do it with this it will work
+                            JSONObject person = new JSONObject(response);
+                            String status=person.getString("status");
+                            if(status.equals("1")){
+                                JSONObject ins_con=person.getJSONObject("discm");
+                                String content_ins=ins_con.getString("body");
+                                disclaimar_txt.setText(content_ins);
+                            }
+                            /*else {
+                                card_view_istant.setVisibility(View.GONE);
+                            }
+*/
+
+
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            Toast.makeText(getApplicationContext(), "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                        }
+
+
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // error
+
+                    }
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
+                return params;
+            }
+
+        };
+        requestQueue.add(postRequest);
     }
 
     @Override

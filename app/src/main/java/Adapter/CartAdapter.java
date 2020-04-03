@@ -90,7 +90,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
         holder.unit.setText(mList.getUnit());
        /* DecimalFormat format_per = new DecimalFormat("##.##");
         String formatted = format_per.format(mList.getSaveings_percentage());*/
-        holder.percentage.setText(""+mList.getSaveings_percentage());
+        holder.percentage.setText(""+mList.getSaveings_percentage()+ " %");
        // holder.percentage.setText(formatted);
        /* DecimalFormat sav_amt = new DecimalFormat("##.##");
         String s_amt = sav_amt.format("\u20B9"+mList.getSave_amount());*/

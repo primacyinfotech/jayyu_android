@@ -54,13 +54,14 @@ public class CartActivity extends AppCompatActivity {
     CartAdapter cartAdapter;
     private ArrayList<CouponListModel> couponListModelArrayList;
     RecyclerView recyclerView;
-   private ImageView back_button,search_page,coupon_off_on;
+   private ImageView back_button,search_page;
    private Button submit_btn;
    private LinearLayout apply_coupon_btn,new_item_add;
    CouponListAdapter couponListAdapter;
    private TextView place_apply_coupon,mrp_total,total_save_price,shipping_charge,payable_amount,save_amount,discount_limit_amt,main_pay,upper_save_amt,
-           disclaimer;
-    String fetchCpn,show_coupon;
+           disclaimer,coupon_off_on,sav_prescrtn;
+    String fetchCpn,show_coupon,formatted;
+
     int fetchCpnId;
     private String cart_items_url=BaseUrl.BaseUrlNew+"addtocart/all";
     private String cart_tiem_total_dataUrl=BaseUrl.BaseUrlNew+"addtocart/sum_value";
@@ -127,7 +128,7 @@ public class CartActivity extends AppCompatActivity {
 
         back_button=(ImageView)toolbar.findViewById(R.id.back_button);
         search_page=(ImageView)toolbar.findViewById(R.id.search_page);
-        coupon_off_on=(ImageView)findViewById(R.id.coupon_off_on);
+        coupon_off_on=(TextView) findViewById(R.id.coupon_off_on);
         new_item_add=(LinearLayout) findViewById(R.id.new_item_add);
         place_apply_coupon=(TextView)findViewById(R.id.place_apply_coupon);
         mrp_total=(TextView)findViewById(R.id.mrp_total);
@@ -139,6 +140,7 @@ public class CartActivity extends AppCompatActivity {
         discount_limit_amt=(TextView)findViewById(R.id.discount_limit_amt);
         main_pay=(TextView)findViewById(R.id.main_pay);
         upper_save_amt=(TextView)findViewById(R.id.upper_save_amt);
+        sav_prescrtn=(TextView)findViewById(R.id.sav_prescrtn);
        Cursor res=myDb.getAllData();
         getDisclimer();
        while (res.moveToNext()){
@@ -147,12 +149,12 @@ public class CartActivity extends AppCompatActivity {
       /* res.moveToFirst();
        show_coupon=res.getString(2);*/
       if(show_coupon!=null){
-          place_apply_coupon.setText(show_coupon+" Applied");
-          coupon_off_on.setImageResource(R.drawable.close);
+          place_apply_coupon.setText(show_coupon);
+          coupon_off_on.setVisibility(View.VISIBLE);
       }
       else {
           place_apply_coupon.setText("Apply Coupon");
-          coupon_off_on.setImageResource(R.drawable.rigth_arrow);
+          coupon_off_on.setVisibility(View.GONE);
       }
 
         submit_btn=(Button)findViewById(R.id.submit_btn);
@@ -290,7 +292,7 @@ public class CartActivity extends AppCompatActivity {
              myDb.deleteData();
             Toast.makeText(getApplicationContext(),"Data Deleted",Toast.LENGTH_LONG).show();
             place_apply_coupon.setText("Apply Coupon");
-            coupon_off_on.setImageResource(R.drawable.rigth_arrow);
+            coupon_off_on.setVisibility(View.GONE);
 
 
         }
@@ -463,7 +465,7 @@ public class CartActivity extends AppCompatActivity {
                                     cartModel.setCompany_name(serch.getString("com_name"));
 
                                     DecimalFormat format_per = new DecimalFormat("##.##");
-                                    String formatted = format_per.format(serch.getDouble("save_percent"));
+                                     formatted = format_per.format(serch.getDouble("save_percent"));
                                     String save_amt = format_per.format(serch.getDouble("save_amount"));
                                     String mrp_val = format_per.format(serch.getDouble("mrp"));
                                     String price_amt = format_per.format(serch.getDouble("price"));
@@ -610,7 +612,7 @@ public class CartActivity extends AppCompatActivity {
                             if(status.equals("success")){
                                 progressDialog.dismiss();
                                final Double total_mrp_value = person.getDouble("MRP");
-
+                                final Double saving_parcent=person.getDouble("saving_parcent");
 
                                 final Double tot_save_amt=person.getDouble("saving");
 
@@ -619,6 +621,7 @@ public class CartActivity extends AppCompatActivity {
                                 final Double pay_amount=person.getDouble("Total");
                                 DecimalFormat format = new DecimalFormat("##.##");
                                 final String tot_mrp=format.format(total_mrp_value);
+                                String sav_persnt=format.format(saving_parcent);
                                 mrp_total.setText(tot_mrp);
                                 String sav_amt_tot=format.format(tot_save_amt);
                                 save_amount.setText(sav_amt_tot);
@@ -629,8 +632,8 @@ public class CartActivity extends AppCompatActivity {
                                 String main_pay_amt=format.format(Math.round(pay_amount));
                                 payable_amount.setText(p_amt);
                                 main_pay.setText("\u20B9"+main_pay_amt);
-                                upper_save_amt.setText("You are Saveing"+"\u20B9"+" "+sav_amt_tot+" "+"on this order");
-
+                                upper_save_amt.setText("You are Saving  "+"\u20B9"+" "+sav_amt_tot+" "+"on this order.");
+                                sav_prescrtn.setText("Saving @ "+sav_persnt +" %");
                               /*  Thread t = new Thread() {
 
                                     @Override

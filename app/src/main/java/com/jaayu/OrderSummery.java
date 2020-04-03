@@ -52,14 +52,15 @@ public class OrderSummery extends AppCompatActivity {
     private ArrayList<OrderSummeryModel> modelList;
     OrderSummeryAdapter orderSummeryAdapter;
     RecyclerView recyclerView;
-    private ImageView back_button,coupon_off_on;
+    private ImageView back_button;
     private Animation animationUp;
     private Button submit_btn;
     private Animation animationDown;
     private CheckBox chk_instant;
     private CardView card_view_istant;
     private TextView open_item,mrp_total,total_save_price,shipping_charge,payable_amount,save_amount,discount_limit_amt,main_pay,upper_save_amt,
-            customer_name,address_text,email_add,address_edit,place_apply_coupon,instan_content,disclaimer;
+            customer_name,address_text,email_add,address_edit,place_apply_coupon,instan_content,disclaimer,type_add,coupon_off_on,sav_prescrtn,
+            address_land,address_zipt,address_phone;
     private String order_summery_item_url= BaseUrl.BaseUrlNew+"addtocart/all";
     private String Order_tiem_total_dataUrl=BaseUrl.BaseUrlNew+"addtocart/sum_value";
     private  String orderLast_addressUrl=BaseUrl.BaseUrlNew+"order_address_single_last";
@@ -67,13 +68,14 @@ public class OrderSummery extends AppCompatActivity {
     private  String Change_instant_Url=BaseUrl.BaseUrlNew+"change_to_instant";
     private  String instan_content_url=BaseUrl.BaseUrlNew+"instant_content";
     private  String disclaimer_url=BaseUrl.BaseUrlNew+"disclaimer";
-    String address,user_name,us_nm,us_add,sing_fullname,all_address,prescription_image,Common_Address,Common_Address2;
+    String address,user_name,us_nm,us_add,sing_fullname,all_address,prescription_image,Common_Address,Common_Address2,add_typ,formatted,ad_phone;
     int address_id,address_id_second,sing_add_id,prescription_requird,Addd_Second,Addd_first;
     SharedPreferences prefs_register;
     SharedPreferences prefs_Address;
     SharedPreferences prefs_Address_pin;
     SharedPreferences prefs_Address_second;
-    private String u_id,check_pincode_Second,check_pincode_first,add_zip,sing_zip_code;
+    private String u_id,check_pincode_Second,check_pincode_first,add_zip,sing_zip_code,Add_type,a_typ,lan_mark,lan_MArk,l_mark,sing_landmark,sing_ad_typ,
+            sing_phone,a_zip;
     String pin_cod,pin_cod2,show_coupon;
     ProgressDialog progressDialog;
     ProgressDialog progressDialogLoader;
@@ -96,6 +98,9 @@ public class OrderSummery extends AppCompatActivity {
         user_name=fetchAddress.getStringExtra("NAME");
         prescription_image=fetchAddress.getStringExtra("Prescription");
         add_zip=fetchAddress.getStringExtra("ADDRESS_zip");
+        Add_type=fetchAddress.getStringExtra("ADDRESS_PREF");
+        lan_mark=fetchAddress.getStringExtra("ADDRESS_LAND");
+        String add_phone=fetchAddress.getStringExtra("ADDRESS_PHONE");
         upper_save_amt=(TextView)findViewById(R.id.upper_save_amt);
 
         LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver, new IntentFilter("message_instant"));
@@ -111,12 +116,19 @@ public class OrderSummery extends AppCompatActivity {
         SharedPreferences.Editor editor = prefs_Address.edit();
         editor.putString("USER_NAME",user_name);
         editor.putString("USER_ADDRESS",address);
+        editor.putString("TYPE_ADDRESS",Add_type);
+        editor.putString("LAND_ADDRESS",lan_mark);
+        editor.putString("PHONE_ADDRESS",add_phone);
         editor.putInt("FIRST_ADD", address_id);
         editor.putString("Zip_ADD", add_zip);
         editor.commit();
         us_nm=prefs_Address.getString("USER_NAME","");
         us_add=prefs_Address.getString("USER_ADDRESS","");
+        a_typ=prefs_Address.getString("TYPE_ADDRESS","");
+        lan_MArk=prefs_Address.getString("LAND_ADDRESS","");
         Addd_first=prefs_Address.getInt("FIRST_ADD",0);
+        ad_phone=prefs_Address.getString("PHONE_ADDRESS","");
+        a_zip=prefs_Address.getString("Zip_ADD","");
 
         u_id=prefs_register.getString("USER_ID","");
         animationUp = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_up);
@@ -134,14 +146,19 @@ public class OrderSummery extends AppCompatActivity {
         main_pay=(TextView)findViewById(R.id.main_pay);
         customer_name=(TextView)findViewById(R.id.customer_name);
         address_text=(TextView)findViewById(R.id.address_text);
+        address_land=(TextView)findViewById(R.id.address_land);
+                address_zipt=(TextView)findViewById(R.id.address_zipt);
+                address_phone=(TextView)findViewById(R.id.address_phone);
         email_add=(TextView)findViewById(R.id.email_add);
         instan_content=(TextView)findViewById(R.id.instan_content);
+        type_add=(TextView)findViewById(R.id.type_add);
         disclaimer=(TextView)findViewById(R.id.disclaimer);
         chk_instant=(CheckBox)findViewById(R.id.chk_instant);
         card_view_istant=(CardView)findViewById(R.id.card_view_istant);
         card_view_istant.setVisibility(View.GONE);
-        coupon_off_on=(ImageView)findViewById(R.id.coupon_off_on);
+        coupon_off_on=(TextView) findViewById(R.id.coupon_off_on);
         place_apply_coupon=(TextView)findViewById(R.id.place_apply_coupon);
+        sav_prescrtn=(TextView)findViewById(R.id.sav_prescrtn);
         Cursor res=myDb.getAllData();
         getInstantContent();
         getDisclimer();
@@ -149,12 +166,12 @@ public class OrderSummery extends AppCompatActivity {
           show_coupon=res.getString(2);
         }
         if(show_coupon!=null){
-            place_apply_coupon.setText(show_coupon+" Applied");
-            coupon_off_on.setImageResource(R.drawable.close);
+            place_apply_coupon.setText(show_coupon);
+            coupon_off_on.setVisibility(View.VISIBLE);
         }
         else {
             place_apply_coupon.setText("Apply Coupon");
-            coupon_off_on.setImageResource(R.drawable.rigth_arrow);
+            coupon_off_on.setVisibility(View.GONE);
         }
         coupon_off_on.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -162,7 +179,7 @@ public class OrderSummery extends AppCompatActivity {
                 myDb.deleteData();
                 Toast.makeText(getApplicationContext(),"Data Deleted",Toast.LENGTH_LONG).show();
                 place_apply_coupon.setText("Apply Coupon");
-                coupon_off_on.setImageResource(R.drawable.rigth_arrow);
+                coupon_off_on.setVisibility(View.GONE);
             }
         });
         chk_instant.setOnClickListener(new View.OnClickListener() {
@@ -505,7 +522,7 @@ public class OrderSummery extends AppCompatActivity {
                                     cartModel.setUnit(serch.getString("box"));
                                     cartModel.setCompany_name(serch.getString("com_name"));
                                     DecimalFormat format_per = new DecimalFormat("##.##");
-                                    String formatted = format_per.format(serch.getDouble("save_percent"));
+                                     formatted = format_per.format(serch.getDouble("save_percent"));
                                     String save_amt=format_per.format(serch.getDouble("save_amount"));
                                     String mrp_val=format_per.format(serch.getDouble("mrp"));
                                     String price_amt=format_per.format(serch.getDouble("price"));
@@ -571,7 +588,9 @@ public class OrderSummery extends AppCompatActivity {
                             JSONObject person = new JSONObject(response);
                             Double total_mrp_value = person.getDouble("MRP");
                             DecimalFormat format = new DecimalFormat("##.##");
+                            Double saving_parcent=person.getDouble("saving_parcent");
                             String tot_mrp = format.format(total_mrp_value);
+                            String sav_persnt=format.format(saving_parcent);
                             mrp_total.setText(tot_mrp);
 
                             Double tot_save_amt = person.getDouble("saving");
@@ -586,7 +605,8 @@ public class OrderSummery extends AppCompatActivity {
                             String main_pay_amt=format.format(Math.round(pay_amount));
                             payable_amount.setText(p_amt);
                             main_pay.setText("\u20B9"+main_pay_amt);
-                            upper_save_amt.setText("You are Saveing"+"\u20B9"+" "+sav_amt_tot+" "+"on this order");
+                            upper_save_amt.setText("You are Saving "+"\u20B9"+" "+sav_amt_tot+" "+"on this order.");
+                            sav_prescrtn.setText("Saving @ "+sav_persnt +" %");
 
 
                         } catch (JSONException e) {
@@ -627,16 +647,27 @@ public class OrderSummery extends AppCompatActivity {
         SharedPreferences.Editor editor = prefs_Address_second.edit();
         editor.remove("SECOND_ADD");
         editor.commit();
-        if (us_nm.equals("")&&us_add.equals("")) {
+        if (us_nm.equals("")&&us_add.equals("")&&a_typ.equals("")&&lan_MArk.equals("")&& ad_phone.equals("")&&a_zip.equals("")) {
             String unknown=sing_fullname;
             String unknown_add=all_address;
-            ;
+            String unkown_add_type=add_typ;
+            String unkown_land=l_mark;
+            String unkown_zip=sing_zip_code;
+            String unkown_ph=sing_phone;
             customer_name.setText(unknown);
             address_text.setText(unknown_add);
+            type_add.setText(unkown_add_type);
+            address_zipt.setText(unkown_zip);
+            address_land.setText(unkown_land);
+            address_phone.setText(unkown_ph);
         }
         else {
             customer_name.setText(us_nm);
             address_text.setText(us_add);
+            type_add.setText(a_typ);
+            address_zipt.setText(a_zip);
+            address_land.setText(lan_MArk);
+            address_phone.setText(ad_phone);
         }
 
      /*   RequestQueue requestQueue = Volley.newRequestQueue(OrderSummery.this);
@@ -722,16 +753,20 @@ public class OrderSummery extends AppCompatActivity {
 
                                 String sing_first_nm=object.getString("first_name");
                                // String sing_last_nm=object.getString("last_name");
-                                String sing_phone=object.getString("phone");
+                                 sing_phone=object.getString("phone");
                                // String sing_email=object.getString("email");
                                 String sing_address=object.getString("address");
                                 //String sing_country=object.getString("country");
                                // String sing_state=object.getString("state");
-                               // String sing_city=object.getString("city");
+                                sing_landmark=object.getString("landmark");
+                                String sing_ad_typ=object.getString("atype");
+                                add_typ=sing_ad_typ;
                                 sing_zip_code=object.getString("zip_code");
-
+                                l_mark=sing_landmark;
                                 sing_fullname=sing_first_nm;
-                                all_address=sing_address+","+"\n"+"Pin Code-"+sing_zip_code+","+"\n"+"phone:"+sing_phone;
+                               // all_address=sing_address+","+"\n"+"Pin Code-"+sing_zip_code+","+"\n"+"phone:"+sing_phone;
+                                all_address=sing_address;
+                                //all_address=sing_address+"\n"+sing_zip_code+","+"\n"+sing_phone;
                                 prefs_Address_second = getSharedPreferences(
                                         "SECOND_ADDRESS", Context.MODE_PRIVATE);
                                 SharedPreferences.Editor editor = prefs_Address_second.edit();
@@ -751,12 +786,21 @@ public class OrderSummery extends AppCompatActivity {
                                 if (us_nm.equals("")&&us_add.equals("")) {
                                     String unknown=sing_fullname;
                                     String unknown_add=all_address;
+                                    String unkown_add_type=add_typ;
+                                    String unkown_land=l_mark;
+                                    String unkown_zip=sing_zip_code;
+                                    String unkown_ph=sing_phone;
                                     customer_name.setText(unknown);
                                     address_text.setText(unknown_add);
+                                    type_add.setText(unkown_add_type);
+                                    address_zipt.setText(unkown_zip);
+                                    address_land.setText(unkown_land);
+                                    address_phone.setText(unkown_ph);
                                 }
                                 else {
                                     customer_name.setText(us_nm);
                                     address_text.setText(us_add);
+                                    type_add.setText(a_typ);
                                 }
 
                                 // email_add.setText(email);
