@@ -27,11 +27,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ThankYouPage extends AppCompatActivity {
-    private TextView order_id,date_of_delivery;
+    private TextView order_id,date_of_delivery,disclaimer;
     private LinearLayout order_track_btn,help_ord_btn;
   String ordID,u_id;
     SharedPreferences prefs_register;
     private  String delivery_address_Url= BaseUrl.BaseUrlNew+"delivery_date";
+    private  String disclaimer_url=BaseUrl.BaseUrlNew+"disclaimer";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +47,7 @@ public class ThankYouPage extends AppCompatActivity {
         date_of_delivery=(TextView)findViewById(R.id.date_of_delivery);
         order_track_btn=(LinearLayout)findViewById(R.id.order_track_btn);
         help_ord_btn=(LinearLayout)findViewById(R.id.help_ord_btn);
+        disclaimer=(TextView)findViewById(R.id.disclaimer);
         delivery_address();
         order_id.setText("Order Id"+ordID+"has been successfully placed");
         order_track_btn.setOnClickListener(new View.OnClickListener() {
@@ -57,6 +59,7 @@ public class ThankYouPage extends AppCompatActivity {
                 finish();
             }
         });
+        getDisclimer();
     }
     private void delivery_address(){
         RequestQueue requestQueue = Volley.newRequestQueue(ThankYouPage.this);
@@ -104,6 +107,55 @@ public class ThankYouPage extends AppCompatActivity {
             }
         };
 
+        requestQueue.add(postRequest);
+    }
+    private void getDisclimer(){
+        RequestQueue requestQueue = Volley.newRequestQueue(ThankYouPage.this);
+        StringRequest postRequest = new StringRequest(Request.Method.POST,disclaimer_url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        // response
+                        Log.d("Response", response);
+                        try {
+                            //Do it with this it will work
+                            JSONObject person = new JSONObject(response);
+                            String status=person.getString("status");
+                            if(status.equals("1")){
+                                JSONObject ins_con=person.getJSONObject("discm");
+                                String content_ins=ins_con.getString("body");
+                                disclaimer.setText(content_ins);
+                            }
+                            /*else {
+                                card_view_istant.setVisibility(View.GONE);
+                            }
+*/
+
+
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            Toast.makeText(getApplicationContext(), "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                        }
+
+
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // error
+
+                    }
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
+                return params;
+            }
+
+        };
         requestQueue.add(postRequest);
     }
     @Override

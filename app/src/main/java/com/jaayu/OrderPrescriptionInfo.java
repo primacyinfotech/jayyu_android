@@ -15,6 +15,7 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -39,12 +40,14 @@ public class OrderPrescriptionInfo extends AppCompatActivity {
     String odrevery,duration,sp,days_to,specify,mob,val,u_id,phone;
     ImageView back_button;
     private Button btn_continue;
+    TextView disclaimer;
     SharedPreferences prefs_register;
     String data,val1,val2,val3,val4,val_sub_1,val_sub_2,val_sub3,val_sub4,result;
     SharedPreferences prefs_Pass_Value1,prefs_Pass_Value2,prefs_Pass_Value3,prefs_Pass_Value4;
     private String Choose_first_url= BaseUrl.BaseUrlNew+"prescription_order_subscription_first";
     private String Choose_second_url=BaseUrl.BaseUrlNew+"prescription_order_subscription_second";
     private String Choose_third_url=BaseUrl.BaseUrlNew+"prescription_order_subscription_third";
+    private  String disclaimer_url=BaseUrl.BaseUrlNew+"disclaimer";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +69,8 @@ public class OrderPrescriptionInfo extends AppCompatActivity {
         first_child=(LinearLayout)findViewById(R.id.first_child);
         back_button=(ImageView)toolbar.findViewById(R.id.back_button);
         btn_continue=(Button)findViewById(R.id.btn_continue);
+        disclaimer=(TextView)findViewById(R.id.disclaimer);
+        getDisclimer();
        first_child.setVisibility(View.GONE);
         edt_days.setEnabled(false);
         edit_specify_medicin.setVisibility(View.GONE);
@@ -511,6 +516,55 @@ public class OrderPrescriptionInfo extends AppCompatActivity {
         }
     });
 
+    }
+    private void getDisclimer(){
+        RequestQueue requestQueue = Volley.newRequestQueue(OrderPrescriptionInfo.this);
+        StringRequest postRequest = new StringRequest(Request.Method.POST,disclaimer_url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        // response
+                        Log.d("Response", response);
+                        try {
+                            //Do it with this it will work
+                            JSONObject person = new JSONObject(response);
+                            String status=person.getString("status");
+                            if(status.equals("1")){
+                                JSONObject ins_con=person.getJSONObject("discm");
+                                String content_ins=ins_con.getString("body");
+                                disclaimer.setText(content_ins);
+                            }
+                            /*else {
+                                card_view_istant.setVisibility(View.GONE);
+                            }
+*/
+
+
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            Toast.makeText(getApplicationContext(), "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                        }
+
+
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // error
+
+                    }
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
+                return params;
+            }
+
+        };
+        requestQueue.add(postRequest);
     }
     @Override
     public void onBackPressed() {

@@ -6,6 +6,8 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".ThankYouPage">
+
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -14,7 +16,7 @@
         <LinearLayout
             android:id="@+id/nilu"
             android:layout_width="match_parent"
-            android:layout_height="250dp"
+            android:layout_height="120dp"
 
             android:background="@color/colorPrimary"
             android:orientation="vertical"
@@ -25,9 +27,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:textSize="40dp"
+                android:textSize="30dp"
                 android:fontFamily="@font/clearsansbold"
-                android:layout_marginTop="50dp"
+                android:layout_marginTop="5dp"
                 android:textColor="@color/white"
                 android:text="Thank You !" />
 
@@ -52,13 +54,13 @@
 
             <LinearLayout
                 android:orientation="vertical"
-                android:layout_marginTop="80dp"
+                android:layout_marginTop="50dp"
                 android:layout_width="match_parent"
                 android:background="@color/ligth_green"
-                android:layout_height="50dp">
+                android:layout_height="wrap_content">
                 <LinearLayout
                     android:orientation="horizontal"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="5dp"
                     android:layout_marginLeft="10dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
@@ -78,12 +80,50 @@
                         android:layout_height="wrap_content" />
 
                 </LinearLayout>
+                <LinearLayout
+                    android:orientation="horizontal"
+
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:text="Delivery Type"
+                        android:textColor="@color/green"
+                        android:fontFamily="@font/clearsansbold"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:id="@+id/type_delivery"
+                        android:text="Instant Delivery"
+                        android:textColor="@color/green"
+                        android:layout_marginLeft="130dp"
+                        android:fontFamily="@font/clearsansbold"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
 
             </LinearLayout>
+            <ImageView
+                android:layout_marginTop="10dp"
+                android:src="@drawable/image_normal_thaku"
+                android:elevation="20dp"
+                android:padding="5dp"
+
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:scaleType="fitXY"
+                android:layout_width="match_parent"
+                android:layout_height="150dp">
+
+            </ImageView>
+
             <androidx.cardview.widget.CardView
                 android:id="@+id/card_view_istant"
                 android:layout_margin="10dp"
                 android:elevation="15dp"
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="60dp">
                 <LinearLayout
@@ -108,11 +148,20 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <TextView
-                    android:text="Jaayu is technology platform to connect buyers and sellers
-and is not involved is sales of any products"
-                    android:textSize="15sp"
+
+                    android:text="Disclaimer"
+                    android:textSize="16sp"
+                    android:textColor="#000"
                     android:layout_marginLeft="10dp"
                     android:fontFamily="@font/clearsansbold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:id="@+id/disclaimer"
+
+                    android:textSize="13sp"
+                    android:layout_marginLeft="10dp"
+                   android:textColor="#000"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
             </LinearLayout>
@@ -154,6 +203,7 @@ and is not involved is sales of any products"
        </LinearLayout>
         </LinearLayout>
     </LinearLayout>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -163,9 +213,9 @@ and is not involved is sales of any products"
         <LinearLayout
             android:background="@drawable/rounded_corner_dialogbox"
             android:layout_width="match_parent"
-            android:layout_height="150dp"
+            android:layout_height="70dp"
             android:elevation="20dp"
-            android:layout_marginTop="160dp"
+            android:layout_marginTop="85dp"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
             android:layout_marginBottom="30dp"
@@ -176,26 +226,28 @@ and is not involved is sales of any products"
 
              android:layout_gravity="center"
              android:gravity="center"
-             android:textSize="15dp"
+             android:textSize="14dp"
              android:textColor="#000"
              android:text="Your Order is Currently being Processed"
-             android:layout_marginTop="40dp"
+             android:layout_marginTop="5dp"
              android:layout_width="wrap_content"
              android:layout_height="wrap_content" />
             <TextView
                 android:id="@+id/order_id"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:textSize="13dp"
+                android:textSize="12dp"
                 android:textStyle="bold"
                 android:fontFamily="@font/clearsansbold"
                 android:textColor="#000"
                 android:text=""
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="5dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
         </LinearLayout>
 
 
     </RelativeLayout>
+
+
 </RelativeLayout>

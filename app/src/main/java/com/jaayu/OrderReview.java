@@ -44,13 +44,14 @@ import Model.SaveCoupon;
 public class OrderReview extends AppCompatActivity {
     SaveCoupon myDb;
     private ArrayList<OrderSummeryModel> modelList;
+    RecyclerView pres_list;
     OrderSummeryAdapter orderSummeryAdapter;
     RecyclerView recyclerView;
-    private ImageView back_button,coupon_off_on;
+    private ImageView back_button;
     private Button submit_btn;
     private CardView card_view_istant,card_view_date;
-    private TextView open_item,mrp_total,total_save_price,shipping_charge,payable_amount,save_amount,discount_limit_amt,main_pay,upper_save_amt,
-            customer_name,address_text,email_add,address_edit,estimated_date,place_apply_coupon, disclaimer;
+    private TextView open_item,mrp_total,total_save_price,shipping_charge,payable_amount,save_amount,discount_limit_amt,main_pay,upper_save_amt,sav_prescrtn,coupon_off_on,
+            customer_name,address_text,email_add,address_edit,estimated_date,place_apply_coupon, disclaimer, address_land,address_zipt,address_phone,type_add;
     private String order_summery_item_url= BaseUrl.BaseUrlNew+"addtocart/all";
     private String Order_tiem_total_dataUrl=BaseUrl.BaseUrlNew+"addtocart/sum_value";
     private  String orderLast_addressUrl=BaseUrl.BaseUrlNew+"order_address_single_last";
@@ -67,7 +68,9 @@ public class OrderReview extends AppCompatActivity {
     SharedPreferences prefs_Address;
     SharedPreferences prefs_Address_pin;
     SharedPreferences prefs_Address_second;
-    private String u_id,check_pincode_Second,check_pincode_first,add_zip,aId,note;
+    private String u_id,check_pincode_Second,check_pincode_first,add_zip,aId,note,sing_zip_code,sing_phone,sing_lanmark,
+            a_typ,lan_mark,lan_MArk,l_mark,sing_landmark,sing_ad_typ,ad_phone,
+            a_zip;
     ProgressDialog progressDialog;
     private EditText additional_note;
 
@@ -107,6 +110,11 @@ public class OrderReview extends AppCompatActivity {
         us_add=prefs_Address.getString("USER_ADDRESS","");
         Addd_first=prefs_Address.getInt("FIRST_ADD",0);
         aId=prefs_Address.getString("Single Add","");
+        a_typ=prefs_Address.getString("TYPE_ADDRESS","");
+        lan_MArk=prefs_Address.getString("LAND_ADDRESS","");
+        Addd_first=prefs_Address.getInt("FIRST_ADD",0);
+        ad_phone=prefs_Address.getString("PHONE_ADDRESS","");
+        a_zip=prefs_Address.getString("Zip_ADD","");
 
         recyclerView=(RecyclerView)findViewById(R.id.rv_items);
         back_button=(ImageView)toolbar.findViewById(R.id.back_button);
@@ -127,8 +135,14 @@ public class OrderReview extends AppCompatActivity {
         upper_save_amt=(TextView)findViewById(R.id.upper_save_amt);
         disclaimer=(TextView)findViewById(R.id.disclaimer);
         additional_note=(EditText)findViewById(R.id.additional_note);
-        coupon_off_on=(ImageView)findViewById(R.id.coupon_off_on);
+        coupon_off_on=(TextView)findViewById(R.id.coupon_off_on);
         place_apply_coupon=(TextView)findViewById(R.id.place_apply_coupon);
+        address_land=(TextView)findViewById(R.id.address_land);
+        address_zipt=(TextView)findViewById(R.id.address_zipt);
+        address_phone=(TextView)findViewById(R.id.address_phone);
+        type_add=(TextView)findViewById(R.id.type_add);
+        sav_prescrtn=(TextView)findViewById(R.id.sav_prescrtn);
+        pres_list=(RecyclerView)findViewById(R.id.pres_list);
         Cursor res=myDb.getAllData();
         getDisclimer();
         while (res.moveToNext()){
@@ -137,12 +151,12 @@ public class OrderReview extends AppCompatActivity {
         }
         //Toast.makeText(getApplicationContext(),coupon_id,Toast.LENGTH_LONG).show();
         if(show_coupon!=null){
-            place_apply_coupon.setText(show_coupon+" Applied");
-            coupon_off_on.setImageResource(R.drawable.close);
+            place_apply_coupon.setText(show_coupon);
+            coupon_off_on.setVisibility(View.VISIBLE);
         }
         else {
             place_apply_coupon.setText("Apply Coupon");
-            coupon_off_on.setImageResource(R.drawable.rigth_arrow);
+            coupon_off_on.setVisibility(View.GONE);
         }
         coupon_off_on.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -150,7 +164,7 @@ public class OrderReview extends AppCompatActivity {
                 myDb.deleteData();
                 Toast.makeText(getApplicationContext(),"Data Deleted",Toast.LENGTH_LONG).show();
                 place_apply_coupon.setText("Apply Coupon");
-                coupon_off_on.setImageResource(R.drawable.rigth_arrow);
+                coupon_off_on.setVisibility(View.GONE);
             }
         });
         back_button.setOnClickListener(new View.OnClickListener() {
@@ -324,6 +338,8 @@ public class OrderReview extends AppCompatActivity {
                             JSONObject person = new JSONObject(response);
                             Double total_mrp_value = person.getDouble("MRP");
                             DecimalFormat format = new DecimalFormat("##.##");
+                            Double saving_parcent=person.getDouble("saving_parcent");
+                            String sav_persnt=format.format(saving_parcent);
                             String tot_mrp = format.format(total_mrp_value);
                             mrp_total.setText(tot_mrp);
 
@@ -339,7 +355,8 @@ public class OrderReview extends AppCompatActivity {
                             String main_pay_amt=format.format(Math.round(pay_amount));
                             payable_amount.setText(p_amt);
                             main_pay.setText("\u20B9"+main_pay_amt);
-                            upper_save_amt.setText("You are Saveing"+"\u20B9"+" "+sav_amt_tot+" "+"on this order");
+                            upper_save_amt.setText("You are Saving "+"\u20B9"+" "+sav_amt_tot+" "+"on this order.");
+                            sav_prescrtn.setText("Saving @ "+sav_persnt +" %");
 
 
                         } catch (JSONException e) {
@@ -394,16 +411,18 @@ public class OrderReview extends AppCompatActivity {
 
                                 String sing_first_nm=object.getString("first_name");
                                 // String sing_last_nm=object.getString("last_name");
-                                String sing_phone=object.getString("phone");
+                                 sing_phone=object.getString("phone");
                                 // String sing_email=object.getString("email");
                                 String sing_address=object.getString("address");
                                 //String sing_country=object.getString("country");
                                 // String sing_state=object.getString("state");
                                 // String sing_city=object.getString("city");
-                                String sing_zip_code=object.getString("zip_code");
+                                 sing_zip_code=object.getString("zip_code");
+                                sing_lanmark=object.getString("landmark");
+                                 sing_ad_typ=object.getString("atype");
 
                                 sing_fullname=sing_first_nm;
-                                all_address=sing_address+","+"\n"+"Pin Code-"+sing_zip_code+","+"\n"+"phone:"+sing_phone;
+                                all_address=sing_address;
                                 prefs_Address_second = getSharedPreferences(
                                         "SECOND_ADDRESS", Context.MODE_PRIVATE);
                                 SharedPreferences.Editor editor = prefs_Address_second.edit();
@@ -420,15 +439,28 @@ public class OrderReview extends AppCompatActivity {
                                 e.remove("FIRST_ADD");
                                 e.commit();*/
 
-                                if (us_nm.equals("")&&us_add.equals("")) {
+                                if (us_nm.equals("")&&us_add.equals("")&&a_typ.equals("")&&lan_MArk.equals("")&& ad_phone.equals("")&&a_zip.equals("")) {
                                     String unknown=sing_fullname;
                                     String unknown_add=all_address;
+                                    String unkown_add_type=sing_ad_typ;
+                                    String unkown_land=sing_lanmark;
+                                    String unkown_zip=sing_zip_code;
+                                    String unkown_ph=sing_phone;
                                     customer_name.setText(unknown);
                                     address_text.setText(unknown_add);
+
+                                    type_add.setText(unkown_add_type);
+                                    address_zipt.setText(unkown_zip);
+                                    address_land.setText(unkown_land);
+                                    address_phone.setText(unkown_ph);
                                 }
                                 else {
                                     customer_name.setText(us_nm);
                                     address_text.setText(us_add);
+                                    type_add.setText(a_typ);
+                                    address_zipt.setText(a_zip);
+                                    address_land.setText(lan_MArk);
+                                    address_phone.setText(ad_phone);
                                 }
 
                                 // email_add.setText(email);
@@ -487,16 +519,18 @@ public class OrderReview extends AppCompatActivity {
 
                                 String sing_first_nm=object.getString("first_name");
                                 // String sing_last_nm=object.getString("last_name");
-                                String sing_phone=object.getString("phone");
+                                sing_phone=object.getString("phone");
                                 // String sing_email=object.getString("email");
                                 String sing_address=object.getString("address");
                                 //String sing_country=object.getString("country");
                                 // String sing_state=object.getString("state");
                                 // String sing_city=object.getString("city");
-                                String sing_zip_code=object.getString("zip_code");
+                                sing_zip_code=object.getString("zip_code");
+                                sing_lanmark=object.getString("landmark");
+                                sing_ad_typ=object.getString("atype");
 
                                 sing_fullname=sing_first_nm;
-                                all_address=sing_address+","+"\n"+"Pin Code-"+sing_zip_code+","+"\n"+"phone:"+sing_phone;
+                                all_address=sing_address;
                                 prefs_Address_second = getSharedPreferences(
                                         "SECOND_ADDRESS", Context.MODE_PRIVATE);
                                 SharedPreferences.Editor editor = prefs_Address_second.edit();
@@ -513,12 +547,35 @@ public class OrderReview extends AppCompatActivity {
                                 e.remove("FIRST_ADD");
                                 e.commit();*/
 
-                                if (us_nm.equals("")&&us_add.equals("")) {
+                                if (us_nm.equals("")&&us_add.equals("")&&a_typ.equals("")&&lan_MArk.equals("")&& ad_phone.equals("")&&a_zip.equals("")) {
                                     String unknown=sing_fullname;
                                     String unknown_add=all_address;
+                                    String unkown_add_type=sing_ad_typ;
+                                    String unkown_land=sing_lanmark;
+                                    String unkown_zip=sing_zip_code;
+                                    String unkown_ph=sing_phone;
                                     customer_name.setText(unknown);
                                     address_text.setText(unknown_add);
+                                    type_add.setText(unkown_add_type);
+                                    address_zipt.setText(unkown_zip);
+                                    address_land.setText(unkown_land);
+                                    address_phone.setText(unkown_ph);
                                 }
+                               /* else {
+                                    customer_name.setText(us_nm);
+                                    address_text.setText(us_add);
+                                    type_add.setText(a_typ);
+                                    address_zipt.setText(a_zip);
+                                    address_land.setText(lan_MArk);
+                                    address_phone.setText(ad_phone);
+                                }*/
+
+                                // email_add.setText(email);
+
+
+
+
+
                                 /*else {
                                     customer_name.setText(us_nm);
                                     address_text.setText(us_add);
