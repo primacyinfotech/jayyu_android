@@ -365,6 +365,7 @@
                     android:id="@+id/coupon_off_on"
                     android:textColor="#000"
                     android:text="Remove"
+                    android:visibility="gone"
                     android:src="@drawable/rigth_arrow"
                     android:layout_gravity="center"
                     android:layout_marginLeft="55dp"

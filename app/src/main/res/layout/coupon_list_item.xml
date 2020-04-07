@@ -28,7 +28,7 @@
     android:id="@+id/cpn_txt"
     android:text="MYNTRA"
     android:layout_marginLeft="2dp"
-    android:fontFamily="@font/clearsansbold"
+
     android:textSize="20sp"
     android:background="@drawable/back_border"
     android:textColor="#000"
@@ -37,6 +37,7 @@
     android:layout_height="wrap_content" />
     <Button
         android:layout_marginLeft="50dp"
+        android:layout_gravity="center"
         android:textColor="@color/colorAccent"
         android:fontFamily="@font/clearsansbold"
         android:text="Apply"
@@ -48,9 +49,9 @@
 </LinearLayout>
 <TextView
     android:layout_marginLeft="20dp"
-    android:layout_marginTop="20dp"
+    android:layout_marginTop="15dp"
     android:id="@+id/main_off"
-    android:fontFamily="@font/clearsansbold"
+
     android:textColor="#000"
     android:textSize="18sp"
     android:text="Flat Rs. 250 off on Myntra"
@@ -59,8 +60,8 @@
     <TextView
         android:layout_marginLeft="20dp"
         android:id="@+id/main_off_des"
-        android:visibility="gone"
-        android:fontFamily="@font/clearsansbold"
+
+
         android:text="Get Rs.250 Myntra Voucher within 7 days of your order Delivery"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
