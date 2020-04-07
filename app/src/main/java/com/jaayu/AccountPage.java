@@ -28,17 +28,17 @@ public class AccountPage extends AppCompatActivity {
         setContentView(R.layout.activity_account_page);
         recyclerView=(RecyclerView)findViewById(R.id.account_list_view);
         ac_List=new ArrayList<>();
-        ac_List.add(new AccountPageListModel(R.drawable.icon_order,"Order"));
-        ac_List.add(new AccountPageListModel(R.drawable.subscription,"Subscription"));
-        ac_List.add(new AccountPageListModel(R.drawable.prescription,"Prescription"));
+        ac_List.add(new AccountPageListModel(R.drawable.order,"My Orders"));
+        ac_List.add(new AccountPageListModel(R.drawable.subscriptions,"Subscription"));
+        ac_List.add(new AccountPageListModel(R.drawable.addressd,"Manage Address"));
+        ac_List.add(new AccountPageListModel(R.drawable.prescripstion,"Prescription"));
+        ac_List.add(new AccountPageListModel(R.drawable.manage_patient,"Manage Patient"));
         ac_List.add(new AccountPageListModel(R.drawable.wallet,"Wallet"));
         ac_List.add(new AccountPageListModel(R.drawable.wallet,"Jaayu Wallet"));
-        ac_List.add(new AccountPageListModel(R.drawable.patient,"Mange Patient"));
-        ac_List.add(new AccountPageListModel(R.drawable.address,"Manage Address"));
-        ac_List.add(new AccountPageListModel(R.drawable.help,"Need Help"));
+        ac_List.add(new AccountPageListModel(R.drawable.help,"Help"));
         ac_List.add(new AccountPageListModel(R.drawable.legal,"Legal"));
-        ac_List.add(new AccountPageListModel(R.drawable.legal,"AboutUs"));
-        ac_List.add(new AccountPageListModel(R.drawable.logout,"Logout"));
+        ac_List.add(new AccountPageListModel(R.drawable.mpi,"About Us"));
+        ac_List.add(new AccountPageListModel(R.drawable.logoutp,"Logout"));
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         accountPageListAdapter=new AccountPageListAdapter(ac_List,this);
@@ -61,7 +61,7 @@ public class AccountPage extends AppCompatActivity {
                      startActivity(goTOLogin);
                      finish();
                  }
-                 if(position==6){
+                 if(position==2){
                      Intent goToManageAddress=new Intent(AccountPage.this,ManagaAddressView.class);
                      overridePendingTransition(0,0);
                      startActivity(goToManageAddress);
@@ -82,7 +82,7 @@ public class AccountPage extends AppCompatActivity {
                      overridePendingTransition(0,0);
                      finish();
                  }
-                 if(position==3){
+                 if(position==5){
                      Intent goToManageAddress=new Intent(AccountPage.this,Wallet.class);
 
                      startActivity(goToManageAddress);
@@ -96,21 +96,21 @@ public class AccountPage extends AppCompatActivity {
                      overridePendingTransition(0,0);
                      finish();
                  }
-                 if(position==4){
+                 if(position==6){
                      Intent goToManageAddress=new Intent(AccountPage.this,JaayuWallet.class);
 
                      startActivity(goToManageAddress);
                      overridePendingTransition(0,0);
                      finish();
                  }
-                 if(position==5){
+                 if(position==4){
                      Intent goToManageAddress=new Intent(AccountPage.this,PatientListView.class);
 
                      startActivity(goToManageAddress);
                      overridePendingTransition(0,0);
                      finish();
                  }
-                 if(position==2){
+                 if(position==3){
                      Intent goToManageAddress=new Intent(AccountPage.this,AccountPrescription.class);
 
                  startActivity(goToManageAddress);

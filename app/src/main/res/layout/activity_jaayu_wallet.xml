@@ -51,8 +51,8 @@
 
             </ImageView>
             <TextView
-                android:text="Balance"
-                android:fontFamily="@font/clearsansbold"
+                android:text="Available Balance"
+              android:textColor="#000"
                 android:textSize="16dp"
                 android:layout_marginLeft="5dp"
                 android:layout_gravity="center"

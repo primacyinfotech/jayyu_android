@@ -63,6 +63,9 @@ public class ManageAdderssAdapter extends RecyclerView.Adapter<ManageAdderssAdap
         holder.pref_add.setText(addressModel.getAddress_pref());
         holder.name.setText(addressModel.getName());
         holder.address.setText(addressModel.getAddress());
+        holder.address_land.setText(addressModel.getLanmark());
+        holder.address_zipt.setText(addressModel.getZip_code());
+        holder.address_phone.setText(addressModel.getPhone());
         holder.delete_address.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -144,7 +147,7 @@ public class ManageAdderssAdapter extends RecyclerView.Adapter<ManageAdderssAdap
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView pref_add,name,address,edit_add;
+        TextView pref_add,name,address,edit_add,address_land,address_zipt,address_phone;
         LinearLayout delete_address;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -152,6 +155,9 @@ public class ManageAdderssAdapter extends RecyclerView.Adapter<ManageAdderssAdap
             name=(TextView)itemView.findViewById(R.id.name);
             address=(TextView)itemView.findViewById(R.id.address);
             edit_add=(TextView)itemView.findViewById(R.id.edit_add);
+            address_land=(TextView)itemView.findViewById(R.id.address_land);
+            address_zipt=(TextView)itemView.findViewById(R.id.address_zipt);
+            address_phone=(TextView)itemView.findViewById(R.id.address_phone);
             delete_address=(LinearLayout)itemView.findViewById(R.id.delete_address);
         }
     }

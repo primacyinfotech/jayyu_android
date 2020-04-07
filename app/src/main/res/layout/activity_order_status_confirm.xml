@@ -185,15 +185,15 @@
                         android:orientation="horizontal">
 
                         <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/clearsansbold"
-                            android:text="M.R.P.Total"
                             android:textColor="#000"
-                            android:textSize="15sp" />
+                            android:textSize="14sp"
+                            android:text="M.R.P. Total"
+
+                            android:layout_width="150dp"
+                            android:layout_height="wrap_content" />
 
                         <View
-                            android:layout_width="170dp"
+                            android:layout_width="125dp"
                             android:layout_height="0dp">
 
                         </View>
@@ -214,22 +214,22 @@
                         android:orientation="horizontal">
 
                         <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/clearsansbold"
-                            android:text="Saving**    "
                             android:textColor="#000"
-                            android:textSize="15sp" />
+                            android:textSize="14sp"
+                            android:id="@+id/sav_prescrtn"
+
+                            android:layout_width="150dp"
+                            android:layout_height="wrap_content" />
 
                         <View
-                            android:layout_width="165dp"
+                            android:layout_width="125dp"
                             android:layout_height="0dp">
 
                         </View>
 
                         <TextView
                             android:id="@+id/save_amount"
-                            android:layout_width="wrap_content"
+                            android:layout_width="100dp"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/clearsansbold"
                             android:text=""
@@ -243,12 +243,12 @@
                         android:orientation="horizontal">
 
                         <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/clearsansbold"
-                            android:text="Shipping Charges"
                             android:textColor="#000"
-                            android:textSize="15sp" />
+                            android:textSize="14sp"
+                            android:text="Delivery Charges"
+
+                            android:layout_width="150dp"
+                            android:layout_height="wrap_content" />
 
                         <View
 
@@ -259,7 +259,7 @@
 
                         <TextView
                             android:id="@+id/ship_charge"
-                            android:layout_width="wrap_content"
+                            android:layout_width="100dp"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/clearsansbold"
                             android:text=""
@@ -274,11 +274,12 @@
 
                         <TextView
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/clearsansbold"
-                            android:text="To Be Pay"
                             android:textColor="#000"
-                            android:textSize="15sp" />
+                            android:textSize="14sp"
+                            android:text="Total Amount"
+
+
+                            android:layout_height="wrap_content" />
 
                         <View
                             android:layout_width="170dp"

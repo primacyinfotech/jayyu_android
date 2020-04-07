@@ -14,6 +14,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.text.InputFilter;
 import android.text.InputType;
 import android.util.Log;
 import android.view.View;
@@ -40,16 +41,19 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
+import Model.MinMaxFilter;
+
 public class PatienEditPage extends AppCompatActivity {
     SharedPreferences prefs_register;
     private ImageView back_button,delete_patient;
-    private EditText patient_name, patient_relation, dob, patient_gender, patient_blood, height, weight, medical_condition, reaction, medication;
+    private EditText patient_name, patient_relation, dob, patient_gender, patient_blood, height, medical_condition, reaction, medication;
     private Button view_prescrip,update_btn;
     private int mYear, mMonth, mDay, mHour, mMinute;
-    private TextView add_con_one, add_con_two;
+    private TextView add_con_one, add_con_two,text_hint_ft,text_hint_inch,text_hint_weight;
     String u_id, p_name,p_relation,date_of_birth,p_gen,blood_group,height_of_patient,weight_of_patient,m_condition,reaction_patient,
             medication_of_patient,con1,con2;
      int patient_id;
+     private EditText ft,inch,weight;
     DatePickerDialog datePickerDialog;
     ProgressDialog progressDialog;
     private static  int RQS_PICK_CONTACT=1;
@@ -106,7 +110,9 @@ public class PatienEditPage extends AppCompatActivity {
         dob.setInputType(InputType.TYPE_NULL);
         patient_blood = (EditText) findViewById(R.id.patient_blood);
         patient_blood.setInputType(InputType.TYPE_NULL);
-        height = (EditText) findViewById(R.id.height);
+        ft= (EditText) findViewById(R.id.ft);
+        inch=(EditText)findViewById(R.id.inch);
+        inch.setFilters( new InputFilter[]{ new MinMaxFilter( "1" , "12" )}) ;
         weight = (EditText) findViewById(R.id.weight);
         medical_condition = (EditText) findViewById(R.id.medical_condition);
         reaction = (EditText) findViewById(R.id.reaction);
@@ -117,6 +123,9 @@ public class PatienEditPage extends AppCompatActivity {
         update_btn = (Button) findViewById(R.id.update_btn);
         add_con_one = (TextView) findViewById(R.id.add_con_one);
         add_con_two = (TextView) findViewById(R.id.add_con_two);
+        text_hint_ft=(TextView) findViewById(R.id.text_hint_ft);
+        text_hint_inch=(TextView) findViewById(R.id.text_hint_inch);
+        text_hint_weight=(TextView) findViewById(R.id.text_hint_weight);
         view_prescrip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -289,8 +298,8 @@ public class PatienEditPage extends AppCompatActivity {
                 date_of_birth=dob.getText().toString();
                 p_gen=patient_gender.getText().toString();
                 blood_group=patient_blood.getText().toString();
-                height_of_patient=height.getText().toString();
-                weight_of_patient=weight.getText().toString();
+                height_of_patient=ft.getText().toString()+" "+text_hint_ft.getText().toString()+" "+inch.getText().toString()+" "+text_hint_inch.getText().toString();
+                weight_of_patient=weight.getText().toString()+" "+text_hint_weight.getText().toString();
                 m_condition=medical_condition.getText().toString();
                 reaction_patient=reaction.getText().toString();
                 medication_of_patient=medication.getText().toString();
@@ -386,13 +395,32 @@ public class PatienEditPage extends AppCompatActivity {
                                 dob.setText(Obj.getString("dob"));
                                 patient_gender.setText(Obj.getString("sex"));
                                 patient_blood.setText(Obj.getString("blood"));
-                                height.setText(Obj.getString("height"));
-                                weight.setText(Obj.getString("weight"));
+                                String hight_sec=Obj.getString("height");
+                                String[] arrayString = hight_sec.split(" ");
+                                String fit=arrayString[0];
+                                ft.setText(fit);
+                                String tvfit=arrayString[1];
+                                text_hint_ft.setText(tvfit);
+                                String inc=arrayString[2];
+                                inch.setText(inc);
+                                String tvinc=arrayString[3];
+                                text_hint_inch.setText(tvinc);
+                                String weight_sec=Obj.getString("weight");
+                                String[] arraywt = weight_sec.split(" ");
+                                String wt=arraywt[0];
+                                String tvwt=arraywt[1];
+                                weight.setText(wt);
+                                text_hint_weight.setText(tvwt);
+
+
+                                /*height.setText(Obj.getString("height"));
+                                weight.setText(Obj.getString("weight"));*/
                                 medical_condition.setText(Obj.getString("mcon"));
                                 reaction.setText(Obj.getString("alerg"));
                                 medication.setText(Obj.getString("med_cation"));
                                 add_con_one.setText(Obj.getString("emgconct1"));
                                 add_con_two.setText(Obj.getString("emgconct2"));
+
 
 
 

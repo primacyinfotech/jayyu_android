@@ -47,9 +47,9 @@ public class OrderDetails extends AppCompatActivity {
     private TextView active_order_two,active_order_three,active_order,active_order_four,active_order_five,order_id,order_date,text_cancel,text_pay,
             wallet_pay,jaayu_pay,online_pay,cod_pay;
     SharedPreferences prefs_register;
-    private String Orderdetails_url= BaseUrl.BaseUrlNew+"order_details_profile";
+    private String Orderdetails_url=BaseUrl.BaseUrlNew+"order_details_profile";
     String u_id,instant_id,ship_status,delivery_date,ord_id,ord_date,mrp_amt,save_amt,shipping_charge,tot_pay,ship_add_name,ship_add_phone,
-    ship_add_address,ship_add_land,ship_add_pin,payment_status,w_cash,j_cash,onli_cash,c_cash;
+    ship_add_address,ship_add_land,ship_add_pin,payment_status,w_cash,j_cash,onli_cash,c_cash,Ord_vid;
     int odr_id;
     private TextView mrp_amount,save_amount,ship_charge,total_pay,ship_address,date_of_delivery;
     private LinearLayout cancel_btn,paynow_btn,wraper_wallet,wraper_jaayu_cash,wraper_online_cash,wraper_cod_cash;
@@ -65,6 +65,7 @@ public class OrderDetails extends AppCompatActivity {
         u_id=prefs_register.getString("USER_ID","");
         Intent gettheOrderData=getIntent();
         odr_id=gettheOrderData.getIntExtra("Order_id",0);
+        Ord_vid=gettheOrderData.getStringExtra("Order_Vid");
         instant_id=gettheOrderData.getStringExtra("Instant");
         animationUp = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_up);
         animationDown = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_down);
@@ -312,6 +313,7 @@ public class OrderDetails extends AppCompatActivity {
 
                 params.put("user_id", u_id);
                 params.put("oid", String.valueOf(odr_id));
+                params.put("order_id", Ord_vid);
                 params.put("instant", instant_id);
                 return params;
             }

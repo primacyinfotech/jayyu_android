@@ -51,12 +51,12 @@ public class OrderStatusConfirm extends AppCompatActivity {
     ArrayList<OrderStatusPressModel> orderStatusPressModels;
     SharedPreferences prefs_register;
     private  Button submit_btn;
-    private String Orderdetails_url= BaseUrl.BaseUrlNew+"order_details_profile";
+    private String Orderdetails_url=BaseUrl.BaseUrlNew+"order_details_profile";
     String u_id,instant_id,ship_status,delivery_date,ord_id,ord_date,mrp_amt,save_amt,shipping_charge,tot_pay,ship_add_name,ship_add_phone,
             ship_add_address,ship_add_land,ship_add_pin,payment_status;
     int odr_id;
     String Ord_vid;
-    private TextView mrp_amount,save_amount,ship_charge,total_pay,ship_address,date_of_delivery,main_pay;
+    private TextView mrp_amount,save_amount,ship_charge,total_pay,ship_address,date_of_delivery,main_pay,sav_prescrtn;
     private LinearLayout cancel_btn,paynow_btn;
     ProgressDialog progressDialog;
     private TextView active_order_two,active_order_three,active_order,active_order_four,active_order_five,order_id,order_date,text_cancel,text_pay;
@@ -88,6 +88,7 @@ public class OrderStatusConfirm extends AppCompatActivity {
         ship_charge=(TextView)findViewById(R.id.ship_charge);
         total_pay=(TextView)findViewById(R.id.total_pay);
         main_pay=(TextView)findViewById(R.id.main_pay);
+        sav_prescrtn=(TextView)findViewById(R.id.sav_prescrtn);
         submit_btn=(Button)findViewById(R.id.submit_btn);
         //ship_address=(TextView)findViewById(R.id.ship_address);
        // date_of_delivery=(TextView)findViewById(R.id.date_of_delivery);
@@ -155,6 +156,9 @@ public class OrderStatusConfirm extends AppCompatActivity {
                                 orderStatusPressAdapter.notifyDataSetChanged();
 
 
+                            }
+                            else {
+                                pres_list.setVisibility(View.GONE);
                             }
 
 
@@ -287,6 +291,7 @@ public class OrderStatusConfirm extends AppCompatActivity {
                             ship_charge.setText(shipping_charge);
                             total_pay.setText(tot_pay);
                             main_pay.setText(tot_pay);
+                            sav_prescrtn.setText("Saving @ "+"25" +" %");
                             ship_add_name=person.getString("Name");
                             ship_add_phone=person.getString("phone");
                             ship_add_address=person.getString("Address");

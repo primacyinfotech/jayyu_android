@@ -26,7 +26,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -159,10 +162,17 @@ public class OrderPage extends AppCompatActivity {
                                   JSONObject object=jsonArray.getJSONObject(i);
                                   OrderModel orderModel=new OrderModel();
                                   orderModel.setTbl_order_id(object.getInt("id"));
-                                  orderModel.setOrder_mame(order_people_name);
+                                 // orderModel.setOrder_mame(order_people_name);
                                   orderModel.setOrder_id(object.getString("orderid"));
-                                  orderModel.setOrder_date(object.getString("order_date"));
+                                  String date_view=object.getString("order_date");
+                              /*    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd HH:MM:ss");
+                                  Date testDate=sdf.parse(date_view);
+                                  SimpleDateFormat formatter = new SimpleDateFormat("MMM dd,yyyy hh:mm a");
+                                  String newFormat = formatter.format(testDate);*/
+                                  orderModel.setOrder_date(date_view);
+                                 // orderModel.setOrder_date(object.getString("order_date"));
                                   orderModel.setShip_status(object.getString("shipping_status"));
+
                                   orderModel.setInstant(object.getString("instant"));
                                   orderModel.setPrescription_chk(object.getString("prescription"));
                                   normalandPress.add(orderModel);
@@ -185,7 +195,6 @@ public class OrderPage extends AppCompatActivity {
                           e.printStackTrace();
                           Toast.makeText(getApplicationContext(), "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
                       }
-
 
                   }
               },
@@ -224,9 +233,16 @@ public class OrderPage extends AppCompatActivity {
                                   JSONObject object2=jsonArray2.getJSONObject(i);
                                   OrderPressModel orderModel=new OrderPressModel();
                                   orderModel.setTbl_order_id(object2.getInt("id"));
-                                  orderModel.setOrder_mame(order_people_name);
+                                 // orderModel.setOrder_mame(order_people_name);
                                   orderModel.setOrder_id(object2.getString("orderid"));
-                                  orderModel.setOrder_date(object2.getString("created_at"));
+                                  String date_view=object2.getString("created_at");
+                                  SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd HH:MM:ss");
+                                  Date testDate=sdf.parse(date_view);
+                                  SimpleDateFormat formatter = new SimpleDateFormat("MMM dd,yyyy hh:mm a");
+                                  String newFormat = formatter.format(testDate);
+                                  orderModel.setOrder_date(newFormat);
+                                  //orderModel.setOrder_date(object2.getString("created_at"));
+                                  //orderModel.setOrder_date(object2.getString("created_at"));
                                   orderModel.setShip_status(object2.getString("shipping_status"));
                                   orderModel.setInstant(object2.getString("instant"));
                                   orderModel.setPrescription_chk(object2.getString("prescription"));
@@ -250,6 +266,8 @@ public class OrderPage extends AppCompatActivity {
                       } catch (JSONException e) {
                           e.printStackTrace();
                           Toast.makeText(getApplicationContext(), "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                      } catch (ParseException e) {
+                          e.printStackTrace();
                       }
 
 

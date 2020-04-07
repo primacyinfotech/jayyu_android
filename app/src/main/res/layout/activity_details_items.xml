@@ -228,11 +228,18 @@
             android:background="@drawable/border_coupon_text"
             android:layout_width="match_parent"
             android:layout_margin="10dp"
-            android:layout_height="200dp">
+            android:layout_height="230dp">
 
+            <ImageView
+                android:id="@+id/required_pres_img"
+                android:layout_width="100dp"
+                android:layout_height="30dp"
+                android:layout_marginLeft="270dp"
+                android:layout_marginTop="5dp"
+                android:src="@drawable/prescriptionrequired2" />
             <LinearLayout
                 android:orientation="horizontal"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="0dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <LinearLayout
@@ -332,13 +339,13 @@
                     android:layout_marginLeft="15dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />-->
-                <ImageView
+                <!--<ImageView
                     android:src="@drawable/prescriptionrequired2"
                     android:id="@+id/required_pres_img"
-                    android:layout_marginLeft="130dp"
-
+                    android:layout_marginLeft="110dp"
+                    android:layout_weight="1"
                     android:layout_width="100dp"
-                    android:layout_height="50dp" />
+                    android:layout_height="50dp" />-->
             </LinearLayout>
           <!--  <LinearLayout
                 android:orientation="horizontal"

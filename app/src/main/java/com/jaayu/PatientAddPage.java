@@ -13,6 +13,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.text.InputFilter;
 import android.text.InputType;
 import android.util.Log;
 import android.view.View;
@@ -38,6 +39,8 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
+
+import Model.MinMaxFilter;
 
 public class PatientAddPage extends AppCompatActivity {
     SharedPreferences prefs_register;
@@ -104,6 +107,7 @@ public class PatientAddPage extends AppCompatActivity {
        // height = (EditText) findViewById(R.id.height);
         ft=(EditText) findViewById(R.id.ft);
         inch=(EditText) findViewById(R.id.inch);
+        inch.setFilters( new InputFilter[]{ new MinMaxFilter( "1" , "12" )}) ;
         weight = (EditText) findViewById(R.id.weight);
         medical_condition = (EditText) findViewById(R.id.medical_condition);
         reaction = (EditText) findViewById(R.id.reaction);
@@ -228,8 +232,8 @@ public class PatientAddPage extends AppCompatActivity {
             date_of_birth=dob.getText().toString();
             p_gen=patient_gender.getText().toString();
             blood_group=patient_blood.getText().toString();
-            height_of_patient=ft.getText().toString()+"ft"+inch.getText().toString()+"inch";
-            weight_of_patient=weight.getText().toString()+"kg";
+            height_of_patient=ft.getText().toString()+" "+"ft"+" "+inch.getText().toString()+" "+"inch";
+            weight_of_patient=weight.getText().toString()+" "+"kg";
             m_condition=medical_condition.getText().toString();
             reaction_patient=reaction.getText().toString();
             medication_of_patient=medication.getText().toString();

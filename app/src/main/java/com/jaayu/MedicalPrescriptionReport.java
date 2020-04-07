@@ -43,8 +43,12 @@ import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -66,6 +70,7 @@ public class MedicalPrescriptionReport extends AppCompatActivity {
     private Uri filePath;
     private Bitmap bitmap;
     ProgressDialog progressDialog;
+    ProgressDialog progressDialog2;
     private int mYear, mMonth, mDay, mHour, mMinute;
     String u_id;
     int patient_id;
@@ -74,6 +79,7 @@ public class MedicalPrescriptionReport extends AppCompatActivity {
     private String Patient_fetch_prescription_url=BaseUrl.BaseUrlNew+"patient_prescription_list";
     PatientPastPrescrptionAdapter patientPastPrescrptionAdapter;
     ArrayList<PatientPastPrescriptionModel> patientPastPrescriptionModels;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -101,7 +107,7 @@ public class MedicalPrescriptionReport extends AppCompatActivity {
                 report_name=(EditText)dialog.findViewById(R.id.report_name);
                 report_up_date=(EditText)dialog.findViewById(R.id.report_up_date);
                 upload=(Button)dialog.findViewById(R.id.upload);
-                report_up_date.setOnClickListener(new View.OnClickListener() {
+             /*   report_up_date.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         final Calendar c = Calendar.getInstance();
@@ -121,7 +127,11 @@ public class MedicalPrescriptionReport extends AppCompatActivity {
                                 }, mYear, mMonth, mDay);
                         datePickerDialog.show();
                     }
-                });
+                });*/
+                DateFormat dateFormat = new SimpleDateFormat("dd MMM,yyyy");
+                Date date = new Date();
+                report_up_date.setText(dateFormat.format(date));
+
                 cam_btn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -232,7 +242,7 @@ public class MedicalPrescriptionReport extends AppCompatActivity {
                         startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
                     }
                 });
-                report_up_date_gal.setOnClickListener(new View.OnClickListener() {
+            /*    report_up_date_gal.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         final Calendar c = Calendar.getInstance();
@@ -252,7 +262,10 @@ public class MedicalPrescriptionReport extends AppCompatActivity {
                                 }, mYear, mMonth, mDay);
                         datePickerDialog.show();
                     }
-                });
+                });*/
+                DateFormat dateFormat2 = new SimpleDateFormat("dd MMM,yyyy");
+                Date date2 = new Date();
+                report_up_date_gal.setText(dateFormat2.format(date2));
                 upload_gal.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -434,6 +447,7 @@ public class MedicalPrescriptionReport extends AppCompatActivity {
 
     }
  private  void   getPatientUplodedPrescription(){
+
      patientPastPrescriptionModels=new ArrayList<>();
      RequestQueue requestQueue = Volley.newRequestQueue(MedicalPrescriptionReport.this);
      StringRequest postRequest = new StringRequest(Request.Method.POST,Patient_fetch_prescription_url,
@@ -453,7 +467,13 @@ public class MedicalPrescriptionReport extends AppCompatActivity {
                                  JSONObject object=jsonArray.getJSONObject(i);
                                  oldPrescriptionModel.setPatient_pres_id(object.getInt("id"));
                                  oldPrescriptionModel.setPast_pres_head(object.getString("pres_name"));
-                                 oldPrescriptionModel.setPast_pres_date(object.getString("date"));
+                                 String date=object.getString("date");
+                                 SimpleDateFormat sdf = new SimpleDateFormat("dd/mm/yyyy");
+                                 Date testDate=sdf.parse(date);
+                                 DateFormat dateFormat = new SimpleDateFormat("dd MMM,yyyy");
+                                 String newFormat = dateFormat.format(testDate);
+                                 oldPrescriptionModel.setPast_pres_date(newFormat);
+                                 //oldPrescriptionModel.setPast_pres_date(object.getString("date"));
                                  oldPrescriptionModel.setPast_pres_img(object.getString("prescription"));
                                  patientPastPrescriptionModels.add(oldPrescriptionModel);
 
@@ -473,6 +493,8 @@ public class MedicalPrescriptionReport extends AppCompatActivity {
                      } catch (JSONException e) {
                          e.printStackTrace();
                          Toast.makeText(getApplicationContext(), "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                     } catch (ParseException e) {
+                         e.printStackTrace();
                      }
 
 

@@ -17,6 +17,8 @@ import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.text.Html;
+import android.text.Spanned;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -226,7 +228,9 @@ public class CartActivity extends AppCompatActivity {
                                           couponListModel.setCoupon_code(object.getString("coupon_code"));
                                           couponListModel.setCoupon_img(object.getString("image"));
                                           couponListModel.setCoupn_code_details(object.getString("sdescr"));
-                                          couponListModel.setCoupon_code_des(object.getString("descr"));
+                                          String cDes=object.getString("descr");
+                                          Spanned htmlAsSpanned = Html.fromHtml(cDes);
+                                          couponListModel.setCoupon_code_des(String.valueOf(htmlAsSpanned));
 
                                           couponListModelArrayList.add(couponListModel);
 

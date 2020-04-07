@@ -5,7 +5,7 @@
     <LinearLayout
         android:id="@+id/layout_address"
         android:orientation="vertical"
-        android:layout_margin="25dp"
+        android:layout_margin="10dp"
         android:background="@drawable/border_coupon_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -47,10 +47,33 @@
             android:textSize="15sp"
             android:text="Dhamua \n Baruipur,North 24 Pgs\n Kolkata 700010 \n 9874582098"
             android:layout_marginLeft="40dp"
-            android:layout_marginTop="14dp"
+            android:layout_marginTop="5dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
-
+        <TextView
+            android:id="@+id/address_land"
+            android:layout_marginTop="5dp"
+            android:textColor="#000"
+            android:textSize="15dp"
+            android:layout_marginLeft="40dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/address_zipt"
+            android:textColor="#000"
+            android:layout_marginTop="5dp"
+            android:textSize="15dp"
+            android:layout_marginLeft="40dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/address_phone"
+            android:textColor="#000"
+            android:layout_marginTop="5dp"
+            android:textSize="15dp"
+            android:layout_marginLeft="40dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
         <LinearLayout
             android:id="@+id/delete_address"
@@ -75,7 +98,7 @@
                 android:id="@+id/edit_add"
 
                 android:textSize="16sp"
-                android:text="EDIT"
+                android:text="Edit"
                 android:textColor="#000"
                 android:drawableLeft="@drawable/icedit"
                 android:layout_marginLeft="120dp"

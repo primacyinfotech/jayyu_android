@@ -38,7 +38,8 @@ public class AccounPrescriptionView extends AppCompatActivity {
     RecyclerView assign_prescription;
     AssignPrescriptionAdapter assignPrescriptionAdapter;
     ArrayList<AssignPrescriptionModel> assignPrescriptionModels;
-    private String Patient_fetch_prescription_url= BaseUrl.BaseUrlNew+"patient_prescription_list";
+   private String Patient_fetch_prescription_url= BaseUrl.BaseUrlNew+"patient_prescription_list";
+  // private String Patient_fetch_prescription_url= BaseUrl.BaseUrlNew+"prescription_req_display_old";
     SharedPreferences prefs_register;
     String u_id;
     @Override
@@ -77,7 +78,8 @@ public class AccounPrescriptionView extends AppCompatActivity {
                             JSONObject person = new JSONObject(response);
                             String status = person.getString("status");
                             if (status.equals("1")) {
-                                JSONArray jsonArray=person.getJSONArray("prtescription");
+                                JSONArray jsonArray=person.getJSONArray("prescription_list");
+                               // JSONArray jsonArray=person.getJSONArray("prescription_img");
                                 for(int i=0;i<jsonArray.length();i++){
                                     AssignPrescriptionModel assignPrescriptionModel=new AssignPrescriptionModel();
                                     JSONObject object=jsonArray.getJSONObject(i);

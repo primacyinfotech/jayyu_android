@@ -6,12 +6,14 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.jaayu.MedicalPrescriptionReport;
 import com.jaayu.PatienEditPage;
 import com.jaayu.R;
 
@@ -47,10 +49,30 @@ public class PatientAdapter extends RecyclerView.Adapter<PatientAdapter.MyViewHo
         holder.patient_card.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+               /* Intent goToPatientUpdate=new Intent(context, PatienEditPage.class);
+                goToPatientUpdate.putExtra("Patient_Id",patientListModel.getPatient_id());
+                ((Activity) context).overridePendingTransition(0,0);
+                context.startActivity(goToPatientUpdate);
+                ((Activity) context).finish();*/
+            }
+        });
+        holder.edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
                 Intent goToPatientUpdate=new Intent(context, PatienEditPage.class);
                 goToPatientUpdate.putExtra("Patient_Id",patientListModel.getPatient_id());
                 ((Activity) context).overridePendingTransition(0,0);
                 context.startActivity(goToPatientUpdate);
+                ((Activity) context).finish();
+            }
+        });
+        holder.report.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent goTtoReport=new Intent(context, MedicalPrescriptionReport.class);
+                goTtoReport.putExtra("Patient_Id",patientListModel.getPatient_id());
+                context.startActivity(goTtoReport);
+                ((Activity) context).overridePendingTransition(0,0);
                 ((Activity) context).finish();
             }
         });
@@ -65,11 +87,14 @@ public class PatientAdapter extends RecyclerView.Adapter<PatientAdapter.MyViewHo
     public class MyViewHolder extends RecyclerView.ViewHolder {
         TextView patient_head,patient_relation;
         CardView patient_card;
+        Button edit,report;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             patient_head=(TextView)itemView.findViewById(R.id.patient_head);
             patient_relation=(TextView)itemView.findViewById(R.id.patient_relation);
             patient_card=(CardView)itemView.findViewById(R.id.patient_card);
+            report=(Button)itemView.findViewById(R.id.report);
+            edit=(Button)itemView.findViewById(R.id.edit);
         }
     }
 }
