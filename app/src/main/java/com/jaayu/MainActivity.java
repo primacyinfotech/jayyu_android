@@ -273,6 +273,10 @@ public class MainActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_offer) {
+            Intent intentOffer=new Intent(MainActivity.this,OfferPage.class);
+            startActivity(intentOffer);
+            overridePendingTransition(0,0);
+            finish();
             return true;
         }
         if (id == R.id.action_cart) {
