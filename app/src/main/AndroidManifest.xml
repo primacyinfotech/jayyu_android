@@ -191,10 +191,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".WebPrivacyPolicy"
+        <activity android:name=".OfferPage"></activity>
+        <activity
+            android:name=".WebPrivacyPolicy"
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".WebViewTermandCondition"
             android:hardwareAccelerated="true"
