@@ -39,8 +39,7 @@ public class OfferPageAdapter extends RecyclerView.Adapter<OfferPageAdapter.MyVi
 
     @Override
     public void onBindViewHolder(@NonNull OfferPageAdapter.MyViewHolder holder, int position) {
-        Picasso.with(context).load("https://work.primacyinfotech.com/jaayu/upload/slider/" + offerPageModels.get(position).getOffer_img())
-                .into(holder.offer_img);
+        Picasso.with(context).load("https://work.primacyinfotech.com/jaayu/upload/slider/"+offerPageModels.get(position).getOffer_img()).into(holder.offer_img);
         holder.offer_heading.setText(offerPageModels.get(position).getOffer_heading());
         holder.offer_des.setText(offerPageModels.get(position).getOffer_des());
         holder.offer_exp_date.setText(offerPageModels.get(position).getOffer_exp_date());

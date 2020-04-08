@@ -637,7 +637,8 @@ public class CartActivity extends AppCompatActivity {
                                 payable_amount.setText(p_amt);
                                 main_pay.setText("\u20B9"+main_pay_amt);
                                 upper_save_amt.setText("You are Saving  "+"\u20B9"+" "+sav_amt_tot+" "+"on this order.");
-                                sav_prescrtn.setText("Saving @ "+sav_persnt +" %");
+                               // sav_prescrtn.setText("Saving @ "+sav_persnt +" %");
+                                sav_prescrtn.setText("Saving");
                               /*  Thread t = new Thread() {
 
                                     @Override

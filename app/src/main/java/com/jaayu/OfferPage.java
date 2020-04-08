@@ -51,6 +51,7 @@ public class OfferPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_offer_page);
         Toolbar toolbar = findViewById(R.id.toolbar);
+        back_button=(ImageView)toolbar.findViewById(R.id.back_button);
         setSupportActionBar(toolbar);
         progressDialog = new ProgressDialog(OfferPage.this);
         progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
@@ -94,16 +95,14 @@ public class OfferPage extends AppCompatActivity {
                                     offerPageModel.setOffer_heading(object.getString("short_description"));
                                     String longdes=object.getString("long_description");
                                     Spanned htmlAsSpanned = Html.fromHtml(longdes);
-                                    offerPageModel.setOffer_des(object.getString(String.valueOf(htmlAsSpanned)));
-                                    offerPageModel.setOffer_exp_date(object.getString("image"));
+                                    offerPageModel.setOffer_des(String.valueOf(htmlAsSpanned));
+                                    offerPageModel.setOffer_img(object.getString("image"));
                                     String exp=object.getString("expiry_date");
                                     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd");
                                     Date testDate=sdf.parse(exp);
                                     SimpleDateFormat formatter = new SimpleDateFormat("MMM dd,yyyy hh:mm a");
                                     String newFormat = formatter.format(testDate);
                                     offerPageModel.setOffer_exp_date("Exp Date :"+newFormat);
-
-
 
                                     offerPageModels.add(offerPageModel);
                                 }
