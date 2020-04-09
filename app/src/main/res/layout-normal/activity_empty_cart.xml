@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".EmptyCart">
+<ImageView
+    android:src="@drawable/emptycart"
+    android:layout_width="400dp"
+    android:layout_marginTop="200dp"
+    android:layout_gravity="center"
+    android:layout_height="200dp" />
+    <Button
+        android:id="@+id/shop_now"
+        android:background="@drawable/coupon_button_back"
+        android:layout_width="match_parent"
+        android:layout_margin="20dp"
+        android:fontFamily="@font/clearsansbold"
+        android:textColor="@color/white"
+        android:text="Shop Now"
+        android:textSize="20dp"
+        android:textAllCaps="false"
+        android:layout_height="wrap_content" />
+</LinearLayout>

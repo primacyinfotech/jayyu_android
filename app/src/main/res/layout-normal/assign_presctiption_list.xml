@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_margin="10dp"
+    android:background="@color/white"
+    android:layout_height="180dp">
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+<ImageView
+    android:id="@+id/assign_prescription"
+    android:layout_gravity="center"
+    android:layout_width="120dp"
+    android:scaleType="fitXY"
+    android:layout_marginLeft="10dp"
+    android:layout_height="160dp">
+
+</ImageView>
+        <Button
+            android:layout_gravity="center"
+            android:id="@+id/assign_btn"
+            android:textSize="14dp"
+            android:text="ASSIGN TO PATIENT"
+            android:textColor="@color/white"
+            android:background="@drawable/coupon_button_back"
+            android:layout_width="180dp"
+            android:layout_marginLeft="20dp"
+            android:layout_height="50dp">
+
+        </Button>
+    </LinearLayout>
+    <View
+        android:background="@color/light_gray"
+        android:layout_width="match_parent"
+        android:layout_height="2dp">
+
+    </View>
+</LinearLayout>

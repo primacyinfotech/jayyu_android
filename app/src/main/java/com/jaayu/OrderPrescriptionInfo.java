@@ -210,13 +210,19 @@ public class OrderPrescriptionInfo extends AppCompatActivity {
                                        editor1.commit();
                                        val1=prefs_Pass_Value1.getString("VALUE_ONE","");
                                        val_sub_1=prefs_Pass_Value1.getString("VALUE_sub_ONE","");
-
+/*
                                       Intent gotoPresOrderSummery=new Intent(OrderPrescriptionInfo.this,PrescriptionOrderSummery.class);
                                       gotoPresOrderSummery.putExtra("Value",val1);
                                       gotoPresOrderSummery.putExtra("Pref",val_sub_1);
                                       startActivity(gotoPresOrderSummery);
                                       overridePendingTransition(0,0);
-                                      finish();
+                                      finish();*/
+                                       Intent gotoPresOrderSummery=new Intent(OrderPrescriptionInfo.this,PrescriptionSubscriptionDelivery.class);
+                                       gotoPresOrderSummery.putExtra("Value",val1);
+                                       gotoPresOrderSummery.putExtra("Pref",val_sub_1);
+                                       startActivity(gotoPresOrderSummery);
+                                       overridePendingTransition(0,0);
+                                       finish();
 
                                    }
 
@@ -284,7 +290,7 @@ public class OrderPrescriptionInfo extends AppCompatActivity {
                                         editor2.commit();
                                         val2=prefs_Pass_Value2.getString("VALUE_TWO","");
                                         val_sub_2=prefs_Pass_Value2.getString("VALUE_sub_TWO","");
-                                        Intent gotoPresOrderSummery=new Intent(OrderPrescriptionInfo.this,PrescriptionOrderSummery.class);
+                                        Intent gotoPresOrderSummery=new Intent(OrderPrescriptionInfo.this,PrescriptionSubscriptionDelivery.class);
                                         gotoPresOrderSummery.putExtra("Value",val2);
                                         gotoPresOrderSummery.putExtra("Pref",val_sub_2);
                                         startActivity(gotoPresOrderSummery);
@@ -354,7 +360,7 @@ public class OrderPrescriptionInfo extends AppCompatActivity {
                                    editor3.commit();
                                    val3=prefs_Pass_Value3.getString("VALUE_THREE","");
                                    val_sub3=prefs_Pass_Value3.getString("VALUE_sub_THREE","");
-                                   Intent gotoPresOrderSummery=new Intent(OrderPrescriptionInfo.this,PrescriptionOrderSummery.class);
+                                   Intent gotoPresOrderSummery=new Intent(OrderPrescriptionInfo.this,PrescriptionSubscriptionDelivery.class);
                                    gotoPresOrderSummery.putExtra("Value",val3);
                                    gotoPresOrderSummery.putExtra("Pref",val_sub3);
                                    startActivity(gotoPresOrderSummery);
@@ -421,7 +427,7 @@ public class OrderPrescriptionInfo extends AppCompatActivity {
                                    editor4.commit();
                                    val4=prefs_Pass_Value4.getString("VALUE_FOUR","");
                                    val_sub4=prefs_Pass_Value4.getString("VALUE_sub_FOUR","");
-                                   Intent gotoPresOrderSummery=new Intent(OrderPrescriptionInfo.this,PrescriptionOrderSummery.class);
+                                   Intent gotoPresOrderSummery=new Intent(OrderPrescriptionInfo.this,PrescriptionSubscriptionDelivery.class);
                                    gotoPresOrderSummery.putExtra("Value",val4);
                                    gotoPresOrderSummery.putExtra("Pref",val_sub4);
                                    startActivity(gotoPresOrderSummery);

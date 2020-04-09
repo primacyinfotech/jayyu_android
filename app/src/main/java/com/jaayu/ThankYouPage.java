@@ -27,7 +27,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ThankYouPage extends AppCompatActivity {
-    private TextView order_id,date_of_delivery,disclaimer;
+    private TextView order_id,date_of_delivery,disclaimer,type_delivery;
     private LinearLayout order_track_btn,help_ord_btn;
   String ordID,u_id;
     SharedPreferences prefs_register;
@@ -47,6 +47,7 @@ public class ThankYouPage extends AppCompatActivity {
         date_of_delivery=(TextView)findViewById(R.id.date_of_delivery);
         order_track_btn=(LinearLayout)findViewById(R.id.order_track_btn);
         help_ord_btn=(LinearLayout)findViewById(R.id.help_ord_btn);
+        type_delivery=(TextView)findViewById(R.id.type_delivery);
         disclaimer=(TextView)findViewById(R.id.disclaimer);
         delivery_address();
         order_id.setText("Order Id"+ordID+"has been successfully placed");
@@ -75,7 +76,14 @@ public class ThankYouPage extends AppCompatActivity {
                             String status = person.getString("status");
                             if (status.equals("1")) {
                                 String del_add=person.getString("Delivery date");
+                                String subs_instant=person.getString("instant");
                                 date_of_delivery.setText(del_add);
+                                if(subs_instant.equals("0")){
+                                    type_delivery.setText("Normal Delivery");
+                                }
+                                else {
+                                    type_delivery.setText("Instant Delivery");
+                                }
 
                             }
 

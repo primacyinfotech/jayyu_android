@@ -51,7 +51,8 @@ public class OrderReview extends AppCompatActivity {
     private Button submit_btn;
     private CardView card_view_istant,card_view_date;
     private TextView open_item,mrp_total,total_save_price,shipping_charge,payable_amount,save_amount,discount_limit_amt,main_pay,upper_save_amt,sav_prescrtn,coupon_off_on,
-            customer_name,address_text,email_add,address_edit,estimated_date,place_apply_coupon, disclaimer, address_land,address_zipt,address_phone,type_add;
+            customer_name,address_text,email_add,address_edit,estimated_date,place_apply_coupon, disclaimer, address_land,address_zipt,address_phone,type_add,
+            type_delivery,interval_delivery;
     private String order_summery_item_url= BaseUrl.BaseUrlNew+"addtocart/all";
     private String Order_tiem_total_dataUrl=BaseUrl.BaseUrlNew+"addtocart/sum_value";
     private  String orderLast_addressUrl=BaseUrl.BaseUrlNew+"order_address_single_last";
@@ -132,6 +133,8 @@ public class OrderReview extends AppCompatActivity {
         email_add=(TextView)findViewById(R.id.email_add);
         card_view_date=(CardView)findViewById(R.id.card_view_date);
         estimated_date=(TextView)findViewById(R.id.estimated_date);
+        type_delivery=(TextView)findViewById(R.id.type_delivery);
+        interval_delivery=(TextView)findViewById(R.id.interval_delivery);
         upper_save_amt=(TextView)findViewById(R.id.upper_save_amt);
         disclaimer=(TextView)findViewById(R.id.disclaimer);
         additional_note=(EditText)findViewById(R.id.additional_note);
@@ -547,7 +550,7 @@ public class OrderReview extends AppCompatActivity {
                                 e.remove("FIRST_ADD");
                                 e.commit();*/
 
-                                if (us_nm.equals("")&&us_add.equals("")&&a_typ.equals("")&&lan_MArk.equals("")&& ad_phone.equals("")&&a_zip.equals("")) {
+                                if (us_nm.equals("")&&us_add.equals("")) {
                                     String unknown=sing_fullname;
                                     String unknown_add=all_address;
                                     String unkown_add_type=sing_ad_typ;
@@ -632,7 +635,23 @@ public class OrderReview extends AppCompatActivity {
                             if (status.equals("1")) {
                                 progressDialog.dismiss();
                          String del_add=person.getString("Delivery date");
-                         estimated_date.setText(del_add);
+                                estimated_date.setText(del_add);
+                         String subs_days=person.getString("day");
+                         String subs_interval=person.getString("interval");
+                         String subs_instant=person.getString("instant");
+                         if(subs_instant.equals("0")){
+                             type_delivery.setText("Normal Delivery");
+                         }
+                         else {
+                             type_delivery.setText("Instant Delivery");
+                         }
+                         if(subs_days.equals("1")&&subs_interval.equals("1")){
+                             interval_delivery.setText("One Time Order");
+                         }
+                         else {
+                             interval_delivery.setText(subs_days+"Days"+" "+subs_interval+"Delivery");
+                         }
+
 
                             }
 

@@ -100,4 +100,11 @@ public class PrescriptionThankYouPage extends AppCompatActivity {
         };
         requestQueue.add(postRequest);
     }
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(PrescriptionThankYouPage.this, MainActivity.class);
+        startActivity(intent);
+        overridePendingTransition(0,0);
+        finish();
+    }
 }

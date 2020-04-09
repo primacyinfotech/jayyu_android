@@ -297,7 +297,7 @@ public class PrescriptionOrderSummery extends AppCompatActivity {
                 if(chk_instant.isChecked()){
                    instant="1";
                 }
-                /*else {
+              /*  else {
                   instant="0";
                 }*/
             }
@@ -387,7 +387,13 @@ public class PrescriptionOrderSummery extends AppCompatActivity {
 
                                     params.put("user_id" ,u_id);
                                     params.put("aId1" ,String.valueOf(Addd_first));
-                                    params.put("instant" ,instant);
+                                    if(instant!=null){
+                                        params.put("instant" ,instant);
+                                    }
+                                    else {
+                                        params.put("instant" ,"0");
+                                    }
+                                    //params.put("instant" ,instant);
                                     params.put("source" ,"1");
 
 
