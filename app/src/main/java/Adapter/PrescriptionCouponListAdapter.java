@@ -1,7 +1,10 @@
 package Adapter;
 
+import android.app.Activity;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,9 +14,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.jaayu.CartActivity;
+import com.jaayu.OrderPrescriptionInfo;
 import com.jaayu.PrescriptionOrderSummery;
 import com.jaayu.R;
 import com.squareup.picasso.Picasso;
@@ -26,6 +31,7 @@ import Model.SaveCoupon;
 public class PrescriptionCouponListAdapter extends RecyclerView.Adapter<PrescriptionCouponListAdapter.MyViewHolder> {
     private ArrayList<CouponListModel> modelList;
     private Context context;
+    BroadcastReceiver mMessageReceiver;
     SaveCoupon myDb;
     public PrescriptionCouponListAdapter(ArrayList<CouponListModel> modelList, Context context) {
         this.modelList = modelList;
@@ -54,16 +60,17 @@ public class PrescriptionCouponListAdapter extends RecyclerView.Adapter<Prescrip
         holder.cpn_txt.setText(mList.getCoupon_code());
         holder.main_off.setText(mList.getCoupon_code_des());
         holder.main_off_des.setText(mList.getCoupn_code_details());
-        holder.main_off_time.setText(mList.getCoupon_time());
+        holder.main_off_time.setText("Exp Date: "+mList.getCoupon_time());
         holder.cpn_apply_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String coupon_code=mList.getCoupon_code();
                 // Toast.makeText(context,coupon_code,Toast.LENGTH_LONG).show();
-                Intent intentdataPass=new Intent(context, PrescriptionOrderSummery.class);
+                Intent intentdataPass=new Intent(context, OrderPrescriptionInfo.class);
                 intentdataPass.putExtra("Coupon Code",coupon_code);
                 intentdataPass.putExtra("Coupon_id",mList.getCoupon_id());
                 context.startActivity(intentdataPass);
+
                 boolean isUpdate=myDb.insertData(String.valueOf(mList.getCoupon_id()),coupon_code);
 
                 if(isUpdate){

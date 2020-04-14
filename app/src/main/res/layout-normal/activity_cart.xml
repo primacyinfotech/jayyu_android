@@ -108,7 +108,8 @@
                         />
 
                     <TextView
-                        android:text="Free Delivery above Rs.350 | Save more !"
+                        android:id="@+id/free_charge"
+                        android:text=""
                         android:layout_marginLeft="10dp"
                         android:layout_marginTop="15dp"
                         android:textSize="15sp"
@@ -206,7 +207,7 @@
                 android:id="@+id/place_apply_coupon"
                 android:textSize="12sp"
                 android:textColor="@color/colorAccent"
-                android:text="Apply Coupon"
+                android:text="Coupon Not Applied"
                 android:fontFamily="@font/clearsansbold"
                 android:layout_marginLeft="5dp"
                 android:layout_gravity="center"

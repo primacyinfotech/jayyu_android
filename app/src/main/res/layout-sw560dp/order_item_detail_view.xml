@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_margin="10dp"
+    android:background="@color/white"
+   android:elevation="10dp"
+    android:layout_height="150dp">
+
+<TextView
+    android:id="@+id/item_name"
+    android:textSize="15sp"
+    android:textColor="#000"
+    android:fontFamily="@font/clearsansbold"
+    android:text="Calpol 500mg Tablet"
+    android:layout_marginTop="20dp"
+    android:layout_marginLeft="10dp"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content" />
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/qyt"
+            android:textSize="13sp"
+            android:textColor="#000"
+            android:fontFamily="@font/clearsansbold"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="10dp"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+        </TextView>
+    <TextView
+        android:id="@+id/unit"
+        android:textSize="13sp"
+        android:textColor="#000"
+        android:fontFamily="@font/clearsansbold"
+        android:text="1 strip 15 Tablets"
+
+        android:layout_marginTop="5dp"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+        <TextView
+            android:textSize="15sp"
+            android:textColor="#000"
+            android:fontFamily="@font/clearsansbold"
+            android:text="M.R.P"
+
+            android:layout_marginLeft="50dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/mrp"
+            android:textSize="13sp"
+            android:textColor="#000"
+            android:fontFamily="@font/clearsansbold"
+            android:text="M.R.P"
+
+            android:layout_marginLeft="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+
+<LinearLayout
+    android:layout_marginLeft="150dp"
+android:orientation="horizontal"
+android:layout_width="match_parent"
+android:layout_height="wrap_content">
+
+</LinearLayout>
+    <TextView
+        android:id="@+id/amount"
+        android:textSize="13sp"
+        android:textColor="#000"
+        android:fontFamily="@font/clearsansbold"
+        android:text="14.02"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="200dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+
+       <!--<View
+        android:layout_width="match_parent"
+        android:background="@color/light_gray"
+        android:layout_height="2dp">
+
+    </View>-->
+</LinearLayout>

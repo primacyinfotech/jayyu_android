@@ -60,7 +60,7 @@ public class OrderSummery extends AppCompatActivity {
     private CardView card_view_istant;
     private TextView open_item,mrp_total,total_save_price,shipping_charge,payable_amount,save_amount,discount_limit_amt,main_pay,upper_save_amt,
             customer_name,address_text,email_add,address_edit,place_apply_coupon,instan_content,disclaimer,type_add,coupon_off_on,sav_prescrtn,
-            address_land,address_zipt,address_phone;
+            address_land,address_zipt,address_phone,free_charge;
     private String order_summery_item_url= BaseUrl.BaseUrlNew+"addtocart/all";
     private String Order_tiem_total_dataUrl=BaseUrl.BaseUrlNew+"addtocart/sum_value";
     private  String orderLast_addressUrl=BaseUrl.BaseUrlNew+"order_address_single_last";
@@ -68,6 +68,7 @@ public class OrderSummery extends AppCompatActivity {
     private  String Change_instant_Url=BaseUrl.BaseUrlNew+"change_to_instant";
     private  String instan_content_url=BaseUrl.BaseUrlNew+"instant_content";
     private  String disclaimer_url=BaseUrl.BaseUrlNew+"disclaimer";
+    private  String free_delivery_url=BaseUrl.BaseUrlNew+"delivery_charge";
     String address,user_name,us_nm,us_add,sing_fullname,all_address,prescription_image,Common_Address,Common_Address2,add_typ,formatted,ad_phone;
     int address_id,address_id_second,sing_add_id,prescription_requird,Addd_Second,Addd_first;
     SharedPreferences prefs_register;
@@ -76,7 +77,7 @@ public class OrderSummery extends AppCompatActivity {
     SharedPreferences prefs_Address_second;
     private String u_id,check_pincode_Second,check_pincode_first,add_zip,sing_zip_code,Add_type,a_typ,lan_mark,lan_MArk,l_mark,sing_landmark,sing_ad_typ,
             sing_phone,a_zip;
-    String pin_cod,pin_cod2,show_coupon;
+    String pin_cod,pin_cod2,show_coupon,ins;
     ProgressDialog progressDialog;
     ProgressDialog progressDialogLoader;
     @Override
@@ -159,9 +160,11 @@ public class OrderSummery extends AppCompatActivity {
         coupon_off_on=(TextView) findViewById(R.id.coupon_off_on);
         place_apply_coupon=(TextView)findViewById(R.id.place_apply_coupon);
         sav_prescrtn=(TextView)findViewById(R.id.sav_prescrtn);
+        free_charge=(TextView) findViewById(R.id.free_charge);
         Cursor res=myDb.getAllData();
         getInstantContent();
         getDisclimer();
+        getFerrCharge();
         while (res.moveToNext()){
           show_coupon=res.getString(2);
         }
@@ -170,7 +173,7 @@ public class OrderSummery extends AppCompatActivity {
             coupon_off_on.setVisibility(View.GONE);
         }
         else {
-            place_apply_coupon.setText("Apply Coupon");
+            place_apply_coupon.setText("Coupon Not Applied");
             coupon_off_on.setVisibility(View.GONE);
         }
         coupon_off_on.setOnClickListener(new View.OnClickListener() {
@@ -178,7 +181,7 @@ public class OrderSummery extends AppCompatActivity {
             public void onClick(View v) {
                 myDb.deleteData();
                 Toast.makeText(getApplicationContext(),"Data Deleted",Toast.LENGTH_LONG).show();
-                place_apply_coupon.setText("Apply Coupon");
+                place_apply_coupon.setText("Coupon Not Applied");
                 coupon_off_on.setVisibility(View.GONE);
             }
         });
@@ -186,6 +189,7 @@ public class OrderSummery extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(chk_instant.isChecked()){
+                    ins="1";
                     RequestQueue requestQueue = Volley.newRequestQueue(OrderSummery.this);
                     StringRequest postRequest = new StringRequest(Request.Method.POST,Change_instant_Url,
                             new Response.Listener<String>() {
@@ -257,6 +261,7 @@ public class OrderSummery extends AppCompatActivity {
                     requestQueue.add(postRequest);
                 }
                 else {
+                    ins="0";
                     RequestQueue requestQueue = Volley.newRequestQueue(OrderSummery.this);
                     StringRequest postRequest = new StringRequest(Request.Method.POST,Change_instant_Url,
                             new Response.Listener<String>() {
@@ -419,6 +424,7 @@ public class OrderSummery extends AppCompatActivity {
                                 Intent intentGotoDelivery = new Intent(OrderSummery.this, SubscriptionDelivery.class);
                                 intentGotoDelivery.putExtra("Address", String.valueOf(Addd_first));
                                 intentGotoDelivery.putExtra("userID", u_id);
+                                intentGotoDelivery.putExtra("INSTANT", ins);
                                 //intentGotoDelivery.putExtra("prescription_img", prescription_image);
                                 startActivity(intentGotoDelivery);
                                 finish();
@@ -427,6 +433,7 @@ public class OrderSummery extends AppCompatActivity {
                                 Intent intentGotoDelivery = new Intent(OrderSummery.this, SubscriptionDelivery.class);
                                 intentGotoDelivery.putExtra("Address", String.valueOf(Addd_Second));
                                 intentGotoDelivery.putExtra("userID", u_id);
+                                intentGotoDelivery.putExtra("INSTANT", ins);
                                // intentGotoDelivery.putExtra("prescription_img", prescription_image);
                                 startActivity(intentGotoDelivery);
                                 finish();
@@ -496,6 +503,55 @@ public class OrderSummery extends AppCompatActivity {
         orderSummeryAdapter.notifyDataSetChanged();*/
 
     }
+    private void getFerrCharge(){
+        RequestQueue requestQueue = Volley.newRequestQueue(OrderSummery.this);
+        StringRequest postRequest = new StringRequest(Request.Method.POST,free_delivery_url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        // response
+                        Log.d("Response", response);
+                        try {
+                            //Do it with this it will work
+                            JSONObject person = new JSONObject(response);
+                            String status=person.getString("status");
+                            if(status.equals("1")){
+                                String ferr_charg=person.getString("free_delivery_charge");
+
+                                free_charge.setText("Free Delivery above Rs."+ferr_charg+" | Save more!");
+                            }
+                            /*else {
+                                card_view_istant.setVisibility(View.GONE);
+                            }
+*/
+
+
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            Toast.makeText(getApplicationContext(), "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                        }
+
+
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // error
+
+                    }
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
+                return params;
+            }
+
+        };
+        requestQueue.add(postRequest);
+    }
     private void  getCartOrder(){
         modelList=new ArrayList<>();
         RequestQueue requestQueue = Volley.newRequestQueue(OrderSummery.this);
@@ -527,7 +583,7 @@ public class OrderSummery extends AppCompatActivity {
                                     String mrp_val=format_per.format(serch.getDouble("mrp"));
                                     String price_amt=format_per.format(serch.getDouble("price"));
 
-                                    cartModel.setSaveings_percentage(formatted);
+                                    cartModel.setSaveings_percentage(formatted+" %");
                                     cartModel.setSave_amount(save_amt);
                                     cartModel.setTotal(mrp_val);
                                     cartModel.setPrice_amt(price_amt);

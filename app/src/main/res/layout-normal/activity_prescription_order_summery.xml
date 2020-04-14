@@ -93,6 +93,7 @@
                             />
 
                         <TextView
+                            android:id="@+id/free_charge"
                             android:text="Free Delivery above Rs.350|Save more !"
                             android:layout_marginLeft="10dp"
                             android:layout_marginTop="10dp"
@@ -215,6 +216,11 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content" />
                         </LinearLayout>
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="10dp">
+
+                        </View>
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
                 <androidx.cardview.widget.CardView
@@ -251,7 +257,10 @@
 
                             android:text="Instant Deliery"
                             android:textSize="16sp"
+                            android:layout_marginTop="10dp"
                             android:layout_marginLeft="20dp"
+                            android:layout_marginRight="20dp"
+                            android:layout_marginBottom="20dp"
                             android:textColor="@color/black"
 
                             android:layout_width="wrap_content"
@@ -344,6 +353,7 @@
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
                     android:orientation="horizontal"
+                    android:visibility="gone"
                     android:layout_width="match_parent"
                     android:layout_height="40dp">
                     <ImageView

@@ -43,8 +43,9 @@ private EditText edt_single_day,edt_single_delivery;
 private LinearLayout custom_part_delivery;
     private Button confirm_btn;
     int min=15, max=99;
-    String user_id,user_add,One_Day,thirty_Day,fortifive_day,sixty_day,three_days_deliveries,six_days_delivery,single_day,single_delivery,day_portion,duration,prescription_img;
+    String user_id,user_add,One_Day,thirty_Day,fortifive_day,sixty_day,three_days_deliveries,six_days_delivery,single_day,single_delivery,day_portion,duration,prescription_img,instant_deli;
     private String Place_order_url= BaseUrl.BaseUrlNew+"addorder";
+    int  s_int_day;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,6 +56,7 @@ private LinearLayout custom_part_delivery;
         user_add=getUserDetails.getStringExtra("Address");
         user_id=getUserDetails.getStringExtra("userID");
         prescription_img=getUserDetails.getStringExtra("prescription_img");
+        instant_deli=getUserDetails.getStringExtra("INSTANT");
 
         back_button=(ImageView)toolbar.findViewById(R.id.back_button);
         one_time_order=(CheckBox)findViewById(R.id.one_time_order);
@@ -333,175 +335,186 @@ sixty_day_order.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeLis
             }
         });
         confirm_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                single_day=edt_single_day.getText().toString();
-                single_delivery=edt_single_delivery.getText().toString();
-                if(One_Day!=null){
-                    day_portion=One_Day;
-                }
-                else if(thirty_Day!=null){
-                    day_portion=thirty_Day;
+                                           @Override
+                                           public void onClick(View v) {
+                                               single_day = edt_single_day.getText().toString();
 
-                }
-                else if(fortifive_day!=null){
-                    day_portion=fortifive_day;
-                }
-                else  if(sixty_day!=null){
-                    day_portion=sixty_day;
-                }
-                else if(single_day!=null){
-                    day_portion=single_day;
-                }
-                else {
-                    day_portion="";
-                }
-                if(three_days_deliveries!=null){
-                    duration=three_days_deliveries;
-                }
-                else if(six_days_delivery!=null){
-                    duration=six_days_delivery;
-                }
-                else if(single_delivery!=null){
-                    duration=single_delivery;
-                }
-                else {
-                    duration="";
-                }
-           if(!one_time_order.isChecked()){
+                                               single_delivery = edt_single_delivery.getText().toString();
 
-               Toast.makeText(getApplicationContext(),"Please,Checked One Time Order",Toast.LENGTH_LONG).show();
-           }
-           else {
+                                               if (One_Day != null) {
+                                                   day_portion = One_Day;
+                                               } else if (thirty_Day != null) {
+                                                   day_portion = thirty_Day;
+                                                   s_int_day = Integer.parseInt(thirty_Day);
 
-               RequestQueue requestQueue = Volley.newRequestQueue(SubscriptionDelivery.this);
-               StringRequest postRequest = new StringRequest(Request.Method.POST,Place_order_url,
-                       new Response.Listener<String>() {
-                           @Override
-                           public void onResponse(String response) {
-                               // response
-                               Log.d("Response", response);
-                               try {
-                                   //Do it with this it will work
-                                   JSONObject person = new JSONObject(response);
-                                   String status=person.getString("status");
-                                   if(status.equals("1")){
-                                       String message=person.getString("message");
-                                       Toast.makeText(getApplicationContext(),message,Toast.LENGTH_LONG).show();
-                                       Intent goToOrderView_method=new Intent(SubscriptionDelivery.this,OrderReview.class);
-                                       goToOrderView_method.putExtra("DAY",day_portion);
-                                       goToOrderView_method.putExtra("Duration",duration);
-                                       goToOrderView_method.putExtra("User_add",user_add);
-                                       goToOrderView_method.putExtra("User_ID",user_id);
-                                       // goTopayment_method.putExtra("presc_img",prescription_img);
-                                       startActivity(goToOrderView_method);
-                                       overridePendingTransition(0,0);
-                                   }
+                                               } else if (fortifive_day != null) {
+                                                   day_portion = fortifive_day;
+                                                   s_int_day = Integer.parseInt(fortifive_day);
+                                               } else if (sixty_day != null) {
+                                                   day_portion = sixty_day;
+                                                   s_int_day = Integer.parseInt(sixty_day);
+                                               } else if (single_day != null) {
+                                                   day_portion = single_day;
+                                                   s_int_day = Integer.parseInt(single_day);
+                                               } else {
+                                                   day_portion = "";
+                                                   s_int_day = 0;
+                                               }
+                                               if (three_days_deliveries != null) {
+                                                   duration = three_days_deliveries;
+                                               } else if (six_days_delivery != null) {
+                                                   duration = six_days_delivery;
+                                               } else if (single_delivery != null) {
+                                                   duration = single_delivery;
+                                               } else {
+                                                   duration = "";
+                                               }
+                                               if (!one_time_order.isChecked()) {
 
-                               } catch (JSONException e) {
-                                   e.printStackTrace();
-                                   Toast.makeText(getApplicationContext(), "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
-                               }
+                                                   Toast.makeText(getApplicationContext(), "Please,Checked One Time Order", Toast.LENGTH_LONG).show();
+                                               } else {
+
+                                                   RequestQueue requestQueue = Volley.newRequestQueue(SubscriptionDelivery.this);
+                                                   StringRequest postRequest = new StringRequest(Request.Method.POST, Place_order_url,
+                                                           new Response.Listener<String>() {
+                                                               @Override
+                                                               public void onResponse(String response) {
+                                                                   // response
+                                                                   Log.d("Response", response);
+                                                                   try {
+                                                                       //Do it with this it will work
+                                                                       JSONObject person = new JSONObject(response);
+                                                                       String status = person.getString("status");
+                                                                       if (status.equals("1")) {
+                                                                           String message = person.getString("message");
+                                                                           Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
+                                                                           Intent goToOrderView_method = new Intent(SubscriptionDelivery.this, OrderReview.class);
+                                                                           goToOrderView_method.putExtra("DAY", day_portion);
+                                                                           goToOrderView_method.putExtra("Duration", duration);
+                                                                           goToOrderView_method.putExtra("User_add", user_add);
+                                                                           goToOrderView_method.putExtra("User_ID", user_id);
+                                                                           // goTopayment_method.putExtra("presc_img",prescription_img);
+                                                                           startActivity(goToOrderView_method);
+                                                                           overridePendingTransition(0, 0);
+                                                                       }
+
+                                                                   } catch (JSONException e) {
+                                                                       e.printStackTrace();
+                                                                       Toast.makeText(getApplicationContext(), "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                                                                   }
 
 
-                           }
-                       },
-                       new Response.ErrorListener() {
-                           @Override
-                           public void onErrorResponse(VolleyError error) {
-                               // error
+                                                               }
+                                                           },
+                                                           new Response.ErrorListener() {
+                                                               @Override
+                                                               public void onErrorResponse(VolleyError error) {
+                                                                   // error
 
-                           }
-                       }
-               ) {
-                   @Override
-                   protected Map<String, String> getParams() {
-                       Map<String, String> params = new HashMap<String, String>();
+                                                               }
+                                                           }
+                                                   ) {
+                                                       @Override
+                                                       protected Map<String, String> getParams() {
+                                                           Map<String, String> params = new HashMap<String, String>();
 
-                       params.put("user_id", user_id);
-                       params.put("aId", user_add);
-                       params.put("days", day_portion);
-                       params.put("duration", duration);
-                       // params.put("spid", presc_img);
-                       // params.put("payment_method", cod);
-                       params.put("status", "1");
-                       return params;
-                   }
-               };
+                                                           params.put("user_id", user_id);
+                                                           params.put("aId", user_add);
+                                                           params.put("days", day_portion);
+                                                           params.put("duration", duration);
+                                                           if(instant_deli!=null){
+                                                               params.put("instant", instant_deli);
+                                                           }
+                                                           else {
+                                                               params.put("instant", "0");
+                                                           }
 
-               requestQueue.add(postRequest);
+                                                           // params.put("payment_method", cod);
+                                                           params.put("status", "1");
+                                                           return params;
+                                                       }
+                                                   };
 
-           }
-              if(!thirty_day_order.isChecked()&&!fortyfive_day_order.isChecked()&&!sixty_day_order.isChecked()
-              && single_day.matches("")||!selected_three_delivery.isChecked()&&!selected_six_delivery.isChecked()&&single_delivery.matches("")){
-                  Toast.makeText(getApplicationContext(),"Please, Checked All Preference Of Delivery Order",Toast.LENGTH_LONG).show();
-              }
+                                                   requestQueue.add(postRequest);
 
-
-              else {
-                  if(single_day.equals("0")||single_day.equals("00")||single_delivery.equals("0")||single_delivery.equals("00")){
-
-                  }
-                  else {
-                      RequestQueue requestQueue = Volley.newRequestQueue(SubscriptionDelivery.this);
-                      StringRequest postRequest = new StringRequest(Request.Method.POST, Place_order_url,
-                              new Response.Listener<String>() {
-                                  @Override
-                                  public void onResponse(String response) {
-                                      // response
-                                      Log.d("Response", response);
-                                      try {
-                                          //Do it with this it will work
-                                          JSONObject person = new JSONObject(response);
-                                          String status = person.getString("status");
-                                          if (status.equals("1")) {
-                                              String message = person.getString("message");
-                                              // Toast.makeText(getApplicationContext(),message,Toast.LENGTH_LONG).show();
-                                              Intent goToOrderView_method = new Intent(SubscriptionDelivery.this, OrderReview.class);
-                                              goToOrderView_method.putExtra("DAY", day_portion);
-                                              goToOrderView_method.putExtra("Duration", duration);
-                                              goToOrderView_method.putExtra("User_add", user_add);
-                                              goToOrderView_method.putExtra("User_ID", user_id);
-                                              // goTopayment_method.putExtra("presc_img",prescription_img);
-                                              startActivity(goToOrderView_method);
-                                              overridePendingTransition(0, 0);
-                                          }
-
-                                      } catch (JSONException e) {
-                                          e.printStackTrace();
-                                          Toast.makeText(getApplicationContext(), "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
-                                      }
+                                               }
 
 
-                                  }
-                              },
-                              new Response.ErrorListener() {
-                                  @Override
-                                  public void onErrorResponse(VolleyError error) {
-                                      // error
+                                               if (!thirty_day_order.isChecked() && !fortyfive_day_order.isChecked() && !sixty_day_order.isChecked()
+                                                       && day_portion.matches("") || !selected_three_delivery.isChecked() && !selected_six_delivery.isChecked() && single_delivery.matches("")) {
+                                                   Toast.makeText(getApplicationContext(), "Please, Checked All Preference Of Delivery Order", Toast.LENGTH_LONG).show();
+                                               } else {
 
-                                  }
-                              }
-                      ) {
-                          @Override
-                          protected Map<String, String> getParams() {
-                              Map<String, String> params = new HashMap<String, String>();
+                                                   if (day_portion.equals("0") || day_portion.equals("00") || single_delivery.equals("0") || single_delivery.equals("00")|| s_int_day < 15 ) {
 
-                              params.put("user_id", user_id);
-                              params.put("aId", user_add);
-                              params.put("days", day_portion);
-                              params.put("duration", duration);
-                              // params.put("spid", presc_img);
-                              // params.put("payment_method", cod);
-                              params.put("status", "1");
-                              return params;
-                          }
-                      };
+                                                   } else {
 
-                      requestQueue.add(postRequest);
-                  }
+                                                       RequestQueue requestQueue = Volley.newRequestQueue(SubscriptionDelivery.this);
+                                                       StringRequest postRequest = new StringRequest(Request.Method.POST, Place_order_url,
+                                                               new Response.Listener<String>() {
+                                                                   @Override
+                                                                   public void onResponse(String response) {
+                                                                       // response
+                                                                       Log.d("Response", response);
+                                                                       try {
+                                                                           //Do it with this it will work
+                                                                           JSONObject person = new JSONObject(response);
+                                                                           String status = person.getString("status");
+                                                                           if (status.equals("1")) {
+                                                                               String message = person.getString("message");
+                                                                               // Toast.makeText(getApplicationContext(),message,Toast.LENGTH_LONG).show();
+                                                                               Intent goToOrderView_method = new Intent(SubscriptionDelivery.this, OrderReview.class);
+                                                                               goToOrderView_method.putExtra("DAY", day_portion);
+                                                                               goToOrderView_method.putExtra("Duration", duration);
+                                                                               goToOrderView_method.putExtra("User_add", user_add);
+                                                                               goToOrderView_method.putExtra("User_ID", user_id);
+                                                                               // goTopayment_method.putExtra("presc_img",prescription_img);
+                                                                               startActivity(goToOrderView_method);
+                                                                               overridePendingTransition(0, 0);
+                                                                           }
 
-              }
+                                                                       } catch (JSONException e) {
+                                                                           e.printStackTrace();
+                                                                           Toast.makeText(getApplicationContext(), "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                                                                       }
+
+
+                                                                   }
+                                                               },
+                                                               new Response.ErrorListener() {
+                                                                   @Override
+                                                                   public void onErrorResponse(VolleyError error) {
+                                                                       // error
+
+                                                                   }
+                                                               }
+                                                       ) {
+                                                           @Override
+                                                           protected Map<String, String> getParams() {
+                                                               Map<String, String> params = new HashMap<String, String>();
+
+                                                               params.put("user_id", user_id);
+                                                               params.put("aId", user_add);
+                                                               params.put("days", day_portion);
+                                                               params.put("duration", duration);
+                                                               if(instant_deli!=null){
+                                                                   params.put("instant", instant_deli);
+                                                               }
+                                                               else {
+                                                                   params.put("instant", "0");
+                                                               }
+                                                               // params.put("spid", presc_img);
+                                                               // params.put("payment_method", cod);
+                                                               params.put("status", "1");
+                                                               return params;
+                                                           }
+                                                       };
+
+                                                       requestQueue.add(postRequest);
+
+                                                   }
+                                               }
+
 
 
 

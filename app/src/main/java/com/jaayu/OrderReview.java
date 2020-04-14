@@ -52,7 +52,7 @@ public class OrderReview extends AppCompatActivity {
     private CardView card_view_istant,card_view_date;
     private TextView open_item,mrp_total,total_save_price,shipping_charge,payable_amount,save_amount,discount_limit_amt,main_pay,upper_save_amt,sav_prescrtn,coupon_off_on,
             customer_name,address_text,email_add,address_edit,estimated_date,place_apply_coupon, disclaimer, address_land,address_zipt,address_phone,type_add,
-            type_delivery,interval_delivery;
+            type_delivery,interval_delivery,free_charge;
     private String order_summery_item_url= BaseUrl.BaseUrlNew+"addtocart/all";
     private String Order_tiem_total_dataUrl=BaseUrl.BaseUrlNew+"addtocart/sum_value";
     private  String orderLast_addressUrl=BaseUrl.BaseUrlNew+"order_address_single_last";
@@ -62,6 +62,7 @@ public class OrderReview extends AppCompatActivity {
     private  String delivery_address_Url=BaseUrl.BaseUrlNew+"delivery_date";
     private  String Order_confirm_Url=BaseUrl.BaseUrlNew+"order_conform";
     private  String disclaimer_url=BaseUrl.BaseUrlNew+"disclaimer";
+    private  String free_delivery_url=BaseUrl.BaseUrlNew+"delivery_charge";
     String user_id,user_add,day_time,duration,cod,net_bank,presc_img,show_coupon,coupon_id;
     String address,user_name,us_nm,us_add,sing_fullname,all_address,prescription_image,Common_Address,Common_Address2;
     int address_id,address_id_second,sing_add_id,prescription_requird,Addd_Second,Addd_first;
@@ -145,9 +146,12 @@ public class OrderReview extends AppCompatActivity {
         address_phone=(TextView)findViewById(R.id.address_phone);
         type_add=(TextView)findViewById(R.id.type_add);
         sav_prescrtn=(TextView)findViewById(R.id.sav_prescrtn);
+        free_charge=(TextView) findViewById(R.id.free_charge);
         pres_list=(RecyclerView)findViewById(R.id.pres_list);
         Cursor res=myDb.getAllData();
         getDisclimer();
+        getFerrCharge();
+
         while (res.moveToNext()){
             coupon_id=res.getString(1);
             show_coupon=res.getString(2);
@@ -158,7 +162,7 @@ public class OrderReview extends AppCompatActivity {
             coupon_off_on.setVisibility(View.VISIBLE);
         }
         else {
-            place_apply_coupon.setText("Apply Coupon");
+            place_apply_coupon.setText("Coupon Not Applied");
             coupon_off_on.setVisibility(View.GONE);
         }
         coupon_off_on.setOnClickListener(new View.OnClickListener() {
@@ -166,7 +170,7 @@ public class OrderReview extends AppCompatActivity {
             public void onClick(View v) {
                 myDb.deleteData();
                 Toast.makeText(getApplicationContext(),"Data Deleted",Toast.LENGTH_LONG).show();
-                place_apply_coupon.setText("Apply Coupon");
+                place_apply_coupon.setText("Coupon Not Applied");
                 coupon_off_on.setVisibility(View.GONE);
             }
         });
@@ -249,6 +253,55 @@ public class OrderReview extends AppCompatActivity {
         delivery_address();
 
     }
+    private void getFerrCharge(){
+        RequestQueue requestQueue = Volley.newRequestQueue(OrderReview.this);
+        StringRequest postRequest = new StringRequest(Request.Method.POST,free_delivery_url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        // response
+                        Log.d("Response", response);
+                        try {
+                            //Do it with this it will work
+                            JSONObject person = new JSONObject(response);
+                            String status=person.getString("status");
+                            if(status.equals("1")){
+                                String ferr_charg=person.getString("free_delivery_charge");
+
+                                free_charge.setText("Free Delivery above Rs."+ferr_charg+" | Save more!");
+                            }
+                            /*else {
+                                card_view_istant.setVisibility(View.GONE);
+                            }
+*/
+
+
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            Toast.makeText(getApplicationContext(), "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                        }
+
+
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // error
+
+                    }
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
+                return params;
+            }
+
+        };
+        requestQueue.add(postRequest);
+    }
     private void getCartOrder(){
         modelList=new ArrayList<>();
         RequestQueue requestQueue = Volley.newRequestQueue(OrderReview.this);
@@ -280,7 +333,7 @@ public class OrderReview extends AppCompatActivity {
                                     String mrp_val=format_per.format(serch.getDouble("mrp"));
                                     String price_amt=format_per.format(serch.getDouble("price"));
 
-                                    cartModel.setSaveings_percentage(formatted);
+                                    cartModel.setSaveings_percentage(formatted+" %");
                                     cartModel.setSave_amount(save_amt);
                                     cartModel.setTotal(mrp_val);
                                     cartModel.setPrice_amt(price_amt);

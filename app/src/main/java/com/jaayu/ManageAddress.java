@@ -139,7 +139,7 @@ public class ManageAddress extends AppCompatActivity {
                                /* String stateof=object.getString("state");
                                 String cityof=object.getString("city");*/
                                 String zipcode=object.getString("zip_code");
-                                int atype=object.getInt("atype");
+                              //  int atype=object.getInt("atype");
                                 first_name.setText(firstname);
                                 //last_name.setText(lastname);
                                 mob_number.setText(phonenumber);

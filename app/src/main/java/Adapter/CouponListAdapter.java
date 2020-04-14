@@ -54,7 +54,7 @@ public class CouponListAdapter extends RecyclerView.Adapter<CouponListAdapter.My
         holder.cpn_txt.setText(mList.getCoupon_code());
         holder.main_off.setText(mList.getCoupon_code_des());
         holder.main_off_des.setText(mList.getCoupn_code_details());
-        holder.main_off_time.setText(mList.getCoupon_time());
+        holder.main_off_time.setText("Exp Date: "+mList.getCoupon_time());
         holder.cpn_apply_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

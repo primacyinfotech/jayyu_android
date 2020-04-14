@@ -60,75 +60,75 @@
         android:smallScreens="true"
         android:xlargeScreens="true" />
 
-    <compatible-screens>
+    <!--<compatible-screens>
 
-        <!-- no small size screens -->
+        &lt;!&ndash; no small size screens &ndash;&gt;
         <screen
             android:screenDensity="ldpi"
-            android:screenSize="small" /> <!-- approximately 120 dpi -->
+            android:screenSize="small" /> &lt;!&ndash; approximately 120 dpi &ndash;&gt;
         <screen
             android:screenDensity="mdpi"
-            android:screenSize="small" /> <!-- approximately 160 dpi -->
+            android:screenSize="small" /> &lt;!&ndash; approximately 160 dpi &ndash;&gt;
         <screen
             android:screenDensity="hdpi"
-            android:screenSize="small" /> <!-- approximately 240 dpi -->
+            android:screenSize="small" /> &lt;!&ndash; approximately 240 dpi &ndash;&gt;
         <screen
             android:screenDensity="280"
-            android:screenSize="small" /> <!-- Workaround -->
+            android:screenSize="small" /> &lt;!&ndash; Workaround &ndash;&gt;
         <screen
             android:screenDensity="xhdpi"
-            android:screenSize="small" /> <!-- approximately 320 dpi -->
+            android:screenSize="small" /> &lt;!&ndash; approximately 320 dpi &ndash;&gt;
         <screen
             android:screenDensity="360"
-            android:screenSize="small" /> <!-- Workaround -->
+            android:screenSize="small" /> &lt;!&ndash; Workaround &ndash;&gt;
         <screen
             android:screenDensity="420"
-            android:screenSize="small" /> <!-- Workaround -->
+            android:screenSize="small" /> &lt;!&ndash; Workaround &ndash;&gt;
         <screen
             android:screenDensity="480"
-            android:screenSize="small" /> <!-- Workaround -->
+            android:screenSize="small" /> &lt;!&ndash; Workaround &ndash;&gt;
         <screen
             android:screenDensity="560"
-            android:screenSize="small" /> <!-- Workaround -->
+            android:screenSize="small" /> &lt;!&ndash; Workaround &ndash;&gt;
         <screen
             android:screenDensity="640"
-            android:screenSize="small" /> <!-- Workaround -->
+            android:screenSize="small" /> &lt;!&ndash; Workaround &ndash;&gt;
 
 
-        <!-- all normal size screens -->
+        &lt;!&ndash; all normal size screens &ndash;&gt;
         <screen
             android:screenDensity="ldpi"
-            android:screenSize="normal" /> <!-- approximately 120 dpi -->
+            android:screenSize="normal" /> &lt;!&ndash; approximately 120 dpi &ndash;&gt;
         <screen
             android:screenDensity="mdpi"
-            android:screenSize="normal" /> <!-- approximately 160 dpi -->
+            android:screenSize="normal" /> &lt;!&ndash; approximately 160 dpi &ndash;&gt;
         <screen
             android:screenDensity="hdpi"
-            android:screenSize="normal" /> <!-- approximately 240 dpi -->
+            android:screenSize="normal" /> &lt;!&ndash; approximately 240 dpi &ndash;&gt;
         <screen
             android:screenDensity="280"
-            android:screenSize="normal" /> <!-- Workaround -->
+            android:screenSize="normal" /> &lt;!&ndash; Workaround &ndash;&gt;
         <screen
             android:screenDensity="xhdpi"
-            android:screenSize="normal" /> <!-- approximately 320 dpi -->
+            android:screenSize="normal" /> &lt;!&ndash; approximately 320 dpi &ndash;&gt;
         <screen
             android:screenDensity="360"
-            android:screenSize="normal" /> <!-- Workaround -->
+            android:screenSize="normal" /> &lt;!&ndash; Workaround &ndash;&gt;
         <screen
             android:screenDensity="420"
-            android:screenSize="normal" /> <!-- Workaround -->
+            android:screenSize="normal" /> &lt;!&ndash; Workaround &ndash;&gt;
         <screen
             android:screenDensity="480"
-            android:screenSize="normal" /> <!-- Workaround -->
+            android:screenSize="normal" /> &lt;!&ndash; Workaround &ndash;&gt;
         <screen
             android:screenDensity="560"
-            android:screenSize="normal" /> <!-- Workaround -->
+            android:screenSize="normal" /> &lt;!&ndash; Workaround &ndash;&gt;
         <screen
             android:screenDensity="640"
-            android:screenSize="normal" /> <!-- Workaround -->
+            android:screenSize="normal" /> &lt;!&ndash; Workaround &ndash;&gt;
 
 
-        <!-- all large size screens -->
+        &lt;!&ndash; all large size screens &ndash;&gt;
         <screen
             android:screenDensity="ldpi"
             android:screenSize="large" />
@@ -142,7 +142,7 @@
             android:screenDensity="xhdpi"
             android:screenSize="large" />
 
-        <!-- all xlarge size screens -->
+        &lt;!&ndash; all xlarge size screens &ndash;&gt;
         <screen
             android:screenDensity="ldpi"
             android:screenSize="xlarge" />
@@ -156,12 +156,12 @@
             android:screenDensity="xhdpi"
             android:screenSize="xlarge" />
 
-        <!-- Special case for Nexus 7 -->
+        &lt;!&ndash; Special case for Nexus 7 &ndash;&gt;
         <screen
             android:screenDensity="213"
             android:screenSize="large" />
 
-        <!-- xxhdpi -->
+        &lt;!&ndash; xxhdpi &ndash;&gt;
 
         <screen
             android:screenDensity="560"
@@ -181,7 +181,7 @@
         <screen
             android:screenDensity="560"
             android:screenSize="xlarge" />
-    </compatible-screens>
+    </compatible-screens>-->
 
     <application
         android:allowBackup="true"

@@ -41,9 +41,53 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+        <LinearLayout
+            android:id="@+id/apply_coupon_btn"
+
+            android:background="@drawable/border_coupon_text"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="40dp">
+            <ImageView
+
+                android:src="@drawable/pb"
+                android:layout_gravity="center"
+                android:layout_marginLeft="5dp"
+                android:layout_width="24dp"
+                android:layout_height="24dp" />
+            <TextView
+                android:id="@+id/place_apply_coupon"
+                android:textSize="12sp"
+                android:textColor="@color/colorAccent"
+                android:text="Apply Coupon"
+                android:fontFamily="@font/clearsansbold"
+                android:layout_marginLeft="5dp"
+                android:layout_gravity="center"
+                android:layout_width="210dp"
+                android:layout_height="wrap_content" />
+            <!--   <ImageView
+                   android:id="@+id/coupon_off_on"
+                   android:src="@drawable/rigth_arrow"
+                   android:layout_gravity="center"
+                   android:layout_marginLeft="55dp"
+                   android:layout_width="20dp"
+                   android:layout_height="20dp" />-->
+            <TextView
+                android:id="@+id/coupon_off_on"
+                android:textColor="#000"
+                android:text="Remove"
+                android:src="@drawable/rigth_arrow"
+                android:layout_gravity="center"
+                android:layout_marginLeft="55dp"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp" />
+        </LinearLayout>
     <TextView
         android:text="CHOOSE AN OPTION"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="12dp"
         android:layout_marginLeft="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">

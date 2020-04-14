@@ -93,6 +93,7 @@
                             />
 
                         <TextView
+                            android:id="@+id/free_charge"
                             android:text="Free Delivery above Rs.350 | Save more !"
                             android:layout_marginLeft="10dp"
                             android:layout_marginTop="15dp"
@@ -157,6 +158,7 @@
                 android:id="@+id/card_view"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
+
                 android:background="@color/white"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
@@ -202,6 +204,7 @@
                         android:orientation="vertical"
                         android:layout_marginTop="5dp"
                         android:layout_marginLeft="10dp"
+
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content">
                        <!-- <TextView
@@ -237,7 +240,13 @@
                             android:textSize="15dp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" />
+
                     </LinearLayout>
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="10dp">
+
+                    </View>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
             <androidx.cardview.widget.CardView
@@ -274,7 +283,10 @@
 
                         android:text="Instant Deliery"
                         android:textSize="16sp"
+                        android:layout_marginTop="10dp"
                         android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
+                        android:layout_marginBottom="20dp"
                         android:textColor="@color/black"
 
                         android:layout_width="wrap_content"

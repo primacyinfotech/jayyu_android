@@ -67,6 +67,9 @@ public class AddressPresAdapter extends RecyclerView.Adapter<AddressPresAdapter.
         holder.pref_add.setText(addressModel.getAddress_pref());
         holder.name.setText(addressModel.getName());
         holder.address.setText(addressModel.getAddress());
+        holder.address_land.setText(addressModel.getLanmark());
+        holder.address_zipt.setText(addressModel.getZip_code());
+        holder.address_phone.setText(addressModel.getPhone());
         holder.chk_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -77,6 +80,9 @@ public class AddressPresAdapter extends RecyclerView.Adapter<AddressPresAdapter.
                 String addresss_pref=addressModel.getAddress_pref();
                 String addressValue=addressModel.getAddress();
                 String zip=addressModel.getZip_code();
+                String landmark=addressModel.getLanmark();
+                String phone=addressModel.getPhone();
+
                 Toast.makeText(context,
                         "selected offer is " + add_id,
                         Toast.LENGTH_LONG).show();
@@ -133,6 +139,8 @@ public class AddressPresAdapter extends RecyclerView.Adapter<AddressPresAdapter.
                 goToOrderSammary.putExtra("ADDRESS_PREF",addresss_pref);
                 goToOrderSammary.putExtra("ADDRESS",addressValue);
                 goToOrderSammary.putExtra("ADDRESS_zip",zip);
+                goToOrderSammary.putExtra("ADDRESS_PHONE",phone);
+                goToOrderSammary.putExtra("ADDRESS_LAND",landmark);
                 context.startActivity(goToOrderSammary);
 
             }
@@ -145,7 +153,7 @@ public class AddressPresAdapter extends RecyclerView.Adapter<AddressPresAdapter.
     }
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
-        TextView pref_add, name, address;
+        TextView pref_add, name, address,address_land,address_zipt,address_phone;
         RadioButton chk_add;
         LinearLayout delete_address;
         LinearLayout layout_address;
@@ -156,6 +164,9 @@ public class AddressPresAdapter extends RecyclerView.Adapter<AddressPresAdapter.
             pref_add = (TextView) itemView.findViewById(R.id.pref_add);
             name = (TextView) itemView.findViewById(R.id.name);
             address = (TextView) itemView.findViewById(R.id.address);
+            address_land=(TextView)itemView.findViewById(R.id.address_land);
+            address_zipt=(TextView)itemView.findViewById(R.id.address_zipt);
+            address_phone=(TextView)itemView.findViewById(R.id.address_phone);
             chk_add = (RadioButton) itemView.findViewById(R.id.chk_add);
             delete_address = (LinearLayout) itemView.findViewById(R.id.delete_address);
             layout_address = (LinearLayout) itemView.findViewById(R.id.layout_address);

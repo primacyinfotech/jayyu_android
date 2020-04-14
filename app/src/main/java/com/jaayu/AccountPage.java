@@ -16,8 +16,10 @@ import Adapter.AccountPageListAdapter;
 import Model.AccountPageListModel;
 import Model.ClickListener;
 import Model.RecyclerTouchListener;
+import Model.SaveCoupon;
 
 public class AccountPage extends AppCompatActivity {
+    SaveCoupon myDb;
     RecyclerView recyclerView;
     AccountPageListAdapter accountPageListAdapter;
     ArrayList<AccountPageListModel> ac_List;
@@ -26,6 +28,7 @@ public class AccountPage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account_page);
+        myDb = new SaveCoupon(this);
         recyclerView=(RecyclerView)findViewById(R.id.account_list_view);
         ac_List=new ArrayList<>();
         ac_List.add(new AccountPageListModel(R.drawable.order,"My Orders"));
@@ -48,6 +51,7 @@ public class AccountPage extends AppCompatActivity {
              @Override
              public void onClick(View view, int position) {
                  if(position==10){
+                     myDb.deleteData();
                      SharedPreferences sp=getSharedPreferences("login",MODE_PRIVATE);
                      SharedPreferences.Editor e=sp.edit();
                      e.clear();

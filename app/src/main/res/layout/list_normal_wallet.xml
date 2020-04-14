@@ -109,7 +109,7 @@
             android:id="@+id/remark"
             android:text="From JAAYU"
             android:layout_marginLeft="10dp"
-            android:layout_width="wrap_content"
+            android:layout_width="150dp"
             android:layout_height="wrap_content">
 
         </TextView>
@@ -117,7 +117,8 @@
             android:id="@+id/date_value"
             android:text="Date"
             android:textSize="12dp"
-            android:layout_marginLeft="170dp"
+            android:layout_marginLeft="100dp"
+            android:layout_weight="1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 

@@ -40,7 +40,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.DecimalFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -61,7 +64,7 @@ public class CartActivity extends AppCompatActivity {
    private LinearLayout apply_coupon_btn,new_item_add;
    CouponListAdapter couponListAdapter;
    private TextView place_apply_coupon,mrp_total,total_save_price,shipping_charge,payable_amount,save_amount,discount_limit_amt,main_pay,upper_save_amt,
-           disclaimer,coupon_off_on,sav_prescrtn;
+           disclaimer,coupon_off_on,sav_prescrtn,free_charge;
     String fetchCpn,show_coupon,formatted;
 
     int fetchCpnId;
@@ -71,6 +74,7 @@ public class CartActivity extends AppCompatActivity {
     private String quantity_update_url=BaseUrl.BaseUrlNew+"addtocart/quantity";
     private String coupon_list_url= BaseUrl.BaseUrlNew+"coupon_listing";
     private  String disclaimer_url=BaseUrl.BaseUrlNew+"disclaimer";
+    private  String free_delivery_url=BaseUrl.BaseUrlNew+"delivery_charge";
     SharedPreferences prefs_register;
     SharedPreferences prefs_Quantity;
     private String u_id,p_id,qty,qty_u_id;
@@ -143,8 +147,10 @@ public class CartActivity extends AppCompatActivity {
         main_pay=(TextView)findViewById(R.id.main_pay);
         upper_save_amt=(TextView)findViewById(R.id.upper_save_amt);
         sav_prescrtn=(TextView)findViewById(R.id.sav_prescrtn);
+        free_charge=(TextView) findViewById(R.id.free_charge);
        Cursor res=myDb.getAllData();
         getDisclimer();
+        getFerrCharge();
        while (res.moveToNext()){
          show_coupon=res.getString(2);
        }
@@ -228,9 +234,18 @@ public class CartActivity extends AppCompatActivity {
                                           couponListModel.setCoupon_code(object.getString("coupon_code"));
                                           couponListModel.setCoupon_img(object.getString("image"));
                                           couponListModel.setCoupn_code_details(object.getString("sdescr"));
-                                          String cDes=object.getString("descr");
+                                          couponListModel.setCoupon_code_des(object.getString("heading"));
+
+                                          String date_view=object.getString("validtill");
+                                          SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                                          Date testDate=sdf.parse(date_view);
+                                          SimpleDateFormat formatter = new SimpleDateFormat("dd MMMM,yyyy");
+                                          String newFormat = formatter.format(testDate);
+                                          couponListModel.setCoupon_time(newFormat);
+
+                                      /*    String cDes=object.getString("descr");
                                           Spanned htmlAsSpanned = Html.fromHtml(cDes);
-                                          couponListModel.setCoupon_code_des(String.valueOf(htmlAsSpanned));
+                                          couponListModel.setCoupon_code_des(String.valueOf(htmlAsSpanned));*/
 
                                           couponListModelArrayList.add(couponListModel);
 
@@ -253,6 +268,8 @@ public class CartActivity extends AppCompatActivity {
                               } catch (JSONException e) {
                                   e.printStackTrace();
                                   Toast.makeText(getApplicationContext(), "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                              } catch (ParseException e) {
+                                  e.printStackTrace();
                               }
 
 
@@ -393,6 +410,55 @@ public class CartActivity extends AppCompatActivity {
           //  Toast.makeText(getApplicationContext(), String.valueOf(count_one), Toast.LENGTH_LONG).show();
         }
 
+    }
+    private void getFerrCharge(){
+        RequestQueue requestQueue = Volley.newRequestQueue(CartActivity.this);
+        StringRequest postRequest = new StringRequest(Request.Method.POST,free_delivery_url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        // response
+                        Log.d("Response", response);
+                        try {
+                            //Do it with this it will work
+                            JSONObject person = new JSONObject(response);
+                            String status=person.getString("status");
+                            if(status.equals("1")){
+                                String ferr_charg=person.getString("free_delivery_charge");
+
+                                free_charge.setText("Free Delivery above Rs."+ferr_charg+" | Save more!");
+                            }
+                            /*else {
+                                card_view_istant.setVisibility(View.GONE);
+                            }
+*/
+
+
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            Toast.makeText(getApplicationContext(), "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                        }
+
+
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // error
+
+                    }
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
+                return params;
+            }
+
+        };
+        requestQueue.add(postRequest);
     }
     private void  fetch_Cart() {
         modelList = new ArrayList<>();

@@ -148,7 +148,7 @@ public class ManageAdderssAdapter extends RecyclerView.Adapter<ManageAdderssAdap
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         TextView pref_add,name,address,edit_add,address_land,address_zipt,address_phone;
-        LinearLayout delete_address;
+        TextView delete_address;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             pref_add=(TextView)itemView.findViewById(R.id.pref_add);
@@ -158,7 +158,7 @@ public class ManageAdderssAdapter extends RecyclerView.Adapter<ManageAdderssAdap
             address_land=(TextView)itemView.findViewById(R.id.address_land);
             address_zipt=(TextView)itemView.findViewById(R.id.address_zipt);
             address_phone=(TextView)itemView.findViewById(R.id.address_phone);
-            delete_address=(LinearLayout)itemView.findViewById(R.id.delete_address);
+            delete_address=(TextView)itemView.findViewById(R.id.delete_address);
         }
     }
 }

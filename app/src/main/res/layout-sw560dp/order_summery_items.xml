@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+
+    android:layout_margin="3dp"
+    android:background="#fff"
+    android:layout_height="150dp">
+    <LinearLayout
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="10dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+       <!-- <TextView
+            android:id="@+id/item_cart"
+            android:textSize="15sp"
+            android:textColor="#000"
+            android:fontFamily="@font/clearsansbold"
+            android:text=""
+            android:maxWidth="100dp"
+            android:singleLine="true"
+            android:ellipsize="end"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content" />-->
+        <TextView
+            android:id="@+id/item_cart"
+            android:textSize="15sp"
+            android:textColor="#000"
+            android:fontFamily="@font/clearsansbold"
+            android:text=""
+            android:maxWidth="100dp"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <View
+            android:layout_width="20dp"
+            android:layout_height="0dp">
+
+        </View>
+        <!--<TextView
+            android:text="M.R.P ₹ "
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/item_total"
+            android:text=""
+            android:fontFamily="@font/clearsansbold"
+            android:textColor="#000"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/price_amt"
+            android:text=""
+            android:layout_marginLeft="10dp"
+            android:inputType="numberDecimal|numberSigned"
+            android:fontFamily="@font/clearsansbold"
+            android:textColor="#000"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />-->
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/company_nam"
+        android:textColor="#000"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="13dp"
+        android:layout_marginLeft="10dp"
+       />
+    <LinearLayout
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/unit"
+            android:textColor="#000"
+            android:fontFamily="@font/clearsansbold"
+            android:text=""
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <View
+            android:layout_width="10dp"
+            android:layout_height="0dp"></View>
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_marginLeft="50dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <LinearLayout
+
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:text="M.R.P ₹ "
+
+                    android:textColor="#000"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:id="@+id/item_total"
+                    android:text=""
+                    android:fontFamily="@font/clearsansbold"
+                    android:textColor="#000"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:id="@+id/price_amt"
+                    android:text=""
+                    android:layout_marginLeft="10dp"
+                    android:inputType="numberDecimal|numberSigned"
+                    android:fontFamily="@font/clearsansbold"
+                    android:textColor="#000"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_marginTop="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <TextView
+
+                    android:textColor="@color/colorAccent"
+                    android:text="Saving @ "
+                    android:textSize="14dp"
+                    android:fontFamily="@font/clearsansbold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:id="@+id/percentage"
+                    android:text="25"
+
+                    android:textSize="13dp"
+                    android:fontFamily="@font/clearsansbold"
+                    android:textColor="@color/colorAccent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+        </LinearLayout>
+       <!-- <TextView
+
+            android:textColor="@color/colorAccent"
+            android:text="Saving@"
+            android:textSize="12dp"
+            android:fontFamily="@font/clearsansbold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/percentage"
+            android:text="25"
+            android:textSize="12dp"
+            android:fontFamily="@font/clearsansbold"
+            android:textColor="@color/colorAccent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:layout_marginLeft="5dp"
+            android:id="@+id/percentage_amt"
+            android:text=""
+            android:visibility="gone"
+            android:textSize="12dp"
+            android:fontFamily="@font/clearsansbold"
+            android:textColor="@color/colorAccent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />-->
+    </LinearLayout>
+ <TextView
+     android:id="@+id/quantity"
+
+     android:layout_marginLeft="10dp"
+     android:textSize="17sp"
+     android:textColor="#000"
+     android:fontFamily="@font/clearsansbold"
+     android:layout_width="wrap_content"
+     android:layout_height="wrap_content" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+
+        android:background="@color/light_gray">
+
+    </View>
+</LinearLayout>

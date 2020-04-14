@@ -93,6 +93,7 @@
                             />
 
                         <TextView
+                            android:id="@+id/free_charge"
                             android:text="Free Delivery above Rs.350|Save more !"
                             android:layout_marginLeft="10dp"
                             android:layout_marginTop="10dp"
@@ -251,7 +252,10 @@
 
                             android:text="Instant Deliery"
                             android:textSize="16sp"
+                            android:layout_marginTop="10dp"
                             android:layout_marginLeft="20dp"
+                            android:layout_marginRight="20dp"
+                            android:layout_marginBottom="20dp"
                             android:textColor="@color/black"
 
                             android:layout_width="wrap_content"
@@ -342,6 +346,7 @@
                     android:layout_marginTop="10dp"
                     android:background="@drawable/border_coupon_text"
                     android:layout_marginLeft="10dp"
+                    android:visibility="gone"
                     android:layout_marginRight="10dp"
                     android:orientation="horizontal"
                     android:layout_width="match_parent"

@@ -2,10 +2,16 @@ package com.jaayu;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -26,11 +32,20 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.jaayu.Model.BaseUrl;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+
+import Adapter.PrescriptionCouponListAdapter;
+import Model.CouponListModel;
+import Model.SaveCoupon;
 
 public class OrderPrescriptionInfo extends AppCompatActivity {
 
@@ -42,12 +57,20 @@ public class OrderPrescriptionInfo extends AppCompatActivity {
     private Button btn_continue;
     TextView disclaimer;
     SharedPreferences prefs_register;
-    String data,val1,val2,val3,val4,val_sub_1,val_sub_2,val_sub3,val_sub4,result;
+    String data,val1,val2,val3,val4,val_sub_1,val_sub_2,val_sub3,val_sub4,result,show_coupon;
     SharedPreferences prefs_Pass_Value1,prefs_Pass_Value2,prefs_Pass_Value3,prefs_Pass_Value4;
     private String Choose_first_url= BaseUrl.BaseUrlNew+"prescription_order_subscription_first";
     private String Choose_second_url=BaseUrl.BaseUrlNew+"prescription_order_subscription_second";
     private String Choose_third_url=BaseUrl.BaseUrlNew+"prescription_order_subscription_third";
     private  String disclaimer_url=BaseUrl.BaseUrlNew+"disclaimer";
+    private LinearLayout apply_coupon_btn;
+    TextView coupon_off_on,place_apply_coupon;
+    SaveCoupon myDb;
+    PrescriptionCouponListAdapter couponListAdapter;
+    private ArrayList<CouponListModel> couponListModelArrayList;
+    Dialog dialog;
+    private String coupon_list_url= BaseUrl.BaseUrlNew+"coupon_listing";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +78,7 @@ public class OrderPrescriptionInfo extends AppCompatActivity {
         setContentView(R.layout.activity_order_prescription_info);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        myDb = new SaveCoupon(this);
         prefs_register = getSharedPreferences(
                 "Register Details", Context.MODE_PRIVATE);
         u_id=prefs_register.getString("USER_ID","");
@@ -70,6 +94,160 @@ public class OrderPrescriptionInfo extends AppCompatActivity {
         back_button=(ImageView)toolbar.findViewById(R.id.back_button);
         btn_continue=(Button)findViewById(R.id.btn_continue);
         disclaimer=(TextView)findViewById(R.id.disclaimer);
+        coupon_off_on=(TextView) findViewById(R.id.coupon_off_on);
+        apply_coupon_btn=(LinearLayout)findViewById(R.id.apply_coupon_btn);
+        place_apply_coupon=(TextView)findViewById(R.id.place_apply_coupon);
+        Cursor res=myDb.getAllData();
+        while (res.moveToNext()){
+            show_coupon=res.getString(2);
+        }
+        if(show_coupon!=null){
+            place_apply_coupon.setText(show_coupon);
+            coupon_off_on.setVisibility(View.VISIBLE);
+        }
+        else {
+            place_apply_coupon.setText("Apply Coupon");
+            coupon_off_on.setVisibility(View.GONE);
+        }
+        coupon_off_on.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                myDb.deleteData();
+                Toast.makeText(getApplicationContext(),"Data Deleted",Toast.LENGTH_LONG).show();
+                place_apply_coupon.setText("Apply Coupon");
+                coupon_off_on.setVisibility(View.GONE);
+            }
+        });
+        apply_coupon_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                couponListModelArrayList=new ArrayList<>();
+                dialog = new Dialog(OrderPrescriptionInfo.this);
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                dialog.setContentView(R.layout.coupon_dialog_layout);
+
+                ImageView close_btn=(ImageView)dialog.findViewById(R.id.close_btn);
+                final RecyclerView coupon_list=(RecyclerView)dialog.findViewById(R.id.coupon_list);
+             /* couponListModelArrayList.add(new CouponListModel(R.drawable.myntra,"MYNTRA","Flat Rs.250 off in Myntra","Get Rs.250 Voucher with in 7 days",
+                      "Expire In 2 Days"));
+              couponListModelArrayList.add(new CouponListModel(R.drawable.myntra,"GOFERCE","Flat Rs.250 off in Myntra","Get Rs.250 Voucher with in 7 days",
+                      "Expire In 2 Days"));
+              couponListModelArrayList.add(new CouponListModel(R.drawable.myntra,"MYNTRA","Flat Rs.250 off in Myntra","Get Rs.250 Voucher with in 7 days",
+                      "Expire In 2 Days"));
+              couponListAdapter=new CouponListAdapter(couponListModelArrayList,CartActivity.this);
+              coupon_list.setHasFixedSize(true);
+              coupon_list.setLayoutManager(new LinearLayoutManager(CartActivity.this));
+              coupon_list.setAdapter(couponListAdapter);
+              couponListAdapter.notifyDataSetChanged();*/
+                RequestQueue requestQueue = Volley.newRequestQueue(OrderPrescriptionInfo.this);
+                StringRequest postRequest = new StringRequest(Request.Method.POST,coupon_list_url,
+                        new Response.Listener<String>() {
+                            @Override
+                            public void onResponse(String response) {
+                                // response
+                                Log.d("Response", response);
+                                try {
+                                    //Do it with this it will work
+                                    JSONObject person = new JSONObject(response);
+                                    String status=person.getString("status");
+
+
+                                    if(status.equals("1")){
+
+
+                                        JSONArray jsonArray=person.getJSONArray("list");
+                                        for(int i=0;i<jsonArray.length();i++){
+                                            CouponListModel couponListModel=new CouponListModel();
+                                            JSONObject object=jsonArray.getJSONObject(i);
+                                            couponListModel.setCoupon_id(object.getInt("id"));
+                                            couponListModel.setCoupon_code(object.getString("coupon_code"));
+                                            couponListModel.setCoupon_img(object.getString("image"));
+                                            couponListModel.setCoupn_code_details(object.getString("sdescr"));
+                                            couponListModel.setCoupon_code_des(object.getString("heading"));
+                                            /*String cDes=object.getString("descr");
+                                            Spanned htmlAsSpanned = Html.fromHtml(cDes);
+                                            couponListModel.setCoupon_code_des(String.valueOf(htmlAsSpanned));*/
+
+                                            String date_view=object.getString("validtill");
+                                            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                                            Date testDate=sdf.parse(date_view);
+                                            SimpleDateFormat formatter = new SimpleDateFormat("dd MMMM,yyyy");
+                                            String newFormat = formatter.format(testDate);
+                                            couponListModel.setCoupon_time(newFormat);
+                                            // couponListModel.setCoupon_code_des(object.getString("descr"));
+
+                                            couponListModelArrayList.add(couponListModel);
+
+                                        }
+                                        couponListAdapter=new PrescriptionCouponListAdapter(couponListModelArrayList,OrderPrescriptionInfo.this);
+                                        coupon_list.setHasFixedSize(true);
+                                        LinearLayoutManager layoutManager=new LinearLayoutManager(getApplicationContext(),RecyclerView.VERTICAL,false);
+                                        //address_list.setLayoutManager(new LinearLayoutManager(LocationAddress.this));
+                                        coupon_list.setLayoutManager(layoutManager);
+
+                                        coupon_list.setAdapter(couponListAdapter);
+                                        couponListAdapter.notifyDataSetChanged();
+
+                                    }
+
+
+
+
+
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                    Toast.makeText(getApplicationContext(), "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                                } catch (ParseException e) {
+                                    e.printStackTrace();
+                                }
+
+
+                            }
+                        },
+                        new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                // error
+
+                            }
+                        }
+                ) {
+                    @Override
+                    protected Map<String, String> getParams() {
+                        Map<String, String> params = new HashMap<String, String>();
+
+                        /* params.put("user_id" ,u_id);*/
+                        /* params.put("user_id" ,"35");*/
+
+                        return params;
+                    }
+
+                };
+                requestQueue.add(postRequest);
+                close_btn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
+
+                dialog.show();
+            }
+        });
+        coupon_off_on.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+        /*    place_apply_coupon.setText("Apply Coupon");
+            coupon_off_on.setImageResource(R.drawable.rigth_arrow);
+        }*/
+                myDb.deleteData();
+                Toast.makeText(getApplicationContext(),"Data Deleted",Toast.LENGTH_LONG).show();
+                place_apply_coupon.setText("Apply Coupon");
+                coupon_off_on.setVisibility(View.GONE);
+
+
+            }
+        });
         getDisclimer();
        first_child.setVisibility(View.GONE);
         edt_days.setEnabled(false);

@@ -7,7 +7,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.InputFilter;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -46,6 +48,7 @@ public class PrescriptionSubscriptionDelivery extends AppCompatActivity {
     SharedPreferences prefs_register;
     String u_id,user_add,One_Day,thirty_Day,fortifive_day,sixty_day,three_days_deliveries,six_days_delivery,single_day,single_delivery,day_portion,duration,prescription_img;
     private String Prescription_subscription_order_url= BaseUrl.BaseUrlNew+"delivery_subscription";
+    int  s_int_day;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,6 +74,36 @@ public class PrescriptionSubscriptionDelivery extends AppCompatActivity {
         single_delivery_order=(CheckBox)findViewById(R.id.single_delivery_order);
         edt_single_day=(EditText)findViewById(R.id.edt_single_day);
         //edt_single_day.setFilters( new InputFilter[]{ new MinMaxFilter( "15" , "99" )}) ;
+      /*  edt_single_day.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                String added_number = edt_single_day.getText().toString();
+                if (added_number.length() != 0){
+                    int number  = Integer.parseInt(added_number);
+                    if(number<10){
+
+
+                    }
+                    else {
+                        edt_single_day.setText(""+number);
+                    }
+
+
+
+
+                }
+            }
+        });*/
         InputFilterIntRange rangeFilter = new InputFilterIntRange(15, 99);
         edt_single_day.setFilters(new InputFilter[]{rangeFilter});
         edt_single_day.setOnFocusChangeListener(rangeFilter);
@@ -339,26 +372,35 @@ public class PrescriptionSubscriptionDelivery extends AppCompatActivity {
         confirm_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 single_day=edt_single_day.getText().toString();
+
                 single_delivery=edt_single_delivery.getText().toString();
                 if(One_Day!=null){
                     day_portion=One_Day;
                 }
                 else if(thirty_Day!=null){
                     day_portion=thirty_Day;
+                    s_int_day = Integer.parseInt(thirty_Day);
 
                 }
                 else if(fortifive_day!=null){
                     day_portion=fortifive_day;
+                    s_int_day = Integer.parseInt(fortifive_day);
                 }
                 else  if(sixty_day!=null){
                     day_portion=sixty_day;
+                    s_int_day = Integer.parseInt(sixty_day);
                 }
                 else if(single_day!=null){
-                    day_portion=single_day;
+
+                        day_portion=single_day;
+                    s_int_day = Integer.parseInt(single_day);
+
                 }
                 else {
                     day_portion="";
+                    s_int_day = 0;
                 }
                 if(three_days_deliveries!=null){
                     duration=three_days_deliveries;
@@ -437,15 +479,16 @@ public class PrescriptionSubscriptionDelivery extends AppCompatActivity {
 
                 }
                 if(!thirty_day_order.isChecked()&&!fortyfive_day_order.isChecked()&&!sixty_day_order.isChecked()
-                        && single_day.matches("")||!selected_three_delivery.isChecked()&&!selected_six_delivery.isChecked()&&single_delivery.matches("")){
+                        &&  day_portion.matches("")||!selected_three_delivery.isChecked()&&!selected_six_delivery.isChecked()&&single_delivery.matches("")){
                     Toast.makeText(getApplicationContext(),"Please, Checked All Preference Of Delivery Order",Toast.LENGTH_LONG).show();
                 }
 
 
                 else {
-                    if(single_day.equals("0")||single_day.equals("00")||single_delivery.equals("0")||single_delivery.equals("00")){
+                    if(day_portion.equals("0") || day_portion.equals("00")||single_delivery.equals("0")||single_delivery.equals("00")|| s_int_day < 15 ){
 
                     }
+
                     else {
                         RequestQueue requestQueue = Volley.newRequestQueue(PrescriptionSubscriptionDelivery.this);
                         StringRequest postRequest = new StringRequest(Request.Method.POST, Prescription_subscription_order_url,
