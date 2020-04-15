@@ -54,7 +54,7 @@
 
             <LinearLayout
                 android:orientation="vertical"
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="45dp"
                 android:layout_width="match_parent"
                 android:background="@color/ligth_green"
                 android:layout_height="wrap_content">
@@ -107,15 +107,15 @@
             </LinearLayout>
             <ImageView
                 android:layout_marginTop="15dp"
-                android:src="@drawable/image_normal_thaku"
+                android:src="@drawable/rty"
                 android:elevation="20dp"
-                android:padding="5dp"
+
 
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:scaleType="fitXY"
                 android:layout_width="match_parent"
-                android:layout_height="150dp">
+                android:layout_height="180dp">
 
             </ImageView>
 

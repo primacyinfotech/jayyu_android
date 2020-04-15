@@ -64,6 +64,7 @@ public class PrescriptionLocationAddress extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent gotoAddress = new Intent(PrescriptionLocationAddress.this, AddresAddActivity.class);
+                gotoAddress.putExtra("FIELD_REQ","2");
                 startActivity(gotoAddress);
             }
         });

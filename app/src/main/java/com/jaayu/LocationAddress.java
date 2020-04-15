@@ -63,6 +63,7 @@ public class LocationAddress extends AppCompatActivity  {
               @Override
               public void onClick(View v) {
                   Intent gotoAddress=new Intent(LocationAddress.this,AddresAddActivity.class);
+                  gotoAddress.putExtra("FIELD_REQ","1");
                   startActivity(gotoAddress);
               }
           });

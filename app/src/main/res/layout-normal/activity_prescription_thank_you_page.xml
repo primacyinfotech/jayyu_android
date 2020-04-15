@@ -106,10 +106,10 @@
 
             </LinearLayout>
             <ImageView
-                android:layout_marginTop="40dp"
-                android:src="@drawable/image_normal_thaku"
+                android:layout_marginTop="50dp"
+                android:src="@drawable/rty"
                 android:elevation="20dp"
-                android:padding="5dp"
+
 
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"

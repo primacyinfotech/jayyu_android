@@ -35,6 +35,7 @@ import com.jaayu.Model.BaseUrl;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -57,14 +58,14 @@ public class OrderPrescriptionInfo extends AppCompatActivity {
     private Button btn_continue;
     TextView disclaimer;
     SharedPreferences prefs_register;
-    String data,val1,val2,val3,val4,val_sub_1,val_sub_2,val_sub3,val_sub4,result,show_coupon;
+    String data,val1,val2,val3,val4,val_sub_1,val_sub_2,val_sub3,val_sub4,result,show_coupon,note;
     SharedPreferences prefs_Pass_Value1,prefs_Pass_Value2,prefs_Pass_Value3,prefs_Pass_Value4;
     private String Choose_first_url= BaseUrl.BaseUrlNew+"prescription_order_subscription_first";
     private String Choose_second_url=BaseUrl.BaseUrlNew+"prescription_order_subscription_second";
     private String Choose_third_url=BaseUrl.BaseUrlNew+"prescription_order_subscription_third";
     private  String disclaimer_url=BaseUrl.BaseUrlNew+"disclaimer";
     private LinearLayout apply_coupon_btn;
-    TextView coupon_off_on,place_apply_coupon;
+    TextView coupon_off_on,place_apply_coupon,additional_note;
     SaveCoupon myDb;
     PrescriptionCouponListAdapter couponListAdapter;
     private ArrayList<CouponListModel> couponListModelArrayList;
@@ -95,6 +96,7 @@ public class OrderPrescriptionInfo extends AppCompatActivity {
         btn_continue=(Button)findViewById(R.id.btn_continue);
         disclaimer=(TextView)findViewById(R.id.disclaimer);
         coupon_off_on=(TextView) findViewById(R.id.coupon_off_on);
+        additional_note=(TextView) findViewById(R.id.additional_note);
         apply_coupon_btn=(LinearLayout)findViewById(R.id.apply_coupon_btn);
         place_apply_coupon=(TextView)findViewById(R.id.place_apply_coupon);
         Cursor res=myDb.getAllData();
@@ -354,6 +356,7 @@ public class OrderPrescriptionInfo extends AppCompatActivity {
         public void onClick(View v) {
             days_to=edt_days.getText().toString();
             specify=edit_specify_medicin.getText().toString();
+            note=additional_note.getText().toString();
           /*  Toast.makeText(getApplicationContext(),mob,Toast.LENGTH_LONG).show();
             Toast.makeText(getApplicationContext(),sp,Toast.LENGTH_LONG).show();
             Toast.makeText(getApplicationContext(),duration,Toast.LENGTH_LONG).show();
@@ -432,6 +435,9 @@ public class OrderPrescriptionInfo extends AppCompatActivity {
                        else {
                            params.put("days", days_to);
                        }
+                       if(note!=null){
+                           params.put("note", note);
+                       }
                       // params.put("days", days_to);
 
 
@@ -500,6 +506,9 @@ public class OrderPrescriptionInfo extends AppCompatActivity {
                         params.put("user_id", u_id);
                         params.put("odrevery", odrevery);
                         params.put("duration", duration);
+                        if(note!=null){
+                            params.put("note", note);
+                        }
 
 
                         return params;
@@ -570,6 +579,9 @@ public class OrderPrescriptionInfo extends AppCompatActivity {
                    params.put("user_id", u_id);
                    params.put("spe", sp);
                    params.put("specify", specify);
+                   if(note!=null){
+                       params.put("note", note);
+                   }
 
 
                    return params;
@@ -636,6 +648,9 @@ public class OrderPrescriptionInfo extends AppCompatActivity {
 
                    params.put("user_id", u_id);
                    params.put("mob", mob);
+                   if(note!=null){
+                       params.put("note", note);
+                   }
 
                    return params;
                }

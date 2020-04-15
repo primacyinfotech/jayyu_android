@@ -380,6 +380,7 @@ public class PrescriptionOrderSummery extends AppCompatActivity {
                                                 String OrdID=person.getString("orderid");
                                                /* String message=person.getString("message");
                                                 Toast.makeText(getApplicationContext(),OrdID+" "+message,Toast.LENGTH_LONG).show();*/
+                                                    myDb.deleteData();
                                                     Intent goToIthankU=new Intent(PrescriptionOrderSummery.this,PrescriptionThankYouPage.class);
                                                     goToIthankU.putExtra("OrderID",OrdID);
                                                     startActivity(goToIthankU);
@@ -423,6 +424,10 @@ public class PrescriptionOrderSummery extends AppCompatActivity {
                                     else {
                                         params.put("instant" ,"0");
                                     }
+                                    if(coupon_id!=null){
+                                        params.put("cpid" ,coupon_id);
+                                    }
+
                                     //params.put("instant" ,instant);
                                     params.put("source" ,"1");
 
@@ -456,6 +461,7 @@ public class PrescriptionOrderSummery extends AppCompatActivity {
                                                     String OrdID=person.getString("orderid");
                                                     /*String message=person.getString("message");
                                                     Toast.makeText(getApplicationContext(),OrdID+" "+message,Toast.LENGTH_LONG).show();*/
+                                                    myDb.deleteData();
                                                     Intent goToIthankU=new Intent(PrescriptionOrderSummery.this,PrescriptionThankYouPage.class);
                                                     goToIthankU.putExtra("OrderID",OrdID);
                                                     startActivity(goToIthankU);
@@ -496,7 +502,16 @@ public class PrescriptionOrderSummery extends AppCompatActivity {
 
                                     params.put("user_id" ,u_id);
                                     params.put("aId1" , String.valueOf(Addd_Second));
-                                    params.put("instant" ,"0");
+
+                                    if(instant!=null){
+                                        params.put("instant" ,instant);
+                                    }
+                                    else {
+                                        params.put("instant" ,"0");
+                                    }
+                                    if(coupon_id!=null){
+                                        params.put("cpid" ,coupon_id);
+                                    }
                                     params.put("source" ,"1");
 
 

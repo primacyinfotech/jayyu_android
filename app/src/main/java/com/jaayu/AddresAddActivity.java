@@ -38,7 +38,7 @@ public class AddresAddActivity extends AppCompatActivity {
     private EditText first_name,last_name,mob_number,pin_number,address,lan_mark,email_add,country,state_mark,city_mark,other_mark;
     private TextView label_other;
     private Button save;
-    private String u_id;
+    private String u_id,field_req;
     SharedPreferences prefs_register;
     private  String add_addressUrl= BaseUrl.BaseUrlNew+"order_address_add";
     @Override
@@ -47,6 +47,8 @@ public class AddresAddActivity extends AppCompatActivity {
         setContentView(R.layout.activity_addres_add);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        Intent fieldIntent=getIntent();
+        field_req=fieldIntent.getStringExtra("FIELD_REQ");
         prefs_register = getSharedPreferences(
                 "Register Details", Context.MODE_PRIVATE);
         u_id=prefs_register.getString("USER_ID","");
@@ -126,8 +128,15 @@ public class AddresAddActivity extends AppCompatActivity {
                                     JSONObject person = new JSONObject(response);
                                     String status=person.getString("status");
                                     if(status.equals("1")){
-                                        Intent gotoLocationAddress=new Intent(AddresAddActivity.this,LocationAddress.class);
-                                        startActivity(gotoLocationAddress);
+                                        if(field_req.equals("1")){
+                                            Intent gotoLocationAddress=new Intent(AddresAddActivity.this,LocationAddress.class);
+                                            startActivity(gotoLocationAddress);
+                                        }
+                                        if (field_req.equals("2")){
+                                            Intent gotoLocationAddress=new Intent(AddresAddActivity.this,PrescriptionLocationAddress.class);
+                                            startActivity(gotoLocationAddress);
+                                        }
+
                                     }
                                     else if(status.equals("2")) {
                                         String message=person.getString("message");
