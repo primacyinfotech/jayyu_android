@@ -66,7 +66,7 @@ public class PrescriptionCouponListAdapter extends RecyclerView.Adapter<Prescrip
             public void onClick(View v) {
                 String coupon_code=mList.getCoupon_code();
                 // Toast.makeText(context,coupon_code,Toast.LENGTH_LONG).show();
-                Intent intentdataPass=new Intent(context, OrderPrescriptionInfo.class);
+                Intent intentdataPass=new Intent(context, PrescriptionOrderSummery.class);
                 intentdataPass.putExtra("Coupon Code",coupon_code);
                 intentdataPass.putExtra("Coupon_id",mList.getCoupon_id());
                 context.startActivity(intentdataPass);

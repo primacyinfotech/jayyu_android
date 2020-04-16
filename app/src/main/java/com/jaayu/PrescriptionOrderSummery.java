@@ -174,7 +174,7 @@ public class PrescriptionOrderSummery extends AppCompatActivity {
             coupon_off_on.setVisibility(View.VISIBLE);
         }
         else {
-            place_apply_coupon.setText("Coupon Not Applied");
+            place_apply_coupon.setText("Apply Coupon");
             coupon_off_on.setVisibility(View.GONE);
         }
         coupon_off_on.setOnClickListener(new View.OnClickListener() {
@@ -182,11 +182,11 @@ public class PrescriptionOrderSummery extends AppCompatActivity {
             public void onClick(View v) {
                 myDb.deleteData();
                 Toast.makeText(getApplicationContext(),"Data Deleted",Toast.LENGTH_LONG).show();
-                place_apply_coupon.setText("Coupon Not Applied");
+                place_apply_coupon.setText("Apply Coupon");
                 coupon_off_on.setVisibility(View.GONE);
             }
         });
-      /*  apply_coupon_btn.setOnClickListener(new View.OnClickListener() {
+        apply_coupon_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 couponListModelArrayList=new ArrayList<>();
@@ -196,7 +196,7 @@ public class PrescriptionOrderSummery extends AppCompatActivity {
 
                 ImageView close_btn=(ImageView)dialog.findViewById(R.id.close_btn);
                 final RecyclerView coupon_list=(RecyclerView)dialog.findViewById(R.id.coupon_list);
-             *//* couponListModelArrayList.add(new CouponListModel(R.drawable.myntra,"MYNTRA","Flat Rs.250 off in Myntra","Get Rs.250 Voucher with in 7 days",
+            /*  couponListModelArrayList.add(new CouponListModel(R.drawable.myntra,"MYNTRA","Flat Rs.250 off in Myntra","Get Rs.250 Voucher with in 7 days",
                       "Expire In 2 Days"));
               couponListModelArrayList.add(new CouponListModel(R.drawable.myntra,"GOFERCE","Flat Rs.250 off in Myntra","Get Rs.250 Voucher with in 7 days",
                       "Expire In 2 Days"));
@@ -206,7 +206,7 @@ public class PrescriptionOrderSummery extends AppCompatActivity {
               coupon_list.setHasFixedSize(true);
               coupon_list.setLayoutManager(new LinearLayoutManager(CartActivity.this));
               coupon_list.setAdapter(couponListAdapter);
-              couponListAdapter.notifyDataSetChanged();*//*
+              couponListAdapter.notifyDataSetChanged();*/
                 RequestQueue requestQueue = Volley.newRequestQueue(PrescriptionOrderSummery.this);
                 StringRequest postRequest = new StringRequest(Request.Method.POST,coupon_list_url,
                         new Response.Listener<String>() {
@@ -232,14 +232,14 @@ public class PrescriptionOrderSummery extends AppCompatActivity {
                                             couponListModel.setCoupon_img(object.getString("image"));
                                             couponListModel.setCoupn_code_details(object.getString("sdescr"));
                                             couponListModel.setCoupon_code_des(object.getString("heading"));
-                                            *//*String cDes=object.getString("descr");
+                                            /*String cDes=object.getString("descr");
                                             Spanned htmlAsSpanned = Html.fromHtml(cDes);
-                                            couponListModel.setCoupon_code_des(String.valueOf(htmlAsSpanned));*//*
+                                            couponListModel.setCoupon_code_des(String.valueOf(htmlAsSpanned));*/
 
                                             String date_view=object.getString("validtill");
-                                            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd");
+                                            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                                             Date testDate=sdf.parse(date_view);
-                                            SimpleDateFormat formatter = new SimpleDateFormat("MMM dd,yyyy");
+                                            SimpleDateFormat formatter = new SimpleDateFormat("dd MMMM,yyyy");
                                             String newFormat = formatter.format(testDate);
                                             couponListModel.setCoupon_time(newFormat);
                                            // couponListModel.setCoupon_code_des(object.getString("descr"));
@@ -284,8 +284,8 @@ public class PrescriptionOrderSummery extends AppCompatActivity {
                     protected Map<String, String> getParams() {
                         Map<String, String> params = new HashMap<String, String>();
 
-                        *//* params.put("user_id" ,u_id);*//*
-                        *//* params.put("user_id" ,"35");*//*
+                       /*  params.put("user_id" ,u_id);
+                         params.put("user_id" ,"35");*/
 
                         return params;
                     }
@@ -301,13 +301,13 @@ public class PrescriptionOrderSummery extends AppCompatActivity {
 
                 dialog.show();
             }
-        });*/
-        coupon_off_on.setOnClickListener(new View.OnClickListener() {
+        });
+       /* coupon_off_on.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-        /*    place_apply_coupon.setText("Apply Coupon");
+        *//*    place_apply_coupon.setText("Apply Coupon");
             coupon_off_on.setImageResource(R.drawable.rigth_arrow);
-        }*/
+        }*//*
                 myDb.deleteData();
                 Toast.makeText(getApplicationContext(),"Data Deleted",Toast.LENGTH_LONG).show();
                 place_apply_coupon.setText("Apply Coupon");
@@ -315,7 +315,7 @@ public class PrescriptionOrderSummery extends AppCompatActivity {
 
 
             }
-        });
+        });*/
         getInstantContent();
         getDisclimer();
 
