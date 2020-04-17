@@ -307,11 +307,11 @@
                         <TextView
                             android:id="@+id/save_percernt"
                             android:textColor="@color/colorAccent"
-                            android:textSize="12sp"
+                            android:textSize="14sp"
                             android:text=""
                             android:layout_marginLeft="20dp"
+                            android:layout_marginTop="10dp"
 
-                            android:background="@color/light_gray"
                             android:fontFamily="@font/clearsansbold"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" />
@@ -393,17 +393,17 @@
                 android:fontFamily="@font/clearsansbold"
                 android:textSize="15sp"
                 android:text=""
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginLeft="20dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <LinearLayout
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="20dp"
                 android:orientation="horizontal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
                 <RelativeLayout
-                    android:layout_width="100dp"
+                    android:layout_width="80dp"
                     android:layout_height="40dp"
                     android:layout_marginRight="26dp"
                     android:layout_marginLeft="20dp"
@@ -414,7 +414,7 @@
 
                     <Spinner
                         android:id="@+id/country_select"
-                        android:layout_width="80dp"
+                        android:layout_width="50dp"
                         android:layout_height="40dp"
 
                         android:layout_marginStart="0dp"
@@ -422,29 +422,26 @@
 
                         android:layout_weight="1"
                         android:background="@android:color/transparent"
-                        android:textAlignment="center"
+
                         android:spinnerMode="dropdown"
 
                         android:textSize="23dp" />
                       <TextView
                           android:text="Qty"
-                          android:textSize="15dp"
+                          android:textSize="12dp"
                           android:textColor="#000"
                           android:gravity="center"
                           android:layout_marginTop="10dp"
                           android:layout_marginLeft="10dp"
                           android:layout_alignRight="@+id/country_select"
-                          android:layout_width="40dp"
-                          android:layout_height="wrap_content" />
+                          android:layout_width="20dp"
+                          android:layout_height="20dp" />
                     <ImageView
                         android:layout_width="15dp"
                         android:layout_height="15dp"
                         android:layout_alignParentRight="true"
                         android:layout_marginRight="10dp"
                         android:layout_marginTop="12dp"
-
-
-
                         android:src="@drawable/itemarrow" />
 
                 </RelativeLayout>

@@ -222,6 +222,7 @@
                     <ImageView
                         android:layout_gravity="center"
                         android:src="@drawable/la"
+
                         android:layout_width="30dp"
                         android:layout_height="30dp" />
                     <TextView
