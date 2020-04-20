@@ -28,6 +28,7 @@ import com.github.chrisbanes.photoview.PhotoView;
 import com.jaayu.Model.BaseUrl;
 import com.jaayu.OnlyUploadPrescription;
 import com.jaayu.R;
+import com.jaayu.UploadToPrescription;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
@@ -94,7 +95,13 @@ public class OldGAlaeryAdapter extends RecyclerView.Adapter<OldGAlaeryAdapter.My
                                     JSONObject person = new JSONObject(response);
                                     String status = person.getString("status");
                                     if (status.equals("1")) {
-                                        Intent intent = new Intent(context, OnlyUploadPrescription.class);
+                                      /*  Intent intent = new Intent(context, OnlyUploadPrescription.class);
+                                        // intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                                        context.startActivity(intent);
+                                        ((Activity) context).overridePendingTransition(0, 0);
+                                        ((Activity) context).finish();*/
+
+                                        Intent intent = new Intent(context, UploadToPrescription.class);
                                         // intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                                         context.startActivity(intent);
                                         ((Activity) context).overridePendingTransition(0, 0);

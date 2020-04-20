@@ -328,12 +328,21 @@ public class OrderReview extends AppCompatActivity {
                                     cartModel.setUnit(serch.getString("box"));
                                     cartModel.setCompany_name(serch.getString("com_name"));
                                     DecimalFormat format_per = new DecimalFormat("##.##");
-                                    String formatted = format_per.format(serch.getDouble("save_percent"));
+                                    /*String formatted_normal = format_per.format(serch.getDouble("normal_disc"));
+                                    String formatted_instant = format_per.format(serch.getDouble("instant_disc"));*/
+                                    String formatted_normal = serch.getString("normal_disc");
+                                    String formatted_instant = serch.getString("instant_disc");
+                                    String check_ins=serch.getString("instant");
                                     String save_amt=format_per.format(serch.getDouble("save_amount"));
                                     String mrp_val=format_per.format(serch.getDouble("mrp"));
                                     String price_amt=format_per.format(serch.getDouble("price"));
+                                    if(check_ins.equals("1")){
+                                        cartModel.setSaveings_percentage(formatted_instant);
+                                    }
+                                    else {
+                                        cartModel.setSaveings_percentage(formatted_normal);
+                                    }
 
-                                    cartModel.setSaveings_percentage(formatted+" %");
                                     cartModel.setSave_amount(save_amt);
                                     cartModel.setTotal(mrp_val);
                                     cartModel.setPrice_amt(price_amt);
@@ -412,7 +421,8 @@ public class OrderReview extends AppCompatActivity {
                             payable_amount.setText(p_amt);
                             main_pay.setText("\u20B9"+main_pay_amt);
                             upper_save_amt.setText("You are Saving "+"\u20B9"+" "+sav_amt_tot+" "+"on this order.");
-                            sav_prescrtn.setText("Saving @ "+sav_persnt +" %");
+                            //sav_prescrtn.setText("Saving @ "+sav_persnt +" %");
+                            sav_prescrtn.setText("Saving");
 
 
                         } catch (JSONException e) {

@@ -59,6 +59,7 @@
                         <ImageView
                             android:id="@+id/order_details_icon"
                             android:layout_width="16dp"
+                            android:visibility="gone"
                             android:layout_height="16dp"
                             android:layout_gravity="center"
                             />
@@ -74,8 +75,8 @@
                                 android:layout_gravity="center"
                                 android:layout_marginLeft="5dp"
                                 android:fontFamily="@font/clearsansbold"
-                                android:text="Order Pending"
-                                android:textColor="#f8de7e"
+                                android:text="Pending"
+                                android:textColor="#000"
                                 android:textSize="15dp" />
                             <TextView
 
@@ -85,8 +86,8 @@
                                 android:layout_gravity="center"
                                 android:layout_marginLeft="5dp"
                                 android:fontFamily="@font/clearsansbold"
-                                android:text="Order Confirm"
-                                android:textColor="@color/green"
+                                android:text="Confirmed"
+                                android:textColor="@color/design_default_color_primary_dark"
                                 android:textSize="15dp" />
                             <TextView
 
@@ -96,8 +97,8 @@
                                 android:layout_gravity="center"
                                 android:layout_marginLeft="5dp"
                                 android:fontFamily="@font/clearsansbold"
-                                android:text="Billing and Packaging"
-                                android:textColor="@color/green"
+                                android:text="Billing"
+                                android:textColor="#000"
                                 android:textSize="15dp" />
                             <TextView
 
@@ -108,7 +109,7 @@
                                 android:layout_marginLeft="5dp"
                                 android:fontFamily="@font/clearsansbold"
                                 android:text="Out for Delivery"
-                                android:textColor="@color/green"
+                                android:textColor="#000"
                                 android:textSize="15dp" />
                             <TextView
 
@@ -120,6 +121,28 @@
                                 android:fontFamily="@font/clearsansbold"
                                 android:text="Delivered"
                                 android:textColor="#f8de7e"
+                                android:textSize="15dp" />
+                            <TextView
+
+                                android:id="@+id/active_order_six"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginLeft="5dp"
+                                android:fontFamily="@font/clearsansbold"
+                                android:text="Cancelled"
+                                android:textColor="#ff0000"
+                                android:textSize="15dp" />
+                            <TextView
+
+                                android:id="@+id/active_order_seven"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginLeft="5dp"
+                                android:fontFamily="@font/clearsansbold"
+                                android:text="Rejected"
+                                android:textColor="#ff0000"
                                 android:textSize="15dp" />
                         </RelativeLayout>
                     </LinearLayout>

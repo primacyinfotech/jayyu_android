@@ -95,6 +95,17 @@
         android:text="Cancelled"
         android:textColor="#ff0000"
         android:textSize="16dp" />
+    <TextView
+
+        android:id="@+id/active_order_seven"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginLeft="20dp"
+        android:fontFamily="@font/clearsansbold"
+        android:text="Rejected"
+        android:textColor="#ff0000"
+        android:textSize="16dp" />
 </RelativeLayout>
     </LinearLayout>
         <View

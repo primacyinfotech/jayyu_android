@@ -93,7 +93,8 @@ public class OrderMainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         return normalandPress.size();
     }
     public class  NormalOrder extends RecyclerView.ViewHolder{
-        TextView order_name,order_id,order_date,reoder_btn,active_order,active_order_two,active_order_three,active_order_four,active_order_five,active_order_six;
+        TextView order_name,order_id,order_date,reoder_btn,active_order,active_order_two,active_order_three,active_order_four,active_order_five,active_order_six,
+                active_order_seven;
         ImageView order_status_icon;
         CardView card_order;
         public NormalOrder(@NonNull View itemView) {
@@ -108,6 +109,7 @@ public class OrderMainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             active_order_four=(TextView)itemView.findViewById(R.id.active_order_four);
             active_order_five=(TextView)itemView.findViewById(R.id.active_order_five);
             active_order_six=(TextView)itemView.findViewById(R.id.active_order_six);
+            active_order_seven=(TextView)itemView.findViewById(R.id.active_order_seven);
             order_status_icon=(ImageView)itemView.findViewById(R.id.order_status_icon);
             card_order=(CardView)itemView.findViewById(R.id.card_order);
         }
@@ -202,6 +204,24 @@ public class OrderMainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                         ((Activity) context).overridePendingTransition(0,0);
                         ((Activity) context).finish();
                     }
+                    if(normalorder.getShip_status().equals("5")){
+                        Intent intentGotodetaails=new Intent(context, OrderDetails.class);
+                        intentGotodetaails.putExtra("Order_Vid",normalorder.getOrder_id());
+                        intentGotodetaails.putExtra("Order_id",normalorder.getTbl_order_id());
+                        intentGotodetaails.putExtra("Instant",normalorder.getInstant());
+                        context.startActivity(intentGotodetaails);
+                        ((Activity) context).overridePendingTransition(0,0);
+                        ((Activity) context).finish();
+                    }
+                    if(normalorder.getShip_status().equals("6")){
+                        Intent intentGotodetaails=new Intent(context, OrderDetails.class);
+                        intentGotodetaails.putExtra("Order_Vid",normalorder.getOrder_id());
+                        intentGotodetaails.putExtra("Order_id",normalorder.getTbl_order_id());
+                        intentGotodetaails.putExtra("Instant",normalorder.getInstant());
+                        context.startActivity(intentGotodetaails);
+                        ((Activity) context).overridePendingTransition(0,0);
+                        ((Activity) context).finish();
+                    }
 
 
 
@@ -217,6 +237,7 @@ public class OrderMainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                active_order_four.setVisibility(View.GONE);
                 active_order_five.setVisibility(View.GONE);
                 active_order_six.setVisibility(View.GONE);
+                active_order_seven.setVisibility(View.GONE);
                reoder_btn.setVisibility(View.GONE);
             }
             if(status.equals("1")){
@@ -227,6 +248,7 @@ public class OrderMainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 active_order_four.setVisibility(View.GONE);
                 active_order_five.setVisibility(View.GONE);
                 active_order_six.setVisibility(View.GONE);
+                active_order_seven.setVisibility(View.GONE);
                reoder_btn.setVisibility(View.GONE);
             }
             if(status.equals("2")){
@@ -237,6 +259,7 @@ public class OrderMainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 active_order_four.setVisibility(View.GONE);
                 active_order_five.setVisibility(View.GONE);
                 active_order_six.setVisibility(View.GONE);
+                active_order_seven.setVisibility(View.GONE);
                 reoder_btn.setVisibility(View.GONE);
 
             }
@@ -248,6 +271,7 @@ public class OrderMainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 active_order_four.setVisibility(View.VISIBLE);
                active_order_five.setVisibility(View.GONE);
                 active_order_six.setVisibility(View.GONE);
+                active_order_seven.setVisibility(View.GONE);
                 reoder_btn.setVisibility(View.VISIBLE);
             }
             if (status.equals("4")){
@@ -258,6 +282,7 @@ public class OrderMainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                active_order_four.setVisibility(View.GONE);
                active_order_five.setVisibility(View.VISIBLE);
                 active_order_six.setVisibility(View.GONE);
+                active_order_seven.setVisibility(View.GONE);
                reoder_btn.setVisibility(View.VISIBLE);
             }
             if (status.equals("5")){
@@ -268,6 +293,18 @@ public class OrderMainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 active_order_four.setVisibility(View.GONE);
                 active_order_five.setVisibility(View.GONE);
                 active_order_six.setVisibility(View.VISIBLE);
+                active_order_seven.setVisibility(View.GONE);
+                reoder_btn.setVisibility(View.VISIBLE);
+            }
+            if (status.equals("6")){
+                order_status_icon.setImageResource(R.drawable.tickyellow);
+                active_order.setVisibility(View.GONE);
+                active_order_two.setVisibility(View.GONE);
+                active_order_three.setVisibility(View.GONE);
+                active_order_four.setVisibility(View.GONE);
+                active_order_five.setVisibility(View.GONE);
+                active_order_six.setVisibility(View.GONE);
+                active_order_seven.setVisibility(View.VISIBLE);
                 reoder_btn.setVisibility(View.VISIBLE);
             }
 
@@ -278,7 +315,8 @@ public class OrderMainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     }
 
     public class PressOrderView extends RecyclerView.ViewHolder {
-        TextView order_name,order_id,order_date,reoder_btn,active_order,active_order_two,active_order_three,active_order_four,active_order_five,active_order_six;
+        TextView order_name,order_id,order_date,reoder_btn,active_order,active_order_two,active_order_three,active_order_four,active_order_five,active_order_six,
+                active_order_seven;
         ImageView order_status_icon;
         CardView card_order;
         public PressOrderView(View pressorderitemView) {
@@ -293,6 +331,7 @@ public class OrderMainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             active_order_four=(TextView)pressorderitemView.findViewById(R.id.active_order_four);
             active_order_five=(TextView)pressorderitemView.findViewById(R.id.active_order_five);
             active_order_six=(TextView)itemView.findViewById(R.id.active_order_six);
+            active_order_seven=(TextView)itemView.findViewById(R.id.active_order_seven);
             order_status_icon=(ImageView)pressorderitemView.findViewById(R.id.order_status_icon);
             card_order=(CardView)pressorderitemView.findViewById(R.id.card_order);
         }
@@ -311,7 +350,7 @@ public class OrderMainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                         Intent intentGotodetaails=new Intent(context, OldPresOrderDetailsPage.class);
                         intentGotodetaails.putExtra("Order_id",pressorder.getOrder_id());
                         intentGotodetaails.putExtra("table_id",pressorder.getTbl_order_id());
-                        //intentGotodetaails.putExtra("Instant",normalorder.getInstant());
+                        intentGotodetaails.putExtra("Instant",pressorder.getInstant());
                         context.startActivity(intentGotodetaails);
                         ((Activity) context).overridePendingTransition(0,0);
                         ((Activity) context).finish();
@@ -330,6 +369,7 @@ public class OrderMainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 active_order_four.setVisibility(View.GONE);
                 active_order_five.setVisibility(View.GONE);
                 active_order_six.setVisibility(View.GONE);
+                active_order_seven.setVisibility(View.GONE);
                 reoder_btn.setVisibility(View.GONE);
             }
             if(status.equals("1")){
@@ -340,6 +380,7 @@ public class OrderMainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 active_order_four.setVisibility(View.GONE);
                 active_order_five.setVisibility(View.GONE);
                 active_order_six.setVisibility(View.GONE);
+                active_order_seven.setVisibility(View.GONE);
                 reoder_btn.setVisibility(View.GONE);
             }
             if(status.equals("2")){
@@ -350,6 +391,7 @@ public class OrderMainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 active_order_four.setVisibility(View.GONE);
                 active_order_five.setVisibility(View.GONE);
                 active_order_six.setVisibility(View.GONE);
+                active_order_seven.setVisibility(View.GONE);
                 reoder_btn.setVisibility(View.GONE);
             }
             if(status.equals("3")){
@@ -370,6 +412,7 @@ public class OrderMainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 active_order_four.setVisibility(View.GONE);
                 active_order_five.setVisibility(View.VISIBLE);
                 active_order_six.setVisibility(View.GONE);
+                active_order_seven.setVisibility(View.GONE);
                 reoder_btn.setVisibility(View.VISIBLE);
             }
             if (status.equals("5")){
@@ -380,6 +423,18 @@ public class OrderMainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 active_order_four.setVisibility(View.GONE);
                 active_order_five.setVisibility(View.GONE);
                 active_order_six.setVisibility(View.VISIBLE);
+                active_order_seven.setVisibility(View.GONE);
+                reoder_btn.setVisibility(View.VISIBLE);
+            }
+            if (status.equals("6")){
+                order_status_icon.setImageResource(R.drawable.tickyellow);
+                active_order.setVisibility(View.GONE);
+                active_order_two.setVisibility(View.GONE);
+                active_order_three.setVisibility(View.GONE);
+                active_order_four.setVisibility(View.GONE);
+                active_order_five.setVisibility(View.GONE);
+                active_order_six.setVisibility(View.GONE);
+                active_order_seven.setVisibility(View.VISIBLE);
                 reoder_btn.setVisibility(View.VISIBLE);
             }
         }
