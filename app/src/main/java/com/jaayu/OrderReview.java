@@ -159,7 +159,7 @@ public class OrderReview extends AppCompatActivity {
         //Toast.makeText(getApplicationContext(),coupon_id,Toast.LENGTH_LONG).show();
         if(show_coupon!=null){
             place_apply_coupon.setText(show_coupon);
-            coupon_off_on.setVisibility(View.VISIBLE);
+           // coupon_off_on.setVisibility(View.VISIBLE);
         }
         else {
             place_apply_coupon.setText("Coupon Not Applied");
