@@ -324,7 +324,7 @@
                             android:textSize="15sp" />
 
                         <View
-                            android:layout_width="30dp"
+                            android:layout_width="90dp"
                             android:layout_height="0dp"
                             android:layout_gravity="center"></View>
 
@@ -391,7 +391,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/clearsansbold"
-                                android:text="Saving**    "
+                                android:text="Saving    "
                                 android:textColor="#000"
                                 android:textSize="15sp" />
 
@@ -420,7 +420,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/clearsansbold"
-                                android:text="Shipping Charges"
+                                android:text="Delivery Charges"
                                 android:textColor="#000"
                                 android:textSize="15sp" />
 

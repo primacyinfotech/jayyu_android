@@ -319,13 +319,11 @@
        </LinearLayout>
         </LinearLayout>
     </LinearLayout>
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_centerInParent="true"
         android:orientation="horizontal">
-
         <LinearLayout
             android:background="@drawable/rounded_corner_dialogbox"
             android:layout_width="match_parent"
@@ -336,10 +334,8 @@
             android:layout_marginRight="30dp"
             android:layout_marginBottom="30dp"
             android:orientation="vertical"
-
             android:src="@mipmap/ic_launcher_round" >
          <TextView
-
              android:layout_gravity="center"
              android:gravity="center"
              android:textSize="14dp"
@@ -352,9 +348,8 @@
                 android:id="@+id/order_id"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:textSize="12dp"
-                android:textStyle="bold"
-                android:fontFamily="@font/clearsansbold"
+                android:textSize="14dp"
+
                 android:textColor="#000"
                 android:text=""
                 android:layout_marginTop="5dp"

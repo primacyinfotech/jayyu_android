@@ -41,7 +41,7 @@ public class Payment extends AppCompatActivity implements PaymentResultListener 
     private CheckBox paytm,amazon_pay,ola_money,paypal_pay,netbank,credit_debit_card,jaayu_details,cash_delivery,wallet;
     private RadioGroup radio_three;
     String user_id,user_add,day_time,duration,cod,nor_wallet,jy_wallet,net_bank,presc_img,order_id,instant,u_id,mrp_amt,save_amt,shippingcharge,tot_pay,
-            balance_og,balance_jy,pay_status,u_email,u_phone;
+            balance_og,balance_jy,pay_status,u_email,u_phone,ord_jy_id;
     SharedPreferences prefs_register;
     private String Orderdetails_url= BaseUrl.BaseUrlNew+"order_details_profile";
     private String Place_order_url=BaseUrl.BaseUrlNew+"order_payment";
@@ -70,6 +70,7 @@ public class Payment extends AppCompatActivity implements PaymentResultListener 
         Intent ftch_Order=getIntent();
         order_id=ftch_Order.getStringExtra("ORDER_ID");
         instant=ftch_Order.getStringExtra("INSTANT");
+        ord_jy_id=ftch_Order.getStringExtra("ORDER_JY_ID");
         back_button=(ImageView)toolbar.findViewById(R.id.back_button);
         radio_three=(RadioGroup)findViewById(R.id.radio_three);
         cash_delivery=(CheckBox)findViewById(R.id.cash_delivery);
@@ -937,6 +938,7 @@ public class Payment extends AppCompatActivity implements PaymentResultListener 
 
                 params.put("user_id", u_id);
                 params.put("oid", order_id);
+                params.put("order_id", ord_jy_id);
                 params.put("instant", instant);
 
 
@@ -1087,6 +1089,7 @@ public class Payment extends AppCompatActivity implements PaymentResultListener 
     public void onBackPressed() {
         Intent intent = new Intent(Payment.this, OrderStatusConfirm.class);
         intent.putExtra("Order_id",Integer.valueOf(order_id));
+        intent.putExtra("Order_Vid",ord_jy_id);
         intent.putExtra("Instant",instant);
         startActivity(intent);
         overridePendingTransition(0,0);

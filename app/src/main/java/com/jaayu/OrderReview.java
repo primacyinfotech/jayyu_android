@@ -160,6 +160,7 @@ public class OrderReview extends AppCompatActivity {
         if(show_coupon!=null){
             place_apply_coupon.setText(show_coupon);
            // coupon_off_on.setVisibility(View.VISIBLE);
+            coupon_off_on.setVisibility(View.GONE);
         }
         else {
             place_apply_coupon.setText("Coupon Not Applied");
@@ -712,7 +713,8 @@ public class OrderReview extends AppCompatActivity {
                              interval_delivery.setText("One Time Order");
                          }
                          else {
-                             interval_delivery.setText(subs_days+"Days"+" "+subs_interval+"Delivery");
+                            /* interval_delivery.setText(subs_days+"Days"+" "+subs_interval+"Delivery");*/
+                             interval_delivery.setText(subs_interval+" Delivery"+" "+"Every"+" "+subs_days+" Days");
                          }
 
 

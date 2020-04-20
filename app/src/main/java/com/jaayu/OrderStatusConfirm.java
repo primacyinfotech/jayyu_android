@@ -108,6 +108,7 @@ public class OrderStatusConfirm extends AppCompatActivity {
             public void onClick(View v) {
                 Intent goToPaymentPage=new Intent(OrderStatusConfirm.this,Payment.class);
                 goToPaymentPage.putExtra("ORDER_ID",String.valueOf(odr_id));
+                goToPaymentPage.putExtra("ORDER_JY_ID",Ord_vid);
                 goToPaymentPage.putExtra("INSTANT",instant_id);
                 startActivity(goToPaymentPage);
                 overridePendingTransition(0,0);
