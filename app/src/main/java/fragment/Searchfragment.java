@@ -59,7 +59,7 @@ public class Searchfragment extends Fragment {
         progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         progressDialog.show();
         progressDialog.setMessage("loading....");
-        Search_View();
+
 
       /*  names.add(new Searchmodel("Calpol",R.drawable.ic_action_arrow));
         names.add(new Searchmodel("kalpol",R.drawable.ic_action_arrow));
@@ -69,8 +69,10 @@ public class Searchfragment extends Fragment {
 
         search_layout_edit=(EditText)view.findViewById(R.id.search_layout_edit);
         recyclerView=(RecyclerView)view.findViewById(R.id.rv_search);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        Search_View();
+
+     /*   recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));*/
 
 
         search_layout_edit.addTextChangedListener(new TextWatcher() {
@@ -88,6 +90,7 @@ public class Searchfragment extends Fragment {
             public void afterTextChanged(Editable editable) {
                 //after the change calling the method and passing the search input
                 filter(editable.toString());
+
             }
         });
         return view;
@@ -105,7 +108,9 @@ public class Searchfragment extends Fragment {
 
             //calling a method of the adapter class and passing the filtered list
             searchAdapter.filterList(filterdNames);
+
         }
+
     }
     private  void   Search_View(){
         names=new ArrayList<>();
@@ -141,6 +146,8 @@ public class Searchfragment extends Fragment {
 
                         searchAdapter=new Search_adapter(names,getActivity());
                         recyclerView.setAdapter(searchAdapter);
+                        recyclerView.setHasFixedSize(true);
+                        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
                         searchAdapter.notifyDataSetChanged();
 
                     }

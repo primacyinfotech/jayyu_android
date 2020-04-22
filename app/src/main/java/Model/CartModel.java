@@ -1,7 +1,7 @@
 package Model;
 
 public class CartModel {
-    String cart_item,unit,company_name;
+    String cart_item,unit,company_name,pres_required;
     int cart_item_id,qty,cart_id;
    // double price_amt;
 String saveings_percentage,save_amount,total,price_amt;
@@ -12,6 +12,14 @@ String saveings_percentage,save_amount,total,price_amt;
         this.save_amount = save_amount;
         this.total = total;
     }*/
+
+    public String getPres_required() {
+        return pres_required;
+    }
+
+    public void setPres_required(String pres_required) {
+        this.pres_required = pres_required;
+    }
 
     public String getCompany_name() {
         return company_name;

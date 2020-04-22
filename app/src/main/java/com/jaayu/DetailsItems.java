@@ -33,6 +33,7 @@ import com.android.volley.toolbox.Volley;
 import com.github.juanlabrador.badgecounter.BadgeCounter;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.jaayu.Model.BaseUrl;
+import com.jaayu.Model.PrescriptionReqDatabase;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -46,6 +47,7 @@ import Model.Item_model;
 import Model.ViewDialog;
 
 public class DetailsItems extends AppCompatActivity {
+    PrescriptionReqDatabase prescriptionReqDatabase;
     TextView pin_set_txt,pin_set_button,comny_mame,comny_compo,comny_compo3,mrp,save_percernt,save_amt,qty_per,disclaimar_txt;
     RecyclerView recyclerView;
     private ArrayList<Item_model> modelList;
@@ -77,6 +79,7 @@ public class DetailsItems extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details_items);
+        prescriptionReqDatabase=new PrescriptionReqDatabase(this);
         Cart_item_number_counter = getSharedPreferences(
                 "CARTITEM_COUNTER", Context.MODE_PRIVATE);
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -351,6 +354,17 @@ public class DetailsItems extends AppCompatActivity {
                             String qty_per_prod=person.getString("box");
                             String save_amt_of=person.getString("offer_price");
                            int prescrp_req=person.getInt("prescription_required");
+                           if(prescrp_req==1){
+                               boolean isUpdate=prescriptionReqDatabase.insertData(String.valueOf(prescrp_req));
+
+                               if(isUpdate){
+                                   Toast.makeText(DetailsItems.this,"Data Update",Toast.LENGTH_LONG).show();
+                               }
+                               else {
+                                   Toast.makeText(DetailsItems.this,"Data not Updated",Toast.LENGTH_LONG).show();
+                               }
+                           }
+
 
                             SharedPreferences preferences = getSharedPreferences("PRESCRIPTION REQUIRED", Context.MODE_PRIVATE);
                             SharedPreferences.Editor editor = preferences.edit();

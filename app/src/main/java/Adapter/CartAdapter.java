@@ -27,6 +27,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.jaayu.CartActivity;
 import com.jaayu.Model.BaseUrl;
+import com.jaayu.Model.PrescriptionReqDatabase;
 import com.jaayu.R;
 
 import org.json.JSONException;
@@ -48,6 +49,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
     SharedPreferences prefs_Quantity;
     private String u_id,spin_no;
     ProgressDialog progressDialog;
+    PrescriptionReqDatabase prescriptionReqDatabase;
 
   int c=5;
     public CartAdapter(ArrayList<CartModel> modelList, Context context) {
@@ -69,6 +71,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
     @Override
     public void onBindViewHolder(@NonNull final CartAdapter.MyViewHolder holder, final int position) {
         final CartModel mList = modelList.get(position);
+        prescriptionReqDatabase=new PrescriptionReqDatabase(context);
         prefs_register = context.getSharedPreferences(
                 "Register Details", Context.MODE_PRIVATE);
 
@@ -476,6 +479,8 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
       holder.delete_item_button.setOnClickListener(new View.OnClickListener() {
           @Override
           public void onClick(View v) {
+           final String prs_req=mList.getPres_required();
+
               RequestQueue queue = Volley.newRequestQueue(context);
               StringRequest postRequest = new StringRequest(Request.Method.POST, product_delete_url,
                       new Response.Listener<String>()
@@ -492,12 +497,13 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
                                       modelList.remove(position);
                                       notifyItemRemoved(position);
                                       notifyItemRangeChanged(position,modelList.size());
-                                      SharedPreferences preferences = context.getSharedPreferences("PRESCRIPTION REQUIRED", Context.MODE_PRIVATE);
-                                      int prescrip_req=preferences.getInt("Prescrip_requir",0);
-                                      if(prescrip_req==1){
-                                          SharedPreferences.Editor e=preferences.edit();
+                                   /*   SharedPreferences preferences = context.getSharedPreferences("PRESCRIPTION REQUIRED", Context.MODE_PRIVATE);
+                                      int prescrip_req=preferences.getInt("Prescrip_requir",0);*/
+                                      if(prs_req.equals("1")){
+                                         /* SharedPreferences.Editor e=preferences.edit();
                                           e.clear();
-                                          e.commit();
+                                          e.commit();*/
+                                         prescriptionReqDatabase.deleteDataPres();
                                           Toast.makeText(context,status+" "+"Removed",Toast.LENGTH_LONG).show();
                                           Intent intent= new Intent(context, CartActivity.class);
                                           intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
@@ -512,9 +518,9 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
                                           ((Activity) context).overridePendingTransition(0,0);
                                           context.startActivity(intent);
                                       }
-                                      SharedPreferences.Editor e=preferences.edit();
+                                   /*   SharedPreferences.Editor e=preferences.edit();
                                       e.clear();
-                                      e.commit();
+                                      e.commit();*/
                                       Toast.makeText(context,status+" "+"Removed",Toast.LENGTH_LONG).show();
                                       Intent intent= new Intent(context, CartActivity.class);
                                       intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);

@@ -34,6 +34,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.jaayu.Model.BaseUrl;
+import com.jaayu.Model.PrescriptionReqDatabase;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -55,6 +56,7 @@ import Model.SaveCoupon;
 
 public class CartActivity extends AppCompatActivity {
     SaveCoupon myDb;
+    PrescriptionReqDatabase prescriptionReqDatabase;
     private ArrayList<CartModel> modelList;
     CartAdapter cartAdapter;
     private ArrayList<CouponListModel> couponListModelArrayList;
@@ -82,7 +84,9 @@ public class CartActivity extends AppCompatActivity {
     SharedPreferences Coupon_store;
     int count_one=0;
     ProgressDialog progressDialog;
-    int prescription_req;
+   /* int prescription_req;*/
+   String prescription_req;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,6 +95,7 @@ public class CartActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         myDb = new SaveCoupon(this);
+        prescriptionReqDatabase=new PrescriptionReqDatabase(this);
         progressDialog = new ProgressDialog(CartActivity.this);
         progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         progressDialog.show();
@@ -100,8 +105,8 @@ public class CartActivity extends AppCompatActivity {
          prescription_req=pres_req.getIntExtra("P_Required",0);*/
         LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver, new IntentFilter("message_subject_intent"));
 
-        SharedPreferences preferences = getSharedPreferences("PRESCRIPTION REQUIRED", Context.MODE_PRIVATE);
-        prescription_req=preferences.getInt("Prescrip_requir",0);
+       /* SharedPreferences preferences = getSharedPreferences("PRESCRIPTION REQUIRED", Context.MODE_PRIVATE);
+        prescription_req=preferences.getInt("Prescrip_requir",0);*/
         Cart_item_number_counter = getSharedPreferences(
                 "CARTITEM_COUNTER", Context.MODE_PRIVATE);
         prefs_register = getSharedPreferences(
@@ -148,6 +153,10 @@ public class CartActivity extends AppCompatActivity {
         upper_save_amt=(TextView)findViewById(R.id.upper_save_amt);
         sav_prescrtn=(TextView)findViewById(R.id.sav_prescrtn);
         free_charge=(TextView) findViewById(R.id.free_charge);
+        Cursor pres_req=prescriptionReqDatabase.getAllDataPres();
+        while (pres_req.moveToNext()){
+            prescription_req=pres_req.getString(1);
+        }
        Cursor res=myDb.getAllData();
         getDisclimer();
         getFerrCharge();
@@ -322,16 +331,17 @@ public class CartActivity extends AppCompatActivity {
         submit_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(prescription_req==1){
-                    Intent intentGotoOrderSummery=new Intent(CartActivity.this,UploadToPrescription.class);
-                    intentGotoOrderSummery.putExtra("PRES_REQ",prescription_req);
-                    startActivity(intentGotoOrderSummery);
+                if(prescription_req!=null){
+                    if(prescription_req.equals("1")){
+                        Intent intentGotoOrderSummery=new Intent(CartActivity.this,UploadToPrescription.class);
+                        intentGotoOrderSummery.putExtra("PRES_REQ",prescription_req);
+                        startActivity(intentGotoOrderSummery);
+                    }
                 }
                 else {
                     Intent intentGotoOrderSummery=new Intent(CartActivity.this,OrderSummery.class);
                     startActivity(intentGotoOrderSummery);
                 }
-
             }
         });
 
@@ -533,6 +543,7 @@ public class CartActivity extends AppCompatActivity {
                                     cartModel.setCart_item(serch.getString("title"));
                                     cartModel.setUnit(serch.getString("box"));
                                     cartModel.setCompany_name(serch.getString("com_name"));
+                                    cartModel.setPres_required(serch.getString("pres_required"));
 
                                     DecimalFormat format_per = new DecimalFormat("##.##");
                                      formatted = format_per.format(serch.getDouble("save_percent"));

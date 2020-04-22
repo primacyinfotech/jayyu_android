@@ -85,7 +85,7 @@
         android:layout_marginLeft="20dp"
         android:fontFamily="@font/clearsansbold"
         android:text="Delivered"
-        android:textColor="#f8de7e"
+        android:textColor="#009900"
         android:textSize="16dp" />
     <TextView
 
@@ -196,16 +196,17 @@
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="50dp">
-        <TextView
+        <Button
             android:id="@+id/reoder_btn"
             android:text="Reorder"
-            android:textColor="@color/colorAccent"
-            android:fontFamily="@font/clearsansbold"
-            android:textSize="20sp"
-            android:layout_marginTop="10dp"
-            android:layout_gravity="center"
+            android:textAllCaps="false"
+            android:background="@drawable/coupon_button_back"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+          android:layout_marginTop="5dp"
+            android:layout_marginLeft="10dp"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="40dp" />
         </LinearLayout>
     </LinearLayout>
 </androidx.cardview.widget.CardView>

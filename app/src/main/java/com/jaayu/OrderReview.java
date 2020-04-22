@@ -27,6 +27,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.jaayu.Model.BaseUrl;
+import com.jaayu.Model.PrescriptionReqDatabase;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -43,6 +44,7 @@ import Model.SaveCoupon;
 
 public class OrderReview extends AppCompatActivity {
     SaveCoupon myDb;
+    PrescriptionReqDatabase prescriptionReqDatabase;
     private ArrayList<OrderSummeryModel> modelList;
     RecyclerView pres_list;
     OrderSummeryAdapter orderSummeryAdapter;
@@ -82,6 +84,7 @@ public class OrderReview extends AppCompatActivity {
         setContentView(R.layout.activity_order_review);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        prescriptionReqDatabase=new PrescriptionReqDatabase(this);
         progressDialog = new ProgressDialog(OrderReview.this);
         progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         progressDialog.show();
@@ -208,6 +211,7 @@ public class OrderReview extends AppCompatActivity {
                                         overridePendingTransition(0,0);
                                         finish();
                                         myDb.deleteData();
+                                        prescriptionReqDatabase.deleteDataPres();
 
                                     }
 
