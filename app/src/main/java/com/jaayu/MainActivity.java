@@ -141,9 +141,11 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
-        moveTaskToBack(true);
+       /* moveTaskToBack(true);
         android.os.Process.killProcess(android.os.Process.myPid());
-        System.exit(1);
+        System.exit(1);*/
+        super.onBackPressed();
+        finishAffinity();
     }
 
    /* @Override
@@ -378,5 +380,7 @@ public class MainActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+
 
 }

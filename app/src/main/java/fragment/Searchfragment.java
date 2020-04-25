@@ -14,21 +14,28 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.jaayu.Model.BaseUrl;
 import com.jaayu.R;
+import com.jaayu.SearchActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import Adapter.Search_adapter;
 import Model.Searchmodel;
@@ -41,9 +48,10 @@ public class Searchfragment extends Fragment {
     RecyclerView recyclerView;
     Search_adapter searchAdapter;
     ArrayList<Searchmodel> names;
+    ImageView fack_image;
     ProgressDialog progressDialog;
-   // private String search_url="https://work.primacyinfotech.com/jaayu/api/product/all";
-
+    private String search_url=BaseUrl.BaseUrlNew+"product/search";
+   String srch_text;
 
     public Searchfragment() {
         // Required empty public constructor
@@ -55,10 +63,10 @@ public class Searchfragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view =inflater.inflate(R.layout.fragment_searchfragment, container, false);
-        progressDialog = new ProgressDialog(getActivity());
+      /*  progressDialog = new ProgressDialog(getActivity());
         progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         progressDialog.show();
-        progressDialog.setMessage("loading....");
+        progressDialog.setMessage("loading....");*/
 
 
       /*  names.add(new Searchmodel("Calpol",R.drawable.ic_action_arrow));
@@ -68,11 +76,11 @@ public class Searchfragment extends Fragment {
         names.add(new Searchmodel("Casit",R.drawable.ic_action_arrow));*/
 
         search_layout_edit=(EditText)view.findViewById(R.id.search_layout_edit);
+        //fack_image=(ImageView)view.findViewById(R.id.fack_image);
         recyclerView=(RecyclerView)view.findViewById(R.id.rv_search);
-        Search_View();
+        //Search_View();
 
-     /*   recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));*/
+
 
 
         search_layout_edit.addTextChangedListener(new TextWatcher() {
@@ -89,13 +97,89 @@ public class Searchfragment extends Fragment {
             @Override
             public void afterTextChanged(Editable editable) {
                 //after the change calling the method and passing the search input
-                filter(editable.toString());
+               //filter(editable.toString());
+                //srch_text=search_layout_edit.getText().toString();
+             //  final String edit=editable.toString();
+               // search_layout_edit.setText(edit);
+                srch_text=search_layout_edit.getText().toString();
+                names=new ArrayList<>();
+                RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
+                StringRequest postRequest = new StringRequest(Request.Method.POST,search_url,
+                        new Response.Listener<String>()  {
+                            @Override
+                            public void onResponse(String response) {
+                                // Do something with response
+                                //mTextView.setText(response.toString());
+
+                                // Process the JSON
+                                // Loop through the array elements
+                                try {
+                                    JSONObject person = new JSONObject(response);
+                                    String status=person.getString("status");
+                                    if(status.equals("1")) {
+                                        recyclerView.setVisibility(View.VISIBLE);
+
+                                        JSONArray jsonArray = person.getJSONArray("Product");
+                                        for(int i=0;i<jsonArray.length();i++) {
+                                            Searchmodel searchmodel = new Searchmodel();
+
+                                            JSONObject serch = jsonArray.getJSONObject(i);
+                                            searchmodel.setSearch_id(serch.getInt("id"));
+                                            searchmodel.setSearch_item(serch.getString("product_name"));
+                                            searchmodel.setComposition_name(serch.getString("composition"));
+                                            names.add(searchmodel);
+                                        }
+                                        searchAdapter=new Search_adapter(names,getActivity());
+                                        recyclerView.setAdapter(searchAdapter);
+                                        recyclerView.setHasFixedSize(true);
+                                        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+                                        searchAdapter.notifyDataSetChanged();
+
+
+                                    }
+                                    else {
+                                        recyclerView.setVisibility(View.GONE);
+                                    }
+
+
+
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+
+
+
+                            }
+                        },
+                        new Response.ErrorListener(){
+                            @Override
+                            public void onErrorResponse(VolleyError error){
+                                // Do something when error occurred
+
+
+                            }
+                        }
+                ) {
+                    @Override
+                    protected Map<String, String> getParams() {
+                        Map<String, String> params = new HashMap<String, String>();
+
+                        params.put("search" , srch_text);
+                        // params.put("user_id" ,"35");
+
+                        return params;
+                    }
+                };
+
+                // Add JsonArrayRequest to the RequestQueue
+                requestQueue.add(postRequest);
+
 
             }
         });
         return view;
     }
-    private void filter(String text) {
+  /*  private void filter(String text) {
         //new array list that will hold the filtered data
         ArrayList<Searchmodel> filterdNames = new ArrayList<>();
 
@@ -111,44 +195,95 @@ public class Searchfragment extends Fragment {
 
         }
 
-    }
-    private  void   Search_View(){
+    }*/
+   /*private  void   Search_View(){
+       names=new ArrayList<>();
+       RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
+       JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(
+               Request.Method.GET,
+               BaseUrl.BaseUrlNew+"product/all",
+               null,
+               new Response.Listener<JSONArray>() {
+                   @Override
+                   public void onResponse(JSONArray response) {
+                       // Do something with response
+                       //mTextView.setText(response.toString());
+
+                       // Process the JSON
+                       // Loop through the array elements
+                       for(int i=0;i<response.length();i++){
+                           Searchmodel searchmodel=new Searchmodel();
+                           try {
+                               JSONObject serch=response.getJSONObject(i);
+                               searchmodel.setSearch_id(serch.getInt("id"));
+                               searchmodel.setSearch_item(serch.getString("product_name"));
+                               searchmodel.setComposition_name(serch.getString("composition"));
+                               names.add(searchmodel);
+
+
+                           } catch (JSONException e) {
+                               e.printStackTrace();
+                           }
+                       }
+                       searchAdapter=new Search_adapter(names,getActivity());
+                       recyclerView.setAdapter(searchAdapter);
+                       recyclerView.setHasFixedSize(true);
+                       recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+                       searchAdapter.notifyDataSetChanged();
+
+                   }
+               },
+               new Response.ErrorListener(){
+                   @Override
+                   public void onErrorResponse(VolleyError error){
+                       // Do something when error occurred
+
+
+                   }
+               }
+       );
+
+       // Add JsonArrayRequest to the RequestQueue
+       requestQueue.add(jsonArrayRequest);
+   }*/
+  /*  private  void   Search_View(){
+        srch_text=search_layout_edit.getText().toString();
         names=new ArrayList<>();
         RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
-        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(
-                Request.Method.GET,
-                BaseUrl.BaseUrlNew+"product/all",
-                null,
-                new Response.Listener<JSONArray>() {
+        StringRequest postRequest = new StringRequest(Request.Method.POST,search_url,
+                new Response.Listener<String>()  {
                     @Override
-                    public void onResponse(JSONArray response) {
+                    public void onResponse(String response) {
                         // Do something with response
                         //mTextView.setText(response.toString());
-                       progressDialog.dismiss();
+
                         // Process the JSON
                         // Loop through the array elements
-                        for(int i=0;i<response.length();i++){
-                            Searchmodel searchmodel=new Searchmodel();
-                            try {
+                        try {
+                            JSONObject person = new JSONObject(response);
+                            String status=person.getString("status");
+                           if(status.equals("1")) {
+                               JSONArray jsonArray = person.getJSONArray("Product");
+                               for(int i=0;i<jsonArray.length();i++) {
+                                   Searchmodel searchmodel = new Searchmodel();
 
-                                JSONObject serch=response.getJSONObject(i);
-                                searchmodel.setSearch_id(serch.getInt("id"));
-                               searchmodel.setSearch_item(serch.getString("product_name"));
-                                searchmodel.setComposition_name(serch.getString("composition"));
-
-                               names.add(searchmodel);
+                                   JSONObject serch = jsonArray.getJSONObject(i);
+                                   searchmodel.setSearch_id(serch.getInt("id"));
+                                   searchmodel.setSearch_item(serch.getString("product_name"));
+                                   searchmodel.setComposition_name(serch.getString("composition"));
+                                   names.add(searchmodel);
+                               }
+                               searchAdapter=new Search_adapter(names,getActivity());
+                               recyclerView.setAdapter(searchAdapter);
+                               searchAdapter.notifyDataSetChanged();
+                           }
 
 
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
-                        }
 
-                        searchAdapter=new Search_adapter(names,getActivity());
-                        recyclerView.setAdapter(searchAdapter);
-                        recyclerView.setHasFixedSize(true);
-                        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-                        searchAdapter.notifyDataSetChanged();
+
 
                     }
                 },
@@ -160,9 +295,19 @@ public class Searchfragment extends Fragment {
 
                     }
                 }
-        );
+        ) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
+
+                 params.put("search" ,srch_text);
+                // params.put("user_id" ,"35");
+
+                return params;
+            }
+        };
 
         // Add JsonArrayRequest to the RequestQueue
-        requestQueue.add(jsonArrayRequest);
-    }
+        requestQueue.add(postRequest);
+    }*/
 }

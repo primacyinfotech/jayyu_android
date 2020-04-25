@@ -54,7 +54,7 @@
 
             <LinearLayout
                 android:orientation="vertical"
-                android:layout_marginTop="45dp"
+                android:layout_marginTop="40dp"
                 android:layout_width="match_parent"
                 android:background="@color/ligth_green"
                 android:layout_height="wrap_content">
@@ -119,7 +119,7 @@
 
             </ImageView>-->
             <LinearLayout
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="5dp"
                 android:orientation="vertical"
                 android:layout_marginLeft="10dp"
 
@@ -260,7 +260,7 @@
             <LinearLayout
 
                 android:orientation="vertical"
-                android:padding="5dp"
+
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <TextView
@@ -282,7 +282,7 @@
                     android:layout_height="wrap_content" />
             </LinearLayout>
        <LinearLayout
-           android:layout_marginTop="8dp"
+           android:layout_marginTop="0dp"
            android:orientation="horizontal"
            android:layout_width="match_parent"
            android:layout_height="60dp">
@@ -329,26 +329,26 @@
             android:layout_width="match_parent"
             android:layout_height="70dp"
             android:elevation="20dp"
-            android:layout_marginTop="85dp"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            android:layout_marginBottom="30dp"
+            android:layout_marginTop="80dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="20dp"
             android:orientation="vertical"
             android:src="@mipmap/ic_launcher_round" >
          <TextView
              android:layout_gravity="center"
              android:gravity="center"
-             android:textSize="14dp"
+             android:textSize="13dp"
              android:textColor="#000"
              android:text="Your Order is Currently being Processed"
-             android:layout_marginTop="5dp"
+             android:layout_marginTop="2dp"
              android:layout_width="wrap_content"
              android:layout_height="wrap_content" />
             <TextView
                 android:id="@+id/order_id"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:textSize="14dp"
+                android:textSize="13dp"
 
                 android:textColor="#000"
                 android:text=""

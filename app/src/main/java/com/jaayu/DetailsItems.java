@@ -10,6 +10,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Paint;
 import android.os.Bundle;
+import android.text.Html;
+import android.text.Spanned;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -634,7 +636,9 @@ public class DetailsItems extends AppCompatActivity {
                             if(status.equals("1")){
                                 JSONObject ins_con=person.getJSONObject("discm");
                                 String content_ins=ins_con.getString("body");
-                                disclaimar_txt.setText(content_ins);
+                                Spanned htmlAsSpanned = Html.fromHtml(content_ins);
+
+                                disclaimar_txt.setText(String.valueOf(htmlAsSpanned));
                             }
                             /*else {
                                 card_view_istant.setVisibility(View.GONE);

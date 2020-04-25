@@ -8,7 +8,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -23,6 +26,7 @@ public class AccountPage extends AppCompatActivity {
     RecyclerView recyclerView;
     AccountPageListAdapter accountPageListAdapter;
     ArrayList<AccountPageListModel> ac_List;
+    TextView edit_profile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +34,7 @@ public class AccountPage extends AppCompatActivity {
         setContentView(R.layout.activity_account_page);
         myDb = new SaveCoupon(this);
         recyclerView=(RecyclerView)findViewById(R.id.account_list_view);
+        edit_profile=(TextView)findViewById(R.id.edit_profile);
         ac_List=new ArrayList<>();
         ac_List.add(new AccountPageListModel(R.drawable.order,"My Orders"));
         ac_List.add(new AccountPageListModel(R.drawable.subscriptions,"Subscription"));
@@ -47,6 +52,15 @@ public class AccountPage extends AppCompatActivity {
         accountPageListAdapter=new AccountPageListAdapter(ac_List,this);
         recyclerView.setAdapter(accountPageListAdapter);
         accountPageListAdapter.notifyDataSetChanged();
+        edit_profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent GoToProfile=new Intent(AccountPage.this, ProfileActivity.class);
+                startActivity(GoToProfile);
+                overridePendingTransition(0,0);
+                finish();
+            }
+        });
          recyclerView.addOnItemTouchListener(new RecyclerTouchListener(this, recyclerView, new ClickListener() {
              @Override
              public void onClick(View view, int position) {

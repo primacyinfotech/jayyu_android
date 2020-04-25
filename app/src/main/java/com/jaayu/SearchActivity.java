@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -17,6 +18,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.jaayu.Model.BaseUrl;
 
@@ -25,6 +27,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import Adapter.Search_adapter;
 import Model.Searchmodel;
@@ -35,13 +39,17 @@ public class SearchActivity extends AppCompatActivity {
     Search_adapter searchAdapter;
     ArrayList<Searchmodel> names;
     ImageView back_button;
+    ImageView fack_image;
+    String srch_text;
+    ProgressDialog progressDialog;
+    private String search_url=BaseUrl.BaseUrlNew+"product/search";
     //private String search_url="https://work.primacyinfotech.com/jaayu/api/product/all";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
-        Search_View();
+       // Search_View();
 
 
 
@@ -51,10 +59,10 @@ public class SearchActivity extends AppCompatActivity {
         names.add(new Searchmodel("Rantac",R.drawable.ic_action_arrow));
         names.add(new Searchmodel("Casit",R.drawable.ic_action_arrow));*/
         search_layout_edit=(EditText)findViewById(R.id.search_layout_edit);
+      //  fack_image=(ImageView)findViewById(R.id.fack_image);
         back_button=(ImageView)findViewById(R.id.back_button);
         recyclerView=(RecyclerView)findViewById(R.id.rv_search);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
 
         search_layout_edit.addTextChangedListener(new TextWatcher() {
             @Override
@@ -70,7 +78,78 @@ public class SearchActivity extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable editable) {
                 //after the change calling the method and passing the search input
-                filter(editable.toString());
+                //filter(editable.toString());
+                srch_text=search_layout_edit.getText().toString();
+                names=new ArrayList<>();
+                RequestQueue requestQueue = Volley.newRequestQueue(SearchActivity.this);
+                StringRequest postRequest = new StringRequest(Request.Method.POST,search_url,
+                        new Response.Listener<String>()  {
+                            @Override
+                            public void onResponse(String response) {
+                                // Do something with response
+                                //mTextView.setText(response.toString());
+
+                                // Process the JSON
+                                // Loop through the array elements
+                                try {
+                                    JSONObject person = new JSONObject(response);
+                                    String status=person.getString("status");
+                                    if(status.equals("1")) {
+                                        recyclerView.setVisibility(View.VISIBLE);
+
+                                        JSONArray jsonArray = person.getJSONArray("Product");
+                                        for(int i=0;i<jsonArray.length();i++) {
+                                            Searchmodel searchmodel = new Searchmodel();
+
+                                            JSONObject serch = jsonArray.getJSONObject(i);
+                                            searchmodel.setSearch_id(serch.getInt("id"));
+                                            searchmodel.setSearch_item(serch.getString("product_name"));
+                                            searchmodel.setComposition_name(serch.getString("composition"));
+                                            names.add(searchmodel);
+                                        }
+                                        searchAdapter=new Search_adapter(names,SearchActivity.this);
+                                        recyclerView.setAdapter(searchAdapter);
+                                        recyclerView.setHasFixedSize(true);
+                                        recyclerView.setLayoutManager(new LinearLayoutManager(SearchActivity.this));
+                                        searchAdapter.notifyDataSetChanged();
+
+
+                                    }
+                                    else {
+                                        recyclerView.setVisibility(View.GONE);
+                                    }
+
+
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+
+
+
+                            }
+                        },
+                        new Response.ErrorListener(){
+                            @Override
+                            public void onErrorResponse(VolleyError error){
+                                // Do something when error occurred
+
+
+                            }
+                        }
+                ) {
+                    @Override
+                    protected Map<String, String> getParams() {
+                        Map<String, String> params = new HashMap<String, String>();
+
+                        params.put("search" , srch_text);
+                        // params.put("user_id" ,"35");
+
+                        return params;
+                    }
+                };
+
+                // Add JsonArrayRequest to the RequestQueue
+                requestQueue.add(postRequest);
             }
         });
         back_button.setOnClickListener(new View.OnClickListener() {
@@ -83,7 +162,7 @@ public class SearchActivity extends AppCompatActivity {
             }
         });
     }
-    private void filter(String text) {
+    /*private void filter(String text) {
         //new array list that will hold the filtered data
         ArrayList<Searchmodel> filterdNames = new ArrayList<>();
 
@@ -97,8 +176,8 @@ public class SearchActivity extends AppCompatActivity {
             //calling a method of the adapter class and passing the filtered list
             searchAdapter.filterList(filterdNames);
         }
-    }
-    private  void   Search_View(){
+    }*/
+   /* private  void   Search_View(){
         names=new ArrayList<>();
         RequestQueue requestQueue = Volley.newRequestQueue(SearchActivity.this);
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(
@@ -145,7 +224,7 @@ public class SearchActivity extends AppCompatActivity {
 
         // Add JsonArrayRequest to the RequestQueue
         requestQueue.add(jsonArrayRequest);
-    }
+    }*/
     @Override
     public void onBackPressed() {
         Intent intent = new Intent(SearchActivity.this, MainActivity.class);

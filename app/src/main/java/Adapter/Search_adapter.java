@@ -117,8 +117,8 @@ public class Search_adapter  extends RecyclerView.Adapter<Search_adapter.MyViewH
 
         }
     }
-    public void filterList(ArrayList<Searchmodel> filterdNames) {
+  /*  public void filterList(ArrayList<Searchmodel> filterdNames) {
         this.modelList = filterdNames;
         notifyDataSetChanged();
-    }
+    }*/
 }

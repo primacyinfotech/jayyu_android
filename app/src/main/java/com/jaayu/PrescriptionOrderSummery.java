@@ -95,6 +95,7 @@ public class PrescriptionOrderSummery extends AppCompatActivity {
     PrescriptionCouponListAdapter couponListAdapter;
     private ArrayList<CouponListModel> couponListModelArrayList;
     Dialog dialog;
+    ProgressDialog progressDialogLoader;
   public   BroadcastReceiver mMessageReceiver;
 
     @Override
@@ -104,6 +105,11 @@ public class PrescriptionOrderSummery extends AppCompatActivity {
         myDb = new SaveCoupon(this);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        progressDialogLoader = new ProgressDialog(PrescriptionOrderSummery.this);
+        progressDialogLoader.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progressDialogLoader.show();
+        progressDialogLoader.setMessage("Downloading...");
+        //progressDialogLoader.setCancelable(false);
         Intent fetchAddress=getIntent();
         address_id=fetchAddress.getIntExtra("ADDRESS_ID",0);
         address=fetchAddress.getStringExtra("ADDRESS");
@@ -530,6 +536,7 @@ public class PrescriptionOrderSummery extends AppCompatActivity {
         last_address();
         VisibleOrNotVisibleCheckBox();
         ViewItems();
+
     }
     private void getFerrCharge(){
         RequestQueue requestQueue = Volley.newRequestQueue(PrescriptionOrderSummery.this);
@@ -637,6 +644,7 @@ public class PrescriptionOrderSummery extends AppCompatActivity {
                                 String sing_ad_typ=object.getString("atype");
                                 add_typ=sing_ad_typ;
                                 sing_zip_code=object.getString("zip_code");
+
                                 l_mark=sing_landmark;
                                 sing_fullname=sing_first_nm;
                                 all_address=sing_address;
@@ -647,6 +655,11 @@ public class PrescriptionOrderSummery extends AppCompatActivity {
                                 editor.putString("PIN_CODE",sing_zip_code);
                                 editor.commit();
                                 Addd_Second=prefs_Address_second.getInt("SECOND_ADD",0);
+                                check_pincode_Second=prefs_Address_second.getString("PIN_CODE","");
+                                if(check_pincode_first.equals("")){
+                                    SecondVisibilityCheck(check_pincode_Second);
+                                }
+
 
 
                                 System.out.println("id"+address_id_second+Addd_first);
@@ -714,11 +727,13 @@ public class PrescriptionOrderSummery extends AppCompatActivity {
         requestQueue.add(postRequest);
     }
     private void  VisibleOrNotVisibleCheckBox(){
+
         check_pincode_first=prefs_Address.getString("Zip_ADD","");
-        check_pincode_Second=prefs_Address_second.getString("PIN_CODE","");
+       // check_pincode_Second=prefs_Address_second.getString("PIN_CODE","");
         pin_cod=check_pincode_first;
-        pin_cod2=check_pincode_Second;
-        if(pin_cod.matches(check_pincode_first)){
+       // pin_cod2=check_pincode_Second;
+        /*if(pin_cod.matches(check_pincode_first))*/
+        if(pin_cod!=null){
             RequestQueue requestQueue = Volley.newRequestQueue(PrescriptionOrderSummery.this);
             StringRequest postRequest = new StringRequest(Request.Method.POST,InstantOrderChkUrl,
                     new Response.Listener<String>() {
@@ -731,13 +746,13 @@ public class PrescriptionOrderSummery extends AppCompatActivity {
                                 JSONObject person = new JSONObject(response);
                                 String status=person.getString("status");
                                 if(status.equals("1")){
-
+                                    progressDialogLoader.dismiss();
                                     card_view_istant.setVisibility(View.VISIBLE);
-                                 /* prefs_Address_second = getSharedPreferences(
+                                  prefs_Address_second = getSharedPreferences(
                                           "SECOND_ADDRESS", Context.MODE_PRIVATE);
                                   SharedPreferences.Editor editor2 = prefs_Address_second.edit();
                                   editor2.remove("PIN_CODE");
-                                  editor2.apply();*/
+                                  editor2.apply();
                                 }
                            /* else {
                                 card_view_istant.setVisibility(View.GONE);
@@ -778,7 +793,8 @@ public class PrescriptionOrderSummery extends AppCompatActivity {
             };
             requestQueue.add(postRequest);
         }
-        if(pin_cod2.matches(check_pincode_Second)){
+       /* if(pin_cod2.matches(check_pincode_Second))*/
+      /*  if(pin_cod2!=null){
             RequestQueue requestQueue = Volley.newRequestQueue(PrescriptionOrderSummery.this);
             StringRequest postRequest = new StringRequest(Request.Method.POST,InstantOrderChkUrl,
                     new Response.Listener<String>() {
@@ -791,23 +807,23 @@ public class PrescriptionOrderSummery extends AppCompatActivity {
                                 JSONObject person = new JSONObject(response);
                                 String status=person.getString("status");
                                 if(status.equals("1")){
-
+                                    progressDialogLoader.dismiss();
                                     card_view_istant.setVisibility(View.VISIBLE);
-                                /*  prefs_Address = getSharedPreferences(
+                                *//*  prefs_Address = getSharedPreferences(
                                           "Address Details", Context.MODE_PRIVATE);
                                   SharedPreferences.Editor edito = prefs_Address.edit();
                                   edito.remove("Zip_ADD");
-                                  edito.apply();*/
+                                  edito.apply();*//*
                                     prefs_Address_second = getSharedPreferences(
                                             "SECOND_ADDRESS", Context.MODE_PRIVATE);
                                     SharedPreferences.Editor editor2 = prefs_Address_second.edit();
                                     editor2.remove("PIN_CODE");
                                     editor2.apply();
                                 }
-                            /*else {
+                            *//*else {
                                 card_view_istant.setVisibility(View.GONE);
                             }
-*/
+*//*
 
 
 
@@ -842,9 +858,77 @@ public class PrescriptionOrderSummery extends AppCompatActivity {
 
             };
             requestQueue.add(postRequest);
-        }
+        }*/
 
     }
+    private void  SecondVisibilityCheck(final String second_pin){
+       /* check_pincode_Second=prefs_Address_second.getString("PIN_CODE","");
+        pin_cod2=check_pincode_Second;*/
+        if(second_pin!=null){
+            RequestQueue requestQueue = Volley.newRequestQueue(PrescriptionOrderSummery.this);
+            StringRequest postRequest = new StringRequest(Request.Method.POST,InstantOrderChkUrl,
+                    new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            // response
+                            Log.d("Response", response);
+                            try {
+                                //Do it with this it will work
+                                JSONObject person = new JSONObject(response);
+                                String status=person.getString("status");
+                                if(status.equals("1")){
+                                    progressDialogLoader.dismiss();
+                                    card_view_istant.setVisibility(View.VISIBLE);
+                               /*   prefs_Address = getSharedPreferences(
+                                    "Address Details", Context.MODE_PRIVATE);
+                                    SharedPreferences.Editor edito = prefs_Address.edit();
+                                    edito.remove("Zip_ADD");
+                                    edito.apply();*/
+                                 /*   prefs_Address_second = getSharedPreferences(
+                                            "SECOND_ADDRESS", Context.MODE_PRIVATE);
+                                    SharedPreferences.Editor editor2 = prefs_Address_second.edit();
+                                    editor2.remove("PIN_CODE");
+                                    editor2.apply();*/
+                                }
+
+
+
+
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            Toast.makeText(getApplicationContext(), "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                        }
+
+
+                    }
+        },
+        new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                // error
+
+            }
+        }
+            ) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
+
+
+
+                params.put("pincode" ,second_pin);
+                params.put("user_id" ,u_id);
+
+
+                return params;
+            }
+
+        };
+        requestQueue.add(postRequest);
+        }
+    }
+
     private void ViewItems(){
         items_view=(TextView)findViewById(R.id.items_view);
         Intent fetchPassVal =getIntent();
@@ -970,7 +1054,8 @@ public class PrescriptionOrderSummery extends AppCompatActivity {
                             if(status.equals("1")){
                                 JSONObject ins_con=person.getJSONObject("instt");
                                 String content_ins=ins_con.getString("body");
-                                instan_content.setText(content_ins);
+                                Spanned htmlAsSpanned = Html.fromHtml(content_ins);
+                                instan_content.setText(String.valueOf(htmlAsSpanned));
                             }
                             /*else {
                                 card_view_istant.setVisibility(View.GONE);
@@ -1019,7 +1104,8 @@ public class PrescriptionOrderSummery extends AppCompatActivity {
                             if(status.equals("1")){
                                 JSONObject ins_con=person.getJSONObject("discm");
                                 String content_ins=ins_con.getString("body");
-                                disclaimer.setText(content_ins);
+                                Spanned htmlAsSpanned = Html.fromHtml(content_ins);
+                                disclaimer.setText(String.valueOf(htmlAsSpanned));
                             }
                             /*else {
                                 card_view_istant.setVisibility(View.GONE);

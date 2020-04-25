@@ -230,12 +230,24 @@ public class OrderDetails extends AppCompatActivity {
                                 active_order_five.setVisibility(View.GONE);
                                 active_order_six.setVisibility(View.GONE);
                                 active_order_seven.setVisibility(View.GONE);
-                                text_cancel.setText("Cancel Order");
-                                text_pay.setText("Help");
+                                text_cancel.setText("Confirm & Pay");
+                                text_pay.setText("Cancel Order");
                                 /* if(payment_status.equals("0")){
                                      text_cancel.setText("Cancel Order");
                                      text_pay.setText("Help");
                                  }*/
+                                text_cancel.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        Intent goToPaymentPage=new Intent(OrderDetails.this,Payment.class);
+                                        goToPaymentPage.putExtra("ORDER_ID",String.valueOf(odr_id));
+                                        goToPaymentPage.putExtra("ORDER_JY_ID",Ord_vid);
+                                        goToPaymentPage.putExtra("INSTANT",instant_id);
+                                        startActivity(goToPaymentPage);
+                                        overridePendingTransition(0,0);
+                                        finish();
+                                    }
+                                });
 
                             }
                             if(ship_status.equals("2")){

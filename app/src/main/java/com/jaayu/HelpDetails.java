@@ -7,6 +7,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Html;
+import android.text.Spanned;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -85,7 +87,9 @@ public class HelpDetails extends AppCompatActivity {
                                     HelpDetailsModel helpModel = new HelpDetailsModel();
                                     JSONObject object = jsonArray.getJSONObject(i);
                                     helpModel.setHelp_head(object.getString("question"));
-                                    helpModel.setHelp_content(object.getString("answer"));
+                                    String ans=object.getString("answer");
+                                    Spanned htmlAsSpanned = Html.fromHtml(ans);
+                                    helpModel.setHelp_content(String.valueOf(htmlAsSpanned));
                                     helpDetailsModels.add(helpModel);
 
                                 }

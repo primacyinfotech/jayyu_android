@@ -140,8 +140,9 @@ public class Payment extends AppCompatActivity implements PaymentResultListener 
                         .replace(R.id.contentPanel, fm, "Searchfragment")
                         .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                         .commit();*/
-                Intent intent = new Intent(Payment.this, OrderStatusConfirm.class);
+                Intent intent = new Intent(Payment.this, OrderDetails.class);
                 intent.putExtra("Order_id",Integer.valueOf(order_id));
+                intent.putExtra("Order_Vid",ord_jy_id);
                 intent.putExtra("Instant",instant);
                 startActivity(intent);
                 overridePendingTransition(0,0);
@@ -1087,7 +1088,7 @@ public class Payment extends AppCompatActivity implements PaymentResultListener 
  }
     @Override
     public void onBackPressed() {
-        Intent intent = new Intent(Payment.this, OrderStatusConfirm.class);
+        Intent intent = new Intent(Payment.this, OrderDetails.class);
         intent.putExtra("Order_id",Integer.valueOf(order_id));
         intent.putExtra("Order_Vid",ord_jy_id);
         intent.putExtra("Instant",instant);

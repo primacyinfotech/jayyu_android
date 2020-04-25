@@ -60,129 +60,6 @@
         android:smallScreens="true"
         android:xlargeScreens="true" />
 
-    <!--<compatible-screens>
-
-        &lt;!&ndash; no small size screens &ndash;&gt;
-        <screen
-            android:screenDensity="ldpi"
-            android:screenSize="small" /> &lt;!&ndash; approximately 120 dpi &ndash;&gt;
-        <screen
-            android:screenDensity="mdpi"
-            android:screenSize="small" /> &lt;!&ndash; approximately 160 dpi &ndash;&gt;
-        <screen
-            android:screenDensity="hdpi"
-            android:screenSize="small" /> &lt;!&ndash; approximately 240 dpi &ndash;&gt;
-        <screen
-            android:screenDensity="280"
-            android:screenSize="small" /> &lt;!&ndash; Workaround &ndash;&gt;
-        <screen
-            android:screenDensity="xhdpi"
-            android:screenSize="small" /> &lt;!&ndash; approximately 320 dpi &ndash;&gt;
-        <screen
-            android:screenDensity="360"
-            android:screenSize="small" /> &lt;!&ndash; Workaround &ndash;&gt;
-        <screen
-            android:screenDensity="420"
-            android:screenSize="small" /> &lt;!&ndash; Workaround &ndash;&gt;
-        <screen
-            android:screenDensity="480"
-            android:screenSize="small" /> &lt;!&ndash; Workaround &ndash;&gt;
-        <screen
-            android:screenDensity="560"
-            android:screenSize="small" /> &lt;!&ndash; Workaround &ndash;&gt;
-        <screen
-            android:screenDensity="640"
-            android:screenSize="small" /> &lt;!&ndash; Workaround &ndash;&gt;
-
-
-        &lt;!&ndash; all normal size screens &ndash;&gt;
-        <screen
-            android:screenDensity="ldpi"
-            android:screenSize="normal" /> &lt;!&ndash; approximately 120 dpi &ndash;&gt;
-        <screen
-            android:screenDensity="mdpi"
-            android:screenSize="normal" /> &lt;!&ndash; approximately 160 dpi &ndash;&gt;
-        <screen
-            android:screenDensity="hdpi"
-            android:screenSize="normal" /> &lt;!&ndash; approximately 240 dpi &ndash;&gt;
-        <screen
-            android:screenDensity="280"
-            android:screenSize="normal" /> &lt;!&ndash; Workaround &ndash;&gt;
-        <screen
-            android:screenDensity="xhdpi"
-            android:screenSize="normal" /> &lt;!&ndash; approximately 320 dpi &ndash;&gt;
-        <screen
-            android:screenDensity="360"
-            android:screenSize="normal" /> &lt;!&ndash; Workaround &ndash;&gt;
-        <screen
-            android:screenDensity="420"
-            android:screenSize="normal" /> &lt;!&ndash; Workaround &ndash;&gt;
-        <screen
-            android:screenDensity="480"
-            android:screenSize="normal" /> &lt;!&ndash; Workaround &ndash;&gt;
-        <screen
-            android:screenDensity="560"
-            android:screenSize="normal" /> &lt;!&ndash; Workaround &ndash;&gt;
-        <screen
-            android:screenDensity="640"
-            android:screenSize="normal" /> &lt;!&ndash; Workaround &ndash;&gt;
-
-
-        &lt;!&ndash; all large size screens &ndash;&gt;
-        <screen
-            android:screenDensity="ldpi"
-            android:screenSize="large" />
-        <screen
-            android:screenDensity="mdpi"
-            android:screenSize="large" />
-        <screen
-            android:screenDensity="hdpi"
-            android:screenSize="large" />
-        <screen
-            android:screenDensity="xhdpi"
-            android:screenSize="large" />
-
-        &lt;!&ndash; all xlarge size screens &ndash;&gt;
-        <screen
-            android:screenDensity="ldpi"
-            android:screenSize="xlarge" />
-        <screen
-            android:screenDensity="mdpi"
-            android:screenSize="xlarge" />
-        <screen
-            android:screenDensity="hdpi"
-            android:screenSize="xlarge" />
-        <screen
-            android:screenDensity="xhdpi"
-            android:screenSize="xlarge" />
-
-        &lt;!&ndash; Special case for Nexus 7 &ndash;&gt;
-        <screen
-            android:screenDensity="213"
-            android:screenSize="large" />
-
-        &lt;!&ndash; xxhdpi &ndash;&gt;
-
-        <screen
-            android:screenDensity="560"
-            android:screenSize="normal" />
-        <screen
-            android:screenDensity="560"
-            android:screenSize="large" />
-        <screen
-            android:screenDensity="560"
-            android:screenSize="xlarge" />
-        <screen
-            android:screenDensity="560"
-            android:screenSize="normal" />
-        <screen
-            android:screenDensity="560"
-            android:screenSize="large" />
-        <screen
-            android:screenDensity="560"
-            android:screenSize="xlarge" />
-    </compatible-screens>-->
-
     <application
         android:allowBackup="true"
         android:icon="@drawable/wlogo"
@@ -191,10 +68,15 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".PrescriptionSubscriptionDelivery"
+        <activity android:name=".ProfileActivity"
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".PrescriptionSubscriptionDelivery"
+            android:hardwareAccelerated="true"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".OfferPage"
             android:hardwareAccelerated="true"

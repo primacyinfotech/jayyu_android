@@ -27,4 +27,26 @@
         <item>Others</item>
 
     </string-array>
+    <string-array name="Gender">
+        <item>Male</item>
+        <item>Female</item>
+        <item>Other</item>
+    </string-array>
+    <string-array name="blood_group">
+        <item>A+</item>
+        <item>A-</item>
+        <item>B+</item>
+        <item>B-</item>
+        <item>AB+</item>
+        <item>AB-</item>
+        <item>o+</item>
+        <item>O-</item>
+        <item>Other</item>
+    </string-array>
+    <string-array name="marital_status">
+        <item>Married</item>
+        <item>Un-Married</item>
+
+
+    </string-array>
 </resources>

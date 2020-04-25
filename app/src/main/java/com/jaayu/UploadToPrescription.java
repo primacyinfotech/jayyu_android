@@ -200,6 +200,7 @@ public class UploadToPrescription extends AppCompatActivity {
                       //goToOrderSumm.putExtra("Prescription",gson_prescription_id);
                       startActivity(goToOrderSumm);
                       overridePendingTransition(0,0);
+                      finish();
                   }
                   if(prescriptionModels2.size()<=0){
 
@@ -209,6 +210,7 @@ public class UploadToPrescription extends AppCompatActivity {
                       //goToOrderSumm.putExtra("Prescription",gson_prescription_id);
                       startActivity(goToOrderSumm);
                       overridePendingTransition(0,0);
+                      finish();
                   }
               /*  Intent goToOrderSumm=new Intent(UploadToPrescription.this,OrderSummery.class);
                 //goToOrderSumm.putExtra("Prescription",gson_prescription_id);

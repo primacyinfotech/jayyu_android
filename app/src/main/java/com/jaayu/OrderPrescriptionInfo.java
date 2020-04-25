@@ -13,6 +13,8 @@ import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.text.Html;
+import android.text.Spanned;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -731,7 +733,8 @@ public class OrderPrescriptionInfo extends AppCompatActivity {
                             if(status.equals("1")){
                                 JSONObject ins_con=person.getJSONObject("discm");
                                 String content_ins=ins_con.getString("body");
-                                disclaimer.setText(content_ins);
+                                Spanned htmlAsSpanned = Html.fromHtml(content_ins);
+                                disclaimer.setText(String.valueOf(htmlAsSpanned));
                             }
                             /*else {
                                 card_view_istant.setVisibility(View.GONE);

@@ -15,6 +15,8 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.text.Html;
+import android.text.Spanned;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
@@ -831,6 +833,10 @@ public class OrderSummery extends AppCompatActivity {
                                  editor.putString("PIN_CODE",sing_zip_code);
                                 editor.commit();
                                 Addd_Second=prefs_Address_second.getInt("SECOND_ADD",0);
+                                check_pincode_Second=prefs_Address_second.getString("PIN_CODE","");
+                                if(check_pincode_first.equals("")){
+                                    SecondVisibilityCheck(check_pincode_Second);
+                                }
 
 
                                 System.out.println("id"+address_id_second+Addd_first);
@@ -898,9 +904,9 @@ public class OrderSummery extends AppCompatActivity {
     }
     private void  VisibleOrNotVisibleCheckBox(){
         check_pincode_first=prefs_Address.getString("Zip_ADD","");
-        check_pincode_Second=prefs_Address_second.getString("PIN_CODE","");
+       // check_pincode_Second=prefs_Address_second.getString("PIN_CODE","");
         pin_cod=check_pincode_first;
-        pin_cod2=check_pincode_Second;
+     //   pin_cod2=check_pincode_Second;
       if(pin_cod.matches(check_pincode_first)){
           RequestQueue requestQueue = Volley.newRequestQueue(OrderSummery.this);
           StringRequest postRequest = new StringRequest(Request.Method.POST,InstantOrderChkUrl,
@@ -961,7 +967,7 @@ public class OrderSummery extends AppCompatActivity {
           };
           requestQueue.add(postRequest);
         }
-      if(pin_cod2.matches(check_pincode_Second)){
+     /* if(pin_cod2.matches(check_pincode_Second)){
           RequestQueue requestQueue = Volley.newRequestQueue(OrderSummery.this);
           StringRequest postRequest = new StringRequest(Request.Method.POST,InstantOrderChkUrl,
                   new Response.Listener<String>() {
@@ -976,21 +982,21 @@ public class OrderSummery extends AppCompatActivity {
                               if(status.equals("1")){
                                   progressDialogLoader.dismiss();
                                   card_view_istant.setVisibility(View.VISIBLE);
-                                /*  prefs_Address = getSharedPreferences(
+                                *//*  prefs_Address = getSharedPreferences(
                                           "Address Details", Context.MODE_PRIVATE);
                                   SharedPreferences.Editor edito = prefs_Address.edit();
                                   edito.remove("Zip_ADD");
-                                  edito.apply();*/
+                                  edito.apply();*//*
                                   prefs_Address_second = getSharedPreferences(
                                           "SECOND_ADDRESS", Context.MODE_PRIVATE);
                                   SharedPreferences.Editor editor2 = prefs_Address_second.edit();
                                   editor2.remove("PIN_CODE");
                                   editor2.apply();
                               }
-                            /*else {
+                            *//*else {
                                 card_view_istant.setVisibility(View.GONE);
                             }
-*/
+*//*
 
 
 
@@ -1025,8 +1031,75 @@ public class OrderSummery extends AppCompatActivity {
 
           };
           requestQueue.add(postRequest);
-      }
+      }*/
 
+    }
+    private void  SecondVisibilityCheck(final String second_pin){
+       /* check_pincode_Second=prefs_Address_second.getString("PIN_CODE","");
+        pin_cod2=check_pincode_Second;*/
+        if(second_pin!=null){
+            RequestQueue requestQueue = Volley.newRequestQueue(OrderSummery.this);
+            StringRequest postRequest = new StringRequest(Request.Method.POST,InstantOrderChkUrl,
+                    new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            // response
+                            Log.d("Response", response);
+                            try {
+                                //Do it with this it will work
+                                JSONObject person = new JSONObject(response);
+                                String status=person.getString("status");
+                                if(status.equals("1")){
+                                    progressDialogLoader.dismiss();
+                                    card_view_istant.setVisibility(View.VISIBLE);
+                               /*   prefs_Address = getSharedPreferences(
+                                    "Address Details", Context.MODE_PRIVATE);
+                                    SharedPreferences.Editor edito = prefs_Address.edit();
+                                    edito.remove("Zip_ADD");
+                                    edito.apply();*/
+                                    prefs_Address_second = getSharedPreferences(
+                                            "SECOND_ADDRESS", Context.MODE_PRIVATE);
+                                    SharedPreferences.Editor editor2 = prefs_Address_second.edit();
+                                    editor2.remove("PIN_CODE");
+                                    editor2.apply();
+                                }
+
+
+
+
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                                Toast.makeText(getApplicationContext(), "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                            }
+
+
+                        }
+                    },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            // error
+
+                        }
+                    }
+            ) {
+                @Override
+                protected Map<String, String> getParams() {
+                    Map<String, String> params = new HashMap<String, String>();
+
+
+
+                    params.put("pincode" ,second_pin);
+                    params.put("user_id" ,u_id);
+
+
+                    return params;
+                }
+
+            };
+            requestQueue.add(postRequest);
+        }
     }
 
 
@@ -1046,7 +1119,8 @@ private  void  getInstantContent(){
                         if(status.equals("1")){
                         JSONObject ins_con=person.getJSONObject("instt");
                         String content_ins=ins_con.getString("body");
-                            instan_content.setText(content_ins);
+                            Spanned htmlAsSpanned = Html.fromHtml(content_ins);
+                            instan_content.setText(String.valueOf(htmlAsSpanned));
                         }
                             /*else {
                                 card_view_istant.setVisibility(View.GONE);
@@ -1095,7 +1169,8 @@ private void getDisclimer(){
                         if(status.equals("1")){
                             JSONObject ins_con=person.getJSONObject("discm");
                             String content_ins=ins_con.getString("body");
-                            disclaimer.setText(content_ins);
+                            Spanned htmlAsSpanned = Html.fromHtml(content_ins);
+                            disclaimer.setText(String.valueOf(htmlAsSpanned));
                         }
                             /*else {
                                 card_view_istant.setVisibility(View.GONE);

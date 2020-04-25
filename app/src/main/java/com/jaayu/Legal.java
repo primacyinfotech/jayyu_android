@@ -7,6 +7,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Html;
+import android.text.Spanned;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -78,7 +80,9 @@ public class Legal extends AppCompatActivity {
                                     LegalModel legalModel = new LegalModel();
                                     JSONObject object = jsonArray.getJSONObject(i);
                                     legalModel.setLegal_head(object.getString("heads"));
-                                    legalModel.setLegal_content(object.getString("conts"));
+                                    String conts=object.getString("conts");
+                                    Spanned htmlAsSpanned = Html.fromHtml(conts);
+                                    legalModel.setLegal_content(String.valueOf(htmlAsSpanned));
                                     legalModels.add(legalModel);
 
                                 }

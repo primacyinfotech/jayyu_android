@@ -24,6 +24,7 @@
             android:id="@+id/qyt"
             android:textSize="13sp"
             android:textColor="#000"
+
             android:fontFamily="@font/clearsansbold"
             android:layout_marginTop="5dp"
             android:layout_marginLeft="10dp"

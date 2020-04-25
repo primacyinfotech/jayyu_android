@@ -421,7 +421,9 @@ sixty_day_order.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeLis
                                                            params.put("user_id", user_id);
                                                            params.put("aId", user_add);
                                                            params.put("days", day_portion);
-                                                           params.put("duration", duration);
+                                                           if(duration!=null){
+                                                               params.put("duration", duration);
+                                                           }
                                                            if(instant_deli!=null){
                                                                params.put("instant", instant_deli);
                                                            }
@@ -496,7 +498,10 @@ sixty_day_order.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeLis
                                                                params.put("user_id", user_id);
                                                                params.put("aId", user_add);
                                                                params.put("days", day_portion);
-                                                               params.put("duration", duration);
+
+                                                               if(duration!=null){
+                                                                   params.put("duration", duration);
+                                                               }
                                                                if(instant_deli!=null){
                                                                    params.put("instant", instant_deli);
                                                                }

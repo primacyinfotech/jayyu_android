@@ -42,7 +42,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_margin="8dp"
+                android:layout_margin="5dp"
                 android:gravity="center_vertical">
 
                <!-- <ImageView
@@ -56,27 +56,35 @@
                     android:id="@+id/search_layout_edit"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginTop="4sp"
+
                     android:background="@drawable/back_border"
-                    android:gravity="top"
-                    android:fontFamily="@font/clearsansbold"
+
+
                     android:hint="Search Medicines"
                     android:textColor="#000"
 
-                    android:textSize="12sp" />
+                    android:textSize="18sp" />
             </RelativeLayout>
         </LinearLayout>
 
 
     </RelativeLayout>
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_search"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent">
-
-            </androidx.recyclerview.widget.RecyclerView>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_search"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent">
+                </androidx.recyclerview.widget.RecyclerView>
+                <ImageView
+                    android:id="@+id/fack_image"
+                    android:visibility="gone"
+                    android:src="@drawable/emptycart"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent" />
+            </RelativeLayout>
         </LinearLayout>
 
     </ScrollView>

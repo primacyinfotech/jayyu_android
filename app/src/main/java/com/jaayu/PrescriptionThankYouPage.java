@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Html;
+import android.text.Spanned;
 import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -49,6 +51,15 @@ public class PrescriptionThankYouPage extends AppCompatActivity {
                 finish();
             }
         });
+        help_ord_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent GotoOrderPage=new Intent(PrescriptionThankYouPage.this,Help.class);
+                startActivity(GotoOrderPage);
+                overridePendingTransition(0,0);
+                finish();
+            }
+        });
         getDisclimer();
     }
     private void getDisclimer(){
@@ -66,7 +77,8 @@ public class PrescriptionThankYouPage extends AppCompatActivity {
                             if(status.equals("1")){
                                 JSONObject ins_con=person.getJSONObject("discm");
                                 String content_ins=ins_con.getString("body");
-                                disclaimer.setText(content_ins);
+                                Spanned htmlAsSpanned = Html.fromHtml(content_ins);
+                                disclaimer.setText(String.valueOf(htmlAsSpanned));
                             }
                             /*else {
                                 card_view_istant.setVisibility(View.GONE);
