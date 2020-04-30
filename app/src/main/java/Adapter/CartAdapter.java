@@ -503,7 +503,8 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
                                          /* SharedPreferences.Editor e=preferences.edit();
                                           e.clear();
                                           e.commit();*/
-                                         prescriptionReqDatabase.deleteDataPres();
+                                         //prescriptionReqDatabase.deleteDataPres();
+                                          prescriptionReqDatabase.removeSingleContact(position);
                                           Toast.makeText(context,status+" "+"Removed",Toast.LENGTH_LONG).show();
                                           Intent intent= new Intent(context, CartActivity.class);
                                           intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);

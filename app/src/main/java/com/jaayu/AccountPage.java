@@ -9,11 +9,28 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.text.Html;
+import android.text.Spanned;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import com.jaayu.Model.BaseUrl;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import Adapter.AccountPageListAdapter;
 import Model.AccountPageListModel;
@@ -26,15 +43,24 @@ public class AccountPage extends AppCompatActivity {
     RecyclerView recyclerView;
     AccountPageListAdapter accountPageListAdapter;
     ArrayList<AccountPageListModel> ac_List;
-    TextView edit_profile;
-
+    TextView edit_profile,customer_name,customer_phone,customer_email;
+    private String login_usr__url= BaseUrl.BaseUrlNew+"login_user_details";
+    SharedPreferences prefs_register;
+  private   String u_id;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account_page);
         myDb = new SaveCoupon(this);
+        prefs_register = getSharedPreferences(
+                "Register Details", Context.MODE_PRIVATE);
+        u_id=prefs_register.getString("USER_ID","");
         recyclerView=(RecyclerView)findViewById(R.id.account_list_view);
         edit_profile=(TextView)findViewById(R.id.edit_profile);
+        customer_name=(TextView)findViewById(R.id.customer_name);
+        customer_phone=(TextView)findViewById(R.id.customer_phone);
+        customer_email=(TextView)findViewById(R.id.customer_email);
+        getProfileDetails();
         ac_List=new ArrayList<>();
         ac_List.add(new AccountPageListModel(R.drawable.order,"My Orders"));
         ac_List.add(new AccountPageListModel(R.drawable.subscriptions,"Subscription"));
@@ -155,6 +181,59 @@ public class AccountPage extends AppCompatActivity {
              }
          }));
 
+    }
+    private void getProfileDetails(){
+        RequestQueue requestQueue = Volley.newRequestQueue(AccountPage.this);
+        StringRequest postRequest = new StringRequest(Request.Method.POST,login_usr__url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        // response
+                        Log.d("Response", response);
+                        try {
+                            //Do it with this it will work
+                            JSONObject person = new JSONObject(response);
+                            String status=person.getString("status");
+                            if(status.equals("1")){
+                                String name=person.getString("name");
+                                String email=person.getString("email");
+                                String phone=person.getString("phone");
+                                customer_name.setText(name);
+                                customer_email.setText(email);
+                                customer_phone.setText(phone);
+                            }
+                            /*else {
+                                card_view_istant.setVisibility(View.GONE);
+                            }
+*/
+
+
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            Toast.makeText(getApplicationContext(), "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                        }
+
+
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // error
+
+                    }
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("user_id",u_id);
+                return params;
+            }
+
+        };
+        requestQueue.add(postRequest);
     }
     @Override
     public void onBackPressed() {

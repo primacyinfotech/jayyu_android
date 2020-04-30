@@ -395,7 +395,10 @@ public class PrescriptionSubscriptionDelivery extends AppCompatActivity {
                 else if(single_day!=null){
 
                         day_portion=single_day;
-                    s_int_day = Integer.parseInt(single_day);
+                    if(!day_portion.equals(""))
+                    {
+                        s_int_day = Integer.parseInt(single_day);
+                    }
 
                 }
                 else {

@@ -77,6 +77,7 @@ public class DetailsItems extends AppCompatActivity {
     int count_cart;
     ProgressDialog progressDialog;
     int prescription_required;
+    int prescrp_req;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -192,6 +193,16 @@ public class DetailsItems extends AppCompatActivity {
                                     JSONObject person = new JSONObject(response);
                                     String status=person.getString("status");
                                     if(status.equals("success")){
+                                        if(prescrp_req==1){
+                                            boolean isUpdate=prescriptionReqDatabase.insertData(String.valueOf(prescrp_req));
+
+                                            if(isUpdate){
+                                                Toast.makeText(DetailsItems.this,"Data Update",Toast.LENGTH_LONG).show();
+                                            }
+                                            else {
+                                                Toast.makeText(DetailsItems.this,"Data not Updated",Toast.LENGTH_LONG).show();
+                                            }
+                                        }
                                         Intent goToCart=new Intent(DetailsItems.this,CartActivity.class);
                                         startActivity(goToCart);
                                         finish();
@@ -293,6 +304,7 @@ public class DetailsItems extends AppCompatActivity {
                         .replace(R.id.contentPanel, fm, "Searchfragment")
                         .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                         .commit();*/
+             //   prescriptionReqDatabase.deleteDataPres();
                 Intent intent = new Intent(DetailsItems.this, SearchActivity.class);
                 startActivity(intent);
                 overridePendingTransition(0,0);
@@ -355,8 +367,8 @@ public class DetailsItems extends AppCompatActivity {
                             String mrp_priz=person.getString("mrp");
                             String qty_per_prod=person.getString("box");
                             String save_amt_of=person.getString("offer_price");
-                           int prescrp_req=person.getInt("prescription_required");
-                           if(prescrp_req==1){
+                            prescrp_req=person.getInt("prescription_required");
+                          /* if(prescrp_req==1){
                                boolean isUpdate=prescriptionReqDatabase.insertData(String.valueOf(prescrp_req));
 
                                if(isUpdate){
@@ -365,7 +377,7 @@ public class DetailsItems extends AppCompatActivity {
                                else {
                                    Toast.makeText(DetailsItems.this,"Data not Updated",Toast.LENGTH_LONG).show();
                                }
-                           }
+                           }*/
 
 
                             SharedPreferences preferences = getSharedPreferences("PRESCRIPTION REQUIRED", Context.MODE_PRIVATE);
@@ -675,6 +687,7 @@ public class DetailsItems extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+      //  prescriptionReqDatabase.deleteDataPres();
         Intent intent = new Intent(DetailsItems.this, SearchActivity.class);
         startActivity(intent);
         overridePendingTransition(0,0);

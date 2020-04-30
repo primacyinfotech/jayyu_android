@@ -355,7 +355,11 @@ sixty_day_order.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeLis
                                                    s_int_day = Integer.parseInt(sixty_day);
                                                } else if (single_day != null) {
                                                    day_portion = single_day;
-                                                   s_int_day = Integer.parseInt(single_day);
+                                                   if(!day_portion.equals(""))
+                                                   {
+                                                       s_int_day = Integer.parseInt(single_day);
+                                                   }
+
                                                } else {
                                                    day_portion = "";
                                                    s_int_day = 0;
@@ -420,7 +424,9 @@ sixty_day_order.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeLis
 
                                                            params.put("user_id", user_id);
                                                            params.put("aId", user_add);
-                                                           params.put("days", day_portion);
+                                                           if(day_portion!=null){
+                                                               params.put("days", day_portion);
+                                                           }
                                                            if(duration!=null){
                                                                params.put("duration", duration);
                                                            }
@@ -497,7 +503,10 @@ sixty_day_order.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeLis
 
                                                                params.put("user_id", user_id);
                                                                params.put("aId", user_add);
-                                                               params.put("days", day_portion);
+                                                               if(day_portion!=null){
+                                                                   params.put("days", day_portion);
+                                                               }
+
 
                                                                if(duration!=null){
                                                                    params.put("duration", duration);

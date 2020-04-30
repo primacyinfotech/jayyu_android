@@ -5,14 +5,18 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.Html;
+import android.text.Spanned;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -35,24 +39,32 @@ import java.util.HashMap;
 import java.util.Map;
 
 import Adapter.OrderItemAdapter;
+import Adapter.OrderStatusPressAdapter;
 import Model.OderItemModel;
+import Model.OrderStatusPressModel;
 
 public class OrderDetails extends AppCompatActivity {
-    RecyclerView recyclerView;
+    RecyclerView recyclerView,pres_list;
     private ArrayList<OderItemModel> modelList;
     ImageView back_button,expend_btn,order_details_icon;
     OrderItemAdapter orderItemAdapter;
+    OrderStatusPressAdapter orderStatusPressAdapter;
+    ArrayList<OrderStatusPressModel> orderStatusPressModels;
     private Animation animationUp;
     private Animation animationDown;
     private TextView active_order_two,active_order_three,active_order,active_order_four,active_order_five,active_order_six,active_order_seven,order_id,order_date,text_cancel,text_pay,
             wallet_pay,jaayu_pay,online_pay,cod_pay;
     SharedPreferences prefs_register;
     private String Orderdetails_url=BaseUrl.BaseUrlNew+"order_details_profile";
+    private  String disclaimer_url=BaseUrl.BaseUrlNew+"disclaimer";
     String u_id,instant_id,ship_status,delivery_date,ord_id,ord_date,mrp_amt,save_amt,shipping_charge,tot_pay,ship_add_name,ship_add_phone,
-    ship_add_address,ship_add_land,ship_add_pin,payment_status,w_cash,j_cash,onli_cash,c_cash,Ord_vid;
+    ship_add_address,ship_add_land,ship_add_pin,payment_status,w_cash,j_cash,onli_cash,c_cash,Ord_vid,show_coupon;
     int odr_id;
-    private TextView mrp_amount,save_amount,ship_charge,total_pay,ship_address,date_of_delivery;
+    private TextView mrp_amount,save_amount,ship_charge,total_pay,ship_address,date_of_delivery,disclaimer,place_apply_coupon, type_delivery,interval_delivery,
+            customer_name,address_text,address_land,address_zipt,address_phone;
     private LinearLayout cancel_btn,paynow_btn,wraper_wallet,wraper_jaayu_cash,wraper_online_cash,wraper_cod_cash;
+    private EditText additional_note;
+    ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +72,12 @@ public class OrderDetails extends AppCompatActivity {
         setContentView(R.layout.activity_order_details);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        progressDialog = new ProgressDialog(OrderDetails.this);
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progressDialog.show();
+        progressDialog.setMessage("Downloading...");
+        progressDialog.setCancelable(false);
+        orderStatusPressModels=new ArrayList<>();
         prefs_register = getSharedPreferences(
                 "Register Details", Context.MODE_PRIVATE);
         u_id=prefs_register.getString("USER_ID","");
@@ -90,12 +108,22 @@ public class OrderDetails extends AppCompatActivity {
         total_pay=(TextView)findViewById(R.id.total_pay);
         ship_address=(TextView)findViewById(R.id.ship_address);
         date_of_delivery=(TextView)findViewById(R.id.date_of_delivery);
+        type_delivery=(TextView)findViewById(R.id.type_of_delivery);
+        interval_delivery=(TextView)findViewById(R.id.interval_of_delivery);
+        place_apply_coupon=(TextView)findViewById(R.id.place_apply_coupon);
+        disclaimer=(TextView)findViewById(R.id.disclaimer);
+        customer_name=(TextView)findViewById(R.id.customer_name);
+        address_text=(TextView)findViewById(R.id.address_text);
+        address_land=(TextView)findViewById(R.id.address_land);
+        address_zipt=(TextView)findViewById(R.id.address_zipt);
+        address_phone=(TextView)findViewById(R.id.address_phone);
         text_pay=(TextView)findViewById(R.id.text_pay);
         text_cancel=(TextView)findViewById(R.id.text_cancel);
         wallet_pay=(TextView)findViewById(R.id.wallet_pay);
         jaayu_pay=(TextView)findViewById(R.id.jaayu_pay);
         online_pay=(TextView)findViewById(R.id.online_pay);
         cod_pay=(TextView)findViewById(R.id.cod_pay);
+        additional_note=(EditText)findViewById(R.id.additional_note);
         cancel_btn=(LinearLayout)findViewById(R.id.cancel_btn);
         paynow_btn=(LinearLayout)findViewById(R.id.paynow_btn);
         wraper_wallet=(LinearLayout)findViewById(R.id.wraper_wallet);
@@ -126,6 +154,7 @@ public class OrderDetails extends AppCompatActivity {
             }
         });
         recyclerView=(RecyclerView)findViewById(R.id.rv_items);
+        pres_list=(RecyclerView)findViewById(R.id.pres_list);
    /*     recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         orderItemAdapter=new OrderItemAdapter(modelList,this);
@@ -145,7 +174,10 @@ public class OrderDetails extends AppCompatActivity {
                 }
             }
         });*/
+
         getOrderDetails();
+        getPrescription();
+        getDisclimer();
     }
     private void getOrderDetails(){
         order_id=(TextView)findViewById(R.id.ordr_id);
@@ -206,7 +238,12 @@ public class OrderDetails extends AppCompatActivity {
                             ship_add_address=person.getString("Address");
                             ship_add_land=person.getString("Landmark");
                             ship_add_pin=person.getString("Pincode");
-                            ship_address.setText(ship_add_name+"\n"+ship_add_address+"\n"+ship_add_land+","+"Pin:"+ship_add_pin+"\n"+"Mobile:"+ship_add_phone);
+                          ///  ship_address.setText(ship_add_name+"\n"+ship_add_address+"\n"+ship_add_land+"\n"+ship_add_pin+"\n"+ship_add_phone);
+                            customer_name.setText(ship_add_name);
+                            address_text.setText(ship_add_address);
+                            address_land.setText(ship_add_land);
+                            address_zipt.setText(ship_add_pin);
+                            address_phone.setText(ship_add_phone);
                             if(ship_status.equals("0")){
                                 order_details_icon.setImageResource(R.drawable.tickyellow);
                                 active_order.setVisibility(View.VISIBLE);
@@ -328,9 +365,41 @@ public class OrderDetails extends AppCompatActivity {
                                 text_cancel.setText("Reorder");
                                 text_pay.setText("Help");
                             }
-                            delivery_date=person.getString("Delivery date");
-                            date_of_delivery.setText(delivery_date);
+                            show_coupon=person.getString("copon_code");
+                            if(show_coupon!=null){
+                                place_apply_coupon.setText(show_coupon);
 
+
+                            }
+                            else {
+                                place_apply_coupon.setText("Coupon Not Applied");
+
+                            }
+                            delivery_date=person.getString("Delivery date");
+                            String subs_days=person.getString("day");
+                            String subs_interval=person.getString("interval");
+                            String subs_instant=person.getString("instant");
+                            date_of_delivery.setText(delivery_date);
+                            if(subs_instant.equals("0")){
+                                type_delivery.setText("Normal Delivery");
+                            }
+                            else {
+                                type_delivery.setText("Instant Delivery");
+                            }
+                            if(subs_days.equals("1")&&subs_interval.equals("1")){
+                                interval_delivery.setText("One Time Order");
+                            }
+                            else {
+                                /* interval_delivery.setText(subs_days+"Days"+" "+subs_interval+"Delivery");*/
+                                interval_delivery.setText(subs_interval+" Delivery"+" "+"Every"+" "+subs_days+" Days");
+                            }
+                            String order_note=person.getString("order_note");
+                            if(!order_note.equals("null")){
+                                additional_note.setText(order_note);
+                            }
+                            else {
+                                additional_note.setText("");
+                            }
 
                             if (status.equals("1")) {
                                 JSONArray jsonArray=person.getJSONArray("Items");
@@ -385,6 +454,125 @@ public class OrderDetails extends AppCompatActivity {
             }
         };
 
+        requestQueue.add(postRequest);
+    }
+    private void getPrescription(){
+        RequestQueue requestQueue = Volley.newRequestQueue(OrderDetails.this);
+        StringRequest postRequest = new StringRequest(Request.Method.POST,Orderdetails_url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        // response
+                        Log.d("Response", response);
+                        try {
+                            //Do it with this it will work
+                            JSONObject person = new JSONObject(response);
+                            String status = person.getString("status");
+                            if (status.equals("1")) {
+
+                                progressDialog.dismiss();
+                                pres_list.setVisibility(View.VISIBLE);
+                                JSONArray jsonArray=person.getJSONArray("prescription");
+                                for (int i=0;i<jsonArray.length();i++){
+                                    OrderStatusPressModel orderStatusPressModel=new OrderStatusPressModel();
+                                    JSONObject jsonObject=jsonArray.getJSONObject(i);
+                                    orderStatusPressModel.setPress_img(jsonObject.getString("prescription"));
+                                    orderStatusPressModels.add(orderStatusPressModel);
+
+
+
+                                }
+
+
+                                orderStatusPressAdapter=new OrderStatusPressAdapter(orderStatusPressModels,OrderDetails.this);
+                                pres_list.setLayoutManager(new LinearLayoutManager(OrderDetails.this,RecyclerView.HORIZONTAL,false));
+                                pres_list.setHasFixedSize(true);
+                                pres_list.setAdapter(orderStatusPressAdapter);
+                                orderStatusPressAdapter.notifyDataSetChanged();
+
+                            }
+
+
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            Toast.makeText(getApplicationContext(), "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                        }
+
+
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // error
+
+                    }
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
+
+                params.put("user_id", u_id);
+                params.put("oid", String.valueOf(odr_id));
+                params.put("order_id", Ord_vid);
+                params.put("instant", instant_id);
+                return params;
+            }
+        };
+
+        requestQueue.add(postRequest);
+    }
+    private void getDisclimer(){
+        RequestQueue requestQueue = Volley.newRequestQueue(OrderDetails.this);
+        StringRequest postRequest = new StringRequest(Request.Method.POST,disclaimer_url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        // response
+                        Log.d("Response", response);
+                        try {
+                            //Do it with this it will work
+                            JSONObject person = new JSONObject(response);
+                            String status=person.getString("status");
+                            if(status.equals("1")){
+                                JSONObject ins_con=person.getJSONObject("discm");
+                                String content_ins=ins_con.getString("body");
+                                Spanned htmlAsSpanned = Html.fromHtml(content_ins);
+                                disclaimer.setText(String.valueOf(htmlAsSpanned));
+
+                            }
+                            /*else {
+                                card_view_istant.setVisibility(View.GONE);
+                            }
+*/
+
+
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            Toast.makeText(getApplicationContext(), "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                        }
+
+
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // error
+
+                    }
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
+                return params;
+            }
+
+        };
         requestQueue.add(postRequest);
     }
     @Override

@@ -88,7 +88,7 @@
                         android:id="@+id/wallet_details"
                         android:layout_marginLeft="60dp"
                         android:textSize="15sp"
-                        android:text="You Can Use maximum 25% of The order Ammount"
+
                         android:textColor="#52E179"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
@@ -105,15 +105,15 @@
                 <LinearLayout
                     android:orientation="vertical"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="80dp">
                     <LinearLayout
                         android:orientation="horizontal"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
                         <CheckBox
                             android:id="@+id/jaayu_wallet"
-                            android:layout_width="180dp"
-                            android:text="Jaayu Cash"
+                            android:layout_width="200dp"
+                            android:text="Jaayu Wallet"
                             android:fontFamily="@font/clearsansbold"
                             android:textColor="#000"
                             android:textSize="18sp"
@@ -134,8 +134,8 @@
                     <TextView
                         android:id="@+id/jaayu_details"
                         android:layout_marginLeft="60dp"
-                        android:textSize="15sp"
-                        android:text="You Can Use maximum 25% of The order Ammount"
+                        android:textSize="16sp"
+                        android:text="Maximum 20% of the order amount"
                         android:textColor="#52E179"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
@@ -317,7 +317,7 @@ on orders above Rs.100.Offer Valid Once Per User between 1st to 30th Nov"
                         <CheckBox
                             android:id="@+id/netbank"
                             android:layout_width="match_parent"
-                            android:text="NetBanking"
+                            android:text="Credit Card/Debit Card/Net Banking/Wallets/UPI"
                             android:fontFamily="@font/clearsansbold"
                             android:textColor="#000"
                             android:textSize="18sp"
@@ -338,6 +338,7 @@ on orders above Rs.100.Offer Valid Once Per User between 1st to 30th Nov"
                     </View>
                     <LinearLayout
                         android:orientation="horizontal"
+                        android:visibility="gone"
                         android:layout_width="match_parent"
                         android:layout_height="60dp">
                         <CheckBox
@@ -441,7 +442,7 @@ on orders above Rs.100.Offer Valid Once Per User between 1st to 30th Nov"
                 <TextView
                     android:textColor="#000"
                     android:textSize="14sp"
-                    android:text="Saving**    "
+                    android:text="Saving    "
                     android:fontFamily="@font/clearsansbold"
                     android:layout_width="150dp"
                     android:layout_height="wrap_content" />
@@ -467,7 +468,7 @@ on orders above Rs.100.Offer Valid Once Per User between 1st to 30th Nov"
                 <TextView
                     android:textColor="#000"
                     android:textSize="14sp"
-                    android:text="Shipping Charges"
+                    android:text="Delivery Charges"
                     android:fontFamily="@font/clearsansbold"
                     android:layout_width="150dp"
                     android:layout_height="wrap_content" />
@@ -626,11 +627,21 @@ on orders above Rs.100.Offer Valid Once Per User between 1st to 30th Nov"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <TextView
-                android:text="Jaayu is technology platform to connect buyers and sellers
-and is not involved is sales of any products"
-                android:textSize="15sp"
+
+                android:text="Disclaimer"
+                android:textSize="16sp"
+                android:textColor="#000"
                 android:layout_marginLeft="10dp"
                 android:fontFamily="@font/clearsansbold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/disclaimer"
+                android:text="Jaayu is technology platform to connect buyers and sellers
+and is not involved is sales of any products"
+                android:textSize="13sp"
+                android:layout_marginLeft="10dp"
+                android:textColor="#000"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
         </LinearLayout>

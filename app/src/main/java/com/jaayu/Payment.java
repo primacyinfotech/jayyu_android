@@ -9,6 +9,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.Html;
+import android.text.Spanned;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -47,8 +49,10 @@ public class Payment extends AppCompatActivity implements PaymentResultListener 
     private String Place_order_url=BaseUrl.BaseUrlNew+"order_payment";
     private String Normal_wallet_url=BaseUrl.BaseUrlNew+"normal_wallet_display";
     private String Jaayu_wallet_url=BaseUrl.BaseUrlNew+"jaayu_wallet_display";
+    private  String disclaimer_url=BaseUrl.BaseUrlNew+"disclaimer";
+
     private TextView open_item,mrp_total,total_save_price,shipping_charge,payable_amount,save_amount,discount_limit_amt,main_pay,
-            customer_name,address_text,email_add,wallwt_amount,jy_wallwt_amount,wallet_amount_,jywallet_amount_;
+            customer_name,address_text,email_add,wallwt_amount,jy_wallwt_amount,wallet_amount_,jywallet_amount_,disclaimer;
     private Button submit_btn;
     int w_bal,Jay_wal;
     double reminder_bal,reminder_bal_jy,jy_wal_substract,persentage;
@@ -75,6 +79,7 @@ public class Payment extends AppCompatActivity implements PaymentResultListener 
         radio_three=(RadioGroup)findViewById(R.id.radio_three);
         cash_delivery=(CheckBox)findViewById(R.id.cash_delivery);
         netbank=(CheckBox)findViewById(R.id.netbank);
+        disclaimer=(TextView)findViewById(R.id.disclaimer);
         //paytm=(CheckBox)findViewById(R.id.paytm);
        // amazon_pay=(CheckBox)findViewById(R.id.amazon_pay);
        // ola_money=(CheckBox)findViewById(R.id.ola_money);
@@ -97,6 +102,7 @@ public class Payment extends AppCompatActivity implements PaymentResultListener 
         calcutate_section();
         normal_wallet_amt_display();
         jaayu_wallet_amount_displat();
+        getDisclimer();
       /*  Intent passDataFromDeliveryPage=getIntent();
         user_id=passDataFromDeliveryPage.getStringExtra("User_ID");
         user_add=passDataFromDeliveryPage.getStringExtra("User_add");
@@ -966,7 +972,7 @@ public class Payment extends AppCompatActivity implements PaymentResultListener 
                             if(status.equals("1")){
                                 progressDialog.dismiss();
                                  balance_og=person.getString("balance");
-                                 wallwt_amount.setText("("+"\u20B9"+balance_og+")");
+                                 wallwt_amount.setText(" "+"\u20B9"+balance_og+" ");
 
 
                             }
@@ -1023,7 +1029,7 @@ public class Payment extends AppCompatActivity implements PaymentResultListener 
                                 progressDialog.dismiss();
                                         balance_jy=person.getString("balance");
 
-                                jy_wallwt_amount.setText("("+"\u20B9"+balance_jy+")");
+                                jy_wallwt_amount.setText(" "+"\u20B9"+balance_jy+" ");
 
 
                             }
@@ -1166,5 +1172,56 @@ public class Payment extends AppCompatActivity implements PaymentResultListener 
         } catch (Exception e) {
             Log.e("OnPaymentError", "Exception in onPaymentError", e);
         }
+    }
+    private void getDisclimer(){
+        RequestQueue requestQueue = Volley.newRequestQueue(Payment.this);
+        StringRequest postRequest = new StringRequest(Request.Method.POST,disclaimer_url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        // response
+                        Log.d("Response", response);
+                        try {
+                            //Do it with this it will work
+                            JSONObject person = new JSONObject(response);
+                            String status=person.getString("status");
+                            if(status.equals("1")){
+                                JSONObject ins_con=person.getJSONObject("discm");
+                                String content_ins=ins_con.getString("body");
+                                Spanned htmlAsSpanned = Html.fromHtml(content_ins);
+                                disclaimer.setText(String.valueOf(htmlAsSpanned));
+
+                            }
+                            /*else {
+                                card_view_istant.setVisibility(View.GONE);
+                            }
+*/
+
+
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            Toast.makeText(getApplicationContext(), "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                        }
+
+
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // error
+
+                    }
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
+                return params;
+            }
+
+        };
+        requestQueue.add(postRequest);
     }
 }

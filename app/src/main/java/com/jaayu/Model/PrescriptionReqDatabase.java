@@ -48,4 +48,15 @@ public class PrescriptionReqDatabase  extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("delete from "+ TABLE_NAME);
     }
+    public void removeSingleContact(int id) {
+        //Open the database
+        SQLiteDatabase database = this.getWritableDatabase();
+
+        //Execute sql query to remove from database
+        //NOTE: When removing by String in SQL, value must be enclosed with ''
+        database.execSQL("DELETE FROM " + TABLE_NAME + " WHERE " + COL_1 + "= '" + id + "'");
+
+        //Close the database
+        database.close();
+    }
 }

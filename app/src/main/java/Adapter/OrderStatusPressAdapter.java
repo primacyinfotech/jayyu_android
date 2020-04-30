@@ -48,7 +48,6 @@ public class OrderStatusPressAdapter  extends RecyclerView.Adapter<OrderStatusPr
                 PhotoView imageView=(PhotoView)settingsDialog.findViewById(R.id.full_screen);
                 ImageView  imageView2=(ImageView)settingsDialog.findViewById(R.id.close_full_img);
                 Picasso.with(context)
-
                         .load("https://work.primacyinfotech.com/jaayu/upload/prescription/" + orderStatusPressModels.get(position).getPress_img())
                         .into(imageView);
                 imageView2.setOnClickListener(new View.OnClickListener() {
