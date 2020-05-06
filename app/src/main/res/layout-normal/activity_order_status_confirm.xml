@@ -27,7 +27,7 @@
             <TextView
                 android:textColor="#fff"
                 android:layout_gravity="center"
-                android:text="Order Status Confirm"
+                android:text="Order Return"
                 android:fontFamily="@font/clearsansbold"
                 android:textSize="20sp"
                 android:layout_width="wrap_content"
@@ -53,6 +53,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
                 android:background="#fff"
+                android:visibility="gone"
                 android:orientation="vertical"
                 android:padding="5dp">
                 <TextView
@@ -72,26 +73,109 @@
 
             </LinearLayout>
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:id="@+id/return_ship_layout"
                     android:background="@color/white"
-                    android:layout_marginTop="5dp"
-                    android:orientation="horizontal">
-
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:id="@+id/order_details_icon"
+                        android:layout_width="16dp"
+                        android:visibility="gone"
+                        android:layout_height="16dp"
+                        android:layout_gravity="center"
+                        />
                     <TextView
+                        android:text="Return Status :"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:text="Items"
                         android:textColor="#000"
-                        android:textSize="18sp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
+                        android:textSize="20sp"
+                        android:layout_marginLeft="20dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="150dp"
-                        android:text="Price are indicative"
-                        android:textSize="15sp" />
+                        android:layout_gravity="center"
+                        />
+                    <RelativeLayout
+                        android:layout_gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+                        <TextView
+
+                            android:id="@+id/active_order"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="5dp"
+                            android:fontFamily="@font/clearsansbold"
+                            android:text="Pending"
+                            android:textColor="#000"
+                            android:textSize="20sp" />
+                        <TextView
+
+                            android:id="@+id/active_order_two"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="5dp"
+                            android:fontFamily="@font/clearsansbold"
+                            android:text="Processing."
+                            android:textColor="@color/design_default_color_primary_dark"
+                            android:textSize="20sp" />
+                        <TextView
+
+                            android:id="@+id/active_order_three"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="5dp"
+                            android:fontFamily="@font/clearsansbold"
+                            android:text="Approved"
+                            android:textColor="#000"
+                            android:textSize="20sp" />
+                        <TextView
+
+                            android:id="@+id/active_order_four"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="5dp"
+                            android:fontFamily="@font/clearsansbold"
+                            android:text="Amount Credited"
+                            android:textColor="#000"
+                            android:textSize="20sp" />
+                      <!--  <TextView
+
+                            android:id="@+id/active_order_five"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="5dp"
+                            android:fontFamily="@font/clearsansbold"
+                            android:text="Delivered"
+                            android:textColor="#009900"
+                            android:textSize="20sp"/>
+                        <TextView
+
+                            android:id="@+id/active_order_six"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="5dp"
+                            android:fontFamily="@font/clearsansbold"
+                            android:text="Cancelled"
+                            android:textColor="#ff0000"
+                            android:textSize="20sp"/>
+                        <TextView
+
+                            android:id="@+id/active_order_seven"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="5dp"
+                            android:fontFamily="@font/clearsansbold"
+                            android:text="Rejected"
+                            android:textColor="#ff0000"
+                            android:textSize="20sp" />-->
+                    </RelativeLayout>
                 </LinearLayout>
                 <LinearLayout
                     android:orientation="vertical"
@@ -359,6 +443,30 @@ and is not involved is sales of any products"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
                 </LinearLayout>-->
+                <LinearLayout
+                    android:layout_marginTop="10dp"
+                    android:orientation="vertical"
+                    android:padding="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:fontFamily="@font/clearsansbold"
+                        android:text="Disclaimer"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginTop="5dp"
+                        android:textColor="#000"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:id="@+id/disclaimer"
+                        android:text="Jaayu is technology platform to connect buyers and sellers
+and is not involved is sales of any products"
+                        android:textSize="15sp"
+                        android:layout_marginLeft="10dp"
+                        android:fontFamily="@font/clearsansbold"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
             </LinearLayout>.
 
         </ScrollView>
@@ -402,7 +510,7 @@ and is not involved is sales of any products"
                     android:fontFamily="@font/clearsansbold"
                     android:textColor="#fff"
                     android:textAllCaps="false"
-                    android:text="Confirm and pay"
+                    android:text="Return"
                     android:textSize="18dp"
                     android:layout_marginLeft="25dp"
                     android:layout_marginTop="10dp"

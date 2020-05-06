@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -38,7 +39,7 @@ import java.util.Map;
 import Model.OrderStatusItemModel;
 
 public class OrderStatusItemAdapter extends RecyclerView.Adapter<OrderStatusItemAdapter.MyViewHolder>{
-    private ArrayList<OrderStatusItemModel> modelList;
+    public  static ArrayList<OrderStatusItemModel> modelList;
     private Context context;
     SharedPreferences prefs_register;
     SharedPreferences ord_id_instant;
@@ -81,7 +82,8 @@ public class OrderStatusItemAdapter extends RecyclerView.Adapter<OrderStatusItem
             holder.mrp.setPaintFlags(holder.mrp.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
         }
         //holder.qyt.setText(mList.getQuantity()+"x");
-        holder.cart_product_quantity_tv.setText(""+mList.getQuantity());
+       // holder.cart_product_quantity_tv.setText(""+mList.getQuantity());
+        holder.cart_product_quantity_tv.setText(""+modelList.get(position).getQuantity());
         holder.cart_plus_img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -110,16 +112,16 @@ public class OrderStatusItemAdapter extends RecyclerView.Adapter<OrderStatusItem
                                         String status=person.getString("status");
                                         if(status.equals("1")){
                                             String msg=person.getString("Message");
-                                   /*   Intent intent= new Intent(context,CartActivity.class);
+                                      Intent intent= new Intent(context,OrderStatusConfirm.class);
                                       intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                                       context.startActivity(intent);
-                                      ((Activity) context).overridePendingTransition(0,0);*/
+                                      ((Activity) context).overridePendingTransition(0,0);
 
-                                            Intent intent= new Intent("message_order_intent");
+                                           /* Intent intent= new Intent("message_order_intent");
                                             intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                                             LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
-                                            ((Activity) context).overridePendingTransition(0,0);
-                                            progressDialog.dismiss();
+                                            ((Activity) context).overridePendingTransition(0,0);*/
+                                           // progressDialog.dismiss();
 
 
                                              //Toast.makeText(context,msg,Toast.LENGTH_LONG).show();
@@ -193,15 +195,15 @@ public class OrderStatusItemAdapter extends RecyclerView.Adapter<OrderStatusItem
                                         JSONObject person = new JSONObject(response);
                                         String status=person.getString("status");
                                         if(status.equals("1")){
-                                          /*Intent intent= new Intent(context, CartActivity.class);
-                                          intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                                          context.startActivity(intent);
-                                          ((Activity) context).overridePendingTransition(0,0);*/
-                                            Intent intent= new Intent("message_order_intent");
+                                            Intent intent= new Intent(context,OrderStatusConfirm.class);
+                                            intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                                            context.startActivity(intent);
+                                            ((Activity) context).overridePendingTransition(0,0);
+                                          /*  Intent intent= new Intent("message_order_intent");
                                             intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                                             LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
-                                            ((Activity) context).overridePendingTransition(0,0);
-                                            progressDialog.dismiss();
+                                            ((Activity) context).overridePendingTransition(0,0);*/
+                                            //progressDialog.dismiss();
                                             //  Toast.makeText(context,status,Toast.LENGTH_LONG).show();
                                         }
                                         else {
@@ -259,16 +261,16 @@ public class OrderStatusItemAdapter extends RecyclerView.Adapter<OrderStatusItem
                                         JSONObject person = new JSONObject(response);
                                         String status=person.getString("status");
                                         if(status.equals("1")){
-                                         /* Intent intent= new Intent(context, CartActivity.class);
-                                          intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                                          context.startActivity(intent);
-                                          ((Activity) context).overridePendingTransition(0,0);*/
-                                            Intent intent= new Intent("message_order_intent");
+                                            Intent intent= new Intent(context,OrderStatusConfirm.class);
+                                            intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                                            context.startActivity(intent);
+                                            ((Activity) context).overridePendingTransition(0,0);
+                                           /* Intent intent= new Intent("message_order_intent");
 
                                             intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                                             LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
-                                            ((Activity) context).overridePendingTransition(0,0);
-                                            progressDialog.dismiss();
+                                            ((Activity) context).overridePendingTransition(0,0);*/
+                                           // progressDialog.dismiss();
                                             // Toast.makeText(context,status+" "+"Removed",Toast.LENGTH_LONG).show();
                                         }
                                         else {
@@ -384,6 +386,20 @@ public class OrderStatusItemAdapter extends RecyclerView.Adapter<OrderStatusItem
                 queue.add(postRequest);
             }
         });
+        holder.item_select_check.setChecked(modelList.get(position).getSelected());
+        holder.item_select_check.setTag(position);
+        holder.item_select_check.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Integer pos=(Integer) holder.item_select_check.getTag();
+                if(modelList.get(pos).getSelected()){
+                    modelList.get(pos).setSelected(false);
+                }
+                else {
+                    modelList.get(pos).setSelected(true);
+                }
+            }
+        });
 
     }
 
@@ -395,6 +411,7 @@ public class OrderStatusItemAdapter extends RecyclerView.Adapter<OrderStatusItem
     public class MyViewHolder extends RecyclerView.ViewHolder {
         ImageView cart_minus_img,cart_plus_img;
         TextView cart_product_quantity_tv,delete_item_button,item_name,qyt,unit,mrp,amount;
+        CheckBox item_select_check;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             cart_plus_img=(ImageView)itemView.findViewById(R.id.cart_plus_img);
@@ -406,6 +423,7 @@ public class OrderStatusItemAdapter extends RecyclerView.Adapter<OrderStatusItem
             mrp=(TextView)itemView.findViewById(R.id.mrp);
             amount=(TextView)itemView.findViewById(R.id.amount);
             cart_product_quantity_tv=(TextView)itemView.findViewById(R.id.cart_product_quantity_tv);
+            item_select_check=(CheckBox)itemView.findViewById(R.id.item_select_check);
         }
     }
 }

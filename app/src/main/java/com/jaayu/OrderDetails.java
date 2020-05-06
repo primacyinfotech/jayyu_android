@@ -53,12 +53,12 @@ public class OrderDetails extends AppCompatActivity {
     private Animation animationUp;
     private Animation animationDown;
     private TextView active_order_two,active_order_three,active_order,active_order_four,active_order_five,active_order_six,active_order_seven,order_id,order_date,text_cancel,text_pay,
-            wallet_pay,jaayu_pay,online_pay,cod_pay;
+            wallet_pay,jaayu_pay,online_pay,cod_pay,active_order_eight,active_order_nine,active_orderten,active_order_eleven,status_title;
     SharedPreferences prefs_register;
     private String Orderdetails_url=BaseUrl.BaseUrlNew+"order_details_profile";
     private  String disclaimer_url=BaseUrl.BaseUrlNew+"disclaimer";
     String u_id,instant_id,ship_status,delivery_date,ord_id,ord_date,mrp_amt,save_amt,shipping_charge,tot_pay,ship_add_name,ship_add_phone,
-    ship_add_address,ship_add_land,ship_add_pin,payment_status,w_cash,j_cash,onli_cash,c_cash,Ord_vid,show_coupon;
+    ship_add_address,ship_add_land,ship_add_pin,payment_status,w_cash,j_cash,onli_cash,c_cash,Ord_vid,show_coupon,return_date;
     int odr_id;
     private TextView mrp_amount,save_amount,ship_charge,total_pay,ship_address,date_of_delivery,disclaimer,place_apply_coupon, type_delivery,interval_delivery,
             customer_name,address_text,address_land,address_zipt,address_phone;
@@ -102,6 +102,11 @@ public class OrderDetails extends AppCompatActivity {
         active_order_five=(TextView)findViewById(R.id.active_order_five);
         active_order_six=(TextView)findViewById(R.id.active_order_six);
         active_order_seven=(TextView)findViewById(R.id.active_order_seven);
+        active_order_eight=(TextView)findViewById(R.id.active_order_eight);
+        active_order_nine=(TextView)findViewById(R.id.active_order_nine);
+        active_orderten=(TextView)findViewById(R.id.active_orderten);
+        active_order_eleven=(TextView)findViewById(R.id.active_order_eleven);
+        status_title=(TextView)findViewById(R.id.status_title);
         mrp_amount=(TextView)findViewById(R.id.mrp_amount);
         save_amount=(TextView)findViewById(R.id.save_amount);
         ship_charge=(TextView)findViewById(R.id.ship_charge);
@@ -142,6 +147,10 @@ public class OrderDetails extends AppCompatActivity {
         active_order_five.setVisibility(View.GONE);
         active_order_six.setVisibility(View.GONE);
         active_order_seven.setVisibility(View.GONE);
+        active_order_eight.setVisibility(View.GONE);
+        active_order_nine.setVisibility(View.GONE);
+        active_orderten.setVisibility(View.GONE);
+        active_order_eleven.setVisibility(View.GONE);
 
 
         back_button.setOnClickListener(new View.OnClickListener() {
@@ -195,6 +204,7 @@ public class OrderDetails extends AppCompatActivity {
                             String status = person.getString("status");
                             ship_status=person.getString("shipping_status");
                             payment_status=person.getString("payment_status");
+                            return_date=person.getString("return_date");
                             ord_id=person.getString("OrderId");
                             order_id.setText(ord_id);
                             ord_date=person.getString("Order_date");
@@ -253,6 +263,11 @@ public class OrderDetails extends AppCompatActivity {
                                 active_order_five.setVisibility(View.GONE);
                                 active_order_six.setVisibility(View.GONE);
                                 active_order_seven.setVisibility(View.GONE);
+                                active_order_eight.setVisibility(View.GONE);
+                                active_order_nine.setVisibility(View.GONE);
+                                active_orderten.setVisibility(View.GONE);
+                                active_order_eleven.setVisibility(View.GONE);
+                                status_title.setText("Order Status :");
                                 text_cancel.setText("Cancel Order");
                                 text_pay.setText("Help");
 
@@ -267,6 +282,11 @@ public class OrderDetails extends AppCompatActivity {
                                 active_order_five.setVisibility(View.GONE);
                                 active_order_six.setVisibility(View.GONE);
                                 active_order_seven.setVisibility(View.GONE);
+                                active_order_eight.setVisibility(View.GONE);
+                                active_order_nine.setVisibility(View.GONE);
+                                active_orderten.setVisibility(View.GONE);
+                                active_order_eleven.setVisibility(View.GONE);
+                                status_title.setText("Order Status :");
                                 text_cancel.setText("Confirm & Pay");
                                 text_pay.setText("Cancel Order");
                                 /* if(payment_status.equals("0")){
@@ -296,6 +316,11 @@ public class OrderDetails extends AppCompatActivity {
                                 active_order_five.setVisibility(View.GONE);
                                 active_order_six.setVisibility(View.GONE);
                                 active_order_seven.setVisibility(View.GONE);
+                                active_order_eight.setVisibility(View.GONE);
+                                active_order_nine.setVisibility(View.GONE);
+                                active_orderten.setVisibility(View.GONE);
+                                active_order_eleven.setVisibility(View.GONE);
+                                status_title.setText("Order Status :");
                                 text_cancel.setText("Cancel Order");
                                 text_pay.setText("Help");
 
@@ -309,6 +334,11 @@ public class OrderDetails extends AppCompatActivity {
                                 active_order_five.setVisibility(View.GONE);
                                 active_order_six.setVisibility(View.GONE);
                                 active_order_seven.setVisibility(View.GONE);
+                                active_order_eight.setVisibility(View.GONE);
+                                active_order_nine.setVisibility(View.GONE);
+                                active_orderten.setVisibility(View.GONE);
+                                active_order_eleven.setVisibility(View.GONE);
+                                status_title.setText("Order Status :");
                                 text_cancel.setText("Reorder");
                                 text_pay.setText("Help");
 
@@ -322,8 +352,34 @@ public class OrderDetails extends AppCompatActivity {
                                 active_order_five.setVisibility(View.VISIBLE);
                                 active_order_six.setVisibility(View.GONE);
                                 active_order_seven.setVisibility(View.GONE);
-                                text_cancel.setText("Reorder");
-                                text_pay.setText("Help");
+                                active_order_eight.setVisibility(View.GONE);
+                                active_order_nine.setVisibility(View.GONE);
+                                active_orderten.setVisibility(View.GONE);
+                                active_order_eleven.setVisibility(View.GONE);
+                                status_title.setText("Order Status :");
+                               /* text_cancel.setText("Reorder");
+                                text_pay.setText("Help");*/
+                                if(return_date.equals("1")){
+                                    text_cancel.setText("Return");
+                                    text_pay.setText("Help");
+                                    text_cancel.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View view) {
+                                            Intent gotoStatusConfirm=new Intent(OrderDetails.this,OrderStatusConfirm.class);
+                                            gotoStatusConfirm.putExtra("Order_id",odr_id);
+                                            gotoStatusConfirm.putExtra("Order_Vid",Ord_vid);
+                                            gotoStatusConfirm.putExtra("Instant",instant_id);
+                                            startActivity(gotoStatusConfirm);
+                                            overridePendingTransition(0,0);
+                                            finish();
+                                        }
+                                    });
+                                }
+                                else {
+                                    text_cancel.setText("Reorder");
+                                    text_pay.setText("Help");
+                                }
+
                             }
                             if(ship_status.equals("5")){
                                 order_details_icon.setImageResource(R.drawable.tickyellow);
@@ -334,6 +390,11 @@ public class OrderDetails extends AppCompatActivity {
                                 active_order_five.setVisibility(View.GONE);
                                 active_order_six.setVisibility(View.VISIBLE);
                                 active_order_seven.setVisibility(View.GONE);
+                                active_order_eight.setVisibility(View.GONE);
+                                active_order_nine.setVisibility(View.GONE);
+                                active_orderten.setVisibility(View.GONE);
+                                active_order_eleven.setVisibility(View.GONE);
+                                status_title.setText("Order Status :");
                                /* if(payment_status.equals("0")){
                                     text_cancel.setText("Cancel Order");
                                     text_pay.setText("Pay Now");
@@ -354,6 +415,11 @@ public class OrderDetails extends AppCompatActivity {
                                 active_order_five.setVisibility(View.GONE);
                                 active_order_six.setVisibility(View.GONE);
                                 active_order_seven.setVisibility(View.VISIBLE);
+                                active_order_eight.setVisibility(View.GONE);
+                                active_order_nine.setVisibility(View.GONE);
+                                active_orderten.setVisibility(View.GONE);
+                                active_order_eleven.setVisibility(View.GONE);
+                                status_title.setText("Order Status :");
                                /* if(payment_status.equals("0")){
                                     text_cancel.setText("Cancel Order");
                                     text_pay.setText("Pay Now");
@@ -363,6 +429,106 @@ public class OrderDetails extends AppCompatActivity {
                                     text_pay.setText("Reorder");
                                 }*/
                                 text_cancel.setText("Reorder");
+                                text_pay.setText("Help");
+                            }
+                            if(ship_status.equals("7")){
+                                order_details_icon.setImageResource(R.drawable.tickyellow);
+                                active_order.setVisibility(View.GONE);
+                                active_order_two.setVisibility(View.GONE);
+                                active_order_three.setVisibility(View.GONE);
+                                active_order_four.setVisibility(View.GONE);
+                                active_order_five.setVisibility(View.GONE);
+                                active_order_six.setVisibility(View.GONE);
+                                active_order_seven.setVisibility(View.GONE);
+                                active_order_eight.setVisibility(View.VISIBLE);
+                                active_order_nine.setVisibility(View.GONE);
+                                active_orderten.setVisibility(View.GONE);
+                                active_order_eleven.setVisibility(View.GONE);
+                                status_title.setText("Return Status :");
+                               /* if(payment_status.equals("0")){
+                                    text_cancel.setText("Cancel Order");
+                                    text_pay.setText("Pay Now");
+                                }
+                                if(payment_status.equals("1")){
+                                    text_cancel.setText("Help");
+                                    text_pay.setText("Reorder");
+                                }*/
+                                text_cancel.setText("Return Note");
+                                text_pay.setText("Help");
+                            }
+                            if(ship_status.equals("8")){
+                                order_details_icon.setImageResource(R.drawable.tickyellow);
+                                active_order.setVisibility(View.GONE);
+                                active_order_two.setVisibility(View.GONE);
+                                active_order_three.setVisibility(View.GONE);
+                                active_order_four.setVisibility(View.GONE);
+                                active_order_five.setVisibility(View.GONE);
+                                active_order_six.setVisibility(View.GONE);
+                                active_order_seven.setVisibility(View.GONE);
+                                active_order_eight.setVisibility(View.GONE);
+                                active_order_nine.setVisibility(View.VISIBLE);
+                                active_orderten.setVisibility(View.GONE);
+                                active_order_eleven.setVisibility(View.GONE);
+                                status_title.setText("Return Status :");
+                               /* if(payment_status.equals("0")){
+                                    text_cancel.setText("Cancel Order");
+                                    text_pay.setText("Pay Now");
+                                }
+                                if(payment_status.equals("1")){
+                                    text_cancel.setText("Help");
+                                    text_pay.setText("Reorder");
+                                }*/
+                                text_cancel.setText("Return Note");
+                                text_pay.setText("Help");
+                            }
+                            if(ship_status.equals("9")){
+                                order_details_icon.setImageResource(R.drawable.tickyellow);
+                                active_order.setVisibility(View.GONE);
+                                active_order_two.setVisibility(View.GONE);
+                                active_order_three.setVisibility(View.GONE);
+                                active_order_four.setVisibility(View.GONE);
+                                active_order_five.setVisibility(View.GONE);
+                                active_order_six.setVisibility(View.GONE);
+                                active_order_seven.setVisibility(View.GONE);
+                                active_order_eight.setVisibility(View.GONE);
+                                active_order_nine.setVisibility(View.GONE);
+                                active_orderten.setVisibility(View.VISIBLE);
+                                active_order_eleven.setVisibility(View.GONE);
+                                status_title.setText("Return Status :");
+                               /* if(payment_status.equals("0")){
+                                    text_cancel.setText("Cancel Order");
+                                    text_pay.setText("Pay Now");
+                                }
+                                if(payment_status.equals("1")){
+                                    text_cancel.setText("Help");
+                                    text_pay.setText("Reorder");
+                                }*/
+                                text_cancel.setText("Return Note");
+                                text_pay.setText("Help");
+                            }
+                            if(ship_status.equals("10")){
+                                order_details_icon.setImageResource(R.drawable.tickyellow);
+                                active_order.setVisibility(View.GONE);
+                                active_order_two.setVisibility(View.GONE);
+                                active_order_three.setVisibility(View.GONE);
+                                active_order_four.setVisibility(View.GONE);
+                                active_order_five.setVisibility(View.GONE);
+                                active_order_six.setVisibility(View.GONE);
+                                active_order_seven.setVisibility(View.GONE);
+                                active_order_eight.setVisibility(View.GONE);
+                                active_order_nine.setVisibility(View.GONE);
+                                active_orderten.setVisibility(View.GONE);
+                                active_order_eleven.setVisibility(View.VISIBLE);
+                                status_title.setText("Return Status :");
+                               /* if(payment_status.equals("0")){
+                                    text_cancel.setText("Cancel Order");
+                                    text_pay.setText("Pay Now");
+                                }
+                                if(payment_status.equals("1")){
+                                    text_cancel.setText("Help");
+                                    text_pay.setText("Reorder");
+                                }*/
+                                text_cancel.setText("Return Note");
                                 text_pay.setText("Help");
                             }
                             show_coupon=person.getString("copon_code");

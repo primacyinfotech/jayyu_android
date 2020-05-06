@@ -106,6 +106,46 @@
         android:text="Rejected"
         android:textColor="#ff0000"
         android:textSize="16dp" />
+    <TextView
+        android:id="@+id/active_order_eight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginLeft="20dp"
+        android:fontFamily="@font/clearsansbold"
+        android:text="Return Pending"
+        android:textColor="#000"
+        android:textSize="16dp" />
+    <TextView
+        android:id="@+id/active_order_nine"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginLeft="20dp"
+        android:fontFamily="@font/clearsansbold"
+        android:text="Return Processing"
+        android:textColor="@color/design_default_color_primary_dark"
+        android:textSize="16dp" />
+    <TextView
+        android:id="@+id/active_orderten"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginLeft="20dp"
+        android:fontFamily="@font/clearsansbold"
+        android:text="Return Approved"
+        android:textColor="#000"
+        android:textSize="16dp" />
+    <TextView
+        android:id="@+id/active_order_eleven"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginLeft="20dp"
+        android:fontFamily="@font/clearsansbold"
+        android:text="Amount Credited"
+        android:textColor="#009900"
+        android:textSize="16dp" />
 </RelativeLayout>
     </LinearLayout>
         <View

@@ -3,7 +3,7 @@ package Model;
 public class OrderStatusItemModel {
     int item_id,quantity;
     String title,price_normal,mrp_price,strip;
-
+    private boolean isSelected;
     public int getItem_id() {
         return item_id;
     }
@@ -50,5 +50,11 @@ public class OrderStatusItemModel {
 
     public void setStrip(String strip) {
         this.strip = strip;
+    }
+    public void setSelected(boolean selected) {
+        isSelected = selected;
+    }
+    public boolean getSelected() {
+        return isSelected;
     }
 }

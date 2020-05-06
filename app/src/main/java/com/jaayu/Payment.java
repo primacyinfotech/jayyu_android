@@ -1,5 +1,6 @@
 package com.jaayu;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
@@ -12,7 +13,9 @@ import android.os.Bundle;
 import android.text.Html;
 import android.text.Spanned;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -842,12 +845,41 @@ public class Payment extends AppCompatActivity implements PaymentResultListener 
                                        JSONObject person = new JSONObject(response);
                                        String status=person.getString("status");
                                        if(status.equals("1")){
-                                           /*String message=person.getString("Message");
-                                           Toast.makeText(getApplicationContext(),message,Toast.LENGTH_LONG).show();*/
-                                           Intent goToThankPage=new Intent(Payment.this,ThankYouPayment.class);
+                                           String message=person.getString("Message");
+                                           //Toast.makeText(getApplicationContext(),message,Toast.LENGTH_LONG).show();
+                                          /* Intent goToThankPage=new Intent(Payment.this,ThankYouPayment.class);
                                            startActivity(goToThankPage);
                                            overridePendingTransition(0,0);
-                                           finish();
+                                           finish();*/
+                                           ViewGroup viewGroup = findViewById(android.R.id.content);
+
+                                           //then we will inflate the custom alert dialog xml that we created
+                                           View dialogView = LayoutInflater.from(Payment.this).inflate(R.layout.payment_success_dialog, viewGroup, false);
+                                           TextView masege=(TextView)dialogView.findViewById(R.id.return_msg) ;
+                                           Button buttonOk=(Button)dialogView.findViewById(R.id.buttonOk);
+                                           masege.setText(message);
+
+
+                                           //Now we need an AlertDialog.Builder object
+                                           AlertDialog.Builder builder = new AlertDialog.Builder(Payment.this);
+
+                                           //setting the view of the builder to our custom view that we already inflated
+                                           builder.setView(dialogView);
+
+                                           //finally creating the alert dialog and displaying it
+                                           final AlertDialog alertDialog = builder.create();
+                                           alertDialog.show();
+                                           buttonOk.setOnClickListener(new View.OnClickListener() {
+                                               @Override
+                                               public void onClick(View view) {
+                                                   alertDialog.dismiss();
+                                                   Intent goJumpPage=new Intent(Payment.this,OrderPage.class);
+
+                                                   startActivity(goJumpPage);
+                                                   overridePendingTransition(0,0);
+                                                   finish();
+                                               }
+                                           });
                                        }
 
                                    } catch (JSONException e) {
@@ -1118,12 +1150,41 @@ public class Payment extends AppCompatActivity implements PaymentResultListener 
                             JSONObject person = new JSONObject(response);
                             String status=person.getString("status");
                             if(status.equals("1")){
-                               /* String message=person.getString("Message");
-                                Toast.makeText(getApplicationContext(),message,Toast.LENGTH_LONG).show();*/
-                                Intent goToThankPage=new Intent(Payment.this,ThankYouPayment.class);
+                                String message=person.getString("Message");
+                               // Toast.makeText(getApplicationContext(),message,Toast.LENGTH_LONG).show();
+                              /*  Intent goToThankPage=new Intent(Payment.this,ThankYouPayment.class);
                                 startActivity(goToThankPage);
                                 overridePendingTransition(0,0);
-                                finish();
+                                finish();*/
+                                ViewGroup viewGroup = findViewById(android.R.id.content);
+
+                                //then we will inflate the custom alert dialog xml that we created
+                                View dialogView = LayoutInflater.from(Payment.this).inflate(R.layout.payment_success_dialog, viewGroup, false);
+                                TextView masege=(TextView)dialogView.findViewById(R.id.return_msg) ;
+                                Button buttonOk=(Button)dialogView.findViewById(R.id.buttonOk);
+                                masege.setText(message);
+
+
+                                //Now we need an AlertDialog.Builder object
+                                AlertDialog.Builder builder = new AlertDialog.Builder(Payment.this);
+
+                                //setting the view of the builder to our custom view that we already inflated
+                                builder.setView(dialogView);
+
+                                //finally creating the alert dialog and displaying it
+                                final AlertDialog alertDialog = builder.create();
+                                alertDialog.show();
+                                buttonOk.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        alertDialog.dismiss();
+                                        Intent goJumpPage=new Intent(Payment.this,OrderPage.class);
+
+                                        startActivity(goJumpPage);
+                                        overridePendingTransition(0,0);
+                                        finish();
+                                    }
+                                });
                             }
 
                         } catch (JSONException e) {
