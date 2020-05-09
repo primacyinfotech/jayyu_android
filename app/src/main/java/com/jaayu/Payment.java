@@ -638,7 +638,9 @@ public class Payment extends AppCompatActivity implements PaymentResultListener 
                  else {
                      jy_wal_substract=Double.parseDouble(tot_pay)-persentage;
                  }
-                 main_pay.setText(""+new DecimalFormat("##.##").format(jy_wal_substract));
+
+                // main_pay.setText(""+new DecimalFormat("##.##").format(jy_wal_substract));
+                 main_pay.setText(""+Math.round(Double.parseDouble(new DecimalFormat("##.##").format(jy_wal_substract))));
 
              }
              else {
@@ -652,7 +654,8 @@ public class Payment extends AppCompatActivity implements PaymentResultListener 
                  else {
                      jy_wal_substract=Double.parseDouble(tot_pay)-Double.parseDouble(balance_jy);
                  }
-                 main_pay.setText(""+new DecimalFormat("##.##").format(jy_wal_substract));
+                 //main_pay.setText(""+new DecimalFormat("##.##").format(jy_wal_substract));
+                 main_pay.setText(""+Math.round(Double.parseDouble(new DecimalFormat("##.##").format(jy_wal_substract))));
              }
              if(jy_wal_substract==0.0){
                  pay_status="1";
@@ -686,7 +689,8 @@ public class Payment extends AppCompatActivity implements PaymentResultListener 
                     //Double sum_val=reminder_bal-persentage;
 
 
-                    main_pay.setText(""+new DecimalFormat("##.##").format(reminder_bal));
+               /*     main_pay.setText(""+new DecimalFormat("##.##").format(reminder_bal));*/
+                main_pay.setText(""+Math.round(Double.parseDouble(new DecimalFormat("##.##").format(reminder_bal))));
                 /*if(jy_wal_substract!=0.0){
                     netbank.setEnabled(true);
                     credit_debit_card.setEnabled(true);
@@ -724,12 +728,14 @@ public class Payment extends AppCompatActivity implements PaymentResultListener 
                          wallet_amount_.setText(""+Double.parseDouble(tot_pay));
                          reminder_bal=Double.parseDouble(tot_pay)-Double.parseDouble(tot_pay);
                          main_pay.setText(""+new DecimalFormat("##.##").format(reminder_bal));
+                        /* main_pay.setText(""+Math.round(Double.parseDouble(new DecimalFormat("##.##").format(reminder_bal))));*/
 
                      }
                      else {
                          reminder_bal=Double.parseDouble(tot_pay)-Double.parseDouble(balance_og);
                          wallet_amount_.setText(""+balance_og);
                          main_pay.setText(""+new DecimalFormat("##.##").format(reminder_bal));
+                        /* main_pay.setText(""+Math.round(Double.parseDouble(new DecimalFormat("##.##").format(reminder_bal))));*/
                      }
                      if(reminder_bal==0.0){
                          pay_status="1";
@@ -762,6 +768,7 @@ public class Payment extends AppCompatActivity implements PaymentResultListener 
                // reminder_bal=Double.parseDouble(tot_pay)+Double.parseDouble(balance_og);
                 wallet_amount_.setText("0");
                 main_pay.setText(""+new DecimalFormat("##.##").format(Double.parseDouble(tot_pay)));
+            /*    main_pay.setText(""+Math.round(Double.parseDouble(new DecimalFormat("##.##").format(tot_pay))));*/
 
                     jaayu_details.setEnabled(true);
                     netbank.setEnabled(true);

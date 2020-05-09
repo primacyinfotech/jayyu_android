@@ -1,11 +1,20 @@
 package Model;
 
 public class OrderStatusItemModel {
-    int item_id,quantity;
+    int item_id,quantity,editTextValue;
     String title,price_normal,mrp_price,strip;
+
     private boolean isSelected;
     public int getItem_id() {
         return item_id;
+    }
+
+    public int getEditTextValue() {
+        return editTextValue;
+    }
+
+    public void setEditTextValue(int editTextValue) {
+        this.editTextValue = editTextValue;
     }
 
     public void setItem_id(int item_id) {

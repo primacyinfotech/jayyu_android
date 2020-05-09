@@ -87,18 +87,23 @@ public class OrderStatusItemAdapter extends RecyclerView.Adapter<OrderStatusItem
         holder.cart_plus_img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                progressDialog = new ProgressDialog(context);
+              /*  progressDialog = new ProgressDialog(context);
                 progressDialog.setMessage("loading..."); // Setting Message
                 // progressDialog.setTitle("ADD TO CART...."); // Setting Title
                 progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER); // Progress Dialog Style Spinner
                 progressDialog.show(); // Display Progress Dialog
-                progressDialog.setCancelable(false);
+                progressDialog.setCancelable(false);*/
                 int count=Integer.parseInt(String.valueOf(holder.cart_product_quantity_tv.getText()));
-                if(count<=29){
+
+               /* if(count<=29)*/
+                int act_qy=modelList.get(position).getQuantity();
+                int sub_qty=act_qy-1;
+                if(count<act_qy){
                     count++;
                     final int cou=count++;
                     holder.cart_product_quantity_tv.setText("" + cou);
-                    RequestQueue queue = Volley.newRequestQueue(context);
+                    modelList.get(position).setEditTextValue(cou);
+                   /* RequestQueue queue = Volley.newRequestQueue(context);
                     StringRequest postRequest = new StringRequest(Request.Method.POST, Order_quantity_update_url,
                             new Response.Listener<String>()
                             {
@@ -117,11 +122,11 @@ public class OrderStatusItemAdapter extends RecyclerView.Adapter<OrderStatusItem
                                       context.startActivity(intent);
                                       ((Activity) context).overridePendingTransition(0,0);
 
-                                           /* Intent intent= new Intent("message_order_intent");
+                                          *//*  Intent intent= new Intent("message_order_intent");
                                             intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                                             LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
-                                            ((Activity) context).overridePendingTransition(0,0);*/
-                                           // progressDialog.dismiss();
+                                            ((Activity) context).overridePendingTransition(0,0);
+                                            progressDialog.dismiss();*//*
 
 
                                              //Toast.makeText(context,msg,Toast.LENGTH_LONG).show();
@@ -164,25 +169,26 @@ public class OrderStatusItemAdapter extends RecyclerView.Adapter<OrderStatusItem
                             return params;
                         }
                     };
-                    queue.add(postRequest);
+                    queue.add(postRequest);*/
                 }
             }
         });
         holder.cart_minus_img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                progressDialog = new ProgressDialog(context);
+              /*  progressDialog = new ProgressDialog(context);
                 progressDialog.setMessage("loading..."); // Setting Message
                 // progressDialog.setTitle("ADD TO CART...."); // Setting Title
                 progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER); // Progress Dialog Style Spinner
                 progressDialog.show(); // Display Progress Dialog
-                progressDialog.setCancelable(false);
+                progressDialog.setCancelable(false);*/
                 int count= Integer.parseInt(String.valueOf(holder.cart_product_quantity_tv.getText()));
                 if (count == 1){
                     holder.cart_product_quantity_tv.setText("1");
 
                     final int cou2=count;
-                    RequestQueue queue = Volley.newRequestQueue(context);
+                    modelList.get(position).setEditTextValue(cou2);
+                   /* RequestQueue queue = Volley.newRequestQueue(context);
                     StringRequest postRequest = new StringRequest(Request.Method.POST, Order_quantity_update_url,
                             new Response.Listener<String>()
                             {
@@ -199,11 +205,11 @@ public class OrderStatusItemAdapter extends RecyclerView.Adapter<OrderStatusItem
                                             intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                                             context.startActivity(intent);
                                             ((Activity) context).overridePendingTransition(0,0);
-                                          /*  Intent intent= new Intent("message_order_intent");
+                                            *//*Intent intent= new Intent("message_order_intent");
                                             intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                                             LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
-                                            ((Activity) context).overridePendingTransition(0,0);*/
-                                            //progressDialog.dismiss();
+                                            ((Activity) context).overridePendingTransition(0,0);
+                                            progressDialog.dismiss();*//*
                                             //  Toast.makeText(context,status,Toast.LENGTH_LONG).show();
                                         }
                                         else {
@@ -242,13 +248,14 @@ public class OrderStatusItemAdapter extends RecyclerView.Adapter<OrderStatusItem
                             return params;
                         }
                     };
-                    queue.add(postRequest);
+                    queue.add(postRequest);*/
                 }
                 else {
                     count -= 1;
                     holder.cart_product_quantity_tv.setText("" + count);
                     final int cou3=count;
-                    RequestQueue queue = Volley.newRequestQueue(context);
+                    modelList.get(position).setEditTextValue(cou3);
+                 /*   RequestQueue queue = Volley.newRequestQueue(context);
                     StringRequest postRequest = new StringRequest(Request.Method.POST, Order_quantity_update_url,
                             new Response.Listener<String>()
                             {
@@ -265,12 +272,12 @@ public class OrderStatusItemAdapter extends RecyclerView.Adapter<OrderStatusItem
                                             intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                                             context.startActivity(intent);
                                             ((Activity) context).overridePendingTransition(0,0);
-                                           /* Intent intent= new Intent("message_order_intent");
+                                         *//*   Intent intent= new Intent("message_order_intent");
 
                                             intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                                             LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
-                                            ((Activity) context).overridePendingTransition(0,0);*/
-                                           // progressDialog.dismiss();
+                                            ((Activity) context).overridePendingTransition(0,0);
+                                            progressDialog.dismiss();*//*
                                             // Toast.makeText(context,status+" "+"Removed",Toast.LENGTH_LONG).show();
                                         }
                                         else {
@@ -307,7 +314,7 @@ public class OrderStatusItemAdapter extends RecyclerView.Adapter<OrderStatusItem
                             return params;
                         }
                     };
-                    queue.add(postRequest);
+                    queue.add(postRequest);*/
                 }
 
             }
@@ -338,8 +345,8 @@ public class OrderStatusItemAdapter extends RecyclerView.Adapter<OrderStatusItem
                                         int od_id=ord_id_instant.getInt("OrderID",0);
                                         String od_instant=ord_id_instant.getString("INSTANT","");
                                         Intent intent= new Intent(context, OrderStatusConfirm.class);
-                                        intent.putExtra("Order_id",od_id);
-                                        intent.putExtra("Instant",od_instant);
+                                       /* intent.putExtra("Order_id",od_id);
+                                        intent.putExtra("Instant",od_instant);*/
                                         intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                                         ((Activity) context).overridePendingTransition(0,0);
                                         context.startActivity(intent);

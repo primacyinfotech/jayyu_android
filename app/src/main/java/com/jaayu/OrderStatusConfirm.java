@@ -98,7 +98,7 @@ public class OrderStatusConfirm extends AppCompatActivity {
         setContentView(R.layout.activity_order_status_confirm);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        //LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver, new IntentFilter("message_order_intent"));
+       // LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver, new IntentFilter("message_order_intent"));
         //LocalBroadcastManager.getInstance(this).registerReceiver(mdeleteReceiver, new IntentFilter("message_delete_intent"));
         returnvalueDatabase=new ReturnvalueDatabase(this);
         orderStatusItemModels=new ArrayList<>();
@@ -198,7 +198,8 @@ public class OrderStatusConfirm extends AppCompatActivity {
                         itemMrp=new ArrayList<>();
                         itemQty=new ArrayList<>();
                         itemid.add(String.valueOf(OrderStatusItemAdapter.modelList.get(i).getItem_id()));
-                        itemQty.add(String.valueOf(OrderStatusItemAdapter.modelList.get(i).getQuantity()));
+                       // itemQty.add(String.valueOf(OrderStatusItemAdapter.modelList.get(i).getQuantity()));
+                        itemQty.add(String.valueOf(OrderStatusItemAdapter.modelList.get(i).getEditTextValue()));
                         itemtitle.add(OrderStatusItemAdapter.modelList.get(i).getTitle());
                         itemPrice.add(OrderStatusItemAdapter.modelList.get(i).getPrice_normal());
                         itemMrp.add(OrderStatusItemAdapter.modelList.get(i).getMrp_price());
@@ -310,6 +311,9 @@ public class OrderStatusConfirm extends AppCompatActivity {
                                    Toast.makeText(getApplicationContext(),msg,Toast.LENGTH_LONG).show();
                                         returnvalueDatabase.deleteDatareturn();
 
+                                    }
+                                    else{
+                                        Toast.makeText(getApplicationContext(),"Sorry ! Item Not Selected For the return....",Toast.LENGTH_LONG).show();
                                     }
 
                                 } catch (JSONException e) {

@@ -112,6 +112,7 @@
             android:id="@+id/delete_item_button"
             android:textSize="15sp"
             android:text="Remove"
+            android:visibility="gone"
             android:fontFamily="@font/clearsansbold"
             android:layout_marginLeft="10dp"
             android:layout_width="wrap_content"

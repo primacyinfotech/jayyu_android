@@ -51,7 +51,7 @@ public class OrderItemAdapter  extends RecyclerView.Adapter<OrderItemAdapter.MyV
             // holder.item_total.setText(formatted_sum);
             holder.mrp.setPaintFlags(holder.mrp.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
         }
-        holder.qyt.setText(mList.getItem_qty()+"x");
+        holder.qyt.setText(mList.getItem_qty());
 
     }
 

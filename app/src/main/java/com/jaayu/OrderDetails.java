@@ -1,5 +1,6 @@
 package com.jaayu;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -13,9 +14,12 @@ import android.os.Bundle;
 import android.text.Html;
 import android.text.Spanned;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -58,13 +62,14 @@ public class OrderDetails extends AppCompatActivity {
     private String Orderdetails_url=BaseUrl.BaseUrlNew+"order_details_profile";
     private  String disclaimer_url=BaseUrl.BaseUrlNew+"disclaimer";
     String u_id,instant_id,ship_status,delivery_date,ord_id,ord_date,mrp_amt,save_amt,shipping_charge,tot_pay,ship_add_name,ship_add_phone,
-    ship_add_address,ship_add_land,ship_add_pin,payment_status,w_cash,j_cash,onli_cash,c_cash,Ord_vid,show_coupon,return_date;
+    ship_add_address,ship_add_land,ship_add_pin,payment_status,w_cash,j_cash,onli_cash,c_cash,Ord_vid,show_coupon,return_date,user_note;
     int odr_id;
     private TextView mrp_amount,save_amount,ship_charge,total_pay,ship_address,date_of_delivery,disclaimer,place_apply_coupon, type_delivery,interval_delivery,
             customer_name,address_text,address_land,address_zipt,address_phone;
     private LinearLayout cancel_btn,paynow_btn,wraper_wallet,wraper_jaayu_cash,wraper_online_cash,wraper_cod_cash;
     private EditText additional_note;
     ProgressDialog progressDialog;
+    LinearLayout estmetdate_layout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -135,6 +140,7 @@ public class OrderDetails extends AppCompatActivity {
         wraper_jaayu_cash=(LinearLayout)findViewById(R.id.wraper_jaayu_cash);
         wraper_online_cash=(LinearLayout)findViewById(R.id.wraper_online_cash);
         wraper_cod_cash=(LinearLayout)findViewById(R.id.wraper_cod_cash);
+        estmetdate_layout=(LinearLayout)findViewById(R.id.estmetdate_layout);
         wraper_wallet.setVisibility(View.GONE);
         wraper_jaayu_cash.setVisibility(View.GONE);
         wraper_online_cash.setVisibility(View.GONE);
@@ -205,6 +211,7 @@ public class OrderDetails extends AppCompatActivity {
                             ship_status=person.getString("shipping_status");
                             payment_status=person.getString("payment_status");
                             return_date=person.getString("return_date");
+                            user_note=String.valueOf(person.getString("user_note"));
                             ord_id=person.getString("OrderId");
                             order_id.setText(ord_id);
                             ord_date=person.getString("Order_date");
@@ -455,6 +462,42 @@ public class OrderDetails extends AppCompatActivity {
                                 }*/
                                 text_cancel.setText("Return Note");
                                 text_pay.setText("Help");
+                                text_cancel.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        ViewGroup viewGroup = findViewById(android.R.id.content);
+                                        View dialogView = LayoutInflater.from(OrderDetails.this).inflate(R.layout.return_note_dialog, viewGroup, false);
+                                        TextView masege=(TextView)dialogView.findViewById(R.id.retun_msg) ;
+                                        Button buttonOk=(Button)dialogView.findViewById(R.id.buttonOk);
+                                        if(!user_note.equals("null")){
+
+                                            masege.setText(user_note);
+                                        }
+                                        else {
+
+                                            masege.setText("");
+                                        }
+
+
+                                        //Now we need an AlertDialog.Builder object
+                                        AlertDialog.Builder builder = new AlertDialog.Builder(OrderDetails.this);
+
+                                        //setting the view of the builder to our custom view that we already inflated
+                                        builder.setView(dialogView);
+
+                                        //finally creating the alert dialog and displaying it
+                                        final AlertDialog alertDialog = builder.create();
+                                        alertDialog.show();
+                                        buttonOk.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View view) {
+                                                alertDialog.dismiss();
+
+                                            }
+                                        });
+
+                                    }
+                                });
                             }
                             if(ship_status.equals("8")){
                                 order_details_icon.setImageResource(R.drawable.tickyellow);
@@ -480,6 +523,41 @@ public class OrderDetails extends AppCompatActivity {
                                 }*/
                                 text_cancel.setText("Return Note");
                                 text_pay.setText("Help");
+                                text_cancel.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        ViewGroup viewGroup = findViewById(android.R.id.content);
+                                        View dialogView = LayoutInflater.from(OrderDetails.this).inflate(R.layout.return_note_dialog, viewGroup, false);
+                                        TextView masege=(TextView)dialogView.findViewById(R.id.retun_msg) ;
+                                        Button buttonOk=(Button)dialogView.findViewById(R.id.buttonOk);
+                                        if(!user_note.equals("null")){
+
+                                            masege.setText(user_note);
+                                        }
+                                        else {
+
+                                            masege.setText("");
+                                        }
+
+
+                                        //Now we need an AlertDialog.Builder object
+                                        AlertDialog.Builder builder = new AlertDialog.Builder(OrderDetails.this);
+
+                                        //setting the view of the builder to our custom view that we already inflated
+                                        builder.setView(dialogView);
+
+                                        //finally creating the alert dialog and displaying it
+                                        final AlertDialog alertDialog = builder.create();
+                                        alertDialog.show();
+                                        buttonOk.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View view) {
+                                                alertDialog.dismiss();
+
+                                            }
+                                        });
+                                    }
+                                });
                             }
                             if(ship_status.equals("9")){
                                 order_details_icon.setImageResource(R.drawable.tickyellow);
@@ -505,6 +583,41 @@ public class OrderDetails extends AppCompatActivity {
                                 }*/
                                 text_cancel.setText("Return Note");
                                 text_pay.setText("Help");
+                                text_cancel.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        ViewGroup viewGroup = findViewById(android.R.id.content);
+                                        View dialogView = LayoutInflater.from(OrderDetails.this).inflate(R.layout.return_note_dialog, viewGroup, false);
+                                        TextView masege=(TextView)dialogView.findViewById(R.id.retun_msg) ;
+                                        Button buttonOk=(Button)dialogView.findViewById(R.id.buttonOk);
+                                        if(!user_note.equals("null")){
+
+                                            masege.setText(user_note);
+                                        }
+                                        else {
+
+                                            masege.setText("");
+                                        }
+
+
+                                        //Now we need an AlertDialog.Builder object
+                                        AlertDialog.Builder builder = new AlertDialog.Builder(OrderDetails.this);
+
+                                        //setting the view of the builder to our custom view that we already inflated
+                                        builder.setView(dialogView);
+
+                                        //finally creating the alert dialog and displaying it
+                                        final AlertDialog alertDialog = builder.create();
+                                        alertDialog.show();
+                                        buttonOk.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View view) {
+                                                alertDialog.dismiss();
+
+                                            }
+                                        });
+                                    }
+                                });
                             }
                             if(ship_status.equals("10")){
                                 order_details_icon.setImageResource(R.drawable.tickyellow);
@@ -530,6 +643,43 @@ public class OrderDetails extends AppCompatActivity {
                                 }*/
                                 text_cancel.setText("Return Note");
                                 text_pay.setText("Help");
+                                text_cancel.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        ViewGroup viewGroup = findViewById(android.R.id.content);
+                                        View dialogView = LayoutInflater.from(OrderDetails.this).inflate(R.layout.return_note_dialog, viewGroup, false);
+                                        TextView masege=(TextView)dialogView.findViewById(R.id.retun_msg) ;
+                                        Button buttonOk=(Button)dialogView.findViewById(R.id.buttonOk);
+                                        if(!user_note.equals("null")){
+
+                                            masege.setText(user_note);
+                                        }
+                                        else {
+
+                                            masege.setText("");
+                                        }
+
+
+
+
+                                        //Now we need an AlertDialog.Builder object
+                                        AlertDialog.Builder builder = new AlertDialog.Builder(OrderDetails.this);
+
+                                        //setting the view of the builder to our custom view that we already inflated
+                                        builder.setView(dialogView);
+
+                                        //finally creating the alert dialog and displaying it
+                                        final AlertDialog alertDialog = builder.create();
+                                        alertDialog.show();
+                                        buttonOk.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View view) {
+                                                alertDialog.dismiss();
+
+                                            }
+                                        });
+                                    }
+                                });
                             }
                             show_coupon=person.getString("copon_code");
                             if(show_coupon!=null){
@@ -541,11 +691,21 @@ public class OrderDetails extends AppCompatActivity {
                                 place_apply_coupon.setText("Coupon Not Applied");
 
                             }
+
                             delivery_date=person.getString("Delivery date");
                             String subs_days=person.getString("day");
+                            String admin_day=String.valueOf(person.getString("day"));
                             String subs_interval=person.getString("interval");
                             String subs_instant=person.getString("instant");
-                            date_of_delivery.setText(delivery_date);
+                            if(ship_status.equals("4")){
+                                estmetdate_layout.setVisibility(View.GONE);
+
+                            }
+                            else {
+                                estmetdate_layout.setVisibility(View.VISIBLE);
+                                date_of_delivery.setText(delivery_date);
+                            }
+                           /* date_of_delivery.setText(delivery_date);*/
                             if(subs_instant.equals("0")){
                                 type_delivery.setText("Normal Delivery");
                             }
@@ -558,6 +718,9 @@ public class OrderDetails extends AppCompatActivity {
                             else {
                                 /* interval_delivery.setText(subs_days+"Days"+" "+subs_interval+"Delivery");*/
                                 interval_delivery.setText(subs_interval+" Delivery"+" "+"Every"+" "+subs_days+" Days");
+                            }
+                            if (admin_day.equals("null")&& subs_interval.equals("1")){
+                                interval_delivery.setText("One Time Order");
                             }
                             String order_note=person.getString("order_note");
                             if(!order_note.equals("null")){
