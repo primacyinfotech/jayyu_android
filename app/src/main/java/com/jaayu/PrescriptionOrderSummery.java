@@ -105,10 +105,10 @@ public class PrescriptionOrderSummery extends AppCompatActivity {
         myDb = new SaveCoupon(this);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        progressDialogLoader = new ProgressDialog(PrescriptionOrderSummery.this);
+       /* progressDialogLoader = new ProgressDialog(PrescriptionOrderSummery.this);
         progressDialogLoader.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         progressDialogLoader.show();
-        progressDialogLoader.setMessage("Downloading...");
+        progressDialogLoader.setMessage("Downloading...");*/
         //progressDialogLoader.setCancelable(false);
         Intent fetchAddress=getIntent();
         address_id=fetchAddress.getIntExtra("ADDRESS_ID",0);
@@ -746,7 +746,7 @@ public class PrescriptionOrderSummery extends AppCompatActivity {
                                 JSONObject person = new JSONObject(response);
                                 String status=person.getString("status");
                                 if(status.equals("1")){
-                                    progressDialogLoader.dismiss();
+                                    //progressDialogLoader.dismiss();
                                     card_view_istant.setVisibility(View.VISIBLE);
                                   prefs_Address_second = getSharedPreferences(
                                           "SECOND_ADDRESS", Context.MODE_PRIVATE);
@@ -877,7 +877,7 @@ public class PrescriptionOrderSummery extends AppCompatActivity {
                                 JSONObject person = new JSONObject(response);
                                 String status=person.getString("status");
                                 if(status.equals("1")){
-                                    progressDialogLoader.dismiss();
+                                  //  progressDialogLoader.dismiss();
                                     card_view_istant.setVisibility(View.VISIBLE);
                                /*   prefs_Address = getSharedPreferences(
                                     "Address Details", Context.MODE_PRIVATE);

@@ -290,6 +290,240 @@
                     android:layout_height="wrap_content" />
             </LinearLayout>
         </LinearLayout>
+       <!--     <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="50dp">
+                <RadioButton
+                    android:id="@+id/one_time_order"
+                    android:layout_marginLeft="10dp"
+                    android:text="One Time Order"
+                    android:textSize="18sp"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/clearsansbold"
+                    android:layout_width="wrap_content"
+                    android:checked="false"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+            <View
+                android:background="@color/light_gray"
+                android:layout_width="match_parent"
+                android:layout_height="2dp">
+
+            </View>
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="50dp">
+                <RadioButton
+                    android:id="@+id/thirty_day_order"
+                    android:layout_marginLeft="10dp"
+                    android:text="Repeat Every 30 Days"
+                    android:textSize="18sp"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/clearsansbold"
+                    android:layout_width="wrap_content"
+                    android:checked="false"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+            <View
+                android:background="@color/light_gray"
+                android:layout_width="match_parent"
+                android:layout_height="2dp">
+
+            </View>
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="50dp">
+                <RadioButton
+                    android:id="@+id/fortyfive_day_order"
+                    android:layout_marginLeft="10dp"
+                    android:text="Repeat Every 45 Days"
+                    android:textSize="18sp"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/clearsansbold"
+                    android:layout_width="wrap_content"
+                    android:checked="false"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+            <View
+                android:background="@color/light_gray"
+                android:layout_width="match_parent"
+                android:layout_height="2dp">
+
+            </View>
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="50dp">
+                <RadioButton
+                    android:id="@+id/sixty_day_order"
+                    android:layout_marginLeft="10dp"
+                    android:text="Repeat Every 60 Days"
+                    android:textSize="18sp"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/clearsansbold"
+                    android:layout_width="wrap_content"
+                    android:checked="false"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+            <View
+                android:background="@color/light_gray"
+                android:layout_width="match_parent"
+                android:layout_height="2dp">
+
+            </View>
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="50dp">
+                <RadioButton
+                    android:id="@+id/single_day_order"
+                    android:layout_marginLeft="10dp"
+                    android:text="Repeat Every"
+                    android:textSize="18sp"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/clearsansbold"
+                    android:layout_width="wrap_content"
+                    android:checked="false"
+                    android:layout_height="wrap_content" />
+                <EditText
+                    android:id="@+id/edt_single_day"
+                    android:layout_gravity="center"
+                    android:layout_width="50dp"
+                    android:inputType="number"
+                    android:gravity="center"
+                    android:maxLength="2"
+
+                    android:layout_marginLeft="10dp"
+                    android:background="@drawable/spinner_back"
+                    android:layout_height="40dp" />
+                <TextView
+                    android:text="Days"
+                    android:textSize="18sp"
+                    android:layout_marginLeft="10dp"
+                    android:fontFamily="@font/clearsansbold"
+                    android:layout_gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:text="(15-99 Days)"
+                    android:textSize="15sp"
+                    android:textColor="@color/colorAccent"
+                    android:layout_marginLeft="5dp"
+
+                    android:layout_gravity="center"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+            <View
+                android:background="@color/light_gray"
+                android:layout_width="match_parent"
+                android:layout_height="2dp">
+
+            </View>
+            <LinearLayout
+                android:id="@+id/custom_part_delivery"
+                android:orientation="vertical"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_marginTop="20dp"
+                    android:layout_marginLeft="10dp"
+                    android:text="Number of Delivery"
+                    android:textColor="#000"
+                    android:textSize="20dp"
+                    android:fontFamily="@font/clearsansbold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <View
+                    android:layout_marginTop="10dp"
+
+                    android:background="@color/light_gray"
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp">
+
+                </View>
+                <RadioButton
+                    android:id="@+id/selected_three_delivery"
+                    android:layout_marginLeft="10dp"
+                    android:text="3 Delivery"
+                    android:textSize="18sp"
+                    android:fontFamily="@font/clearsansbold"
+                    android:layout_width="wrap_content"
+                    android:checked="false"
+                    android:layout_height="50dp" />
+                <View
+                    android:layout_marginTop="10dp"
+
+                    android:background="@color/light_gray"
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp">
+
+                </View>
+                <RadioButton
+                    android:id="@+id/selected_six_delivery"
+                    android:layout_marginLeft="10dp"
+                    android:text="6 Delivery"
+                    android:textSize="18sp"
+                    android:fontFamily="@font/clearsansbold"
+                    android:layout_width="wrap_content"
+                    android:checked="false"
+                    android:layout_height="wrap_content" />
+                <View
+                    android:layout_marginTop="10dp"
+
+                    android:background="@color/light_gray"
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp">
+
+                </View>
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp">
+                    <RadioButton
+                        android:id="@+id/single_delivery_order"
+                        android:layout_marginLeft="10dp"
+                        android:text="Customize"
+                        android:textSize="18sp"
+                        android:layout_gravity="center"
+                        android:fontFamily="@font/clearsansbold"
+                        android:layout_width="wrap_content"
+                        android:checked="false"
+                        android:layout_height="wrap_content" />
+                    <EditText
+                        android:id="@+id/edt_single_delivery"
+                        android:layout_gravity="center"
+                        android:layout_width="50dp"
+                        android:gravity="center"
+                        android:inputType="number"
+                        android:maxLength="2"
+                        android:layout_marginLeft="10dp"
+                        android:background="@drawable/spinner_back"
+                        android:layout_height="40dp" />
+                    <TextView
+
+                        android:text="Delivery"
+                        android:textSize="18sp"
+                        android:layout_marginLeft="10dp"
+                        android:fontFamily="@font/clearsansbold"
+                        android:layout_gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:text="(Max 12 Delivery)"
+                        android:textSize="15sp"
+                        android:textColor="@color/colorAccent"
+                        android:layout_marginLeft="5dp"
+
+                        android:layout_gravity="center"
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+            </LinearLayout>-->
 
     <Button
         android:id="@+id/confirm_btn"

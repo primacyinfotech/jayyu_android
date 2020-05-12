@@ -71,6 +71,7 @@ public class OrderSummery extends AppCompatActivity {
     private  String instan_content_url=BaseUrl.BaseUrlNew+"instant_content";
     private  String disclaimer_url=BaseUrl.BaseUrlNew+"disclaimer";
     private  String free_delivery_url=BaseUrl.BaseUrlNew+"delivery_charge";
+    private  String order_addres_chang=BaseUrl.BaseUrlNew+"order_addres_change";
     String address,user_name,us_nm,us_add,sing_fullname,all_address,prescription_image,Common_Address,Common_Address2,add_typ,formatted,ad_phone;
     int address_id,address_id_second,sing_add_id,prescription_requird,Addd_Second,Addd_first;
     SharedPreferences prefs_register;
@@ -97,13 +98,13 @@ public class OrderSummery extends AppCompatActivity {
         Intent fetchAddress=getIntent();
         prescription_requird=fetchAddress.getIntExtra("PRES_REQ",0);
         address_id=fetchAddress.getIntExtra("ADDRESS_ID",0);
-        address=fetchAddress.getStringExtra("ADDRESS");
+       /* address=fetchAddress.getStringExtra("ADDRESS");
         user_name=fetchAddress.getStringExtra("NAME");
         prescription_image=fetchAddress.getStringExtra("Prescription");
         add_zip=fetchAddress.getStringExtra("ADDRESS_zip");
         Add_type=fetchAddress.getStringExtra("ADDRESS_PREF");
         lan_mark=fetchAddress.getStringExtra("ADDRESS_LAND");
-        String add_phone=fetchAddress.getStringExtra("ADDRESS_PHONE");
+        String add_phone=fetchAddress.getStringExtra("ADDRESS_PHONE");*/
         upper_save_amt=(TextView)findViewById(R.id.upper_save_amt);
 
         LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver, new IntentFilter("message_instant"));
@@ -116,7 +117,7 @@ public class OrderSummery extends AppCompatActivity {
                 "Address Details", Context.MODE_PRIVATE);
         prefs_Address_pin = getSharedPreferences(
                 "Address pin Details", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = prefs_Address.edit();
+       /* SharedPreferences.Editor editor = prefs_Address.edit();
         editor.putString("USER_NAME",user_name);
         editor.putString("USER_ADDRESS",address);
         editor.putString("TYPE_ADDRESS",Add_type);
@@ -124,14 +125,14 @@ public class OrderSummery extends AppCompatActivity {
         editor.putString("PHONE_ADDRESS",add_phone);
         editor.putInt("FIRST_ADD", address_id);
         editor.putString("Zip_ADD", add_zip);
-        editor.commit();
-        us_nm=prefs_Address.getString("USER_NAME","");
+        editor.commit();*/
+       /* us_nm=prefs_Address.getString("USER_NAME","");
         us_add=prefs_Address.getString("USER_ADDRESS","");
         a_typ=prefs_Address.getString("TYPE_ADDRESS","");
         lan_MArk=prefs_Address.getString("LAND_ADDRESS","");
         Addd_first=prefs_Address.getInt("FIRST_ADD",0);
         ad_phone=prefs_Address.getString("PHONE_ADDRESS","");
-        a_zip=prefs_Address.getString("Zip_ADD","");
+        a_zip=prefs_Address.getString("Zip_ADD","");*/
 
         u_id=prefs_register.getString("USER_ID","");
         animationUp = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_up);
@@ -187,6 +188,8 @@ public class OrderSummery extends AppCompatActivity {
                 coupon_off_on.setVisibility(View.GONE);
             }
         });
+
+        NormalCheckboxtest();
         chk_instant.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -339,8 +342,8 @@ public class OrderSummery extends AppCompatActivity {
         getCartOrder();
         calcutate_section();
         Order_address();
-        last_address();
-        VisibleOrNotVisibleCheckBox();
+       // last_address();
+        //VisibleOrNotVisibleCheckBox();
        // open_item=(TextView)findViewById(R.id.open_item);
        // recyclerView.setVisibility(View.GONE);
         /*open_item.setOnClickListener(new View.OnClickListener() {
@@ -415,34 +418,33 @@ public class OrderSummery extends AppCompatActivity {
 
 
                    }*/
-                    if(String.valueOf(Addd_Second).equals("0")){
+                   /* if(String.valueOf(Addd_Second).equals("0")){
                        ViewDialog alert = new ViewDialog();
                        alert.showDialog(OrderSummery.this, "Address Should be Required......");
                    }
-                    else {
-                        if(String.valueOf(Addd_first).equals(String.valueOf(address_id))){
-                            Common_Address=String.valueOf(Addd_first);
-                            if(!Common_Address.equals("0")){
+                    else {*/
+                        /*if(String.valueOf(Addd_first).equals(String.valueOf(address_id))) {*/
+                Addd_first=prefs_Address.getInt("FIRST_ADD",0);
+                            Common_Address = String.valueOf(Addd_first);
+                            if (!Common_Address.equals("0")) {
                                 Intent intentGotoDelivery = new Intent(OrderSummery.this, SubscriptionDelivery.class);
                                 intentGotoDelivery.putExtra("Address", String.valueOf(Addd_first));
                                 intentGotoDelivery.putExtra("userID", u_id);
                                 intentGotoDelivery.putExtra("INSTANT", ins);
-                                //intentGotoDelivery.putExtra("prescription_img", prescription_image);
+                                intentGotoDelivery.putExtra("address_id_table", address_id);
                                 startActivity(intentGotoDelivery);
                                 finish();
-                            }
-                            else {
+                            } else {
                                 Intent intentGotoDelivery = new Intent(OrderSummery.this, SubscriptionDelivery.class);
                                 intentGotoDelivery.putExtra("Address", String.valueOf(Addd_Second));
                                 intentGotoDelivery.putExtra("userID", u_id);
                                 intentGotoDelivery.putExtra("INSTANT", ins);
-                               // intentGotoDelivery.putExtra("prescription_img", prescription_image);
+                                // intentGotoDelivery.putExtra("prescription_img", prescription_image);
                                 startActivity(intentGotoDelivery);
                                 finish();
                             }
 
-                        }
-                    }
+
 
 
               /*  if (String.valueOf(Addd_Second).equals("0")) {
@@ -706,7 +708,7 @@ public class OrderSummery extends AppCompatActivity {
         SharedPreferences.Editor editor = prefs_Address_second.edit();
         editor.remove("SECOND_ADD");
         editor.commit();
-        if (us_nm.equals("")&&us_add.equals("")&&a_typ.equals("")&&lan_MArk.equals("")&& ad_phone.equals("")&&a_zip.equals("")) {
+      /*  if (us_nm.equals("")&&us_add.equals("")&&a_typ.equals("")&&lan_MArk.equals("")&& ad_phone.equals("")&&a_zip.equals("")) {
             String unknown=sing_fullname;
             String unknown_add=all_address;
             String unkown_add_type=add_typ;
@@ -727,70 +729,155 @@ public class OrderSummery extends AppCompatActivity {
             address_zipt.setText(a_zip);
             address_land.setText(lan_MArk);
             address_phone.setText(ad_phone);
-        }
+            RequestQueue requestQueue = Volley.newRequestQueue(OrderSummery.this);
+            StringRequest postRequest = new StringRequest(Request.Method.POST,orderLast_addressUrl,
+                    new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            // response
+                            Log.d("Response", response);
+                            try {
+                                //Do it with this it will work
+                                JSONObject person = new JSONObject(response);
+                                String status = person.getString("status");
+                                if (status.equals("1")) {
+                                    progressDialogLoader.dismiss();
+                                    JSONObject object=person.getJSONObject("address");
 
-     /*   RequestQueue requestQueue = Volley.newRequestQueue(OrderSummery.this);
-        StringRequest postRequest = new StringRequest(Request.Method.POST,order_addressUrl,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        // response
-                        Log.d("Response", response);
-                        try {
-                            //Do it with this it will work
-                            JSONObject person = new JSONObject(response);
-                            String status=person.getString("status");
-                            if(status.equals("success")){
-                                JSONArray jsonArray=person.getJSONArray("address");
-                                for(int i=0;i<jsonArray.length();i++){
-                                   JSONObject object=jsonArray.getJSONObject(i);
-                                    address_id=object.getInt("id");
-                                   String first_name=object.getString("first_name");
-                                    String last_name=object.getString("last_name");
-                                    String phone=object.getString("phone");
-                                    String email=object.getString("email");
-                                     address=object.getString("address");
-                                    String country=object.getString("country");
-                                    String state=object.getString("state");
-                                    String city=object.getString("city");
-                                    String zip_code=object.getString("zip_code");
 
-                                  }
 
+
+
+
+                                }
+
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                                Toast.makeText(getApplicationContext(), "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
                             }
 
 
-
-
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                            Toast.makeText(getApplicationContext(), "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
                         }
+                    },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            // error
 
-
+                        }
                     }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        // error
+            ) {
+                @Override
+                protected Map<String, String> getParams() {
+                    Map<String, String> params = new HashMap<String, String>();
 
-                    }
+                    params.put("user_id", u_id);
+
+
+                    return params;
                 }
-        ) {
-            @Override
-            protected Map<String, String> getParams() {
-                Map<String, String> params = new HashMap<String, String>();
+            };
 
-                params.put("user_id" ,u_id);
+            requestQueue.add(postRequest);
+        }*/
+        if (address_id==0) {
+           /* String unknown=sing_fullname;
+            String unknown_add=all_address;
+            String unkown_add_type=add_typ;
+            String unkown_land=l_mark;
+            String unkown_zip=sing_zip_code;
+            String unkown_ph=sing_phone;
+            customer_name.setText(unknown);
+            address_text.setText(unknown_add);
+            type_add.setText(unkown_add_type);
+            address_zipt.setText(unkown_zip);
+            address_land.setText(unkown_land);
+            address_phone.setText(unkown_ph);*/
+            last_address();
+        }
+        else {
+           /* customer_name.setText(us_nm);
+            address_text.setText(us_add);
+            type_add.setText(a_typ);
+            address_zipt.setText(a_zip);
+            address_land.setText(lan_MArk);
+            address_phone.setText(ad_phone);*/
+            RequestQueue requestQueue = Volley.newRequestQueue(OrderSummery.this);
+            StringRequest postRequest = new StringRequest(Request.Method.POST,order_addres_chang,
+                    new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            // response
+                            Log.d("Response", response);
+                            try {
+                                //Do it with this it will work
+                                JSONObject person = new JSONObject(response);
+                                String status = person.getString("status");
+                                if (status.equals("1")) {
+                                    progressDialogLoader.dismiss();
+                                  //  JSONObject object=person.getJSONObject("address");
+                                   int a_id=person.getInt("address_id");
+                                    us_nm=person.getString("name");
+                                    us_add=person.getString("address");
+                                    a_typ=person.getString("address type");
+                                 String   aa_zip=person.getString("pincode");
+                                    lan_MArk=person.getString("landmark");
+                                    ad_phone=person.getString("phone");
+                                    SharedPreferences.Editor editor = prefs_Address.edit();
+                                    editor.putString("USER_NAME",us_nm);
+                                    editor.putString("USER_ADDRESS",us_add);
+                                    editor.putString("TYPE_ADDRESS",a_typ);
+                                    editor.putString("LAND_ADDRESS",lan_mark);
+                                    editor.putString("PHONE_ADDRESS",ad_phone);
+                                    editor.putInt("FIRST_ADD", a_id);
+                                    editor.putString("Zip_ADD", aa_zip);
+                                 /*   Addd_first=prefs_Address.getInt("FIRST_ADD",0);*/
+                                   // a_zip=prefs_Address.getString("Zip_ADD","");
+                                    VisibleOrNotVisibleCheckBox();
+                                    editor.commit();
+                                    customer_name.setText(us_nm);
+                                    address_text.setText(us_add);
+                                    type_add.setText(a_typ);
+                                    address_zipt.setText(aa_zip);
+                                    address_land.setText(lan_MArk);
+                                    address_phone.setText(ad_phone);
+
+                                }
 
 
-                return params;
-            }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                                Toast.makeText(getApplicationContext(), "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                            }
 
-        };
-        requestQueue.add(postRequest);*/
+
+                        }
+                    },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            // error
+
+                        }
+                    }
+            ) {
+                @Override
+                protected Map<String, String> getParams() {
+                    Map<String, String> params = new HashMap<String, String>();
+
+                    params.put("user_id", u_id);
+                    params.put("aId", String.valueOf(address_id));
+
+
+                    return params;
+                }
+            };
+
+            requestQueue.add(postRequest);
+        }
+
+
     }
     private void last_address(){
         RequestQueue requestQueue = Volley.newRequestQueue(OrderSummery.this);
@@ -833,20 +920,34 @@ public class OrderSummery extends AppCompatActivity {
                                  editor.putString("PIN_CODE",sing_zip_code);
                                 editor.commit();
                                 Addd_Second=prefs_Address_second.getInt("SECOND_ADD",0);
-                                check_pincode_Second=prefs_Address_second.getString("PIN_CODE","");
-                                if(check_pincode_first.equals("")){
-                                    SecondVisibilityCheck(check_pincode_Second);
+                                //check_pincode_Second=prefs_Address_second.getString("PIN_CODE","");
+                               /* if(a_zip.equals("")){
+                                    SecondVisibilityCheck(sing_zip_code);
+                                }*/
+                                if(check_pincode_first==null){
+                                    SecondVisibilityCheck(sing_zip_code);
                                 }
-
-
+                              /*  SecondVisibilityCheck(sing_zip_code);*/
                                 System.out.println("id"+address_id_second+Addd_first);
                                 prefs_Address = getSharedPreferences(
                                         "Address Details", Context.MODE_PRIVATE);
                                 SharedPreferences.Editor e = prefs_Address.edit();
                                 e.remove("FIRST_ADD");
                                 e.commit();
+                                String unknown=sing_fullname;
+                                String unknown_add=all_address;
+                                String unkown_add_type=add_typ;
+                                String unkown_land=l_mark;
+                                String unkown_zip=sing_zip_code;
+                                String unkown_ph=sing_phone;
+                                customer_name.setText(unknown);
+                                address_text.setText(unknown_add);
+                                type_add.setText(unkown_add_type);
+                                address_zipt.setText(unkown_zip);
+                                address_land.setText(unkown_land);
+                                address_phone.setText(unkown_ph);
 
-                                if (us_nm.equals("")&&us_add.equals("")) {
+                               /* if (String.valueOf(address_id).equals("")) {
                                     String unknown=sing_fullname;
                                     String unknown_add=all_address;
                                     String unkown_add_type=add_typ;
@@ -861,10 +962,10 @@ public class OrderSummery extends AppCompatActivity {
                                     address_phone.setText(unkown_ph);
                                 }
                                 else {
-                                    customer_name.setText(us_nm);
+                                   *//* customer_name.setText(us_nm);
                                     address_text.setText(us_add);
-                                    type_add.setText(a_typ);
-                                }
+                                    type_add.setText(a_typ);*//*
+                                }*/
 
                                 // email_add.setText(email);
 
@@ -1205,7 +1306,77 @@ private void getDisclimer(){
     requestQueue.add(postRequest);
 }
 
+private void NormalCheckboxtest(){
+    RequestQueue requestQueue = Volley.newRequestQueue(OrderSummery.this);
+    StringRequest postRequest = new StringRequest(Request.Method.POST,Change_instant_Url,
+            new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    // response
+                    Log.d("Response", response);
+                    try {
+                        //Do it with this it will work
+                        JSONObject person = new JSONObject(response);
+                        String status = person.getString("status");
+                        if (status.equals("1")) {
 
+                            progressDialog = new ProgressDialog(OrderSummery.this);
+                            progressDialog.setMessage("Loading..."); // Setting Message
+                            // progressDialog.setTitle("ADD TO CART...."); // Setting Title
+                            progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER); // Progress Dialog Style Spinner
+                            progressDialog.show(); // Display Progress Dialog
+                            progressDialog.setCancelable(false);
+                            new Thread(new Runnable() {
+                                public void run() {
+                                    try {
+
+                                        Intent goToRefresh=new Intent("message_instant");
+                                        LocalBroadcastManager.getInstance(OrderSummery.this).sendBroadcast(goToRefresh);
+                                        overridePendingTransition(0,0);
+
+                                        Thread.sleep(1000);
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
+                                    }
+                                    progressDialog.dismiss();
+
+
+
+                                }
+                            }).start();
+                        }
+
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                        Toast.makeText(getApplicationContext(), "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+
+
+                }
+            },
+            new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    // error
+
+                }
+            }
+    ) {
+        @Override
+        protected Map<String, String> getParams() {
+            Map<String, String> params = new HashMap<String, String>();
+
+            params.put("user_id", u_id);
+            params.put("instant", "0");
+
+
+            return params;
+        }
+    };
+
+    requestQueue.add(postRequest);
+}
 
 
     public BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {

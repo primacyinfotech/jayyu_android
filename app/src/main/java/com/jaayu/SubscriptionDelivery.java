@@ -16,6 +16,7 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -43,9 +44,9 @@ private EditText edt_single_day,edt_single_delivery;
 private LinearLayout custom_part_delivery;
     private Button confirm_btn;
     int min=15, max=99;
-    String user_id,user_add,One_Day,thirty_Day,fortifive_day,sixty_day,three_days_deliveries,six_days_delivery,single_day,single_delivery,day_portion,duration,prescription_img,instant_deli;
+    String user_id,user_add,One_Day,thirty_Day,fortifive_day,sixty_day,three_days_deliveries,six_days_delivery,single_day,single_delivery,day_portion,duration,instant_deli;
     private String Place_order_url= BaseUrl.BaseUrlNew+"addorder";
-    int  s_int_day;
+    int  s_int_day,add_table_id;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,9 +56,8 @@ private LinearLayout custom_part_delivery;
         Intent getUserDetails=getIntent();
         user_add=getUserDetails.getStringExtra("Address");
         user_id=getUserDetails.getStringExtra("userID");
-        prescription_img=getUserDetails.getStringExtra("prescription_img");
+        add_table_id=getUserDetails.getIntExtra("address_id_table",0);
         instant_deli=getUserDetails.getStringExtra("INSTANT");
-
         back_button=(ImageView)toolbar.findViewById(R.id.back_button);
         one_time_order=(CheckBox)findViewById(R.id.one_time_order);
         thirty_day_order=(CheckBox)findViewById(R.id.thirty_day_order);
@@ -67,6 +67,14 @@ private LinearLayout custom_part_delivery;
         selected_three_delivery=(CheckBox)findViewById(R.id.selected_three_delivery);
         selected_six_delivery=(CheckBox)findViewById(R.id.selected_six_delivery);
         single_delivery_order=(CheckBox)findViewById(R.id.single_delivery_order);
+     /*   one_time_order=(RadioButton)findViewById(R.id.one_time_order);
+        thirty_day_order=(RadioButton)findViewById(R.id.thirty_day_order);
+        fortyfive_day_order=(RadioButton)findViewById(R.id.fortyfive_day_order);
+        sixty_day_order=(RadioButton)findViewById(R.id.sixty_day_order);
+        single_day_order=(RadioButton)findViewById(R.id.single_day_order);
+        selected_three_delivery=(RadioButton)findViewById(R.id.selected_three_delivery);
+        selected_six_delivery=(RadioButton)findViewById(R.id.selected_six_delivery);
+        single_delivery_order=(RadioButton)findViewById(R.id.single_delivery_order);*/
         edt_single_day=(EditText)findViewById(R.id.edt_single_day);
         //edt_single_day.setFilters( new InputFilter[]{ new MinMaxFilter( "15" , "99" )}) ;
         InputFilterIntRange rangeFilter = new InputFilterIntRange(15, 99);
@@ -89,6 +97,7 @@ private LinearLayout custom_part_delivery;
                         .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                         .commit();*/
                 Intent intent = new Intent(SubscriptionDelivery.this, OrderSummery.class);
+                intent.putExtra("ADDRESS_ID",add_table_id);
                 startActivity(intent);
                 overridePendingTransition(0,0);
                 finish();
@@ -107,17 +116,19 @@ private LinearLayout custom_part_delivery;
                  single_delivery_order.setChecked(false);*/
                 One_Day="1";
 
+
                  thirty_day_order.setEnabled(false);
                  fortyfive_day_order.setEnabled(false);
                  sixty_day_order.setEnabled(false);
                  single_day_order.setEnabled(false);
-
-
                  custom_part_delivery.setVisibility(View.GONE);
                  edt_single_day.setEnabled(false);
 
+
+
              }
              else {
+
                 /* thirty_day_order.setChecked(true);
                  fortyfive_day_order.setChecked(true);
                  sixty_day_order.setChecked(true);
@@ -140,20 +151,27 @@ private LinearLayout custom_part_delivery;
              if(thirty_day_order.isChecked()){
                  thirty_Day="30";
 
+
                  one_time_order.setEnabled(false);
                  fortyfive_day_order.setEnabled(false);
                  sixty_day_order.setEnabled(false);
                  single_day_order.setEnabled(false);
                  custom_part_delivery.setVisibility(View.VISIBLE);
                  edt_single_day.setEnabled(false);
+
+
+
              }
              else {
+                // thirty_Day="";
+
                  one_time_order.setEnabled(true);
                  fortyfive_day_order.setEnabled(true);
                  sixty_day_order.setEnabled(true);
                  single_day_order.setEnabled(true);
                  custom_part_delivery.setVisibility(View.GONE);
                  single_delivery_order.setEnabled(true);
+
              }
          }
      });
@@ -162,14 +180,19 @@ private LinearLayout custom_part_delivery;
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(fortyfive_day_order.isChecked()){
                     fortifive_day="45";
+
                     one_time_order.setEnabled(false);
                     sixty_day_order.setEnabled(false);
                     single_day_order.setEnabled(false);
                     thirty_day_order.setEnabled(false);
                     custom_part_delivery.setVisibility(View.VISIBLE);
                     edt_single_day.setEnabled(false);
+
+
                 }
                 else {
+                   // fortifive_day="";
+
                     one_time_order.setEnabled(true);
                     sixty_day_order.setEnabled(true);
                     single_day_order.setEnabled(true);
@@ -177,6 +200,9 @@ private LinearLayout custom_part_delivery;
                     custom_part_delivery.setVisibility(View.GONE);
                     edt_single_day.setEnabled(true);
                     single_delivery_order.setEnabled(true);
+
+
+
                 }
             }
         });
@@ -186,14 +212,19 @@ sixty_day_order.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeLis
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
         if(sixty_day_order.isChecked()){
             sixty_day="60";
+
             one_time_order.setEnabled(false);
             fortyfive_day_order.setEnabled(false);
             single_day_order.setEnabled(false);
             thirty_day_order.setEnabled(false);
             custom_part_delivery.setVisibility(View.VISIBLE);
             edt_single_day.setEnabled(false);
+
+
         }
         else {
+         /*   sixty_day="";*/
+
             one_time_order.setEnabled(true);
             fortyfive_day_order.setEnabled(true);
             single_day_order.setEnabled(true);
@@ -201,6 +232,7 @@ sixty_day_order.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeLis
             custom_part_delivery.setVisibility(View.GONE);
             edt_single_day.setEnabled(true);
             single_delivery_order.setEnabled(true);
+
         }
     }
 });
@@ -216,6 +248,7 @@ sixty_day_order.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeLis
                    edt_single_day.setEnabled(true);
                     custom_part_delivery.setVisibility(View.VISIBLE);
                     edt_single_delivery.setEnabled(false);
+
 
                 }
                 else {
@@ -247,8 +280,12 @@ sixty_day_order.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeLis
                     single_delivery_order.setEnabled(false);
                     edt_single_delivery.setEnabled(false);*/
 
+
+
                 }
                 else {
+                  //  three_days_deliveries="";
+
                     one_time_order.setEnabled(false);
                     selected_six_delivery.setEnabled(true);
                     single_delivery_order.setEnabled(true);
@@ -282,8 +319,12 @@ sixty_day_order.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeLis
                     selected_three_delivery.setEnabled(false);
                     single_delivery_order.setEnabled(false);
                     edt_single_delivery.setEnabled(false);*/
+
+
                 }
                 else {
+                  //  six_days_delivery="";
+
                     one_time_order.setEnabled(false);
                     selected_three_delivery.setEnabled(true);
                     single_delivery_order.setEnabled(true);
@@ -341,28 +382,40 @@ sixty_day_order.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeLis
 
                                                single_delivery = edt_single_delivery.getText().toString();
 
+
+
                                                if (One_Day != null) {
                                                    day_portion = One_Day;
-                                               } else if (thirty_Day != null) {
+
+                                                  // s_int_day = Integer.parseInt(One_Day);
+                                               }
+                                               else if (thirty_Day != null) {
                                                    day_portion = thirty_Day;
                                                    s_int_day = Integer.parseInt(thirty_Day);
 
                                                } else if (fortifive_day != null) {
                                                    day_portion = fortifive_day;
-                                                   s_int_day = Integer.parseInt(fortifive_day);
+                                                 s_int_day = Integer.parseInt(fortifive_day);
+
+
                                                } else if (sixty_day != null) {
                                                    day_portion = sixty_day;
                                                    s_int_day = Integer.parseInt(sixty_day);
+
+
                                                } else if (single_day != null) {
                                                    day_portion = single_day;
                                                    if(!day_portion.equals(""))
                                                    {
                                                        s_int_day = Integer.parseInt(single_day);
                                                    }
+                                                   else {
+                                                       s_int_day = 0;
+                                                   }
 
                                                } else {
                                                    day_portion = "";
-                                                   s_int_day = 0;
+                                                   //s_int_day = 0;
                                                }
                                                if (three_days_deliveries != null) {
                                                    duration = three_days_deliveries;
@@ -373,6 +426,51 @@ sixty_day_order.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeLis
                                                } else {
                                                    duration = "";
                                                }
+
+                                               if (One_Day!=null) {
+                                                   day_portion = One_Day;
+
+                                                   // s_int_day = Integer.parseInt(One_Day);
+                                               }
+                                               else if (thirty_Day!=null) {
+                                                   day_portion = thirty_Day;
+                                                //   s_int_day = Integer.parseInt(thirty_Day);
+
+                                               } else if (fortifive_day!=null) {
+                                                   day_portion = fortifive_day;
+                                                  // s_int_day = Integer.parseInt(fortifive_day);
+
+
+                                               } else if (sixty_day!=null) {
+                                                   day_portion = sixty_day;
+                                                  // s_int_day = Integer.parseInt(sixty_day);
+
+
+                                               } else if (single_day!=null) {
+                                                   day_portion = single_day;
+                                                   if(!day_portion.equals(""))
+                                                   {
+                                                       s_int_day = Integer.parseInt(single_day);
+                                                   }
+                                                   else {
+                                                       s_int_day = 0;
+                                                   }
+
+                                               } else {
+                                                   day_portion = "";
+                                                   //s_int_day = 0;
+                                               }
+                                               if (three_days_deliveries != null) {
+                                                   duration = three_days_deliveries;
+                                               } else if (six_days_delivery != null) {
+                                                   duration = six_days_delivery;
+                                               } else if (single_delivery != null) {
+                                                   duration = single_delivery;
+                                               } else {
+                                                   duration = "";
+                                               }
+
+                                        System.out.println("DAYp;"+day_portion+"DURATION:"+duration);
                                                if (!one_time_order.isChecked()) {
 
                                                    Toast.makeText(getApplicationContext(), "Please,Checked One Time Order", Toast.LENGTH_LONG).show();
@@ -549,6 +647,7 @@ sixty_day_order.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeLis
     @Override
     public void onBackPressed() {
         Intent intent = new Intent(SubscriptionDelivery.this, OrderSummery.class);
+        intent.putExtra("ADDRESS_ID",add_table_id);
         startActivity(intent);
         overridePendingTransition(0,0);
         finish();

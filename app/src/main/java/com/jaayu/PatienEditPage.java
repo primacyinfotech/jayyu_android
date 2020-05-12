@@ -17,7 +17,9 @@ import android.provider.ContactsContract;
 import android.text.InputFilter;
 import android.text.InputType;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -83,7 +85,7 @@ public class PatienEditPage extends AppCompatActivity {
             "Father",
             "Mother",
             "Husband",
-            "wife",
+            "Wife",
             "Brother",
             "Sister",
             "Grandfather",
@@ -236,58 +238,79 @@ public class PatienEditPage extends AppCompatActivity {
         delete_patient.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                RequestQueue queue = Volley.newRequestQueue(PatienEditPage.this);
-                StringRequest postRequest = new StringRequest(Request.Method.POST, delete_patient_url,
-                        new Response.Listener<String>()
-                        {
-                            @Override
-                            public void onResponse(String response) {
-                                // response
-                                Log.d("Response", response);
-                                try {
-                                    //Do it with this it will work
-                                    JSONObject person = new JSONObject(response);
-                                    String status=person.getString("status");
+                ViewGroup viewGroup = findViewById(android.R.id.content);
+                View dialogView = LayoutInflater.from(PatienEditPage.this).inflate(R.layout.delete_confermation_dialog, viewGroup, false);
+                TextView masege=(TextView)dialogView.findViewById(R.id.return_msg) ;
+                Button buttonOk=(Button)dialogView.findViewById(R.id.buttonOk);
+              //  masege.setText(msg);
+               AlertDialog.Builder builder = new AlertDialog.Builder(PatienEditPage.this);
+                builder.setView(dialogView);
+
+                //finally creating the alert dialog and displaying it
+                final AlertDialog alertDialog = builder.create();
+                alertDialog.show();
+                buttonOk.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                        RequestQueue queue = Volley.newRequestQueue(PatienEditPage.this);
+                        StringRequest postRequest = new StringRequest(Request.Method.POST, delete_patient_url,
+                                new Response.Listener<String>()
+                                {
+                                    @Override
+                                    public void onResponse(String response) {
+                                        // response
+                                        Log.d("Response", response);
+                                        try {
+                                            //Do it with this it will work
+                                            JSONObject person = new JSONObject(response);
+                                            String status=person.getString("status");
 
 
-                                    if(status.equals("1")){
+                                            if(status.equals("1")){
 
-                                        Intent refreshPage=new Intent(getApplicationContext(),PatientListView.class);
-                                        overridePendingTransition(0,0);
-                                        startActivity(refreshPage);
-                                        finish();
+                                                Intent refreshPage=new Intent(getApplicationContext(),PatientListView.class);
+                                                overridePendingTransition(0,0);
+                                                startActivity(refreshPage);
+                                                finish();
+                                                alertDialog.dismiss();
+
+
+                                            }
+
+
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                            Toast.makeText(getApplicationContext(), "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                                        }
 
 
                                     }
+                                },
+                                new Response.ErrorListener()
+                                {
+                                    @Override
+                                    public void onErrorResponse(VolleyError error) {
+                                        // error
 
-
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
-                                    Toast.makeText(getApplicationContext(), "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                                    }
                                 }
-
-
-                            }
-                        },
-                        new Response.ErrorListener()
-                        {
+                        ) {
                             @Override
-                            public void onErrorResponse(VolleyError error) {
-                                // error
+                            protected Map<String, String> getParams()
+                            {
+                                Map<String, String>  params = new HashMap<String, String>();
+                                params.put("pa_id", String.valueOf(patient_id));
 
+                                return params;
                             }
-                        }
-                ) {
-                    @Override
-                    protected Map<String, String> getParams()
-                    {
-                        Map<String, String>  params = new HashMap<String, String>();
-                        params.put("pa_id", String.valueOf(patient_id));
+                        };
+                        queue.add(postRequest);
 
-                        return params;
                     }
-                };
-                queue.add(postRequest);
+                });
+
+
             }
         });
         update_btn.setOnClickListener(new View.OnClickListener() {
@@ -398,26 +421,64 @@ public class PatienEditPage extends AppCompatActivity {
                                 String hight_sec=Obj.getString("height");
                                 String[] arrayString = hight_sec.split(" ");
                                 String fit=arrayString[0];
-                                ft.setText(fit);
+                                if(fit.equals("null")){
+                                    ft.setText("");
+                                }
+                                else {
+                                    ft.setText(fit);
+                                }
+
                                 String tvfit=arrayString[1];
                                 text_hint_ft.setText(tvfit);
                                 String inc=arrayString[2];
-                                inch.setText(inc);
+                                if(inc.equals("nul")){
+                                    inch.setText("");
+                                }
+                                else {
+                                    inch.setText(inc);
+                                }
+
                                 String tvinc=arrayString[3];
                                 text_hint_inch.setText(tvinc);
                                 String weight_sec=Obj.getString("weight");
                                 String[] arraywt = weight_sec.split(" ");
                                 String wt=arraywt[0];
+                                if(wt.equals("")){
+                                    weight.setText("");
+                                }
+                                else {
+                                    weight.setText(wt);
+                                }
                                 String tvwt=arraywt[1];
-                                weight.setText(wt);
+
                                 text_hint_weight.setText(tvwt);
 
 
                                 /*height.setText(Obj.getString("height"));
                                 weight.setText(Obj.getString("weight"));*/
-                                medical_condition.setText(Obj.getString("mcon"));
-                                reaction.setText(Obj.getString("alerg"));
-                                medication.setText(Obj.getString("med_cation"));
+                                String m_con=Obj.getString("mcon");
+                                if(m_con.equals("null")){
+                                    medical_condition.setText("");
+                                }
+                                else {
+                                    medical_condition.setText(Obj.getString("mcon"));
+                                }
+                               /* medical_condition.setText(Obj.getString("mcon"));*/
+                                String react=Obj.getString("alerg");
+                                if(react.equals("null")){
+                                    reaction.setText("");
+                                }
+                                else {
+                                    reaction.setText(Obj.getString("alerg"));
+                                }
+                               String nedi=Obj.getString("med_cation");
+                                if(nedi.equals("null")){
+                                    medication.setText("");
+                                }
+                                else {
+                                    medication.setText(Obj.getString("med_cation"));
+                                }
+
                                 add_con_one.setText(Obj.getString("emgconct1"));
                                 add_con_two.setText(Obj.getString("emgconct2"));
 

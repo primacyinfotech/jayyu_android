@@ -330,6 +330,16 @@ public class OrderDetails extends AppCompatActivity {
                                 status_title.setText("Order Status :");
                                 text_cancel.setText("Cancel Order");
                                 text_pay.setText("Help");
+                                text_pay.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        Intent GotoOrderPage=new Intent(OrderDetails.this,Help.class);
+                                        startActivity(GotoOrderPage);
+                                        overridePendingTransition(0,0);
+                                        finish();
+                                    }
+                                });
+
 
                             }
                             if(ship_status.equals("3")){
@@ -348,6 +358,15 @@ public class OrderDetails extends AppCompatActivity {
                                 status_title.setText("Order Status :");
                                 text_cancel.setText("Reorder");
                                 text_pay.setText("Help");
+                                text_pay.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        Intent GotoOrderPage=new Intent(OrderDetails.this,Help.class);
+                                        startActivity(GotoOrderPage);
+                                        overridePendingTransition(0,0);
+                                        finish();
+                                    }
+                                });
 
                             }
                             if(ship_status.equals("4")){
@@ -381,10 +400,28 @@ public class OrderDetails extends AppCompatActivity {
                                             finish();
                                         }
                                     });
+                                    text_pay.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View view) {
+                                            Intent GotoOrderPage=new Intent(OrderDetails.this,Help.class);
+                                            startActivity(GotoOrderPage);
+                                            overridePendingTransition(0,0);
+                                            finish();
+                                        }
+                                    });
                                 }
                                 else {
                                     text_cancel.setText("Reorder");
                                     text_pay.setText("Help");
+                                    text_pay.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View view) {
+                                            Intent GotoOrderPage=new Intent(OrderDetails.this,Help.class);
+                                            startActivity(GotoOrderPage);
+                                            overridePendingTransition(0,0);
+                                            finish();
+                                        }
+                                    });
                                 }
 
                             }
@@ -412,6 +449,15 @@ public class OrderDetails extends AppCompatActivity {
                                 }*/
                                 text_cancel.setText("Reorder");
                                 text_pay.setText("Help");
+                                text_pay.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        Intent GotoOrderPage=new Intent(OrderDetails.this,Help.class);
+                                        startActivity(GotoOrderPage);
+                                        overridePendingTransition(0,0);
+                                        finish();
+                                    }
+                                });
                             }
                             if(ship_status.equals("6")){
                                 order_details_icon.setImageResource(R.drawable.tickyellow);
@@ -437,6 +483,15 @@ public class OrderDetails extends AppCompatActivity {
                                 }*/
                                 text_cancel.setText("Reorder");
                                 text_pay.setText("Help");
+                                text_pay.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        Intent GotoOrderPage=new Intent(OrderDetails.this,Help.class);
+                                        startActivity(GotoOrderPage);
+                                        overridePendingTransition(0,0);
+                                        finish();
+                                    }
+                                });
                             }
                             if(ship_status.equals("7")){
                                 order_details_icon.setImageResource(R.drawable.tickyellow);
@@ -496,6 +551,15 @@ public class OrderDetails extends AppCompatActivity {
                                             }
                                         });
 
+                                    }
+                                });
+                                text_pay.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        Intent GotoOrderPage=new Intent(OrderDetails.this,Help.class);
+                                        startActivity(GotoOrderPage);
+                                        overridePendingTransition(0,0);
+                                        finish();
                                     }
                                 });
                             }
@@ -558,6 +622,15 @@ public class OrderDetails extends AppCompatActivity {
                                         });
                                     }
                                 });
+                                text_pay.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        Intent GotoOrderPage=new Intent(OrderDetails.this,Help.class);
+                                        startActivity(GotoOrderPage);
+                                        overridePendingTransition(0,0);
+                                        finish();
+                                    }
+                                });
                             }
                             if(ship_status.equals("9")){
                                 order_details_icon.setImageResource(R.drawable.tickyellow);
@@ -616,6 +689,15 @@ public class OrderDetails extends AppCompatActivity {
 
                                             }
                                         });
+                                    }
+                                });
+                                text_pay.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        Intent GotoOrderPage=new Intent(OrderDetails.this,Help.class);
+                                        startActivity(GotoOrderPage);
+                                        overridePendingTransition(0,0);
+                                        finish();
                                     }
                                 });
                             }
@@ -680,6 +762,15 @@ public class OrderDetails extends AppCompatActivity {
                                         });
                                     }
                                 });
+                                text_pay.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        Intent GotoOrderPage=new Intent(OrderDetails.this,Help.class);
+                                        startActivity(GotoOrderPage);
+                                        overridePendingTransition(0,0);
+                                        finish();
+                                    }
+                                });
                             }
                             show_coupon=person.getString("copon_code");
                             if(show_coupon!=null){
@@ -697,7 +788,8 @@ public class OrderDetails extends AppCompatActivity {
                             String admin_day=String.valueOf(person.getString("day"));
                             String subs_interval=person.getString("interval");
                             String subs_instant=person.getString("instant");
-                            if(ship_status.equals("4")){
+                            if(ship_status.equals("4")|| ship_status.equals("5") || ship_status.equals("6")|| ship_status.equals("7")|| ship_status.equals("8")
+                            || ship_status.equals("9") || ship_status.equals("10")){
                                 estmetdate_layout.setVisibility(View.GONE);
 
                             }

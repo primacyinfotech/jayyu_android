@@ -146,12 +146,12 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyViewHo
                 selectedStarPosition= position;
                 notifyDataSetChanged();
                 int add_id=addressModel.getAdd_id();
-                String nameValue=addressModel.getName();
+               /* String nameValue=addressModel.getName();
                 String addresss_pref=addressModel.getAddress_pref();
                 String addressValue=addressModel.getAddress();
                 String zip=addressModel.getZip_code();
                 String landmark=addressModel.getLanmark();
-                String phone=addressModel.getPhone();
+                String phone=addressModel.getPhone();*/
 
                 Toast.makeText(context,
                         "selected offer is " + add_id,
@@ -205,12 +205,12 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyViewHo
                 queue.add(postRequest);
                 Intent goToOrderSammary=new Intent(context, OrderSummery.class);
                 goToOrderSammary.putExtra("ADDRESS_ID",add_id);
-                goToOrderSammary.putExtra("NAME",nameValue);
+               /* goToOrderSammary.putExtra("NAME",nameValue);
                 goToOrderSammary.putExtra("ADDRESS_PREF",addresss_pref);
                 goToOrderSammary.putExtra("ADDRESS",addressValue);
                 goToOrderSammary.putExtra("ADDRESS_zip",zip);
                 goToOrderSammary.putExtra("ADDRESS_PHONE",phone);
-                goToOrderSammary.putExtra("ADDRESS_LAND",landmark);
+                goToOrderSammary.putExtra("ADDRESS_LAND",landmark);*/
                 context.startActivity(goToOrderSammary);
 
             }

@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'com.google.gms.google-services'
 
 android {
     lintOptions {
@@ -64,6 +65,8 @@ dependencies {
     implementation 'com.github.gafurcseku:internet-connectivity-checker:1.0.1'
     implementation 'com.github.chrisbanes:PhotoView:2.1.3'
     implementation 'com.intuit.sdp:sdp-android:1.0.6'
+    implementation 'com.google.firebase:firebase-core:16.0.3'
+    implementation 'com.google.firebase:firebase-messaging:20.1.7'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.2.0'

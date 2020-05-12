@@ -29,6 +29,7 @@ import com.jaayu.CustomSlider;
 import com.jaayu.Model.BaseUrl;
 import com.jaayu.OnlyUploadPrescription;
 import com.jaayu.R;
+import com.jaayu.SuscriptionFront;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -42,7 +43,7 @@ import java.util.HashMap;
  */
 public class Home extends Fragment {
     LinearLayout search_layout;
-    private Button upload_prescription;
+    private Button upload_prescription,subscription;
     private String sliderUrl= BaseUrl.BaseUrlNew+"slider";
     private SliderLayout banner_slider;
     ProgressDialog progressDialog;
@@ -58,12 +59,20 @@ public class Home extends Fragment {
         final View view= inflater.inflate(R.layout.fragment_home, container, false);
         banner_slider = (SliderLayout) view.findViewById(R.id.relative_banner);
         search_layout=(LinearLayout)view.findViewById(R.id.search_layout);
+        subscription=(Button)view.findViewById(R.id.subscription);
         progressDialog = new ProgressDialog(getActivity());
         progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         progressDialog.show();
         progressDialog.setMessage("Downloading....");
         progressDialog.setCancelable(false);
         upload_prescription=(Button)view.findViewById(R.id.upload_prescription);
+        subscription.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intentGotoSubscription=new Intent(getActivity(), SuscriptionFront.class);
+                getActivity().startActivity(intentGotoSubscription);
+            }
+        });
         upload_prescription.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

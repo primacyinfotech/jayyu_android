@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "330208834874",
+    "firebase_url": "https://jaayu-c2a7e.firebaseio.com",
+    "project_id": "jaayu-c2a7e",
+    "storage_bucket": "jaayu-c2a7e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:330208834874:android:f2f6bf98d6b227a36c0c03",
+        "android_client_info": {
+          "package_name": "com.jaayu"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "330208834874-3and654cj4bko3fiedpjoj2pq1amkvcd.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.jaayu",
+            "certificate_hash": "01677c0f2df0639150e9179f31d55f35d2bcd22c"
+          }
+        },
+        {
+          "client_id": "330208834874-o9earoorkhp3f3ld1g39akoi7i18u15k.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDh2ZU_gWA32ge3_U9o9X2hUtmd0MowBKc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "330208834874-o9earoorkhp3f3ld1g39akoi7i18u15k.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -351,7 +351,7 @@ public class MedicalPrescriptionReport extends AppCompatActivity {
         back_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent GoBack=new Intent(MedicalPrescriptionReport.this,PatienEditPage.class);
+                Intent GoBack=new Intent(MedicalPrescriptionReport.this,PatientListView.class);
                 GoBack.putExtra("Patient_Id",patient_id);
                 startActivity(GoBack);
                 overridePendingTransition(0,0);
@@ -461,18 +461,18 @@ public class MedicalPrescriptionReport extends AppCompatActivity {
                          JSONObject person = new JSONObject(response);
                          String status = person.getString("status");
                          if (status.equals("1")) {
-                             JSONArray jsonArray=person.getJSONArray("prtescription");
+                             JSONArray jsonArray=person.getJSONArray("prescription_list");
                              for(int i=0;i<jsonArray.length();i++){
                                  PatientPastPrescriptionModel oldPrescriptionModel=new PatientPastPrescriptionModel();
                                  JSONObject object=jsonArray.getJSONObject(i);
                                  oldPrescriptionModel.setPatient_pres_id(object.getInt("id"));
-                                 oldPrescriptionModel.setPast_pres_head(object.getString("pres_name"));
+                                /* oldPrescriptionModel.setPast_pres_head(object.getString("pres_name"));
                                  String date=object.getString("date");
                                  SimpleDateFormat sdf = new SimpleDateFormat("dd/mm/yyyy");
                                  Date testDate=sdf.parse(date);
                                  DateFormat dateFormat = new SimpleDateFormat("dd MMM,yyyy");
                                  String newFormat = dateFormat.format(testDate);
-                                 oldPrescriptionModel.setPast_pres_date(newFormat);
+                                 oldPrescriptionModel.setPast_pres_date(newFormat);*/
                                  //oldPrescriptionModel.setPast_pres_date(object.getString("date"));
                                  oldPrescriptionModel.setPast_pres_img(object.getString("prescription"));
                                  patientPastPrescriptionModels.add(oldPrescriptionModel);
@@ -493,9 +493,9 @@ public class MedicalPrescriptionReport extends AppCompatActivity {
                      } catch (JSONException e) {
                          e.printStackTrace();
                          Toast.makeText(getApplicationContext(), "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
-                     } catch (ParseException e) {
+                     } /*catch (ParseException e) {
                          e.printStackTrace();
-                     }
+                     }*/
 
 
                  }
@@ -526,7 +526,7 @@ public class MedicalPrescriptionReport extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        Intent GoBack=new Intent(MedicalPrescriptionReport.this,PatienEditPage.class);
+        Intent GoBack=new Intent(MedicalPrescriptionReport.this,PatientListView.class);
         GoBack.putExtra("Patient_Id",patient_id);
         startActivity(GoBack);
         overridePendingTransition(0,0);

@@ -18,6 +18,7 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -72,6 +73,16 @@ public class PrescriptionSubscriptionDelivery extends AppCompatActivity {
         selected_three_delivery=(CheckBox)findViewById(R.id.selected_three_delivery);
         selected_six_delivery=(CheckBox)findViewById(R.id.selected_six_delivery);
         single_delivery_order=(CheckBox)findViewById(R.id.single_delivery_order);
+
+   /*     one_time_order=(RadioButton)findViewById(R.id.one_time_order);
+        thirty_day_order=(RadioButton)findViewById(R.id.thirty_day_order);
+        fortyfive_day_order=(RadioButton)findViewById(R.id.fortyfive_day_order);
+        sixty_day_order=(RadioButton)findViewById(R.id.sixty_day_order);
+        single_day_order=(RadioButton)findViewById(R.id.single_day_order);
+        selected_three_delivery=(RadioButton)findViewById(R.id.selected_three_delivery);
+        selected_six_delivery=(RadioButton)findViewById(R.id.selected_six_delivery);
+        single_delivery_order=(RadioButton)findViewById(R.id.single_delivery_order);*/
+
         edt_single_day=(EditText)findViewById(R.id.edt_single_day);
         //edt_single_day.setFilters( new InputFilter[]{ new MinMaxFilter( "15" , "99" )}) ;
       /*  edt_single_day.addTextChangedListener(new TextWatcher() {

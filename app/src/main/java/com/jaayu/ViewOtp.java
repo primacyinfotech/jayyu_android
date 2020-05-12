@@ -43,7 +43,7 @@ public class ViewOtp extends AppCompatActivity {
     private Button goTo_submit;
    // private EditText view_otp;
     private TextView resend_btn;
-    String code,OTP_Code,OTP_Code_Two,cell_number;
+    String code,OTP_Code,OTP_Code_Two,cell_number,token,device_id;
     private String OTP_URL= BaseUrl.BaseUrlNew+"verify_otp";
     private String resend_Otp_url=BaseUrl.BaseUrlNew+"resend_otp";
     SharedPreferences prefs ;
@@ -174,6 +174,10 @@ public class ViewOtp extends AppCompatActivity {
 
                        params.put("otp",OTP_Code);
                        params.put("phone",cell_number);
+                       params.put("token","");
+                       params.put("device_id","");
+                       params.put("type","0");
+
                        return params;
                    }
                };
