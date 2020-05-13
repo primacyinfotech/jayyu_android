@@ -14,17 +14,16 @@
      <TextView
          android:id="@+id/patient_name"
          android:layout_gravity="center"
-         android:fontFamily="@font/clearsansbold"
          android:textColor="#000"
          android:text="AAAAAA"
-         android:textSize="15dp"
+         android:textSize="16dp"
          android:layout_marginLeft="10dp"
          android:layout_width="wrap_content"
          android:layout_height="wrap_content">
 
      </TextView>
      <TextView
-         android:textSize="12dp"
+         android:textSize="13dp"
          android:layout_gravity="center"
          android:layout_marginLeft="10dp"
          android:id="@+id/pres_count"

@@ -221,7 +221,7 @@
                   android:layout_gravity="center"
                   />
               <TextView
-                  android:id="@+id/text_hint"
+                  android:id="@+id/text_hint_weight"
                   android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
                   android:layout_alignParentRight="true"

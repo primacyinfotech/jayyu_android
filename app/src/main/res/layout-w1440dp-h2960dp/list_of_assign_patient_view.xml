@@ -13,10 +13,10 @@
         <TextView
             android:id="@+id/name_assign"
             android:layout_gravity="center"
-            android:fontFamily="@font/clearsansbold"
+
             android:textColor="#000"
             android:text="AAAAAA"
-            android:textSize="15dp"
+            android:textSize="16dp"
             android:layout_marginLeft="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
@@ -25,7 +25,7 @@
         <RadioButton
             android:id="@+id/selected_patient"
             android:layout_width="wrap_content"
-            android:layout_marginLeft="250dp"
+
             android:layout_height="match_parent">
 
         </RadioButton>

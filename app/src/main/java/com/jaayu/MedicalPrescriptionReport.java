@@ -76,7 +76,7 @@ public class MedicalPrescriptionReport extends AppCompatActivity {
     int patient_id;
     SharedPreferences prefs_register;
     private String Patient_upload_prescription_url= BaseUrl.BaseUrlNew+"patient_prescription_add";
-    private String Patient_fetch_prescription_url=BaseUrl.BaseUrlNew+"patient_prescription_list";
+    private String Patient_fetch_prescription_url=BaseUrl.BaseUrlNew+"patient_report_list";
     PatientPastPrescrptionAdapter patientPastPrescrptionAdapter;
     ArrayList<PatientPastPrescriptionModel> patientPastPrescriptionModels;
 
@@ -461,19 +461,19 @@ public class MedicalPrescriptionReport extends AppCompatActivity {
                          JSONObject person = new JSONObject(response);
                          String status = person.getString("status");
                          if (status.equals("1")) {
-                             JSONArray jsonArray=person.getJSONArray("prescription_list");
+                             JSONArray jsonArray=person.getJSONArray("prtescription");
                              for(int i=0;i<jsonArray.length();i++){
                                  PatientPastPrescriptionModel oldPrescriptionModel=new PatientPastPrescriptionModel();
                                  JSONObject object=jsonArray.getJSONObject(i);
                                  oldPrescriptionModel.setPatient_pres_id(object.getInt("id"));
-                                /* oldPrescriptionModel.setPast_pres_head(object.getString("pres_name"));
-                                 String date=object.getString("date");
+                                 oldPrescriptionModel.setPast_pres_head(object.getString("pres_name"));
+                                /* String date=object.getString("date");
                                  SimpleDateFormat sdf = new SimpleDateFormat("dd/mm/yyyy");
                                  Date testDate=sdf.parse(date);
                                  DateFormat dateFormat = new SimpleDateFormat("dd MMM,yyyy");
                                  String newFormat = dateFormat.format(testDate);
                                  oldPrescriptionModel.setPast_pres_date(newFormat);*/
-                                 //oldPrescriptionModel.setPast_pres_date(object.getString("date"));
+                                 oldPrescriptionModel.setPast_pres_date(object.getString("date"));
                                  oldPrescriptionModel.setPast_pres_img(object.getString("prescription"));
                                  patientPastPrescriptionModels.add(oldPrescriptionModel);
 

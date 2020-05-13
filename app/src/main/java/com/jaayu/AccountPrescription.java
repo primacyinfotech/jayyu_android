@@ -42,7 +42,8 @@ public class AccountPrescription extends AppCompatActivity {
     ArrayList<AccountPresPatientModel> accountPresPatientModels;
     SharedPreferences prefs_register;
     private String u_id;
-    private String patient_assign_list_url= BaseUrl.BaseUrlNew+"patient_assign_list";
+    //private String patient_assign_list_url= BaseUrl.BaseUrlNew+"patient_assign_list";
+    private String patient_assign_list_url= BaseUrl.BaseUrlNew+"patient_list";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -94,14 +95,13 @@ public class AccountPrescription extends AppCompatActivity {
                                 for(int i=0;i<jsonArray.length();i++){
                                     AccountPresPatientModel assignPrescriptionModel=new AccountPresPatientModel();
                                     JSONObject object=jsonArray.getJSONObject(i);
-                                    assignPrescriptionModel.setPatient_id(object.getInt("patient_id"));
-                                    assignPrescriptionModel.setPatient_name(object.getString("pres_name"));
+                                    assignPrescriptionModel.setPatient_id(object.getInt("id"));
+                                    assignPrescriptionModel.setPatient_name(object.getString("name"));
 
-                                    assignPrescriptionModel.setPrescription_count(object.getInt("count"));
+                                    assignPrescriptionModel.setPrescription_count(object.getInt("pres_count"));
                                     accountPresPatientModels.add(assignPrescriptionModel);
 
                                 }
-
                                 accountPresPatientAdapter=new AccountPresPatientAdapter(accountPresPatientModels,AccountPrescription.this);
                                 patient_assign.setHasFixedSize(true);
                                 patient_assign.setLayoutManager(new LinearLayoutManager(AccountPrescription.this));

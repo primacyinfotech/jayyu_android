@@ -1,6 +1,7 @@
 package Adapter;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -25,6 +26,8 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.jaayu.MedicalPrescriptionReport;
 import com.jaayu.Model.BaseUrl;
+import com.jaayu.PatienEditPage;
+import com.jaayu.PatientListView;
 import com.jaayu.R;
 import com.squareup.picasso.Picasso;
 
@@ -88,61 +91,149 @@ public class PatientPastPrescrptionAdapter extends RecyclerView.Adapter<PatientP
           holder.pres_del.setOnClickListener(new View.OnClickListener() {
               @Override
               public void onClick(View v) {
-                  RequestQueue queue = Volley.newRequestQueue(context);
-                  StringRequest postRequest = new StringRequest(Request.Method.POST, prescription_delete_url,
-                          new Response.Listener<String>() {
-                              @Override
-                              public void onResponse(String response) {
-                                  // response
-                                  Log.d("Response", response);
-                                  try {
-                                      //Do it with this it will work
-                                      JSONObject person = new JSONObject(response);
-                                      String status = person.getString("status");
-                                      if (status.equals("1")) {
-                                          Intent intent = new Intent(context, MedicalPrescriptionReport.class);
-                                          // intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                                          context.startActivity(intent);
-                                          ((Activity) context).overridePendingTransition(0, 0);
-                                          ((Activity) context).finish();
+                  /*ViewGroup viewGroup = findViewById(android.R.id.content);
+                  View dialogView = LayoutInflater.from(context).inflate(R.layout.delete_confermation_dialog, viewGroup, false);
+                  TextView masege=(TextView)dialogView.findViewById(R.id.return_msg) ;
+                  Button buttonOk=(Button)dialogView.findViewById(R.id.buttonOk);
+                  //  masege.setText(msg);
+                  AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                  builder.setView(dialogView);
 
-                                          patientPastPrescriptionModels.remove(position);
-                                          notifyItemRemoved(position);
-                                          notifyItemRangeChanged(position,patientPastPrescriptionModels.size());
-                                          Toast.makeText(context, status + " " + "Removed", Toast.LENGTH_LONG).show();
-
-
-                                      } else {
-                                          Toast.makeText(context, status + " " + "Not Removed", Toast.LENGTH_LONG).show();
-                                      }
-
-
-                                  } catch (JSONException e) {
-                                      e.printStackTrace();
-                                      Toast.makeText(context, "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
-                                  }
-
-
-                              }
-                          },
-                          new Response.ErrorListener() {
-                              @Override
-                              public void onErrorResponse(VolleyError error) {
-                                  // error
-
-                              }
-                          }
-                  ) {
+                  //finally creating the alert dialog and displaying it
+                  final AlertDialog alertDialog = builder.create();
+                  alertDialog.show();
+                  buttonOk.setOnClickListener(new View.OnClickListener() {
                       @Override
-                      protected Map<String, String> getParams() {
-                          Map<String, String> params = new HashMap<String, String>();
-                          params.put("pid", String.valueOf(patientPastPrescriptionModel.getPatient_pres_id()));
+                      public void onClick(View view) {
+
+                          RequestQueue queue = Volley.newRequestQueue(context);
+                          StringRequest postRequest = new StringRequest(Request.Method.POST, prescription_delete_url,
+                                  new Response.Listener<String>() {
+                                      @Override
+                                      public void onResponse(String response) {
+                                          // response
+                                          Log.d("Response", response);
+                                          try {
+                                              //Do it with this it will work
+                                              JSONObject person = new JSONObject(response);
+                                              String status = person.getString("status");
+                                              if (status.equals("1")) {
+                                                  Intent intent = new Intent(context, MedicalPrescriptionReport.class);
+                                                  // intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                                                  context.startActivity(intent);
+                                                  ((Activity) context).overridePendingTransition(0, 0);
+                                                  ((Activity) context).finish();
+
+                                                  patientPastPrescriptionModels.remove(position);
+                                                  notifyItemRemoved(position);
+                                                  notifyItemRangeChanged(position,patientPastPrescriptionModels.size());
+                                                  Toast.makeText(context, status + " " + "Removed", Toast.LENGTH_LONG).show();
 
 
-                          return params;
+                                              } else {
+                                                  Toast.makeText(context, status + " " + "Not Removed", Toast.LENGTH_LONG).show();
+                                              }
+
+
+                                          } catch (JSONException e) {
+                                              e.printStackTrace();
+                                              Toast.makeText(context, "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                                          }
+
+
+                                      }
+                                  },
+                                  new Response.ErrorListener() {
+                                      @Override
+                                      public void onErrorResponse(VolleyError error) {
+                                          // error
+
+                                      }
+                                  }
+                          ) {
+                              @Override
+                              protected Map<String, String> getParams() {
+                                  Map<String, String> params = new HashMap<String, String>();
+                                  params.put("pid", String.valueOf(patientPastPrescriptionModel.getPatient_pres_id()));
+
+
+                                  return params;
+                              }
+                          };
+                          queue.add(postRequest);
+
                       }
-                  };
-                  queue.add(postRequest);
+                  });*/
+                  final Dialog settingsDialog = new Dialog(context);
+                  settingsDialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+                  settingsDialog.getWindow().setBackgroundDrawable(null);
+                  settingsDialog.setContentView(R.layout.delete_confermation_dialog);
+                  Button buttonOk=(Button)settingsDialog.findViewById(R.id.buttonOk);
+                  buttonOk.setOnClickListener(new View.OnClickListener() {
+                      @Override
+                      public void onClick(View view) {
+
+                          RequestQueue queue = Volley.newRequestQueue(context);
+                          StringRequest postRequest = new StringRequest(Request.Method.POST, prescription_delete_url,
+                                  new Response.Listener<String>() {
+                                      @Override
+                                      public void onResponse(String response) {
+                                          // response
+                                          Log.d("Response", response);
+                                          try {
+                                              //Do it with this it will work
+                                              JSONObject person = new JSONObject(response);
+                                              String status = person.getString("status");
+                                              if (status.equals("1")) {
+                                                  Intent intent = new Intent(context, MedicalPrescriptionReport.class);
+                                                  // intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                                                  context.startActivity(intent);
+                                                  ((Activity) context).overridePendingTransition(0, 0);
+                                                  ((Activity) context).finish();
+
+                                                  patientPastPrescriptionModels.remove(position);
+                                                  notifyItemRemoved(position);
+                                                  notifyItemRangeChanged(position,patientPastPrescriptionModels.size());
+                                                  Toast.makeText(context, status + " " + "Removed", Toast.LENGTH_LONG).show();
+                                                  settingsDialog.dismiss();
+
+                                              } else {
+                                                  Toast.makeText(context, status + " " + "Not Removed", Toast.LENGTH_LONG).show();
+                                              }
+
+
+                                          } catch (JSONException e) {
+                                              e.printStackTrace();
+                                              Toast.makeText(context, "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                                          }
+
+
+                                      }
+                                  },
+                                  new Response.ErrorListener() {
+                                      @Override
+                                      public void onErrorResponse(VolleyError error) {
+                                          // error
+
+                                      }
+                                  }
+                          ) {
+                              @Override
+                              protected Map<String, String> getParams() {
+                                  Map<String, String> params = new HashMap<String, String>();
+                                  params.put("pid", String.valueOf(patientPastPrescriptionModel.getPatient_pres_id()));
+
+
+                                  return params;
+                              }
+                          };
+                          queue.add(postRequest);
+
+                      }
+                  });
+                  settingsDialog.show();
+
+
               }
           });
 

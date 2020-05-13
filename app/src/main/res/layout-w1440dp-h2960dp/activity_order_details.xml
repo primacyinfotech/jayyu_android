@@ -578,18 +578,18 @@
                             android:orientation="horizontal">
 
                             <TextView
-                                android:layout_width="wrap_content"
+                                android:layout_width="300dp"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/clearsansbold"
                                 android:text="M.R.P.Total"
                                 android:textColor="#000"
                                 android:textSize="15sp" />
 
-                            <View
+                            <!--<View
                                 android:layout_width="170dp"
                                 android:layout_height="0dp">
 
-                            </View>
+                            </View>-->
 
                             <TextView
                                 android:id="@+id/mrp_amount"
@@ -607,18 +607,18 @@
                             android:orientation="horizontal">
 
                             <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
+                                android:layout_width="300dp"
+                                android:layout_height="match_parent"
                                 android:fontFamily="@font/clearsansbold"
                                 android:text="Saving    "
                                 android:textColor="#000"
                                 android:textSize="15sp" />
 
-                            <View
-                                android:layout_width="165dp"
-                                android:layout_height="0dp">
+                            <!-- <View
+                                 android:layout_width="180dp"
+                                 android:layout_height="0dp">
 
-                            </View>
+                             </View>-->
 
                             <TextView
                                 android:id="@+id/save_amount"
@@ -636,19 +636,19 @@
                             android:orientation="horizontal">
 
                             <TextView
-                                android:layout_width="wrap_content"
+                                android:layout_width="300dp"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/clearsansbold"
                                 android:text="Delivery Charges"
                                 android:textColor="#000"
                                 android:textSize="15sp" />
 
-                            <View
+                            <!--<View
 
                                 android:layout_width="120dp"
                                 android:layout_height="0dp">
 
-                            </View>
+                            </View>-->
 
                             <TextView
                                 android:id="@+id/ship_charge"
@@ -666,18 +666,18 @@
                             android:orientation="horizontal">
 
                             <TextView
-                                android:layout_width="wrap_content"
+                                android:layout_width="300dp"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/clearsansbold"
                                 android:text="Total Pay"
                                 android:textColor="#000"
                                 android:textSize="15sp" />
 
-                            <View
+                            <!--<View
                                 android:layout_width="170dp"
                                 android:layout_height="0dp">
 
-                            </View>
+                            </View>-->
 
                             <TextView
                                 android:id="@+id/total_pay"
@@ -695,18 +695,18 @@
                             android:orientation="horizontal">
 
                             <TextView
-                                android:layout_width="wrap_content"
+                                android:layout_width="300dp"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/clearsansbold"
                                 android:text="Wallet"
                                 android:textColor="#000"
                                 android:textSize="15sp" />
 
-                            <View
-                                android:layout_width="170dp"
-                                android:layout_height="0dp">
+                            <!-- <View
+                                 android:layout_width="170dp"
+                                 android:layout_height="0dp">
 
-                            </View>
+                             </View>-->
 
                             <TextView
                                 android:id="@+id/wallet_pay"
@@ -724,18 +724,18 @@
                             android:orientation="horizontal">
 
                             <TextView
-                                android:layout_width="wrap_content"
+                                android:layout_width="300dp"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/clearsansbold"
                                 android:text="Jaayu Cash"
                                 android:textColor="#000"
                                 android:textSize="15sp" />
 
-                            <View
-                                android:layout_width="170dp"
-                                android:layout_height="0dp">
+                            <!--  <View
+                                  android:layout_width="170dp"
+                                  android:layout_height="0dp">
 
-                            </View>
+                              </View>-->
 
                             <TextView
                                 android:id="@+id/jaayu_pay"
@@ -753,18 +753,18 @@
                             android:orientation="horizontal">
 
                             <TextView
-                                android:layout_width="wrap_content"
+                                android:layout_width="300dp"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/clearsansbold"
                                 android:text="Online pay"
                                 android:textColor="#000"
                                 android:textSize="15sp" />
 
-                            <View
-                                android:layout_width="170dp"
-                                android:layout_height="0dp">
+                            <!--  <View
+                                  android:layout_width="170dp"
+                                  android:layout_height="0dp">
 
-                            </View>
+                              </View>-->
 
                             <TextView
                                 android:id="@+id/online_pay"
@@ -782,18 +782,18 @@
                             android:orientation="horizontal">
 
                             <TextView
-                                android:layout_width="wrap_content"
+                                android:layout_width="300dp"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/clearsansbold"
                                 android:text="Cod"
                                 android:textColor="#000"
                                 android:textSize="15sp" />
 
-                            <View
-                                android:layout_width="200dp"
-                                android:layout_height="0dp">
+                            <!--<View-->
+                            <!--android:layout_width="200dp"-->
+                            <!--android:layout_height="0dp">-->
 
-                            </View>
+                            <!--</View>-->
 
                             <TextView
                                 android:id="@+id/cod_pay"

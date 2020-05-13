@@ -536,6 +536,7 @@ on orders above Rs.100.Offer Valid Once Per User between 1st to 30th Nov"
                     android:textSize="13sp"
                     android:id="@+id/wallet_amount_"
                     android:text="0"
+
                     android:fontFamily="@font/clearsansbold"
                     android:layout_width="100dp"
                     android:layout_height="wrap_content" />
@@ -553,7 +554,7 @@ on orders above Rs.100.Offer Valid Once Per User between 1st to 30th Nov"
                     android:layout_width="150dp"
                     android:layout_height="wrap_content" />
                 <View
-                    android:layout_width="120dp"
+                    android:layout_width="130dp"
                     android:layout_height="0dp">
 
                 </View>

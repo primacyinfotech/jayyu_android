@@ -107,13 +107,6 @@ public class AssignPatientAdapter extends RecyclerView.Adapter<AssignPatientAdap
 
                                     }
 
-
-
-
-
-
-
-
                             } catch (JSONException e) {
                                 e.printStackTrace();
                                 Toast.makeText(context, "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();

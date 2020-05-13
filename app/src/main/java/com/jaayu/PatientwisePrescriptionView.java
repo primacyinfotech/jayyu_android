@@ -123,4 +123,11 @@ public class PatientwisePrescriptionView extends AppCompatActivity {
         };
         requestQueue.add(postRequest);
     }
+    @Override
+    public void onBackPressed() {
+        Intent GotOaccount=new Intent(PatientwisePrescriptionView.this,AccountPrescription.class);
+        startActivity(GotOaccount);
+        overridePendingTransition(0,0);
+        finish();
+    }
 }

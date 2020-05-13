@@ -50,7 +50,7 @@ public class PatientAddPage extends AppCompatActivity {
             ft,inch;
     private int mYear, mMonth, mDay, mHour, mMinute;
     private Button view_prescrip;
-    private TextView add_con_one, add_con_two;
+    private TextView add_con_one, add_con_two,text_hint_ft,text_hint_inch,text_hint_weight;
     DatePickerDialog datePickerDialog;
     String u_id, p_name,p_relation,date_of_birth,p_gen,blood_group,height_of_patient,weight_of_patient,m_condition,reaction_patient,
     medication_of_patient,con1,con2;
@@ -79,7 +79,7 @@ public class PatientAddPage extends AppCompatActivity {
             "Father",
             "Mother",
             "Husband",
-            "wife",
+            "Wife",
             "Brother",
             "Sister",
             "Grandfather",
@@ -117,6 +117,9 @@ public class PatientAddPage extends AppCompatActivity {
        // view_prescrip = (Button) findViewById(R.id.view_prescrip);
         add_con_one = (TextView) findViewById(R.id.add_con_one);
         add_con_two = (TextView) findViewById(R.id.add_con_two);
+        text_hint_ft=(TextView) findViewById(R.id.text_hint_ft);
+        text_hint_inch=(TextView) findViewById(R.id.text_hint_inch);
+        text_hint_weight=(TextView) findViewById(R.id.text_hint_weight);
         add_btn=(Button)findViewById(R.id.add_btn);
       /* view_prescrip.setOnClickListener(new View.OnClickListener() {
            @Override
@@ -232,17 +235,60 @@ public class PatientAddPage extends AppCompatActivity {
             date_of_birth=dob.getText().toString();
             p_gen=patient_gender.getText().toString();
             blood_group=patient_blood.getText().toString();
-            height_of_patient=ft.getText().toString()+" "+"ft"+" "+inch.getText().toString()+" "+"inch";
-            weight_of_patient=weight.getText().toString()+" "+"kg";
+          /*  height_of_patient=ft.getText().toString()+" "+"ft"+" "+inch.getText().toString()+" "+"inch";
+            weight_of_patient=weight.getText().toString()+" "+"kg";*/
+                height_of_patient=ft.getText().toString()+" "+text_hint_ft.getText().toString()+" "+inch.getText().toString()+" "+text_hint_inch.getText().toString();
+                weight_of_patient=weight.getText().toString()+" "+text_hint_weight.getText().toString();
             m_condition=medical_condition.getText().toString();
             reaction_patient=reaction.getText().toString();
             medication_of_patient=medication.getText().toString();
             con1=add_con_one.getText().toString();
             con2=add_con_two.getText().toString();
+           /* if(patient_name.getText().toString().isEmpty()|| patient_relation.getText().toString().isEmpty()||patient_gender.getText().toString().isEmpty()|| patient_blood.getText().toString().isEmpty()||
+                    ft.getText().toString().isEmpty()||inch.getText().toString().isEmpty()||weight.getText().toString().isEmpty()|| dob.getText().toString().isEmpty()) {
+                //  Toast.makeText(getApplicationContext(),"Please, Fill Up Required Field!!",Toast.LENGTH_LONG).show();
+                patient_name.setError("Field Cannot be Blank!");
+                patient_relation.setError("Field Cannot be Blank!");
+                patient_gender.setError("Field Cannot be Blank!");
+                patient_blood.setError("Field Cannot be Blank!");
+                ft.setError("Field Cannot be Blank!");
+                inch.setError("Field Cannot be Blank!");
+                weight.setError("Field Cannot be Blank!");
+                dob.setError("Field Cannot be Blank!");
+
+
+            }*/
+            if(patient_name.getText().toString().isEmpty()){
+                patient_name.setError("Field Cannot be Blank!");
+            }
+            else if(patient_relation.getText().toString().isEmpty()){
+                patient_relation.setError("Field Cannot be Blank!");
+            }
+            else if(patient_gender.getText().toString().isEmpty()){
+                patient_gender.setError("Field Cannot be Blank!");
+            }
+            else  if(patient_blood.getText().toString().isEmpty()){
+                patient_blood.setError("Field Cannot be Blank!");
+            }
+            else if( ft.getText().toString().isEmpty()){
+                ft.setError("Field Cannot be Blank!");
+            }
+            else if(inch.getText().toString().isEmpty()){
+                inch.setError("Field Cannot be Blank!");
+            }
+            else if(weight.getText().toString().isEmpty()){
+                weight.setError("Field Cannot be Blank!");
+            }
+            else if( dob.getText().toString().isEmpty()){
+                dob.setError("Field Cannot be Blank!");
+            }
+            else if(con1.equals("Add from Contact")|| con2.equals("Add from Contact")){
+                Toast.makeText(getApplicationContext(),"Please, Fill Up Required Contact Number!!",Toast.LENGTH_LONG).show();
+            }
+            else {
                 RequestQueue queue = Volley.newRequestQueue(PatientAddPage.this);
                 StringRequest postRequest = new StringRequest(Request.Method.POST, patient_add_url,
-                        new Response.Listener<String>()
-                        {
+                        new Response.Listener<String>() {
                             @Override
                             public void onResponse(String response) {
                                 // response
@@ -250,11 +296,11 @@ public class PatientAddPage extends AppCompatActivity {
                                 try {
                                     //Do it with this it will work
                                     JSONObject person = new JSONObject(response);
-                                    String status=person.getString("status");
+                                    String status = person.getString("status");
 
 
-                                    if(status.equals("1")){
-                                    Toast.makeText(getApplicationContext(),"Add Patient Data",Toast.LENGTH_LONG).show();
+                                    if (status.equals("1")) {
+                                        Toast.makeText(getApplicationContext(), "Add Patient Data", Toast.LENGTH_LONG).show();
                                         patient_name.getText().clear();
                                         patient_relation.getText().clear();
                                         dob.getText().clear();
@@ -267,8 +313,8 @@ public class PatientAddPage extends AppCompatActivity {
                                         reaction.getText().clear();
                                         reaction.getText().clear();
                                         medication.getText().clear();
-                                        Intent refreshPage=new Intent(getApplicationContext(),PatientListView.class);
-                                        overridePendingTransition(0,0);
+                                        Intent refreshPage = new Intent(getApplicationContext(), PatientListView.class);
+                                        overridePendingTransition(0, 0);
                                         startActivity(refreshPage);
                                         finish();
 
@@ -283,8 +329,7 @@ public class PatientAddPage extends AppCompatActivity {
 
                             }
                         },
-                        new Response.ErrorListener()
-                        {
+                        new Response.ErrorListener() {
                             @Override
                             public void onErrorResponse(VolleyError error) {
                                 // error
@@ -293,9 +338,8 @@ public class PatientAddPage extends AppCompatActivity {
                         }
                 ) {
                     @Override
-                    protected Map<String, String> getParams()
-                    {
-                        Map<String, String>  params = new HashMap<String, String>();
+                    protected Map<String, String> getParams() {
+                        Map<String, String> params = new HashMap<String, String>();
                         params.put("user_id", u_id);
                         params.put("name", p_name);
                         params.put("rel", p_relation);
@@ -313,6 +357,7 @@ public class PatientAddPage extends AppCompatActivity {
                     }
                 };
                 queue.add(postRequest);
+            }
             }
         });
     }
