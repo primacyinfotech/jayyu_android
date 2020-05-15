@@ -277,6 +277,52 @@ public class OrderDetails extends AppCompatActivity {
                                 status_title.setText("Order Status :");
                                 text_cancel.setText("Cancel Order");
                                 text_pay.setText("Help");
+                                text_pay.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        Intent GotoOrderPage=new Intent(OrderDetails.this,Help.class);
+                                        startActivity(GotoOrderPage);
+                                        overridePendingTransition(0,0);
+                                        finish();
+                                    }
+                                });
+                                text_cancel.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        ViewGroup viewGroup = findViewById(android.R.id.content);
+                                        View dialogView = LayoutInflater.from(OrderDetails.this).inflate(R.layout.cancel_order_dialog, viewGroup, false);
+                                        final EditText masege=(EditText) dialogView.findViewById(R.id.retun_msg) ;
+                                        Button buttonOk=(Button)dialogView.findViewById(R.id.buttonOk);
+                                       /* if(!user_note.equals("null")){
+
+                                            masege.setText(user_note);
+                                        }
+                                        else {
+
+                                            masege.setText("");
+                                        }*/
+
+
+                                        //Now we need an AlertDialog.Builder object
+                                        AlertDialog.Builder builder = new AlertDialog.Builder(OrderDetails.this);
+
+                                        //setting the view of the builder to our custom view that we already inflated
+                                        builder.setView(dialogView);
+
+                                        //finally creating the alert dialog and displaying it
+                                        final AlertDialog alertDialog = builder.create();
+                                        alertDialog.show();
+                                        buttonOk.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View view) {
+                                                String resoncancel=masege.getText().toString();
+
+                                                alertDialog.dismiss();
+
+                                            }
+                                        });
+                                    }
+                                });
 
 
                             }
@@ -312,6 +358,43 @@ public class OrderDetails extends AppCompatActivity {
                                         finish();
                                     }
                                 });
+                                text_pay.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        ViewGroup viewGroup = findViewById(android.R.id.content);
+                                        View dialogView = LayoutInflater.from(OrderDetails.this).inflate(R.layout.cancel_order_dialog, viewGroup, false);
+                                        final EditText masege=(EditText) dialogView.findViewById(R.id.retun_msg) ;
+                                        Button buttonOk=(Button)dialogView.findViewById(R.id.buttonOk);
+                                       /* if(!user_note.equals("null")){
+
+                                            masege.setText(user_note);
+                                        }
+                                        else {
+
+                                            masege.setText("");
+                                        }*/
+
+
+                                        //Now we need an AlertDialog.Builder object
+                                        AlertDialog.Builder builder = new AlertDialog.Builder(OrderDetails.this);
+
+                                        //setting the view of the builder to our custom view that we already inflated
+                                        builder.setView(dialogView);
+
+                                        //finally creating the alert dialog and displaying it
+                                        final AlertDialog alertDialog = builder.create();
+                                        alertDialog.show();
+                                        buttonOk.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View view) {
+                                                String resoncancel=masege.getText().toString();
+
+                                                alertDialog.dismiss();
+
+                                            }
+                                        });
+                                    }
+                                });
 
                             }
                             if(ship_status.equals("2")){
@@ -337,6 +420,43 @@ public class OrderDetails extends AppCompatActivity {
                                         startActivity(GotoOrderPage);
                                         overridePendingTransition(0,0);
                                         finish();
+                                    }
+                                });
+                                text_cancel.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        ViewGroup viewGroup = findViewById(android.R.id.content);
+                                        View dialogView = LayoutInflater.from(OrderDetails.this).inflate(R.layout.cancel_order_dialog, viewGroup, false);
+                                        final EditText masege=(EditText) dialogView.findViewById(R.id.retun_msg) ;
+                                        Button buttonOk=(Button)dialogView.findViewById(R.id.buttonOk);
+                                       /* if(!user_note.equals("null")){
+
+                                            masege.setText(user_note);
+                                        }
+                                        else {
+
+                                            masege.setText("");
+                                        }*/
+
+
+                                        //Now we need an AlertDialog.Builder object
+                                        AlertDialog.Builder builder = new AlertDialog.Builder(OrderDetails.this);
+
+                                        //setting the view of the builder to our custom view that we already inflated
+                                        builder.setView(dialogView);
+
+                                        //finally creating the alert dialog and displaying it
+                                        final AlertDialog alertDialog = builder.create();
+                                        alertDialog.show();
+                                        buttonOk.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View view) {
+                                                String resoncancel=masege.getText().toString();
+
+                                                alertDialog.dismiss();
+
+                                            }
+                                        });
                                     }
                                 });
 

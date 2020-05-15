@@ -1,5 +1,6 @@
 package com.jaayu;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
@@ -8,7 +9,11 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -139,6 +144,52 @@ public class OldPresOrderDetailsPage extends AppCompatActivity {
                                 }*/
                                 text_cancel.setText("Cancel Order");
                                 text_pay.setText("Help");
+                                text_cancel.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        ViewGroup viewGroup = findViewById(android.R.id.content);
+                                        View dialogView = LayoutInflater.from(OldPresOrderDetailsPage.this).inflate(R.layout.cancel_order_dialog, viewGroup, false);
+                                        final EditText masege=(EditText) dialogView.findViewById(R.id.retun_msg) ;
+                                        Button buttonOk=(Button)dialogView.findViewById(R.id.buttonOk);
+                                       /* if(!user_note.equals("null")){
+
+                                            masege.setText(user_note);
+                                        }
+                                        else {
+
+                                            masege.setText("");
+                                        }*/
+
+
+                                        //Now we need an AlertDialog.Builder object
+                                        AlertDialog.Builder builder = new AlertDialog.Builder(OldPresOrderDetailsPage.this);
+
+                                        //setting the view of the builder to our custom view that we already inflated
+                                        builder.setView(dialogView);
+
+                                        //finally creating the alert dialog and displaying it
+                                        final AlertDialog alertDialog = builder.create();
+                                        alertDialog.show();
+                                        buttonOk.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View view) {
+                                                String resoncancel=masege.getText().toString();
+
+                                                alertDialog.dismiss();
+
+                                            }
+                                        });
+                                    }
+                                });
+                                text_pay.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        Intent GotoOrderPage=new Intent(OldPresOrderDetailsPage.this,Help.class);
+                                        startActivity(GotoOrderPage);
+                                        overridePendingTransition(0,0);
+                                        finish();
+                                    }
+                                });
 
                             }
                             if (ship_status.equals("1")){

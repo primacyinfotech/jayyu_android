@@ -43,7 +43,8 @@ import Model.PatientPastPrescriptionModel;
 public class PatientPastPrescrptionAdapter extends RecyclerView.Adapter<PatientPastPrescrptionAdapter.MyViewHolder> {
       ArrayList<PatientPastPrescriptionModel> patientPastPrescriptionModels;
       Context context;
-    private String prescription_delete_url= BaseUrl.BaseUrlNew+"patient_prescription_delete";
+   /* private String prescription_delete_url= BaseUrl.BaseUrlNew+"patient_prescription_delete";*/
+   private String prescription_delete_url= BaseUrl.BaseUrlNew+"patientwise_report_delete";
 
     public PatientPastPrescrptionAdapter(ArrayList<PatientPastPrescriptionModel> patientPastPrescriptionModels, Context context) {
         this.patientPastPrescriptionModels = patientPastPrescriptionModels;
@@ -221,7 +222,7 @@ public class PatientPastPrescrptionAdapter extends RecyclerView.Adapter<PatientP
                               @Override
                               protected Map<String, String> getParams() {
                                   Map<String, String> params = new HashMap<String, String>();
-                                  params.put("pid", String.valueOf(patientPastPrescriptionModel.getPatient_pres_id()));
+                                  params.put("rid", String.valueOf(patientPastPrescriptionModel.getPatient_pres_id()));
 
 
                                   return params;

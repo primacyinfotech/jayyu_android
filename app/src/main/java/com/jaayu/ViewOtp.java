@@ -48,6 +48,7 @@ public class ViewOtp extends AppCompatActivity {
     private String resend_Otp_url=BaseUrl.BaseUrlNew+"resend_otp";
     SharedPreferences prefs ;
     SharedPreferences prefs_register;
+    SharedPreferences prefs_token;
     ProgressDialog progressDialog;
 
     @Override
@@ -61,6 +62,9 @@ public class ViewOtp extends AppCompatActivity {
        Intent cell_no=getIntent();
        cell_number=cell_no.getStringExtra("PHONE");
         prefs = getSharedPreferences("Mobile_Number", Context.MODE_PRIVATE);
+        prefs_token = getSharedPreferences("Token Details", Context.MODE_PRIVATE);
+        token=prefs_token.getString("regId","");
+        device_id=prefs_token.getString("DeviceId","");
         SharedPreferences.Editor editor = prefs.edit();
         editor.putString("MOBILE",cell_number);
         editor.apply();
@@ -174,8 +178,8 @@ public class ViewOtp extends AppCompatActivity {
 
                        params.put("otp",OTP_Code);
                        params.put("phone",cell_number);
-                       params.put("token","");
-                       params.put("device_id","");
+                       params.put("token",token);
+                       params.put("device_id",device_id);
                        params.put("type","0");
 
                        return params;

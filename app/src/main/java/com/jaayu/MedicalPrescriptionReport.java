@@ -75,8 +75,8 @@ public class MedicalPrescriptionReport extends AppCompatActivity {
     String u_id;
     int patient_id;
     SharedPreferences prefs_register;
-    private String Patient_upload_prescription_url= BaseUrl.BaseUrlNew+"patient_prescription_add";
-    private String Patient_fetch_prescription_url=BaseUrl.BaseUrlNew+"patient_report_list";
+    private String Patient_upload_prescription_url= BaseUrl.BaseUrlNew+"patientwise_report_add";
+    private String Patient_fetch_prescription_url=BaseUrl.BaseUrlNew+"patientwise_report_view";
     PatientPastPrescrptionAdapter patientPastPrescrptionAdapter;
     ArrayList<PatientPastPrescriptionModel> patientPastPrescriptionModels;
 
@@ -206,10 +206,11 @@ public class MedicalPrescriptionReport extends AppCompatActivity {
                             {
                                 Map<String, String>  params = new HashMap<String, String>();
 
-                                params.put("prescription", encodedImage);
+                                params.put("report", encodedImage);
                                 params.put("date", report_up_date.getText().toString());
-                                params.put("pres_name", report_name.getText().toString());
+                                params.put("report_name", report_name.getText().toString());
                                 params.put("user_id", u_id);
+                                params.put("patient_id", String.valueOf(patient_id));
 
 
                                 return params;
@@ -332,10 +333,11 @@ public class MedicalPrescriptionReport extends AppCompatActivity {
                             {
                                 Map<String, String>  params = new HashMap<String, String>();
 
-                                params.put("prescription", encodedImage);
+                                params.put("report", encodedImage);
                                 params.put("date", report_up_date_gal.getText().toString());
-                                params.put("pres_name", report_name_gal.getText().toString());
+                                params.put("report_name", report_name_gal.getText().toString());
                                 params.put("user_id", u_id);
+                                params.put("patient_id", String.valueOf(patient_id));
 
 
                                 return params;
@@ -461,12 +463,12 @@ public class MedicalPrescriptionReport extends AppCompatActivity {
                          JSONObject person = new JSONObject(response);
                          String status = person.getString("status");
                          if (status.equals("1")) {
-                             JSONArray jsonArray=person.getJSONArray("prtescription");
+                             JSONArray jsonArray=person.getJSONArray("data");
                              for(int i=0;i<jsonArray.length();i++){
                                  PatientPastPrescriptionModel oldPrescriptionModel=new PatientPastPrescriptionModel();
                                  JSONObject object=jsonArray.getJSONObject(i);
                                  oldPrescriptionModel.setPatient_pres_id(object.getInt("id"));
-                                 oldPrescriptionModel.setPast_pres_head(object.getString("pres_name"));
+                                 oldPrescriptionModel.setPast_pres_head(object.getString("report_name"));
                                 /* String date=object.getString("date");
                                  SimpleDateFormat sdf = new SimpleDateFormat("dd/mm/yyyy");
                                  Date testDate=sdf.parse(date);
@@ -474,7 +476,7 @@ public class MedicalPrescriptionReport extends AppCompatActivity {
                                  String newFormat = dateFormat.format(testDate);
                                  oldPrescriptionModel.setPast_pres_date(newFormat);*/
                                  oldPrescriptionModel.setPast_pres_date(object.getString("date"));
-                                 oldPrescriptionModel.setPast_pres_img(object.getString("prescription"));
+                                 oldPrescriptionModel.setPast_pres_img(object.getString("image"));
                                  patientPastPrescriptionModels.add(oldPrescriptionModel);
 
                              }
@@ -515,6 +517,7 @@ public class MedicalPrescriptionReport extends AppCompatActivity {
              Map<String, String> params = new HashMap<String, String>();
 
              params.put("user_id", u_id);
+             params.put("patient_id", String.valueOf(patient_id));
 
 
              return params;
