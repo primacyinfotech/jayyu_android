@@ -7,7 +7,7 @@
     android:layout_height="100dp">
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-
+        android:id="@+id/touch_sub_id"
         android:elevation="5dp"
         android:layout_height="100dp">
         <LinearLayout

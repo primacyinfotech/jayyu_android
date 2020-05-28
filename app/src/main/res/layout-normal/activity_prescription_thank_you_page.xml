@@ -6,20 +6,21 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".PrescriptionThankYouPage">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
-
         <LinearLayout
             android:id="@+id/nilu"
             android:layout_width="match_parent"
-            android:layout_height="120dp"
-
+            android:layout_height="170dp"
+            android:gravity="center_vertical"
             android:background="@color/colorPrimary"
             android:orientation="vertical"
             android:paddingBottom="30dp">
-
 
             <TextView
                 android:layout_width="match_parent"
@@ -281,44 +282,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
             </LinearLayout>
-            <LinearLayout
-                android:layout_marginTop="0dp"
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="60dp">
-                <LinearLayout
-                    android:id="@+id/order_track_btn"
-                    android:orientation="vertical"
-                    android:layout_width="205dp"
-                    android:background="@color/white"
-                    android:layout_height="60dp">
-                    <TextView
-                        android:text="TRACK ORDER"
-                        android:layout_gravity="center"
-                        android:gravity="center"
-                        android:layout_marginTop="20sp"
-                        android:textColor="@color/colorPrimary"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-                </LinearLayout>
-                <LinearLayout
-                    android:id="@+id/help_ord_btn"
-                    android:orientation="vertical"
-                    android:layout_width="200dp"
-                    android:background="@color/colorPrimary"
-                    android:layout_height="60dp">
-                    <TextView
-                        android:text="HELP"
-                        android:layout_gravity="center"
-                        android:gravity="center"
-                        android:layout_marginTop="20sp"
-                        android:textColor="@color/white"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-                </LinearLayout>
-            </LinearLayout>
+
         </LinearLayout>
     </LinearLayout>
+    </ScrollView>
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -331,7 +298,7 @@
             android:layout_width="match_parent"
             android:layout_height="70dp"
             android:elevation="20dp"
-            android:layout_marginTop="85dp"
+            android:layout_marginTop="135dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_marginBottom="20dp"
@@ -358,6 +325,45 @@
                 android:layout_height="wrap_content" />
         </LinearLayout>
 
-
+        <LinearLayout
+            android:layout_marginTop="0dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_alignParentBottom="true"
+            android:weightSum="2">
+            <LinearLayout
+                android:id="@+id/order_track_btn"
+                android:orientation="vertical"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:background="@color/white"
+                android:layout_height="60dp">
+                <TextView
+                    android:text="TRACK ORDER"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_marginTop="20sp"
+                    android:textColor="@color/colorPrimary"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/help_ord_btn"
+                android:orientation="vertical"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:background="@color/colorPrimary"
+                android:layout_height="60dp">
+                <TextView
+                    android:text="HELP"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_marginTop="20sp"
+                    android:textColor="@color/white"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+        </LinearLayout>
     </RelativeLayout>
 </RelativeLayout>

@@ -26,6 +26,7 @@ import com.jaayu.ManageAddress;
 import com.jaayu.Model.BaseUrl;
 import com.jaayu.R;
 
+import org.apache.commons.lang3.StringUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -60,7 +61,8 @@ public class ManageAdderssAdapter extends RecyclerView.Adapter<ManageAdderssAdap
     @Override
     public void onBindViewHolder(@NonNull ManageAdderssAdapter.MyViewHolder holder, final int position) {
         final AddressModel addressModel=modelList.get(position);
-        holder.pref_add.setText(addressModel.getAddress_pref());
+     /*   holder.pref_add.setText(addressModel.getAddress_pref());*/
+        holder.pref_add.setText(StringUtils.capitalize(addressModel.getAddress_pref().toLowerCase().trim()));
         holder.name.setText(addressModel.getName());
         holder.address.setText(addressModel.getAddress());
         holder.address_land.setText(addressModel.getLanmark());

@@ -95,12 +95,12 @@ private Button goTo_submit;
         goTo_submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               /* progressDialog = new ProgressDialog(LoginSignUp.this);
+                progressDialog = new ProgressDialog(LoginSignUp.this);
                 progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
                 progressDialog.show();
-                progressDialog.setMessage("loading....");
+                progressDialog.setMessage("Loading....");
                 progressDialog.setCancelable(false);
-                u_phone=input_mobile.getText().toString();*/
+                //u_phone=input_mobile.getText().toString();
                 u_phone=input_mobile.getText().toString();
                 RequestQueue queue = Volley.newRequestQueue(LoginSignUp.this);
                 StringRequest postRequest = new StringRequest(Request.Method.POST, Login_Otp_url,
@@ -115,15 +115,14 @@ private Button goTo_submit;
                                     JSONObject person = new JSONObject(response);
                                     String status=person.getString("status");
                                     if(status.equals("1")){
-                                         // progressDialog.dismiss();
                                         Intent goViewOtp=new Intent(LoginSignUp.this,ViewOtp.class);
                                          goViewOtp.putExtra("PHONE",u_phone);
                                         startActivity(goViewOtp);
                                         finish();
                                     }
                                     if(status.equals("0")) {
-                                       // progressDialog.dismiss();
-                                        Intent goViewOtp=new Intent(LoginSignUp.this,Registration.class);
+                                        Intent goViewOtp = new Intent(LoginSignUp.this,Registration.class);
+                                        goViewOtp.putExtra("PHONE",u_phone);
                                         startActivity(goViewOtp);
                                         finish();
                                         String message=person.getString("message");
@@ -146,6 +145,7 @@ private Button goTo_submit;
                                 }
 
 
+                                progressDialog.dismiss();
                             }
                         },
                         new Response.ErrorListener()
@@ -153,7 +153,8 @@ private Button goTo_submit;
                             @Override
                             public void onErrorResponse(VolleyError error) {
                                 // error
-
+                                error.printStackTrace();
+                                progressDialog.dismiss();
                             }
                         }
                 ) {

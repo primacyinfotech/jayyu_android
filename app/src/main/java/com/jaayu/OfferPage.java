@@ -92,10 +92,19 @@ public class OfferPage extends AppCompatActivity {
                                 for(int i=0;i<jsonArray.length();i++){
                                     OfferPageModel offerPageModel=new OfferPageModel();
                                     JSONObject object=jsonArray.getJSONObject(i);
-                                    offerPageModel.setOffer_heading(object.getString("short_description"));
+                                    offerPageModel.setOffer_heading(object.getString("heading"));
+                                    offerPageModel.setOffer_des(object.getString("short_description"));
+                                    offerPageModel.setOffer_code(object.getString("code"));
                                     String longdes=object.getString("long_description");
-                                    Spanned htmlAsSpanned = Html.fromHtml(longdes);
-                                    offerPageModel.setOffer_des(String.valueOf(htmlAsSpanned));
+                                    Spanned htmlAsSpanned = null;
+                                    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+                                        htmlAsSpanned = Html.fromHtml(longdes,Html.FROM_HTML_MODE_COMPACT);
+                                        offerPageModel.setOffer_long_des(String.valueOf(htmlAsSpanned));
+                                    }
+                                    else {
+                                        offerPageModel.setOffer_long_des(String.valueOf(htmlAsSpanned));
+                                    }
+                                   // offerPageModel.setOffer_des(String.valueOf(htmlAsSpanned));
                                     offerPageModel.setOffer_img(object.getString("image"));
                                     String exp=object.getString("expiry_date");
                                     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd");

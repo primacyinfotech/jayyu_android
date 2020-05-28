@@ -2,6 +2,7 @@ package fragment;
 
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -13,6 +14,8 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -76,6 +79,12 @@ public class Searchfragment extends Fragment {
         names.add(new Searchmodel("Casit",R.drawable.ic_action_arrow));*/
 
         search_layout_edit=(EditText)view.findViewById(R.id.search_layout_edit);
+       /* search_layout_edit.setFocusableInTouchMode(true);
+        search_layout_edit.requestFocus();
+
+        InputMethodManager in = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+        in.hideSoftInputFromWindow(search_layout_edit.getWindowToken(), 1);*/
+
         //fack_image=(ImageView)view.findViewById(R.id.fack_image);
         recyclerView=(RecyclerView)view.findViewById(R.id.rv_search);
         //Search_View();
@@ -135,7 +144,9 @@ public class Searchfragment extends Fragment {
                                         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
                                         searchAdapter.notifyDataSetChanged();
 
-
+                                        search_layout_edit.clearFocus();
+                                        InputMethodManager in = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                                        in.hideSoftInputFromWindow(search_layout_edit.getWindowToken(), 0);
                                     }
                                     else {
                                         recyclerView.setVisibility(View.GONE);

@@ -40,6 +40,7 @@
             <ImageView
                 android:id="@+id/search_page"
                 android:layout_gravity="center"
+                android:visibility="gone"
                 android:src="@drawable/ic_action_search_view_png"
                 android:layout_width="50dp"
                 android:layout_height="wrap_content" />

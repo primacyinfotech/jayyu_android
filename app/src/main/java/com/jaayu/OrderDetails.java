@@ -61,6 +61,9 @@ public class OrderDetails extends AppCompatActivity {
     SharedPreferences prefs_register;
     private String Orderdetails_url=BaseUrl.BaseUrlNew+"order_details_profile";
     private  String disclaimer_url=BaseUrl.BaseUrlNew+"disclaimer";
+    private String cancel_order_url=BaseUrl.BaseUrlNew+"order_cancel";
+
+    private String  reorder_url=BaseUrl.BaseUrlNew+"reorder";
     String u_id,instant_id,ship_status,delivery_date,ord_id,ord_date,mrp_amt,save_amt,shipping_charge,tot_pay,ship_add_name,ship_add_phone,
     ship_add_address,ship_add_land,ship_add_pin,payment_status,w_cash,j_cash,onli_cash,c_cash,Ord_vid,show_coupon,return_date,user_note;
     int odr_id;
@@ -315,9 +318,59 @@ public class OrderDetails extends AppCompatActivity {
                                         buttonOk.setOnClickListener(new View.OnClickListener() {
                                             @Override
                                             public void onClick(View view) {
-                                                String resoncancel=masege.getText().toString();
+                                                final String resoncancel=masege.getText().toString();
 
-                                                alertDialog.dismiss();
+                                                RequestQueue requestQueue = Volley.newRequestQueue(OrderDetails.this);
+                                                StringRequest postRequest = new StringRequest(Request.Method.POST,cancel_order_url,
+                                                        new Response.Listener<String>() {
+                                                            @Override
+                                                            public void onResponse(String response) {
+                                                                // response
+                                                                Log.d("Response", response);
+                                                                try {
+                                                                    //Do it with this it will work
+                                                                    JSONObject person = new JSONObject(response);
+                                                                    String status=person.getString("status");
+                                                                    if(status.equals("1")){
+                                                                  String message=person.getString("Message");
+                                                                  Toast.makeText(getApplicationContext(),message,Toast.LENGTH_LONG).show();
+                                                                        alertDialog.dismiss();
+                                                                        Intent intent = new Intent(OrderDetails.this, OrderPage.class);
+                                                                        startActivity(intent);
+                                                                        overridePendingTransition(0,0);
+                                                                        finish();
+                                                                    }
+
+
+                                                                } catch (JSONException e) {
+                                                                    e.printStackTrace();
+                                                                    Toast.makeText(getApplicationContext(), "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                                                                }
+
+
+                                                            }
+                                                        },
+                                                        new Response.ErrorListener() {
+                                                            @Override
+                                                            public void onErrorResponse(VolleyError error) {
+                                                                // error
+
+                                                            }
+                                                        }
+                                                ) {
+                                                    @Override
+                                                    protected Map<String, String> getParams() {
+                                                        Map<String, String> params = new HashMap<String, String>();
+                                                        params.put("user_id", u_id);
+                                                        params.put("oid", String.valueOf(odr_id));
+                                                        params.put("cancel_note", resoncancel);
+                                                        params.put("cancel", "5");
+                                                        return params;
+                                                    }
+
+                                                };
+                                                requestQueue.add(postRequest);
+                                                /*alertDialog.dismiss();*/
 
                                             }
                                         });
@@ -387,9 +440,60 @@ public class OrderDetails extends AppCompatActivity {
                                         buttonOk.setOnClickListener(new View.OnClickListener() {
                                             @Override
                                             public void onClick(View view) {
-                                                String resoncancel=masege.getText().toString();
+                                                final String resoncancel=masege.getText().toString();
 
-                                                alertDialog.dismiss();
+                                                RequestQueue requestQueue = Volley.newRequestQueue(OrderDetails.this);
+                                                StringRequest postRequest = new StringRequest(Request.Method.POST,cancel_order_url,
+                                                        new Response.Listener<String>() {
+                                                            @Override
+                                                            public void onResponse(String response) {
+                                                                // response
+                                                                Log.d("Response", response);
+                                                                try {
+                                                                    //Do it with this it will work
+                                                                    JSONObject person = new JSONObject(response);
+                                                                    String status=person.getString("status");
+                                                                    if(status.equals("1")){
+                                                                        String message=person.getString("Message");
+                                                                        Toast.makeText(getApplicationContext(),message,Toast.LENGTH_LONG).show();
+                                                                        alertDialog.dismiss();
+                                                                        Intent intent = new Intent(OrderDetails.this, OrderPage.class);
+                                                                        startActivity(intent);
+                                                                        overridePendingTransition(0,0);
+                                                                        finish();
+                                                                    }
+
+
+                                                                } catch (JSONException e) {
+                                                                    e.printStackTrace();
+                                                                    Toast.makeText(getApplicationContext(), "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                                                                }
+
+
+                                                            }
+                                                        },
+                                                        new Response.ErrorListener() {
+                                                            @Override
+                                                            public void onErrorResponse(VolleyError error) {
+                                                                // error
+
+                                                            }
+                                                        }
+                                                ) {
+                                                    @Override
+                                                    protected Map<String, String> getParams() {
+                                                        Map<String, String> params = new HashMap<String, String>();
+                                                        params.put("user_id", u_id);
+                                                        params.put("oid", String.valueOf(odr_id));
+                                                        params.put("cancel_note", resoncancel);
+                                                        params.put("cancel", "5");
+                                                        return params;
+                                                    }
+
+                                                };
+                                                requestQueue.add(postRequest);
+
+                                              /*  alertDialog.dismiss();*/
 
                                             }
                                         });
@@ -451,9 +555,60 @@ public class OrderDetails extends AppCompatActivity {
                                         buttonOk.setOnClickListener(new View.OnClickListener() {
                                             @Override
                                             public void onClick(View view) {
-                                                String resoncancel=masege.getText().toString();
+                                                final String resoncancel=masege.getText().toString();
 
-                                                alertDialog.dismiss();
+                                                RequestQueue requestQueue = Volley.newRequestQueue(OrderDetails.this);
+                                                StringRequest postRequest = new StringRequest(Request.Method.POST,cancel_order_url,
+                                                        new Response.Listener<String>() {
+                                                            @Override
+                                                            public void onResponse(String response) {
+                                                                // response
+                                                                Log.d("Response", response);
+                                                                try {
+                                                                    //Do it with this it will work
+                                                                    JSONObject person = new JSONObject(response);
+                                                                    String status=person.getString("status");
+                                                                    if(status.equals("1")){
+                                                                        String message=person.getString("Message");
+                                                                        Toast.makeText(getApplicationContext(),message,Toast.LENGTH_LONG).show();
+                                                                        alertDialog.dismiss();
+                                                                        Intent intent = new Intent(OrderDetails.this, OrderPage.class);
+                                                                        startActivity(intent);
+                                                                        overridePendingTransition(0,0);
+                                                                        finish();
+                                                                    }
+
+
+                                                                } catch (JSONException e) {
+                                                                    e.printStackTrace();
+                                                                    Toast.makeText(getApplicationContext(), "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                                                                }
+
+
+                                                            }
+                                                        },
+                                                        new Response.ErrorListener() {
+                                                            @Override
+                                                            public void onErrorResponse(VolleyError error) {
+                                                                // error
+
+                                                            }
+                                                        }
+                                                ) {
+                                                    @Override
+                                                    protected Map<String, String> getParams() {
+                                                        Map<String, String> params = new HashMap<String, String>();
+                                                        params.put("user_id", u_id);
+                                                        params.put("oid", String.valueOf(odr_id));
+                                                        params.put("cancel_note", resoncancel);
+                                                        params.put("cancel", "5");
+                                                        return params;
+                                                    }
+
+                                                };
+                                                requestQueue.add(postRequest);
+
+                                               /* alertDialog.dismiss();*/
 
                                             }
                                         });
@@ -485,6 +640,60 @@ public class OrderDetails extends AppCompatActivity {
                                         startActivity(GotoOrderPage);
                                         overridePendingTransition(0,0);
                                         finish();
+                                    }
+                                });
+                                text_cancel.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        RequestQueue requestQueue = Volley.newRequestQueue(OrderDetails.this);
+                                        StringRequest postRequest = new StringRequest(Request.Method.POST,reorder_url,
+                                                new Response.Listener<String>() {
+                                                    @Override
+                                                    public void onResponse(String response) {
+                                                        // response
+                                                        Log.d("Response", response);
+                                                        try {
+                                                            //Do it with this it will work
+                                                            JSONObject person = new JSONObject(response);
+                                                            String status=person.getString("status");
+                                                            if(status.equals("1")){
+                                                                String message=person.getString("message");
+                                                                Toast.makeText(getApplicationContext(),message,Toast.LENGTH_LONG).show();
+
+                                                                Intent intent = new Intent(OrderDetails.this, CartActivity.class);
+                                                                startActivity(intent);
+                                                                overridePendingTransition(0,0);
+                                                                finish();
+                                                            }
+
+
+                                                        } catch (JSONException e) {
+                                                            e.printStackTrace();
+                                                            Toast.makeText(getApplicationContext(), "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                                                        }
+
+
+                                                    }
+                                                },
+                                                new Response.ErrorListener() {
+                                                    @Override
+                                                    public void onErrorResponse(VolleyError error) {
+                                                        // error
+
+                                                    }
+                                                }
+                                        ) {
+                                            @Override
+                                            protected Map<String, String> getParams() {
+                                                Map<String, String> params = new HashMap<String, String>();
+                                                params.put("user_id", u_id);
+                                                params.put("oid", String.valueOf(odr_id));
+
+                                                return params;
+                                            }
+
+                                        };
+                                        requestQueue.add(postRequest);
                                     }
                                 });
 
@@ -578,6 +787,60 @@ public class OrderDetails extends AppCompatActivity {
                                         finish();
                                     }
                                 });
+                                text_cancel.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        RequestQueue requestQueue = Volley.newRequestQueue(OrderDetails.this);
+                                        StringRequest postRequest = new StringRequest(Request.Method.POST,reorder_url,
+                                                new Response.Listener<String>() {
+                                                    @Override
+                                                    public void onResponse(String response) {
+                                                        // response
+                                                        Log.d("Response", response);
+                                                        try {
+                                                            //Do it with this it will work
+                                                            JSONObject person = new JSONObject(response);
+                                                            String status=person.getString("status");
+                                                            if(status.equals("1")){
+                                                                String message=person.getString("message");
+                                                                Toast.makeText(getApplicationContext(),message,Toast.LENGTH_LONG).show();
+
+                                                                Intent intent = new Intent(OrderDetails.this, CartActivity.class);
+                                                                startActivity(intent);
+                                                                overridePendingTransition(0,0);
+                                                                finish();
+                                                            }
+
+
+                                                        } catch (JSONException e) {
+                                                            e.printStackTrace();
+                                                            Toast.makeText(getApplicationContext(), "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                                                        }
+
+
+                                                    }
+                                                },
+                                                new Response.ErrorListener() {
+                                                    @Override
+                                                    public void onErrorResponse(VolleyError error) {
+                                                        // error
+
+                                                    }
+                                                }
+                                        ) {
+                                            @Override
+                                            protected Map<String, String> getParams() {
+                                                Map<String, String> params = new HashMap<String, String>();
+                                                params.put("user_id", u_id);
+                                                params.put("oid", String.valueOf(odr_id));
+
+                                                return params;
+                                            }
+
+                                        };
+                                        requestQueue.add(postRequest);
+                                    }
+                                });
                             }
                             if(ship_status.equals("6")){
                                 order_details_icon.setImageResource(R.drawable.tickyellow);
@@ -610,6 +873,60 @@ public class OrderDetails extends AppCompatActivity {
                                         startActivity(GotoOrderPage);
                                         overridePendingTransition(0,0);
                                         finish();
+                                    }
+                                });
+                                text_cancel.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        RequestQueue requestQueue = Volley.newRequestQueue(OrderDetails.this);
+                                        StringRequest postRequest = new StringRequest(Request.Method.POST,reorder_url,
+                                                new Response.Listener<String>() {
+                                                    @Override
+                                                    public void onResponse(String response) {
+                                                        // response
+                                                        Log.d("Response", response);
+                                                        try {
+                                                            //Do it with this it will work
+                                                            JSONObject person = new JSONObject(response);
+                                                            String status=person.getString("status");
+                                                            if(status.equals("1")){
+                                                                String message=person.getString("message");
+                                                                Toast.makeText(getApplicationContext(),message,Toast.LENGTH_LONG).show();
+
+                                                                Intent intent = new Intent(OrderDetails.this, CartActivity.class);
+                                                                startActivity(intent);
+                                                                overridePendingTransition(0,0);
+                                                                finish();
+                                                            }
+
+
+                                                        } catch (JSONException e) {
+                                                            e.printStackTrace();
+                                                            Toast.makeText(getApplicationContext(), "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                                                        }
+
+
+                                                    }
+                                                },
+                                                new Response.ErrorListener() {
+                                                    @Override
+                                                    public void onErrorResponse(VolleyError error) {
+                                                        // error
+
+                                                    }
+                                                }
+                                        ) {
+                                            @Override
+                                            protected Map<String, String> getParams() {
+                                                Map<String, String> params = new HashMap<String, String>();
+                                                params.put("user_id", u_id);
+                                                params.put("oid", String.valueOf(odr_id));
+
+                                                return params;
+                                            }
+
+                                        };
+                                        requestQueue.add(postRequest);
                                     }
                                 });
                             }

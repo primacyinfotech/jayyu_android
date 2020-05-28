@@ -34,6 +34,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     Bitmap bitmap;
     SharedPreferences prefs_token;
     String deviceId;
+    Intent intent;
 
     @Override
     public void onNewToken(String token) {
@@ -105,24 +106,31 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         //If the key AnotherActivity has  value as True then when the user taps on notification, in the app AnotherActivity will be opened.
         //If the key AnotherActivity has  value as False then when the user taps on notification, in the app MainActivity will be opened.
         String TrueOrFlase = remoteMessage.getData().get("Demo");
+        String click_action = remoteMessage.getNotification().getClickAction();
 
         //To get a Bitmap image from the URL received
         bitmap = getBitmapFromURL(imageUrl);
 
-        sendNotification(message, bitmap, TrueOrFlase, title);
+        sendNotification(message, bitmap, click_action, title);
 
 
         // Also if you intend on generating your own notifications as a result of a received FCM
         // message, here is where that should be initiated. See sendNotification method below.
     }
 
-    private void sendNotification(String messageBody, Bitmap image, String TrueOrFalse, String title) {
+    private void sendNotification(String messageBody, Bitmap image, String click_action, String title) {
+
         Intent intent = new Intent(this, MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        intent.putExtra("MainActivity", TrueOrFalse);
+        intent.putExtra("MainActivity", click_action);
+       /* if(click_action.equals("")){
+            intent = new Intent(this, MainActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intent.putExtra("MainActivity", click_action);
+
+        }*/
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent,
                 PendingIntent.FLAG_ONE_SHOT);
-
         Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
                 .setLargeIcon(image)

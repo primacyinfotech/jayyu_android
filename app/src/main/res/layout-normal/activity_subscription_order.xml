@@ -34,35 +34,22 @@
 
         </LinearLayout>
     </androidx.appcompat.widget.Toolbar>
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="500dp"
-            android:scrollbars="vertical">
+
             <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <RelativeLayout
-                    android:orientation="vertical"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    >
+                android:layout_height="match_parent">
 
-                    <androidx.recyclerview.widget.RecyclerView
+                <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/list_subscription"
 
                         android:nestedScrollingEnabled="true"
                         android:layout_width="match_parent"
                         android:background="#EFEFEF"
-                        android:layout_height="wrap_content">
+                        android:layout_height="match_parent">
 
                     </androidx.recyclerview.widget.RecyclerView>
-                </RelativeLayout>
+
             </LinearLayout>
-        </ScrollView>
-    </LinearLayout>
+
 </LinearLayout>

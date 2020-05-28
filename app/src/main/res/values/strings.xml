@@ -17,10 +17,11 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_reminder_list">ReminderList</string>
-    <string name="normal_string">By Clicking continue,you agree to our  </string>
-    <string name="normal_string2">  <u>  Terms and Conditions  </u> </string>
-    <string name="normal_string3">  and </string>
-    <string name="normal_string4"><u> Privacy Policy </u></string>
+    <string name="normal_string">By Clicking continue, you agree to our  </string>
+    <string name="normal_string2"><u>Terms &amp; Conditions</u></string>
+    <string name="normal_string3"> and </string>
+    <string name="normal_string4"><u>Privacy Policy.</u></string>
+    <string name="sign_up">Continue</string>
     <string-array name="planets_array">
         <item>Home</item>
         <item>Work</item>

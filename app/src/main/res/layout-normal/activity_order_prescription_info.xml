@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -36,7 +36,9 @@
     </androidx.appcompat.widget.Toolbar>
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/toolbar"
+        android:layout_above="@+id/btn_continue">
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
@@ -95,7 +97,10 @@
 
     </TextView>
     <androidx.cardview.widget.CardView
-        android:layout_margin="15dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginBottom="5dp"
         android:elevation="15dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -131,14 +136,16 @@
                        </CheckBox>
                        <EditText
                            android:id="@+id/edt_days"
-
+                           android:layout_gravity="center"
+                           android:gravity="center"
                            android:layout_width="50dp"
                            android:inputType="number"
                            android:maxLength="2"
                            android:layout_height="40dp">
                        </EditText>
                        <TextView
-                           android:text="days"
+                           android:text="Days"
+                           android:textColor="@color/black"
                            android:layout_width="wrap_content"
                            android:layout_height="wrap_content">
 
@@ -146,7 +153,7 @@
                    </LinearLayout>
                    <CheckBox
                        android:id="@+id/during_doctor"
-                       android:text="Duration or quantity of medicines as written by Doctor"
+                       android:text="Duration or quantity of medicines as written by doctor"
                        android:layout_width="wrap_content"
                        android:layout_height="wrap_content">
 
@@ -164,7 +171,7 @@
             </View>
             <CheckBox
                 android:id="@+id/specify_medicin"
-                android:text="Let me Specify Medicines and Quantity"
+                android:text="Let me specify medicines and quantity"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
 
@@ -231,7 +238,6 @@
                 android:layout_marginLeft="10dp"
                 android:textColor="#000"
                 android:fontFamily="@font/clearsansbold"
-                android:layout_marginTop="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <EditText
@@ -268,6 +274,10 @@ and is not involved is sales of any products"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
         </LinearLayout>
+
+    </LinearLayout>
+    </ScrollView>
+
     <Button
         android:id="@+id/btn_continue"
         android:textColor="@color/white"
@@ -275,9 +285,11 @@ and is not involved is sales of any products"
         android:textSize="18dp"
         android:background="@drawable/corner_round_button"
         android:text="Continue"
-        android:layout_margin="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="15dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-    </LinearLayout>
-    </ScrollView>
-</LinearLayout>
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"/>
+</RelativeLayout>

@@ -9,6 +9,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.text.Editable;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -82,6 +83,10 @@ public class Registration extends AppCompatActivity {
         user_email=(EditText)findViewById(R.id.user_email);
         user_phone=(EditText)findViewById(R.id.user_phone);
         goTo_submit=(Button)findViewById(R.id.goTo_submit);
+        user_phone.setEnabled(false);
+        Editable.Factory factory =new Editable.Factory();
+        user_phone.setEditableFactory(new Editable.Factory());
+        user_phone.setText(getIntent().getStringExtra("PHONE"));
         goTo_submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -30,7 +30,7 @@
 
                 android:layout_gravity="center"
                 android:fontFamily="@font/clearsansbold"
-                android:text="Login / Register"
+                android:text="Login/Signup"
                 android:textColor="#fff"
                 android:textSize="22sp" />
 
@@ -39,6 +39,7 @@
     <LinearLayout
         android:orientation="horizontal"
         android:layout_marginTop="35dp"
+        android:visibility="gone"
         android:layout_gravity="center"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
@@ -49,7 +50,6 @@
             android:layout_marginTop="15dp"
             android:layout_marginLeft="25dp"
             android:orientation="horizontal"
-
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
             <ImageView
@@ -152,10 +152,8 @@
 
             <TextView
                 android:layout_width="wrap_content"
-
-
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/clearsansbold"
+                android:fontFamily="@font/clear_sans_regular"
                 android:text="+91"
                 android:textColor="#000"
                 android:textSize="15sp" />
@@ -166,7 +164,7 @@
                 android:layout_height="50dp"
                 android:layout_marginLeft="5dp"
                 android:background="@drawable/edit_mobile_back"
-                android:fontFamily="@font/clearsansbold"
+                android:fontFamily="@font/clear_sans_regular"
                 android:hint="Enter Your Mobile Number"
                 android:inputType="phone"
                 android:maxLength="10"
@@ -205,7 +203,7 @@ Bring the thing in center"
 
             android:background="@drawable/coupon_button_back"
             android:fontFamily="@font/clearsansbold"
-            android:text="Continue"
+            android:text="@string/sign_up"
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textSize="25sp" />
@@ -222,12 +220,10 @@ Bring the thing in center"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-
                 android:fontFamily="@font/clearsansbold"
-
                 android:gravity="center"
                 android:text="@string/normal_string"
-                android:textSize="11sp" />
+                android:textSize="13sp" />
 
 
 
@@ -244,31 +240,27 @@ Bring the thing in center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
-
                 android:fontFamily="@font/clearsansbold"
                 android:gravity="center"
                 android:text="@string/normal_string2"
-                android:textSize="11sp" />
+                android:textSize="13sp" />
             <TextView
-
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
                 android:fontFamily="@font/clearsansbold"
                 android:gravity="center"
                 android:layout_marginLeft="5dp"
                 android:text="@string/normal_string3"
-                android:textSize="11sp" />
+                android:textSize="13sp" />
             <TextView
                 android:id="@+id/privacy_policy"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
                 android:fontFamily="@font/clearsansbold"
                 android:gravity="center"
                 android:layout_marginLeft="5dp"
                 android:text="@string/normal_string4"
-                android:textSize="11sp" />
+                android:textSize="13sp" />
         </LinearLayout>
         </LinearLayout>
     </LinearLayout>

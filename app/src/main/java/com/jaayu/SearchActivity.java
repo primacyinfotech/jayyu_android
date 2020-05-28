@@ -5,11 +5,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 
@@ -59,6 +61,9 @@ public class SearchActivity extends AppCompatActivity {
         names.add(new Searchmodel("Rantac",R.drawable.ic_action_arrow));
         names.add(new Searchmodel("Casit",R.drawable.ic_action_arrow));*/
         search_layout_edit=(EditText)findViewById(R.id.search_layout_edit);
+        search_layout_edit.setShowSoftInputOnFocus(true);
+        search_layout_edit.setFocusable(true);
+        search_layout_edit.setFocusableInTouchMode(true);
       //  fack_image=(ImageView)findViewById(R.id.fack_image);
         back_button=(ImageView)findViewById(R.id.back_button);
         recyclerView=(RecyclerView)findViewById(R.id.rv_search);
@@ -112,7 +117,9 @@ public class SearchActivity extends AppCompatActivity {
                                         recyclerView.setHasFixedSize(true);
                                         recyclerView.setLayoutManager(new LinearLayoutManager(SearchActivity.this));
                                         searchAdapter.notifyDataSetChanged();
-
+                                        search_layout_edit.clearFocus();
+                                        InputMethodManager in = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                                        in.hideSoftInputFromWindow(search_layout_edit.getWindowToken(), 0);
 
                                     }
                                     else {

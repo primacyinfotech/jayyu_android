@@ -47,6 +47,7 @@ public class OrderPage extends AppCompatActivity {
     OrderMainAdapter orderMainAdapter;
     private String order_track_url= BaseUrl.BaseUrlNew+"order_display_profile";
     private String Press_order_track_url=BaseUrl.BaseUrlNew+"profile_prescription_order";
+    private String  reorder_url=BaseUrl.BaseUrlNew+"reorder";
     SharedPreferences prefs_register;
     String order_people_name,u_id;
     @Override

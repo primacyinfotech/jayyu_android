@@ -229,7 +229,7 @@
             android:layout_width="match_parent"
             android:layout_margin="10dp"
             android:layout_height="230dp">
-<LinearLayout
+<RelativeLayout
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="30dp">
@@ -237,9 +237,9 @@
                 android:id="@+id/required_pres_img"
                 android:layout_width="100dp"
                 android:layout_height="30dp"
-                android:layout_marginLeft="270dp"
+                android:layout_alignParentRight="true"
                 android:src="@drawable/prescriptionrequired2" />
-</LinearLayout>
+</RelativeLayout>
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_marginTop="0dp"
@@ -256,7 +256,7 @@
                     <TextView
                         android:textColor="#000"
                         android:textSize="18sp"
-                        android:text="MRP"
+                        android:text="M.R.P."
                         android:fontFamily="@font/clearsansbold"
                         android:layout_marginLeft="20dp"
                         android:layout_width="wrap_content"
@@ -276,23 +276,16 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
                         android:text=""
-                        android:fontFamily="@font/clearsansbold"
+                        android:fontFamily="@font/clear_sans_regular"
                         android:textColor="#000"
                         android:textSize="18sp" />
-                    <TextView
-                        android:textColor="#000"
-                        android:textSize="18sp"
-                        android:text="\u20B9"
-                        android:layout_marginLeft="5dp"
 
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
                     <TextView
                         android:id="@+id/save_amt"
                         android:textColor="#000"
                         android:textSize="18sp"
                         android:text="12.25"
-
+                        android:fontFamily="@font/clearsansbold"
                         android:layout_marginLeft="5dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
@@ -406,40 +399,35 @@
                     android:layout_height="40dp"
                     android:layout_marginRight="26dp"
                     android:layout_marginLeft="20dp"
-                    android:layout_weight="1"
                     android:layout_gravity="center"
                     android:background="@drawable/spinner_back"
                     android:orientation="horizontal">
 
+                    <TextView
+                        android:text="Qty"
+                        android:textSize="12dp"
+                        android:textColor="#000"
+                        android:gravity="center"
+                        android:layout_centerVertical="true"
+                        android:layout_toLeftOf="@+id/iv_drop"
+                        android:layout_marginRight="10dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="20dp" />
                     <Spinner
                         android:id="@+id/country_select"
-                        android:layout_width="50dp"
-                        android:layout_height="40dp"
-
-                        android:layout_marginStart="0dp"
-                        android:layout_marginRight="26dp"
-
-                        android:layout_weight="1"
+                        android:layout_width="80dp"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
                         android:background="@android:color/transparent"
-
-                        android:spinnerMode="dropdown"
-
                         android:textSize="23dp" />
-                      <TextView
-                          android:text="Qty"
-                          android:textSize="12dp"
-                          android:textColor="#000"
-                          android:gravity="center"
-                          android:layout_marginTop="10dp"
-                          android:layout_marginLeft="10dp"
-                          android:layout_alignRight="@+id/country_select"
-                          android:layout_width="20dp"
-                          android:layout_height="20dp" />
+
                     <ImageView
+                        android:id="@+id/iv_drop"
                         android:layout_width="15dp"
                         android:layout_height="15dp"
                         android:layout_alignParentRight="true"
-                        android:layout_marginRight="10dp"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="5dp"
                         android:layout_marginTop="12dp"
                         android:src="@drawable/itemarrow" />
 

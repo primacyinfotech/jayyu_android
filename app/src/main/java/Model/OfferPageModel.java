@@ -5,7 +5,23 @@ import android.widget.TextView;
 import org.w3c.dom.Text;
 
 public class OfferPageModel {
-   private String offer_img,offer_heading,Offer_des,Offer_exp_date;
+   private String offer_img,offer_heading,Offer_des,Offer_exp_date,Offer_code,Offer_long_des;
+
+    public String getOffer_long_des() {
+        return Offer_long_des;
+    }
+
+    public void setOffer_long_des(String offer_long_des) {
+        Offer_long_des = offer_long_des;
+    }
+
+    public String getOffer_code() {
+        return Offer_code;
+    }
+
+    public void setOffer_code(String offer_code) {
+        Offer_code = offer_code;
+    }
 
     public String getOffer_img() {
         return offer_img;

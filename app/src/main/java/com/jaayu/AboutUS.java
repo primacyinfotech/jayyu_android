@@ -6,7 +6,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.text.Html;
+import android.text.Spanned;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -74,9 +77,18 @@ public class AboutUS extends AppCompatActivity {
                            JSONObject  object=person.getJSONObject("abtu");
                            String abt_titl=object.getString("title");
                            String abt_content=object.getString("body");
+                                Spanned htmlAsSpanned = null;
+                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                                    htmlAsSpanned = Html.fromHtml(abt_content,Html.FROM_HTML_MODE_COMPACT);
+                                    abt_body.setText(htmlAsSpanned);
+                                }
+                                else {
+                                    htmlAsSpanned = Html.fromHtml(abt_content);
+                                    abt_body.setText( htmlAsSpanned);
+                                }
 
-                              //  abt_title.setText(abt_titl);
-                                abt_body.setText(abt_content);
+                                //  abt_title.setText(abt_titl);
+                                //abt_body.setText(abt_content);
                             }
 
 

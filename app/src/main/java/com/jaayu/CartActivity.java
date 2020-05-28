@@ -85,7 +85,7 @@ public class CartActivity extends AppCompatActivity {
     int count_one=0;
     ProgressDialog progressDialog;
    /* int prescription_req;*/
-   String prescription_req;
+   String prescription_req,prescription_req2;
 
 
     @Override
@@ -337,11 +337,14 @@ public class CartActivity extends AppCompatActivity {
                         intentGotoOrderSummery.putExtra("PRES_REQ",prescription_req);
                         startActivity(intentGotoOrderSummery);
                     }
+
                 }
                 else {
                     Intent intentGotoOrderSummery=new Intent(CartActivity.this,OrderSummery.class);
                     startActivity(intentGotoOrderSummery);
                 }
+
+
             }
         });
 
@@ -544,6 +547,20 @@ public class CartActivity extends AppCompatActivity {
                                     cartModel.setUnit(serch.getString("box"));
                                     cartModel.setCompany_name(serch.getString("com_name"));
                                     cartModel.setPres_required(serch.getString("pres_required"));
+                                    String pres_require=serch.getString("pres_required");
+                                    if(pres_require.equals("1")) {
+                                     prescriptionReqDatabase.insertData(pres_require);
+                                        Cursor pres_req2=prescriptionReqDatabase.getAllDataPres();
+                                        while (pres_req2.moveToNext()){
+                                            prescription_req=pres_req2.getString(1);
+                                        }
+
+                                       /* if (isUpdate) {
+                                            Toast.makeText(getApplicationContext(), "Data Update", Toast.LENGTH_LONG).show();
+                                        } else {
+                                            Toast.makeText(getApplicationContext(), "Data not Updated", Toast.LENGTH_LONG).show();
+                                        }*/
+                                    }
 
                                     DecimalFormat format_per = new DecimalFormat("##.##");
                                      formatted = format_per.format(serch.getDouble("save_percent"));

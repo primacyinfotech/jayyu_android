@@ -4,23 +4,38 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import com.jaayu.CartActivity;
+import com.jaayu.Model.BaseUrl;
 import com.jaayu.OldPresOrderDetailsPage;
 import com.jaayu.OrderDetails;
 import com.jaayu.OrderStatusConfirm;
 import com.jaayu.PrescriptionOrderDetails;
 import com.jaayu.R;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import Model.OrderModel;
 import Model.OrderPressModel;
@@ -30,7 +45,9 @@ public class OrderMainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     ArrayList<Object> normalandPress=new ArrayList<>();
     Context context;
     SharedPreferences ord_id_instant;
-
+    SharedPreferences prefs_register;
+    private String  reorder_url= BaseUrl.BaseUrlNew+"reorder";
+     String u_id;
     public OrderMainAdapter(Context context) {
         this.context = context;
     }
@@ -93,6 +110,7 @@ public class OrderMainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         return normalandPress.size();
     }
     public class  NormalOrder extends RecyclerView.ViewHolder{
+
         TextView order_name,order_id,order_date,reoder_btn,active_order,active_order_two,active_order_three,active_order_four,active_order_five,active_order_six,
                 active_order_seven,active_order_eight,active_order_nine,active_orderten,active_order_eleven;
         ImageView order_status_icon;
@@ -122,6 +140,10 @@ public class OrderMainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             // holder.order_name.setText(order_people_name);
            order_id.setText(normalorder.getOrder_id());
             order_date.setText(normalorder.getOrder_date());
+            prefs_register = context.getSharedPreferences(
+                    "Register Details", Context.MODE_PRIVATE);
+
+            u_id=prefs_register.getString("USER_ID","");
             ord_id_instant = context.getSharedPreferences(
                     "Order_id Details", Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = ord_id_instant.edit();
@@ -342,6 +364,60 @@ public class OrderMainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 active_orderten.setVisibility(View.GONE);
                 active_order_eleven.setVisibility(View.GONE);
                 reoder_btn.setVisibility(View.VISIBLE);
+                reoder_btn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        RequestQueue requestQueue = Volley.newRequestQueue(context);
+                        StringRequest postRequest = new StringRequest(Request.Method.POST,reorder_url,
+                                new Response.Listener<String>() {
+                                    @Override
+                                    public void onResponse(String response) {
+                                        // response
+                                        Log.d("Response", response);
+                                        try {
+                                            //Do it with this it will work
+                                            JSONObject person = new JSONObject(response);
+                                            String status=person.getString("status");
+                                            if(status.equals("1")){
+                                                String message=person.getString("message");
+                                                Toast.makeText(context,message,Toast.LENGTH_LONG).show();
+
+                                                Intent intent = new Intent(context, CartActivity.class);
+                                                context.startActivity(intent);
+                                                ((Activity) context).overridePendingTransition(0,0);
+                                                ((Activity) context).finish();
+                                            }
+
+
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                            Toast.makeText(context, "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                                        }
+
+
+                                    }
+                                },
+                                new Response.ErrorListener() {
+                                    @Override
+                                    public void onErrorResponse(VolleyError error) {
+                                        // error
+
+                                    }
+                                }
+                        ) {
+                            @Override
+                            protected Map<String, String> getParams() {
+                                Map<String, String> params = new HashMap<String, String>();
+                                params.put("user_id", u_id);
+                                params.put("oid", String.valueOf(normalorder.getTbl_order_id()));
+
+                                return params;
+                            }
+
+                        };
+                        requestQueue.add(postRequest);
+                    }
+                });
             }
             if (status.equals("4")){
                 order_status_icon.setImageResource(R.drawable.tickyellow);
@@ -357,6 +433,60 @@ public class OrderMainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 active_orderten.setVisibility(View.GONE);
                 active_order_eleven.setVisibility(View.GONE);
                reoder_btn.setVisibility(View.VISIBLE);
+                reoder_btn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        RequestQueue requestQueue = Volley.newRequestQueue(context);
+                        StringRequest postRequest = new StringRequest(Request.Method.POST,reorder_url,
+                                new Response.Listener<String>() {
+                                    @Override
+                                    public void onResponse(String response) {
+                                        // response
+                                        Log.d("Response", response);
+                                        try {
+                                            //Do it with this it will work
+                                            JSONObject person = new JSONObject(response);
+                                            String status=person.getString("status");
+                                            if(status.equals("1")){
+                                                String message=person.getString("message");
+                                                Toast.makeText(context,message,Toast.LENGTH_LONG).show();
+
+                                                Intent intent = new Intent(context, CartActivity.class);
+                                                context.startActivity(intent);
+                                                ((Activity) context).overridePendingTransition(0,0);
+                                                ((Activity) context).finish();
+                                            }
+
+
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                            Toast.makeText(context, "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                                        }
+
+
+                                    }
+                                },
+                                new Response.ErrorListener() {
+                                    @Override
+                                    public void onErrorResponse(VolleyError error) {
+                                        // error
+
+                                    }
+                                }
+                        ) {
+                            @Override
+                            protected Map<String, String> getParams() {
+                                Map<String, String> params = new HashMap<String, String>();
+                                params.put("user_id", u_id);
+                                params.put("oid", String.valueOf(normalorder.getTbl_order_id()));
+
+                                return params;
+                            }
+
+                        };
+                        requestQueue.add(postRequest);
+                    }
+                });
             }
             if (status.equals("5")){
                 order_status_icon.setImageResource(R.drawable.tickyellow);
@@ -372,6 +502,60 @@ public class OrderMainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 active_orderten.setVisibility(View.GONE);
                 active_order_eleven.setVisibility(View.GONE);
                 reoder_btn.setVisibility(View.VISIBLE);
+                reoder_btn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        RequestQueue requestQueue = Volley.newRequestQueue(context);
+                        StringRequest postRequest = new StringRequest(Request.Method.POST,reorder_url,
+                                new Response.Listener<String>() {
+                                    @Override
+                                    public void onResponse(String response) {
+                                        // response
+                                        Log.d("Response", response);
+                                        try {
+                                            //Do it with this it will work
+                                            JSONObject person = new JSONObject(response);
+                                            String status=person.getString("status");
+                                            if(status.equals("1")){
+                                                String message=person.getString("message");
+                                                Toast.makeText(context,message,Toast.LENGTH_LONG).show();
+
+                                                Intent intent = new Intent(context, CartActivity.class);
+                                                context.startActivity(intent);
+                                                ((Activity) context).overridePendingTransition(0,0);
+                                                ((Activity) context).finish();
+                                            }
+
+
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                            Toast.makeText(context, "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                                        }
+
+
+                                    }
+                                },
+                                new Response.ErrorListener() {
+                                    @Override
+                                    public void onErrorResponse(VolleyError error) {
+                                        // error
+
+                                    }
+                                }
+                        ) {
+                            @Override
+                            protected Map<String, String> getParams() {
+                                Map<String, String> params = new HashMap<String, String>();
+                                params.put("user_id", u_id);
+                                params.put("oid", String.valueOf(normalorder.getTbl_order_id()));
+
+                                return params;
+                            }
+
+                        };
+                        requestQueue.add(postRequest);
+                    }
+                });
             }
             if (status.equals("6")){
                 order_status_icon.setImageResource(R.drawable.tickyellow);
@@ -387,6 +571,60 @@ public class OrderMainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 active_orderten.setVisibility(View.GONE);
                 active_order_eleven.setVisibility(View.GONE);
                 reoder_btn.setVisibility(View.VISIBLE);
+                reoder_btn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        RequestQueue requestQueue = Volley.newRequestQueue(context);
+                        StringRequest postRequest = new StringRequest(Request.Method.POST,reorder_url,
+                                new Response.Listener<String>() {
+                                    @Override
+                                    public void onResponse(String response) {
+                                        // response
+                                        Log.d("Response", response);
+                                        try {
+                                            //Do it with this it will work
+                                            JSONObject person = new JSONObject(response);
+                                            String status=person.getString("status");
+                                            if(status.equals("1")){
+                                                String message=person.getString("message");
+                                                Toast.makeText(context,message,Toast.LENGTH_LONG).show();
+
+                                                Intent intent = new Intent(context, CartActivity.class);
+                                                context.startActivity(intent);
+                                                ((Activity) context).overridePendingTransition(0,0);
+                                                ((Activity) context).finish();
+                                            }
+
+
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                            Toast.makeText(context, "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                                        }
+
+
+                                    }
+                                },
+                                new Response.ErrorListener() {
+                                    @Override
+                                    public void onErrorResponse(VolleyError error) {
+                                        // error
+
+                                    }
+                                }
+                        ) {
+                            @Override
+                            protected Map<String, String> getParams() {
+                                Map<String, String> params = new HashMap<String, String>();
+                                params.put("user_id", u_id);
+                                params.put("oid", String.valueOf(normalorder.getTbl_order_id()));
+
+                                return params;
+                            }
+
+                        };
+                        requestQueue.add(postRequest);
+                    }
+                });
             }
             if (status.equals("7")){
                 order_status_icon.setImageResource(R.drawable.tickyellow);
@@ -402,6 +640,60 @@ public class OrderMainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 active_orderten.setVisibility(View.GONE);
                 active_order_eleven.setVisibility(View.GONE);
                 reoder_btn.setVisibility(View.VISIBLE);
+                reoder_btn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        RequestQueue requestQueue = Volley.newRequestQueue(context);
+                        StringRequest postRequest = new StringRequest(Request.Method.POST,reorder_url,
+                                new Response.Listener<String>() {
+                                    @Override
+                                    public void onResponse(String response) {
+                                        // response
+                                        Log.d("Response", response);
+                                        try {
+                                            //Do it with this it will work
+                                            JSONObject person = new JSONObject(response);
+                                            String status=person.getString("status");
+                                            if(status.equals("1")){
+                                                String message=person.getString("message");
+                                                Toast.makeText(context,message,Toast.LENGTH_LONG).show();
+
+                                                Intent intent = new Intent(context, CartActivity.class);
+                                                context.startActivity(intent);
+                                                ((Activity) context).overridePendingTransition(0,0);
+                                                ((Activity) context).finish();
+                                            }
+
+
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                            Toast.makeText(context, "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                                        }
+
+
+                                    }
+                                },
+                                new Response.ErrorListener() {
+                                    @Override
+                                    public void onErrorResponse(VolleyError error) {
+                                        // error
+
+                                    }
+                                }
+                        ) {
+                            @Override
+                            protected Map<String, String> getParams() {
+                                Map<String, String> params = new HashMap<String, String>();
+                                params.put("user_id", u_id);
+                                params.put("oid", String.valueOf(normalorder.getTbl_order_id()));
+
+                                return params;
+                            }
+
+                        };
+                        requestQueue.add(postRequest);
+                    }
+                });
             }
             if (status.equals("8")){
                 order_status_icon.setImageResource(R.drawable.tickyellow);
@@ -417,6 +709,60 @@ public class OrderMainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 active_orderten.setVisibility(View.GONE);
                 active_order_eleven.setVisibility(View.GONE);
                 reoder_btn.setVisibility(View.VISIBLE);
+                reoder_btn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        RequestQueue requestQueue = Volley.newRequestQueue(context);
+                        StringRequest postRequest = new StringRequest(Request.Method.POST,reorder_url,
+                                new Response.Listener<String>() {
+                                    @Override
+                                    public void onResponse(String response) {
+                                        // response
+                                        Log.d("Response", response);
+                                        try {
+                                            //Do it with this it will work
+                                            JSONObject person = new JSONObject(response);
+                                            String status=person.getString("status");
+                                            if(status.equals("1")){
+                                                String message=person.getString("message");
+                                                Toast.makeText(context,message,Toast.LENGTH_LONG).show();
+
+                                                Intent intent = new Intent(context, CartActivity.class);
+                                                context.startActivity(intent);
+                                                ((Activity) context).overridePendingTransition(0,0);
+                                                ((Activity) context).finish();
+                                            }
+
+
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                            Toast.makeText(context, "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                                        }
+
+
+                                    }
+                                },
+                                new Response.ErrorListener() {
+                                    @Override
+                                    public void onErrorResponse(VolleyError error) {
+                                        // error
+
+                                    }
+                                }
+                        ) {
+                            @Override
+                            protected Map<String, String> getParams() {
+                                Map<String, String> params = new HashMap<String, String>();
+                                params.put("user_id", u_id);
+                                params.put("oid", String.valueOf(normalorder.getTbl_order_id()));
+
+                                return params;
+                            }
+
+                        };
+                        requestQueue.add(postRequest);
+                    }
+                });
             }
             if (status.equals("9")){
                 order_status_icon.setImageResource(R.drawable.tickyellow);
@@ -432,6 +778,60 @@ public class OrderMainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 active_orderten.setVisibility(View.VISIBLE);
                 active_order_eleven.setVisibility(View.GONE);
                 reoder_btn.setVisibility(View.VISIBLE);
+                reoder_btn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        RequestQueue requestQueue = Volley.newRequestQueue(context);
+                        StringRequest postRequest = new StringRequest(Request.Method.POST,reorder_url,
+                                new Response.Listener<String>() {
+                                    @Override
+                                    public void onResponse(String response) {
+                                        // response
+                                        Log.d("Response", response);
+                                        try {
+                                            //Do it with this it will work
+                                            JSONObject person = new JSONObject(response);
+                                            String status=person.getString("status");
+                                            if(status.equals("1")){
+                                                String message=person.getString("message");
+                                                Toast.makeText(context,message,Toast.LENGTH_LONG).show();
+
+                                                Intent intent = new Intent(context, CartActivity.class);
+                                                context.startActivity(intent);
+                                                ((Activity) context).overridePendingTransition(0,0);
+                                                ((Activity) context).finish();
+                                            }
+
+
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                            Toast.makeText(context, "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                                        }
+
+
+                                    }
+                                },
+                                new Response.ErrorListener() {
+                                    @Override
+                                    public void onErrorResponse(VolleyError error) {
+                                        // error
+
+                                    }
+                                }
+                        ) {
+                            @Override
+                            protected Map<String, String> getParams() {
+                                Map<String, String> params = new HashMap<String, String>();
+                                params.put("user_id", u_id);
+                                params.put("oid", String.valueOf(normalorder.getTbl_order_id()));
+
+                                return params;
+                            }
+
+                        };
+                        requestQueue.add(postRequest);
+                    }
+                });
             }
             if (status.equals("10")){
                 order_status_icon.setImageResource(R.drawable.tickyellow);
@@ -447,6 +847,60 @@ public class OrderMainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 active_orderten.setVisibility(View.GONE);
                 active_order_eleven.setVisibility(View.VISIBLE);
                 reoder_btn.setVisibility(View.VISIBLE);
+                reoder_btn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        RequestQueue requestQueue = Volley.newRequestQueue(context);
+                        StringRequest postRequest = new StringRequest(Request.Method.POST,reorder_url,
+                                new Response.Listener<String>() {
+                                    @Override
+                                    public void onResponse(String response) {
+                                        // response
+                                        Log.d("Response", response);
+                                        try {
+                                            //Do it with this it will work
+                                            JSONObject person = new JSONObject(response);
+                                            String status=person.getString("status");
+                                            if(status.equals("1")){
+                                                String message=person.getString("message");
+                                                Toast.makeText(context,message,Toast.LENGTH_LONG).show();
+
+                                                Intent intent = new Intent(context, CartActivity.class);
+                                                context.startActivity(intent);
+                                                ((Activity) context).overridePendingTransition(0,0);
+                                                ((Activity) context).finish();
+                                            }
+
+
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                            Toast.makeText(context, "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                                        }
+
+
+                                    }
+                                },
+                                new Response.ErrorListener() {
+                                    @Override
+                                    public void onErrorResponse(VolleyError error) {
+                                        // error
+
+                                    }
+                                }
+                        ) {
+                            @Override
+                            protected Map<String, String> getParams() {
+                                Map<String, String> params = new HashMap<String, String>();
+                                params.put("user_id", u_id);
+                                params.put("oid", String.valueOf(normalorder.getTbl_order_id()));
+
+                                return params;
+                            }
+
+                        };
+                        requestQueue.add(postRequest);
+                    }
+                });
             }
 
 

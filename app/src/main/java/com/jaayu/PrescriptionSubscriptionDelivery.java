@@ -47,9 +47,9 @@ public class PrescriptionSubscriptionDelivery extends AppCompatActivity {
     private Button confirm_btn;
     int min=15, max=99;
     SharedPreferences prefs_register;
-    String u_id,user_add,One_Day,thirty_Day,fortifive_day,sixty_day,three_days_deliveries,six_days_delivery,single_day,single_delivery,day_portion,duration,prescription_img;
+    String u_id,user_add,One_Day,thirty_Day,fortifive_day,sixty_day,three_days_deliveries,six_days_delivery,single_day,single_delivery,day_portion,duration,prescription_img,day_portion2,duration2;
     private String Prescription_subscription_order_url= BaseUrl.BaseUrlNew+"delivery_subscription";
-    int  s_int_day;
+    int  s_int_day,s_int_day2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -140,17 +140,17 @@ public class PrescriptionSubscriptionDelivery extends AppCompatActivity {
                 finish();
             }
         });
-        one_time_order.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+       /* one_time_order.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(one_time_order.isChecked()){
-                /* thirty_day_order.setChecked(false);
+                *//* thirty_day_order.setChecked(false);
                  fortyfive_day_order.setChecked(false);
                  sixty_day_order.setChecked(false);
                  single_day_order.setChecked(false);
                  selected_three_delivery.setChecked(false);
                  selected_six_delivery.setChecked(false);
-                 single_delivery_order.setChecked(false);*/
+                 single_delivery_order.setChecked(false);*//*
                     One_Day="1";
 
                     thirty_day_order.setEnabled(false);
@@ -164,13 +164,13 @@ public class PrescriptionSubscriptionDelivery extends AppCompatActivity {
 
                 }
                 else {
-                /* thirty_day_order.setChecked(true);
+                *//* thirty_day_order.setChecked(true);
                  fortyfive_day_order.setChecked(true);
                  sixty_day_order.setChecked(true);
                  single_day_order.setChecked(true);
                  selected_three_delivery.setChecked(true);
                  selected_six_delivery.setChecked(true);
-                 single_delivery_order.setChecked(true);*/
+                 single_delivery_order.setChecked(true);*//*
                     thirty_day_order.setEnabled(true);
                     fortyfive_day_order.setEnabled(true);
                     sixty_day_order.setEnabled(true);
@@ -254,7 +254,7 @@ public class PrescriptionSubscriptionDelivery extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(single_day_order.isChecked()){
-                    /*  single_day=edt_single_day.getText().toString();*/
+                    *//*  single_day=edt_single_day.getText().toString();*//*
                     one_time_order.setEnabled(false);
                     thirty_day_order.setEnabled(false);
                     fortyfive_day_order.setEnabled(false);
@@ -284,6 +284,280 @@ public class PrescriptionSubscriptionDelivery extends AppCompatActivity {
                     selected_six_delivery.setEnabled(false);
                     single_delivery_order.setEnabled(false);
                     edt_single_delivery.setEnabled(false);
+                    *//*thirty_day_order.setEnabled(true);
+                    fortyfive_day_order.setEnabled(true);
+                    sixty_day_order.setEnabled(true);
+                    single_day_order.setEnabled(true);
+                    edt_single_day.setEnabled(true);
+                    selected_six_delivery.setEnabled(false);
+                    single_delivery_order.setEnabled(false);
+                    edt_single_delivery.setEnabled(false);*//*
+
+                }
+                else {
+                    one_time_order.setEnabled(false);
+                    selected_six_delivery.setEnabled(true);
+                    single_delivery_order.setEnabled(true);
+                    edt_single_delivery.setEnabled(true);
+                 *//*   thirty_day_order.setEnabled(false);
+                    fortyfive_day_order.setEnabled(false);
+                    sixty_day_order.setEnabled(false);
+                    single_day_order.setEnabled(true);
+                    edt_single_day.setEnabled(true);
+                    selected_six_delivery.setEnabled(true);
+                    single_delivery_order.setEnabled(true);
+                    edt_single_delivery.setEnabled(true);*//*
+                }
+            }
+        });
+        selected_six_delivery.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(selected_six_delivery.isChecked()){
+                    six_days_delivery="6";
+                    one_time_order.setEnabled(false);
+                    selected_three_delivery.setEnabled(false);
+                    single_delivery_order.setEnabled(false);
+                    edt_single_delivery.setEnabled(false);
+                 *//*   one_time_order.setEnabled(false);
+                    thirty_day_order.setEnabled(true);
+                    fortyfive_day_order.setEnabled(true);
+                    sixty_day_order.setEnabled(true);
+                    single_day_order.setEnabled(true);
+                    edt_single_day.setEnabled(true);
+                    selected_three_delivery.setEnabled(false);
+                    single_delivery_order.setEnabled(false);
+                    edt_single_delivery.setEnabled(false);*//*
+                }
+                else {
+                    one_time_order.setEnabled(false);
+                    selected_three_delivery.setEnabled(true);
+                    single_delivery_order.setEnabled(true);
+                    edt_single_delivery.setEnabled(true);
+                    *//*thirty_day_order.setEnabled(false);
+                    fortyfive_day_order.setEnabled(false);
+                    sixty_day_order.setEnabled(false);
+                    single_day_order.setEnabled(true);
+                    edt_single_day.setEnabled(true);
+                    selected_three_delivery.setEnabled(true);
+                    single_delivery_order.setEnabled(true);
+                    edt_single_delivery.setEnabled(true);*//*
+                }
+            }
+        });
+        single_delivery_order.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(single_delivery_order.isChecked()){
+                    edt_single_delivery.setEnabled(true);
+                    selected_three_delivery.setEnabled(false);
+                    selected_six_delivery.setEnabled(false);
+                    *//* single_delivery=edt_single_delivery.getText().toString();*//*
+                    one_time_order.setEnabled(false);
+                  *//*  thirty_day_order.setEnabled(true);
+                    fortyfive_day_order.setEnabled(true);
+                    sixty_day_order.setEnabled(true);
+                    single_day_order.setEnabled(true);
+                    edt_single_day.setEnabled(true);
+                    selected_three_delivery.setEnabled(false);
+                    selected_six_delivery.setEnabled(false);*//*
+
+                }
+                else {
+                    one_time_order.setEnabled(false);
+                    selected_three_delivery.setEnabled(true);
+                    selected_six_delivery.setEnabled(true);
+                    edt_single_delivery.setEnabled(false);
+
+                  *//*  thirty_day_order.setEnabled(false);
+                    fortyfive_day_order.setEnabled(false);
+                    sixty_day_order.setEnabled(false);
+                    single_day_order.setEnabled(true);
+                    edt_single_day.setEnabled(true);
+                    selected_three_delivery.setEnabled(true);
+                    selected_six_delivery.setEnabled(true);
+                    edt_single_delivery.setEnabled(false);*//*
+                }
+            }
+        });*/
+        one_time_order.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(one_time_order.isChecked()){
+                /* thirty_day_order.setChecked(false);
+                 fortyfive_day_order.setChecked(false);
+                 sixty_day_order.setChecked(false);
+                 single_day_order.setChecked(false);
+                 selected_three_delivery.setChecked(false);
+                 selected_six_delivery.setChecked(false);
+                 single_delivery_order.setChecked(false);*/
+                    One_Day="1";
+
+                    day_portion = One_Day;
+                    thirty_day_order.setEnabled(false);
+                    fortyfive_day_order.setEnabled(false);
+                    sixty_day_order.setEnabled(false);
+                    single_day_order.setEnabled(false);
+                    custom_part_delivery.setVisibility(View.GONE);
+                    edt_single_day.setEnabled(false);
+
+
+
+                }
+                else {
+                    day_portion="";
+                /* thirty_day_order.setChecked(true);
+                 fortyfive_day_order.setChecked(true);
+                 sixty_day_order.setChecked(true);
+                 single_day_order.setChecked(true);
+                 selected_three_delivery.setChecked(true);
+                 selected_six_delivery.setChecked(true);
+                 single_delivery_order.setChecked(true);*/
+                    thirty_day_order.setEnabled(true);
+                    fortyfive_day_order.setEnabled(true);
+                    sixty_day_order.setEnabled(true);
+                    single_day_order.setEnabled(true);
+
+                    single_delivery_order.setEnabled(true);
+                }
+            }
+        });
+        thirty_day_order.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(thirty_day_order.isChecked()){
+                    thirty_Day="30";
+                    day_portion = thirty_Day;
+                    s_int_day = Integer.parseInt(thirty_Day);
+
+                    one_time_order.setEnabled(false);
+                    fortyfive_day_order.setEnabled(false);
+                    sixty_day_order.setEnabled(false);
+                    single_day_order.setEnabled(false);
+                    custom_part_delivery.setVisibility(View.VISIBLE);
+                    edt_single_day.setEnabled(false);
+
+
+
+                }
+                else {
+                    // thirty_Day="";
+                    day_portion="";
+                    s_int_day=0;
+                    one_time_order.setEnabled(true);
+                    fortyfive_day_order.setEnabled(true);
+                    sixty_day_order.setEnabled(true);
+                    single_day_order.setEnabled(true);
+                    custom_part_delivery.setVisibility(View.GONE);
+                    single_delivery_order.setEnabled(true);
+
+                }
+            }
+        });
+        fortyfive_day_order.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(fortyfive_day_order.isChecked()){
+                    fortifive_day="45";
+                    day_portion = fortifive_day;
+                    s_int_day = Integer.parseInt(fortifive_day);
+                    one_time_order.setEnabled(false);
+                    sixty_day_order.setEnabled(false);
+                    single_day_order.setEnabled(false);
+                    thirty_day_order.setEnabled(false);
+                    custom_part_delivery.setVisibility(View.VISIBLE);
+                    edt_single_day.setEnabled(false);
+
+
+                }
+                else {
+                    // fortifive_day="";
+                    day_portion = "";
+                    s_int_day =0;
+                    one_time_order.setEnabled(true);
+                    sixty_day_order.setEnabled(true);
+                    single_day_order.setEnabled(true);
+                    thirty_day_order.setEnabled(true);
+                    custom_part_delivery.setVisibility(View.GONE);
+                    edt_single_day.setEnabled(true);
+                    single_delivery_order.setEnabled(true);
+
+
+
+                }
+            }
+        });
+
+        sixty_day_order.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(sixty_day_order.isChecked()){
+                    sixty_day="60";
+                    day_portion = sixty_day;
+                    s_int_day = Integer.parseInt(sixty_day);
+                    one_time_order.setEnabled(false);
+                    fortyfive_day_order.setEnabled(false);
+                    single_day_order.setEnabled(false);
+                    thirty_day_order.setEnabled(false);
+                    custom_part_delivery.setVisibility(View.VISIBLE);
+                    edt_single_day.setEnabled(false);
+
+
+                }
+                else {
+                    /*   sixty_day="";*/
+                    day_portion = "";
+                    s_int_day = 0;
+                    one_time_order.setEnabled(true);
+                    fortyfive_day_order.setEnabled(true);
+                    single_day_order.setEnabled(true);
+                    thirty_day_order.setEnabled(true);
+                    custom_part_delivery.setVisibility(View.GONE);
+                    edt_single_day.setEnabled(true);
+                    single_delivery_order.setEnabled(true);
+
+                }
+            }
+        });
+        single_day_order.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(single_day_order.isChecked()){
+                    /*  single_day=edt_single_day.getText().toString();*/
+                    one_time_order.setEnabled(false);
+                    thirty_day_order.setEnabled(false);
+                    fortyfive_day_order.setEnabled(false);
+                    sixty_day_order.setEnabled(false);
+                    edt_single_day.setEnabled(true);
+                    custom_part_delivery.setVisibility(View.VISIBLE);
+                    edt_single_delivery.setEnabled(false);
+
+
+                }
+                else {
+                    one_time_order.setEnabled(true);
+                    thirty_day_order.setEnabled(true);
+                    fortyfive_day_order.setEnabled(true);
+                    sixty_day_order.setEnabled(true);
+                    edt_single_day.setEnabled(false);
+                    custom_part_delivery.setVisibility(View.GONE);
+                    edt_single_delivery.setEnabled(false);
+                }
+            }
+        });
+        selected_three_delivery.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(selected_three_delivery.isChecked()){
+                    three_days_deliveries="3";
+                    duration = three_days_deliveries;
+                    one_time_order.setEnabled(false);
+                 /*   selected_six_delivery.setEnabled(false);
+                    single_delivery_order.setEnabled(false);*/
+                    selected_three_delivery.setChecked(true);
+                    selected_six_delivery.setChecked(false);
+                    single_delivery_order.setChecked(false);
+                    edt_single_delivery.setEnabled(false);
                     /*thirty_day_order.setEnabled(true);
                     fortyfive_day_order.setEnabled(true);
                     sixty_day_order.setEnabled(true);
@@ -293,11 +567,15 @@ public class PrescriptionSubscriptionDelivery extends AppCompatActivity {
                     single_delivery_order.setEnabled(false);
                     edt_single_delivery.setEnabled(false);*/
 
+
+
                 }
                 else {
+                    //  three_days_deliveries="";
+                    duration ="";
                     one_time_order.setEnabled(false);
-                    selected_six_delivery.setEnabled(true);
-                    single_delivery_order.setEnabled(true);
+              /*      selected_six_delivery.setEnabled(true);
+                    single_delivery_order.setEnabled(true);*/
                     edt_single_delivery.setEnabled(true);
                  /*   thirty_day_order.setEnabled(false);
                     fortyfive_day_order.setEnabled(false);
@@ -315,9 +593,13 @@ public class PrescriptionSubscriptionDelivery extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(selected_six_delivery.isChecked()){
                     six_days_delivery="6";
+                    duration = six_days_delivery;
                     one_time_order.setEnabled(false);
-                    selected_three_delivery.setEnabled(false);
-                    single_delivery_order.setEnabled(false);
+                 /*   selected_three_delivery.setEnabled(false);
+                    single_delivery_order.setEnabled(false);*/
+                    selected_six_delivery.setChecked(true);
+                    selected_three_delivery.setChecked(false);
+                    single_delivery_order.setChecked(false);
                     edt_single_delivery.setEnabled(false);
                  /*   one_time_order.setEnabled(false);
                     thirty_day_order.setEnabled(true);
@@ -328,11 +610,15 @@ public class PrescriptionSubscriptionDelivery extends AppCompatActivity {
                     selected_three_delivery.setEnabled(false);
                     single_delivery_order.setEnabled(false);
                     edt_single_delivery.setEnabled(false);*/
+
+
                 }
                 else {
+                    //  six_days_delivery="";
+                    duration ="";
                     one_time_order.setEnabled(false);
-                    selected_three_delivery.setEnabled(true);
-                    single_delivery_order.setEnabled(true);
+                 /*   selected_three_delivery.setEnabled(true);
+                    single_delivery_order.setEnabled(true);*/
                     edt_single_delivery.setEnabled(true);
                     /*thirty_day_order.setEnabled(false);
                     fortyfive_day_order.setEnabled(false);
@@ -350,8 +636,11 @@ public class PrescriptionSubscriptionDelivery extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(single_delivery_order.isChecked()){
                     edt_single_delivery.setEnabled(true);
-                    selected_three_delivery.setEnabled(false);
-                    selected_six_delivery.setEnabled(false);
+                  /*  selected_three_delivery.setEnabled(false);
+                    selected_six_delivery.setEnabled(false);*/
+                    single_delivery_order.setChecked(true);
+                    selected_three_delivery.setChecked(false);
+                    selected_six_delivery.setChecked(false);
                     /* single_delivery=edt_single_delivery.getText().toString();*/
                     one_time_order.setEnabled(false);
                   /*  thirty_day_order.setEnabled(true);
@@ -364,9 +653,10 @@ public class PrescriptionSubscriptionDelivery extends AppCompatActivity {
 
                 }
                 else {
+                    duration2 ="";
                     one_time_order.setEnabled(false);
-                    selected_three_delivery.setEnabled(true);
-                    selected_six_delivery.setEnabled(true);
+                 /*   selected_three_delivery.setEnabled(true);
+                    selected_six_delivery.setEnabled(true);*/
                     edt_single_delivery.setEnabled(false);
 
                   /*  thirty_day_order.setEnabled(false);
@@ -387,7 +677,23 @@ public class PrescriptionSubscriptionDelivery extends AppCompatActivity {
                 single_day=edt_single_day.getText().toString();
 
                 single_delivery=edt_single_delivery.getText().toString();
-                if(One_Day!=null){
+                if(!single_day.equals("")){
+                    day_portion2=single_day;
+                    s_int_day2=Integer.parseInt(day_portion2);
+
+                }
+                else {
+                    s_int_day2=0;
+                    day_portion2="";
+                }
+
+
+                if (single_delivery != null) {
+                    duration2 = single_delivery;
+                } else {
+                    duration2 = "";
+                }
+               /* if(One_Day!=null){
                     day_portion=One_Day;
                 }
                 else if(thirty_Day!=null){
@@ -427,7 +733,7 @@ public class PrescriptionSubscriptionDelivery extends AppCompatActivity {
                 }
                 else {
                     duration="";
-                }
+                }*/
                 if(!one_time_order.isChecked()){
 
                     Toast.makeText(getApplicationContext(),"Please,Checked One Time Order",Toast.LENGTH_LONG).show();
@@ -480,8 +786,14 @@ public class PrescriptionSubscriptionDelivery extends AppCompatActivity {
 
                             params.put("user_id", u_id);
                            // params.put("aId", user_add);
-                            params.put("day", day_portion);
-                            params.put("interval", duration);
+//                            params.put("day", day_portion);
+//                            params.put("interval", duration);
+                            if(day_portion!=null){
+                                params.put("days", day_portion);
+                            }
+                            if(duration!=null){
+                                params.put("interval", duration);
+                            }
                             // params.put("spid", presc_img);
                             // params.put("payment_method", cod);
                           //  params.put("status", "1");
@@ -492,7 +804,7 @@ public class PrescriptionSubscriptionDelivery extends AppCompatActivity {
                     requestQueue.add(postRequest);
 
                 }
-                if(!thirty_day_order.isChecked()&&!fortyfive_day_order.isChecked()&&!sixty_day_order.isChecked()
+               /* if(!thirty_day_order.isChecked()&&!fortyfive_day_order.isChecked()&&!sixty_day_order.isChecked()
                         &&  day_portion.matches("")||!selected_three_delivery.isChecked()&&!selected_six_delivery.isChecked()&&single_delivery.matches("")){
                     Toast.makeText(getApplicationContext(),"Please, Checked All Preference Of Delivery Order",Toast.LENGTH_LONG).show();
                 }
@@ -501,68 +813,163 @@ public class PrescriptionSubscriptionDelivery extends AppCompatActivity {
                 else {
                     if(day_portion.equals("0") || day_portion.equals("00")||single_delivery.equals("0")||single_delivery.equals("00")|| s_int_day < 15 ){
 
-                    }
+                    }*/
+               if(s_int_day < 15 ) {
 
-                    else {
-                        RequestQueue requestQueue = Volley.newRequestQueue(PrescriptionSubscriptionDelivery.this);
-                        StringRequest postRequest = new StringRequest(Request.Method.POST, Prescription_subscription_order_url,
-                                new Response.Listener<String>() {
-                                    @Override
-                                    public void onResponse(String response) {
-                                        // response
-                                        Log.d("Response", response);
-                                        try {
-                                            //Do it with this it will work
-                                            JSONObject person = new JSONObject(response);
-                                            String status = person.getString("status");
-                                            if (status.equals("1")) {
-                                                String message = person.getString("msg");
-                                                // Toast.makeText(getApplicationContext(),message,Toast.LENGTH_LONG).show();
-                                                Intent goToOrderView_method = new Intent(PrescriptionSubscriptionDelivery.this, PrescriptionOrderSummery.class);
+               }
+               else {
+                   if (!selected_three_delivery.isChecked() && !selected_six_delivery.isChecked() && !single_delivery_order.isChecked()) {
+                       Toast.makeText(getApplicationContext(), "Please, Checked All Preference Of Delivery Order", Toast.LENGTH_LONG).show();
+                   } else {
+
+
+                       RequestQueue requestQueue = Volley.newRequestQueue(PrescriptionSubscriptionDelivery.this);
+                       StringRequest postRequest = new StringRequest(Request.Method.POST, Prescription_subscription_order_url,
+                               new Response.Listener<String>() {
+                                   @Override
+                                   public void onResponse(String response) {
+                                       // response
+                                       Log.d("Response", response);
+                                       try {
+                                           //Do it with this it will work
+                                           JSONObject person = new JSONObject(response);
+                                           String status = person.getString("status");
+                                           if (status.equals("1")) {
+                                               String message = person.getString("msg");
+                                               // Toast.makeText(getApplicationContext(),message,Toast.LENGTH_LONG).show();
+                                               Intent goToOrderView_method = new Intent(PrescriptionSubscriptionDelivery.this, PrescriptionOrderSummery.class);
                                               /*  goToOrderView_method.putExtra("DAY", day_portion);
                                                 goToOrderView_method.putExtra("Duration", duration);
                                                 goToOrderView_method.putExtra("User_add", user_add);
                                                 goToOrderView_method.putExtra("User_ID", user_id);*/
-                                                // goTopayment_method.putExtra("presc_img",prescription_img);
-                                                startActivity(goToOrderView_method);
-                                                overridePendingTransition(0, 0);
-                                            }
+                                               // goTopayment_method.putExtra("presc_img",prescription_img);
+                                               startActivity(goToOrderView_method);
+                                               overridePendingTransition(0, 0);
+                                           }
 
-                                        } catch (JSONException e) {
-                                            e.printStackTrace();
-                                            Toast.makeText(getApplicationContext(), "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
-                                        }
+                                       } catch (JSONException e) {
+                                           e.printStackTrace();
+                                           Toast.makeText(getApplicationContext(), "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                                       }
 
 
-                                    }
-                                },
-                                new Response.ErrorListener() {
-                                    @Override
-                                    public void onErrorResponse(VolleyError error) {
-                                        // error
+                                   }
+                               },
+                               new Response.ErrorListener() {
+                                   @Override
+                                   public void onErrorResponse(VolleyError error) {
+                                       // error
 
-                                    }
-                                }
-                        ) {
-                            @Override
-                            protected Map<String, String> getParams() {
-                                Map<String, String> params = new HashMap<String, String>();
+                                   }
+                               }
+                       ) {
+                           @Override
+                           protected Map<String, String> getParams() {
+                               Map<String, String> params = new HashMap<String, String>();
 
-                                params.put("user_id", u_id);
-                                //params.put("aId", user_add);
-                                params.put("day", day_portion);
-                                params.put("interval", duration);
-                                // params.put("spid", presc_img);
-                                // params.put("payment_method", cod);
+                               params.put("user_id", u_id);
+                               //params.put("aId", user_add);
+//                                params.put("day", day_portion);
+//                                params.put("interval", duration);
+                               if (day_portion != null) {
+                                   params.put("days", day_portion);
+                               }
+
+
+                               if (!duration.equals("")) {
+                                   params.put("interval", duration);
+                               } else {
+                                   params.put("interval", duration2);
+                               }
+                               // params.put("spid", presc_img);
+                               // params.put("payment_method", cod);
                                // params.put("status", "1");
-                                return params;
-                            }
-                        };
+                               return params;
+                           }
+                       };
 
-                        requestQueue.add(postRequest);
-                    }
+                       requestQueue.add(postRequest);
+                   }
+               }
+               if(s_int_day2<15){
 
-                }
+               }
+               else {
+                   if (!selected_three_delivery.isChecked() && !selected_six_delivery.isChecked() && !single_delivery_order.isChecked()) {
+                       Toast.makeText(getApplicationContext(), "Please, Checked All Preference Of Delivery Order", Toast.LENGTH_LONG).show();
+                   } else {
+
+
+                       RequestQueue requestQueue = Volley.newRequestQueue(PrescriptionSubscriptionDelivery.this);
+                       StringRequest postRequest = new StringRequest(Request.Method.POST, Prescription_subscription_order_url,
+                               new Response.Listener<String>() {
+                                   @Override
+                                   public void onResponse(String response) {
+                                       // response
+                                       Log.d("Response", response);
+                                       try {
+                                           //Do it with this it will work
+                                           JSONObject person = new JSONObject(response);
+                                           String status = person.getString("status");
+                                           if (status.equals("1")) {
+                                               String message = person.getString("msg");
+                                               // Toast.makeText(getApplicationContext(),message,Toast.LENGTH_LONG).show();
+                                               Intent goToOrderView_method = new Intent(PrescriptionSubscriptionDelivery.this, PrescriptionOrderSummery.class);
+                                              /*  goToOrderView_method.putExtra("DAY", day_portion);
+                                                goToOrderView_method.putExtra("Duration", duration);
+                                                goToOrderView_method.putExtra("User_add", user_add);
+                                                goToOrderView_method.putExtra("User_ID", user_id);*/
+                                               // goTopayment_method.putExtra("presc_img",prescription_img);
+                                               startActivity(goToOrderView_method);
+                                               overridePendingTransition(0, 0);
+                                           }
+
+                                       } catch (JSONException e) {
+                                           e.printStackTrace();
+                                           Toast.makeText(getApplicationContext(), "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                                       }
+
+
+                                   }
+                               },
+                               new Response.ErrorListener() {
+                                   @Override
+                                   public void onErrorResponse(VolleyError error) {
+                                       // error
+
+                                   }
+                               }
+                       ) {
+                           @Override
+                           protected Map<String, String> getParams() {
+                               Map<String, String> params = new HashMap<String, String>();
+
+                               params.put("user_id", u_id);
+                               //params.put("aId", user_add);
+//                           params.put("day", day_portion);
+//                           params.put("interval", duration);
+                               if (day_portion2 != null) {
+                                   params.put("days", day_portion2);
+                               }
+
+
+                               if (!duration2.equals(""))  {
+                                   params.put("interval", duration2);
+                               } else {
+                                   params.put("interval", duration);
+                               }
+                               // params.put("spid", presc_img);
+                               // params.put("payment_method", cod);
+                               // params.put("status", "1");
+                               return params;
+                           }
+                       };
+
+                       requestQueue.add(postRequest);
+                   }
+               }
+
+
 
 
 

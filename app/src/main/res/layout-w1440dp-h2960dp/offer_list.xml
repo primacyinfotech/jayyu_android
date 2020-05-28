@@ -3,80 +3,95 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="160dp">
-<androidx.cardview.widget.CardView
-    android:layout_width="match_parent"
-    android:layout_margin="10dp"
-    android:backgroundTint="@color/white"
-    app:cardCornerRadius="10dp"
-    android:elevation="5dp"
     android:layout_height="wrap_content">
-    <LinearLayout
-        android:orientation="horizontal"
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="160dp">
-        <ImageView
-            android:id="@+id/offer_img"
-            android:src="@drawable/d"
-            android:layout_width="100dp"
-            android:layout_height="100dp" />
-        <View
-            android:layout_marginTop="10dp"
-            android:layout_width="2dp"
-            android:background="@color/light_gray"
-            android:layout_height="match_parent">
-
-        </View>
+        android:layout_margin="10dp"
+        android:backgroundTint="@color/white"
+        app:cardCornerRadius="8dp"
+        android:elevation="5dp"
+        android:layout_height="wrap_content">
         <LinearLayout
-            android:orientation="vertical"
+            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <TextView
-                android:id="@+id/offer_heading"
-                android:textColor="#000"
-                android:text="OFFER"
-                android:layout_marginTop="10dp"
-                android:textStyle="bold"
-                android:textSize="16dp"
-                android:layout_marginLeft="10dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-            <TextView
-                android:id="@+id/offer_des"
-                android:text="OFFER"
-                android:layout_marginTop="5dp"
-                android:textSize="13dp"
-                android:layout_marginLeft="10dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-            <TextView
-                android:id="@+id/offer_exp_date"
-                android:text="OFFER"
-                android:layout_marginTop="13dp"
-                android:textSize="13dp"
-                android:layout_marginLeft="10dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+            android:layout_height="wrap_content">
+            <RelativeLayout
+                android:background="@color/white"
+                android:layout_width="100dp"
+                android:layout_height="match_parent">
+                <ImageView
+                    android:id="@+id/offer_img"
+                    android:src="@drawable/d"
+
+                    android:layout_width="100dp"
+                    android:layout_height="100dp" />
+            </RelativeLayout>
             <View
                 android:layout_marginTop="10dp"
-                android:layout_width="match_parent"
+                android:layout_width="2dp"
                 android:background="@color/light_gray"
-                android:layout_height="2dp">
+                android:layout_height="match_parent">
 
             </View>
-            <TextView
-                android:text="VIEW DETAILS"
-                android:textSize="18dp"
-                android:textColor="@color/colorAccent"
-                android:textStyle="bold"
-                android:layout_marginTop="10dp"
-                android:layout_gravity="center"
-                android:gravity="center"
+            <LinearLayout
+                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="30dp" />
+                android:layout_height="match_parent">
+                <TextView
+                    android:id="@+id/offer_heading"
+                    android:textColor="#000"
+                    android:text="OFFER"
+                    android:layout_marginTop="10dp"
+                    android:textStyle="bold"
+                    android:textSize="16dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:id="@+id/offer_des"
+                    android:text="OFFER"
+                    android:layout_marginTop="5dp"
+                    android:textSize="@dimen/_12sdp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:id="@+id/offer_code"
+                    android:text="OFFER"
+                    android:layout_marginTop="8dp"
+                    android:textSize="@dimen/_12sdp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:id="@+id/offer_exp_date"
+                    android:text="OFFER"
+                    android:layout_marginTop="10dp"
+                    android:textSize="@dimen/_12sdp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <View
+                    android:layout_marginTop="30dp"
+                    android:layout_width="match_parent"
+                    android:background="@color/light_gray"
+                    android:layout_height="2dp">
+
+                </View>
+                <TextView
+                    android:id="@+id/view_details_btn"
+                    android:text="VIEW DETAILS"
+                    android:textSize="18dp"
+                    android:textColor="@color/colorAccent"
+                    android:textStyle="bold"
+                    android:layout_marginTop="0dp"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp" />
+            </LinearLayout>
+
         </LinearLayout>
 
-    </LinearLayout>
-
-</androidx.cardview.widget.CardView>
+    </androidx.cardview.widget.CardView>
 </LinearLayout>
