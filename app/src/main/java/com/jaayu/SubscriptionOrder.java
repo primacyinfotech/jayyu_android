@@ -24,17 +24,16 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
-import Adapter.PatientPastPrescrptionAdapter;
-import Adapter.Search_adapter;
-import Adapter.SubscriptionFtureAdapter;
 import Adapter.SubscriptionOrderAdapter;
-import Model.Searchmodel;
 import Model.SubscriptionOrderModel;
-import Model.SuscriptionFetureNodel;
 
 public class SubscriptionOrder extends AppCompatActivity {
   private RecyclerView list_subscription;
@@ -100,7 +99,15 @@ public class SubscriptionOrder extends AppCompatActivity {
                                     JSONObject object=jsonArray.getJSONObject(i);
                                     subscriptionOrderModel.setSubscription_tbl_id(object.getInt("id"));
                                     subscriptionOrderModel.setSubscription_order(object.getString("order_id"));
-                                    subscriptionOrderModel.setOrd_date(object.getString("date"));
+                                   String date = object.getString("date");
+                                    try {
+                                        SimpleDateFormat sdf = new SimpleDateFormat("MMMM dd,yyyy");
+                                        Date testDate = sdf.parse(date);
+                                        SimpleDateFormat formatter = new SimpleDateFormat("dd MMM, yyyy");
+                                        date = formatter.format(testDate);
+                                    }catch (ParseException parseError){
+                                    }
+                                    subscriptionOrderModel.setOrd_date(date);
                                     subscriptionOrderModels.add(subscriptionOrderModel);
 
                                 }
@@ -125,8 +132,7 @@ public class SubscriptionOrder extends AppCompatActivity {
                     @Override
                     public void onErrorResponse(VolleyError error){
                         // Do something when error occurred
-
-
+                        error.printStackTrace();
                     }
                 }
         ) {

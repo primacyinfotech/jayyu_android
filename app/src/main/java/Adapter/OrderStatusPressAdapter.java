@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.github.chrisbanes.photoview.PhotoView;
+import com.jaayu.Model.BaseUrl;
 import com.jaayu.R;
 import com.squareup.picasso.Picasso;
 
@@ -37,7 +38,7 @@ public class OrderStatusPressAdapter  extends RecyclerView.Adapter<OrderStatusPr
 
     @Override
     public void onBindViewHolder(@NonNull OrderStatusPressAdapter.MyViewHolder holder, final int position) {
-        Picasso.with(context).load("https://work.primacyinfotech.com/jaayu/upload/prescription/" + orderStatusPressModels.get(position).getPress_img()).into(holder.ivGallery);
+        Picasso.with(context).load(BaseUrl.imageUrl + orderStatusPressModels.get(position).getPress_img()).into(holder.ivGallery);
         holder.ivGallery.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -48,7 +49,7 @@ public class OrderStatusPressAdapter  extends RecyclerView.Adapter<OrderStatusPr
                 PhotoView imageView=(PhotoView)settingsDialog.findViewById(R.id.full_screen);
                 ImageView  imageView2=(ImageView)settingsDialog.findViewById(R.id.close_full_img);
                 Picasso.with(context)
-                        .load("https://work.primacyinfotech.com/jaayu/upload/prescription/" + orderStatusPressModels.get(position).getPress_img())
+                        .load(BaseUrl.imageUrl + orderStatusPressModels.get(position).getPress_img())
                         .into(imageView);
                 imageView2.setOnClickListener(new View.OnClickListener() {
                     @Override

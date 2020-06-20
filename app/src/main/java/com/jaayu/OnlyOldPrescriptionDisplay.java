@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -44,7 +45,7 @@ public class OnlyOldPrescriptionDisplay extends AppCompatActivity {
     ArrayList<String> old_Plist;
     List<String>[] old_Plist_two;
     List<String> All_Plist_two = new ArrayList<>();
-    ;
+    ProgressDialog progressDialog;
     List<String> l;
     private String Old_prescription_url = BaseUrl.BaseUrlNew+"prescription_req_display_old_press";
     private String Old_prescription_url_add = BaseUrl.BaseUrlNew+"prescription_old_add_press";
@@ -65,6 +66,14 @@ public class OnlyOldPrescriptionDisplay extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
+
+                progressDialog = new ProgressDialog(OnlyOldPrescriptionDisplay.this);
+                progressDialog.setMessage("Uploading..."); // Setting Message
+                // progressDialog.setTitle("ADD TO CART...."); // Setting Title
+                progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER); // Progress Dialog Style Spinner
+                progressDialog.show(); // Display Progress Dialog
+                //progressDialog.setCancelable(false);
+
                 for (int i = 0; i < OnlyOldPresciptionAdapter.oldPrescriptionModels.size(); i++) {
                     if (OnlyOldPresciptionAdapter.oldPrescriptionModels.get(i).getSelected()) {
                         old_Plist = new ArrayList<>();
@@ -101,7 +110,7 @@ public class OnlyOldPrescriptionDisplay extends AppCompatActivity {
                                         e.printStackTrace();
                                         Toast.makeText(getApplicationContext(), "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
                                     }
-
+                                    progressDialog.dismiss();
 
                                 }
                             },
@@ -109,7 +118,7 @@ public class OnlyOldPrescriptionDisplay extends AppCompatActivity {
                                 @Override
                                 public void onErrorResponse(VolleyError error) {
                                     // error
-
+                                    progressDialog.dismiss();
                                 }
                             }
                     ) {

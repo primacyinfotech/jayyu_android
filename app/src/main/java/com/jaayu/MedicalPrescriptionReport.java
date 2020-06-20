@@ -56,27 +56,26 @@ import Adapter.PatientPastPrescrptionAdapter;
 import Model.PatientPastPrescriptionModel;
 
 public class MedicalPrescriptionReport extends AppCompatActivity {
-    private LinearLayout camera_choose,gallery_choose;
+    private LinearLayout camera_choose, gallery_choose;
     RecyclerView past_prescription_list;
     ImageView image_view, image_view2, back_button;
-    ImageButton cam_btn,gallery_btn;
-    private EditText report_name,report_up_date,report_name_gal,report_up_date_gal;
-    private Button upload,upload_gal;
+    ImageButton cam_btn, gallery_btn;
+    private EditText report_name, report_up_date, report_name_gal, report_up_date_gal;
+    private Button upload, upload_gal;
     private int PICK_IMAGE_REQUEST = 1;
     private int CAMERA_IMAGE_REQUEST = 2;
     public static final int RequestPermissionCode = 1;
     public static final int RequestPermissionCodeWrite = 2;
-    String encodedImage;
+    String encodedImage = "";
     private Uri filePath;
     private Bitmap bitmap;
     ProgressDialog progressDialog;
-    ProgressDialog progressDialog2;
     private int mYear, mMonth, mDay, mHour, mMinute;
     String u_id;
     int patient_id;
     SharedPreferences prefs_register;
-    private String Patient_upload_prescription_url= BaseUrl.BaseUrlNew+"patientwise_report_add";
-    private String Patient_fetch_prescription_url=BaseUrl.BaseUrlNew+"patientwise_report_view";
+    private String Patient_upload_prescription_url = BaseUrl.BaseUrlNew + "patientwise_report_add";
+    private String Patient_fetch_prescription_url = BaseUrl.BaseUrlNew + "patientwise_report_view";
     PatientPastPrescrptionAdapter patientPastPrescrptionAdapter;
     ArrayList<PatientPastPrescriptionModel> patientPastPrescriptionModels;
 
@@ -86,27 +85,36 @@ public class MedicalPrescriptionReport extends AppCompatActivity {
         setContentView(R.layout.activity_medical_prescription_report);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        Intent fetchP_id=getIntent();
-        patient_id=fetchP_id.getIntExtra("Patient_Id",0);
+        Intent fetchP_id = getIntent();
+        patient_id = fetchP_id.getIntExtra("Patient_Id", 0);
         prefs_register = getSharedPreferences(
                 "Register Details", Context.MODE_PRIVATE);
-        u_id=prefs_register.getString("USER_ID","");
+        u_id = prefs_register.getString("USER_ID", "");
         EnableRuntimePermissionToAccessCamera();
         back_button = (ImageView) findViewById(R.id.back_button);
-        past_prescription_list=(RecyclerView)findViewById(R.id.past_prescription_list);
-        camera_choose=(LinearLayout)findViewById(R.id.camera_choose);
-        gallery_choose=(LinearLayout)findViewById(R.id.gallery_choose);
+        past_prescription_list = (RecyclerView) findViewById(R.id.past_prescription_list);
+        camera_choose = (LinearLayout) findViewById(R.id.camera_choose);
+        gallery_choose = (LinearLayout) findViewById(R.id.gallery_choose);
+
+        progressDialog = new ProgressDialog(MedicalPrescriptionReport.this);
+        progressDialog.setMessage("Uploading..."); // Setting Message
+        // progressDialog.setTitle("ADD TO CART...."); // Setting Title
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER); // Progress Dialog Style Spinner
+        progressDialog.setCanceledOnTouchOutside(false);
+
         getPatientUplodedPrescription();
         camera_choose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                encodedImage = "";
+
                 final Dialog dialog = new Dialog(MedicalPrescriptionReport.this);
                 dialog.setContentView(R.layout.camera_dialog_box);
-                image_view=(ImageView)dialog.findViewById(R.id.image_view);
-                cam_btn=(ImageButton)dialog.findViewById(R.id.cam_btn);
-                report_name=(EditText)dialog.findViewById(R.id.report_name);
-                report_up_date=(EditText)dialog.findViewById(R.id.report_up_date);
-                upload=(Button)dialog.findViewById(R.id.upload);
+                image_view = (ImageView) dialog.findViewById(R.id.image_view);
+                cam_btn = (ImageButton) dialog.findViewById(R.id.cam_btn);
+                report_name = (EditText) dialog.findViewById(R.id.report_name);
+                report_up_date = (EditText) dialog.findViewById(R.id.report_up_date);
+                upload = (Button) dialog.findViewById(R.id.upload);
              /*   report_up_date.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -143,81 +151,15 @@ public class MedicalPrescriptionReport extends AppCompatActivity {
                 upload.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        RequestQueue queue = Volley.newRequestQueue(MedicalPrescriptionReport.this);
-                        StringRequest postRequest = new StringRequest(Request.Method.POST, Patient_upload_prescription_url,
-                                new Response.Listener<String>()
-                                {
-                                    @Override
-                                    public void onResponse(String response) {
-                                        // response
-                                        Log.d("Response", response);
-                                        try {
-                                            //Do it with this it will work
-                                            JSONObject person = new JSONObject(response);
-                                            String status=person.getString("status");
-                                            if(status.equals("1")){
-                                                progressDialog = new ProgressDialog(MedicalPrescriptionReport.this);
-                                                progressDialog.setMessage("Uploading..."); // Setting Message
-                                                // progressDialog.setTitle("ADD TO CART...."); // Setting Title
-                                                progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER); // Progress Dialog Style Spinner
-                                                progressDialog.show(); // Display Progress Dialog
-                                                progressDialog.setCancelable(false);
-                                                new Thread(new Runnable() {
-                                                    public void run() {
-                                                        try {
-                                                            dialog.dismiss();
-                                                            Thread.sleep(2000);
-                                                            Intent refreshPage=new Intent(getApplicationContext(),MedicalPrescriptionReport.class);
-                                                            startActivity(refreshPage);
-                                                            overridePendingTransition(0,0);
-
-                                                        } catch (Exception e) {
-                                                            e.printStackTrace();
-                                                        }
-                                                        progressDialog.dismiss();
-                                                    }
-                                                }).start();
-                                                //Toast.makeText(getApplicationContext(),status,Toast.LENGTH_LONG).show();
-                                            }
-
-
-
-
-
-                                        } catch (JSONException e) {
-                                            e.printStackTrace();
-                                            Toast.makeText(getApplicationContext(), "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
-                                        }
-
-
-                                    }
-                                },
-                                new Response.ErrorListener()
-                                {
-                                    @Override
-                                    public void onErrorResponse(VolleyError error) {
-                                        // error
-
-                                    }
-                                }
-                        ) {
-                            @Override
-                            protected Map<String, String> getParams()
-                            {
-                                Map<String, String>  params = new HashMap<String, String>();
-
-                                params.put("report", encodedImage);
-                                params.put("date", report_up_date.getText().toString());
-                                params.put("report_name", report_name.getText().toString());
-                                params.put("user_id", u_id);
-                                params.put("patient_id", String.valueOf(patient_id));
-
-
-                                return params;
-                            }
-                        };
-                        queue.add(postRequest);
-
+                        String reportName = report_name.getText().toString().trim();
+                        if (reportName.length() < 1) {
+                            Toast.makeText(MedicalPrescriptionReport.this, "Invalid Report Name!", Toast.LENGTH_SHORT).show();
+                        } else if (encodedImage.length() < 1)
+                            Toast.makeText(MedicalPrescriptionReport.this, "Please Choose Prescription!", Toast.LENGTH_SHORT).show();
+                        else {
+                            progressDialog.show(); // Display Progress Dialog
+                            uploadImage(dialog, report_up_date.getText().toString().trim(), reportName);
+                        }
                     }
                 });
 
@@ -227,13 +169,15 @@ public class MedicalPrescriptionReport extends AppCompatActivity {
         gallery_choose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                encodedImage = "";
+
                 final Dialog dialog2 = new Dialog(MedicalPrescriptionReport.this);
                 dialog2.setContentView(R.layout.gallery_dialog_box);
-                image_view2=(ImageView)dialog2.findViewById(R.id.image_view2);
-                gallery_btn=(ImageButton)dialog2.findViewById(R.id.gallery_btn);
-                report_name_gal=(EditText)dialog2.findViewById(R.id.report_name_gal);
-                report_up_date_gal=(EditText)dialog2.findViewById(R.id.report_up_date_gal);
-                upload_gal=(Button)dialog2.findViewById(R.id.upload_gal);
+                image_view2 = (ImageView) dialog2.findViewById(R.id.image_view2);
+                gallery_btn = (ImageButton) dialog2.findViewById(R.id.gallery_btn);
+                report_name_gal = (EditText) dialog2.findViewById(R.id.report_name_gal);
+                report_up_date_gal = (EditText) dialog2.findViewById(R.id.report_up_date_gal);
+                upload_gal = (Button) dialog2.findViewById(R.id.upload_gal);
                 gallery_btn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -270,12 +214,22 @@ public class MedicalPrescriptionReport extends AppCompatActivity {
                 upload_gal.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        RequestQueue queue = Volley.newRequestQueue(MedicalPrescriptionReport.this);
+                        String reportName = report_name_gal.getText().toString().trim();
+                        if (reportName.length() < 1) {
+                            Toast.makeText(MedicalPrescriptionReport.this, "Invalid Report Name!", Toast.LENGTH_SHORT).show();
+                        } else if (encodedImage.length() < 1)
+                            Toast.makeText(MedicalPrescriptionReport.this, "Please Choose Prescription!", Toast.LENGTH_SHORT).show();
+                        else {
+                            progressDialog.show(); // Display Progress Dialog
+
+                            uploadImage(dialog2, report_up_date_gal.getText().toString().trim(), reportName);
+                        /*RequestQueue queue = Volley.newRequestQueue(MedicalPrescriptionReport.this);
                         StringRequest postRequest = new StringRequest(Request.Method.POST, Patient_upload_prescription_url,
                                 new Response.Listener<String>()
                                 {
                                     @Override
                                     public void onResponse(String response) {
+
                                         // response
                                         Log.d("Response", response);
                                         try {
@@ -283,12 +237,6 @@ public class MedicalPrescriptionReport extends AppCompatActivity {
                                             JSONObject person = new JSONObject(response);
                                             String status=person.getString("status");
                                             if(status.equals("1")){
-                                                progressDialog = new ProgressDialog(MedicalPrescriptionReport.this);
-                                                progressDialog.setMessage("Uploading..."); // Setting Message
-                                                // progressDialog.setTitle("ADD TO CART...."); // Setting Title
-                                                progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER); // Progress Dialog Style Spinner
-                                                progressDialog.show(); // Display Progress Dialog
-                                                progressDialog.setCancelable(false);
                                                 new Thread(new Runnable() {
                                                     public void run() {
                                                         try {
@@ -301,7 +249,6 @@ public class MedicalPrescriptionReport extends AppCompatActivity {
                                                         } catch (Exception e) {
                                                             e.printStackTrace();
                                                         }
-                                                        progressDialog.dismiss();
                                                     }
                                                 }).start();
                                                 //Toast.makeText(getApplicationContext(),status,Toast.LENGTH_LONG).show();
@@ -315,6 +262,7 @@ public class MedicalPrescriptionReport extends AppCompatActivity {
                                             e.printStackTrace();
                                             Toast.makeText(getApplicationContext(), "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
                                         }
+                                        progressDialog.dismiss();
 
 
                                     }
@@ -324,7 +272,7 @@ public class MedicalPrescriptionReport extends AppCompatActivity {
                                     @Override
                                     public void onErrorResponse(VolleyError error) {
                                         // error
-
+                                        progressDialog.dismiss();
                                     }
                                 }
                         ) {
@@ -339,12 +287,12 @@ public class MedicalPrescriptionReport extends AppCompatActivity {
                                 params.put("user_id", u_id);
                                 params.put("patient_id", String.valueOf(patient_id));
 
-
                                 return params;
                             }
                         };
-                        queue.add(postRequest);
+                        queue.add(postRequest);*/
 
+                        }
                     }
                 });
                 dialog2.show();
@@ -353,15 +301,84 @@ public class MedicalPrescriptionReport extends AppCompatActivity {
         back_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent GoBack=new Intent(MedicalPrescriptionReport.this,PatientListView.class);
-                GoBack.putExtra("Patient_Id",patient_id);
+                Intent GoBack = new Intent(MedicalPrescriptionReport.this, PatientListView.class);
+                GoBack.putExtra("Patient_Id", patient_id);
                 startActivity(GoBack);
-                overridePendingTransition(0,0);
+                overridePendingTransition(0, 0);
                 finish();
             }
         });
 
     }
+
+    private void uploadImage(final Dialog dialog, final String reportDate, final String reportName) {
+        RequestQueue queue = Volley.newRequestQueue(MedicalPrescriptionReport.this);
+        StringRequest postRequest = new StringRequest(Request.Method.POST, Patient_upload_prescription_url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        // response
+                        Log.d("Response", response);
+                        try {
+                            //Do it with this it will work
+                            JSONObject person = new JSONObject(response);
+                            String status = person.getString("status");
+                            if (status.equals("1")) {
+
+                                new Thread(new Runnable() {
+                                    public void run() {
+                                        try {
+                                            dialog.dismiss();
+                                            Thread.sleep(200);
+                                            /*Intent refreshPage = getIntent();
+                                            refreshPage.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                                            startActivity(refreshPage);*/
+                                            //overridePendingTransition(0, 0);
+
+                                            getPatientUplodedPrescription();
+
+                                        } catch (Exception e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+                                }).start();
+                                //Toast.makeText(getApplicationContext(),status,Toast.LENGTH_LONG).show();
+                            }
+
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            Toast.makeText(getApplicationContext(), "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                        }
+                        progressDialog.dismiss();
+
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // error
+                        progressDialog.dismiss();
+                    }
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
+
+                params.put("report", encodedImage);
+                params.put("date", reportDate);
+                params.put("report_name", reportName);
+                params.put("user_id", u_id);
+                params.put("patient_id", String.valueOf(patient_id));
+
+
+                return params;
+            }
+        };
+        queue.add(postRequest);
+    }
+
     public void EnableRuntimePermissionToAccessCamera() {
 
         if (ActivityCompat.shouldShowRequestPermissionRationale(this,
@@ -386,7 +403,7 @@ public class MedicalPrescriptionReport extends AppCompatActivity {
 
                 if (PResult.length > 0 && PResult[0] == PackageManager.PERMISSION_GRANTED) {
 
-                    Toast.makeText(this, "Permission Granted, Now your application can access CAMERA.", Toast.LENGTH_LONG).show();
+                    //Toast.makeText(this, "Permission Granted, Now your application can access CAMERA.", Toast.LENGTH_LONG).show();
 
                 } else {
 
@@ -408,6 +425,7 @@ public class MedicalPrescriptionReport extends AppCompatActivity {
         }
 
     }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -432,7 +450,7 @@ public class MedicalPrescriptionReport extends AppCompatActivity {
         if (requestCode == CAMERA_IMAGE_REQUEST && resultCode == RESULT_OK) {
             Bitmap mphoto = (Bitmap) data.getExtras().get("data");
             //imgPath = data.getData();
-             image_view.setImageBitmap(mphoto);
+            image_view.setImageBitmap(mphoto);
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             mphoto.compress(Bitmap.CompressFormat.JPEG, 100, baos);
             byte[] imageBytes = baos.toByteArray();
@@ -448,91 +466,81 @@ public class MedicalPrescriptionReport extends AppCompatActivity {
 
 
     }
- private  void   getPatientUplodedPrescription(){
 
-     patientPastPrescriptionModels=new ArrayList<>();
-     RequestQueue requestQueue = Volley.newRequestQueue(MedicalPrescriptionReport.this);
-     StringRequest postRequest = new StringRequest(Request.Method.POST,Patient_fetch_prescription_url,
-             new Response.Listener<String>() {
-                 @Override
-                 public void onResponse(String response) {
-                     // response
-                     Log.d("Response", response);
-                     try {
-                         //Do it with this it will work
-                         JSONObject person = new JSONObject(response);
-                         String status = person.getString("status");
-                         if (status.equals("1")) {
-                             JSONArray jsonArray=person.getJSONArray("data");
-                             for(int i=0;i<jsonArray.length();i++){
-                                 PatientPastPrescriptionModel oldPrescriptionModel=new PatientPastPrescriptionModel();
-                                 JSONObject object=jsonArray.getJSONObject(i);
-                                 oldPrescriptionModel.setPatient_pres_id(object.getInt("id"));
-                                 oldPrescriptionModel.setPast_pres_head(object.getString("report_name"));
+    private void getPatientUplodedPrescription() {
+
+        patientPastPrescriptionModels = new ArrayList<>();
+        RequestQueue requestQueue = Volley.newRequestQueue(MedicalPrescriptionReport.this);
+        StringRequest postRequest = new StringRequest(Request.Method.POST, Patient_fetch_prescription_url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        // response
+                        Log.d("Response", response);
+                        try {
+                            //Do it with this it will work
+                            JSONObject person = new JSONObject(response);
+                            String status = person.getString("status");
+                            if (status.equals("1")) {
+                                JSONArray jsonArray = person.getJSONArray("data");
+                                for (int i = 0; i < jsonArray.length(); i++) {
+                                    PatientPastPrescriptionModel oldPrescriptionModel = new PatientPastPrescriptionModel();
+                                    JSONObject object = jsonArray.getJSONObject(i);
+                                    oldPrescriptionModel.setPatient_pres_id(object.getInt("id"));
+                                    oldPrescriptionModel.setPast_pres_head(object.getString("report_name"));
                                 /* String date=object.getString("date");
                                  SimpleDateFormat sdf = new SimpleDateFormat("dd/mm/yyyy");
                                  Date testDate=sdf.parse(date);
                                  DateFormat dateFormat = new SimpleDateFormat("dd MMM,yyyy");
                                  String newFormat = dateFormat.format(testDate);
                                  oldPrescriptionModel.setPast_pres_date(newFormat);*/
-                                 oldPrescriptionModel.setPast_pres_date(object.getString("date"));
-                                 oldPrescriptionModel.setPast_pres_img(object.getString("image"));
-                                 patientPastPrescriptionModels.add(oldPrescriptionModel);
+                                    oldPrescriptionModel.setPast_pres_date(object.getString("date"));
+                                    oldPrescriptionModel.setPast_pres_img(object.getString("image"));
+                                    patientPastPrescriptionModels.add(oldPrescriptionModel);
 
-                             }
-
-                             patientPastPrescrptionAdapter=new PatientPastPrescrptionAdapter(patientPastPrescriptionModels,MedicalPrescriptionReport.this);
-                             past_prescription_list.setHasFixedSize(true);
-                             past_prescription_list.setLayoutManager(new LinearLayoutManager(MedicalPrescriptionReport.this));
-                             past_prescription_list.setAdapter(patientPastPrescrptionAdapter);
-                             patientPastPrescrptionAdapter.notifyDataSetChanged();
-
-                         }
-
-
-
-
-                     } catch (JSONException e) {
-                         e.printStackTrace();
-                         Toast.makeText(getApplicationContext(), "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
-                     } /*catch (ParseException e) {
+                                }
+                                patientPastPrescrptionAdapter = new PatientPastPrescrptionAdapter(patientPastPrescriptionModels, MedicalPrescriptionReport.this);
+                                past_prescription_list.setHasFixedSize(true);
+                                past_prescription_list.setLayoutManager(new LinearLayoutManager(MedicalPrescriptionReport.this));
+                                past_prescription_list.setAdapter(patientPastPrescrptionAdapter);
+                                patientPastPrescrptionAdapter.notifyDataSetChanged();
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            Toast.makeText(getApplicationContext(), "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                        } /*catch (ParseException e) {
                          e.printStackTrace();
                      }*/
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // error
+                    }
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
+
+                params.put("user_id", u_id);
+                params.put("patient_id", String.valueOf(patient_id));
 
 
-                 }
-             },
-             new Response.ErrorListener() {
-                 @Override
-                 public void onErrorResponse(VolleyError error) {
-                     // error
+                return params;
+            }
 
-                 }
-             }
-     )
-     {
-         @Override
-         protected Map<String, String> getParams ()
-         {
-             Map<String, String> params = new HashMap<String, String>();
-
-             params.put("user_id", u_id);
-             params.put("patient_id", String.valueOf(patient_id));
-
-
-             return params;
-         }
-
-     };
-     requestQueue.add(postRequest);
+        };
+        requestQueue.add(postRequest);
     }
 
     @Override
     public void onBackPressed() {
-        Intent GoBack=new Intent(MedicalPrescriptionReport.this,PatientListView.class);
-        GoBack.putExtra("Patient_Id",patient_id);
+        Intent GoBack = new Intent(MedicalPrescriptionReport.this, PatientListView.class);
+        GoBack.putExtra("Patient_Id", patient_id);
         startActivity(GoBack);
-        overridePendingTransition(0,0);
+        overridePendingTransition(0, 0);
         finish();
     }
 }

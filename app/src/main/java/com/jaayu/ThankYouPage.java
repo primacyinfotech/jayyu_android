@@ -25,6 +25,9 @@ import com.jaayu.Model.BaseUrl;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -57,6 +60,7 @@ public class ThankYouPage extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent GotoOrderPage=new Intent(ThankYouPage.this,OrderPage.class);
+                GotoOrderPage.putExtra("from", "thankYou");
                 startActivity(GotoOrderPage);
                 overridePendingTransition(0,0);
                 finish();
@@ -68,7 +72,6 @@ public class ThankYouPage extends AppCompatActivity {
                 Intent GotoOrderPage=new Intent(ThankYouPage.this,Help.class);
                 startActivity(GotoOrderPage);
                 overridePendingTransition(0,0);
-                finish();
             }
         });
 
@@ -89,7 +92,16 @@ public class ThankYouPage extends AppCompatActivity {
                             if (status.equals("1")) {
                                 String del_add=person.getString("Delivery date");
                                 String subs_instant=person.getString("instant");
-                                date_of_delivery.setText(del_add);
+                                try {
+                                    SimpleDateFormat sdf = new SimpleDateFormat("MMMM dd,yyyy");
+                                    Date testDate = sdf.parse(del_add);
+                                    SimpleDateFormat formatter = new SimpleDateFormat("dd MMMM,yyyy");
+                                    String newFormat = formatter.format(testDate);
+                                    date_of_delivery.setText(newFormat);
+                                }catch (ParseException e){
+                                    e.printStackTrace();
+                                    date_of_delivery.setText(del_add);
+                                }
                                 if(subs_instant.equals("0")){
                                     type_delivery.setText("Normal Delivery");
                                 }
@@ -104,7 +116,6 @@ public class ThankYouPage extends AppCompatActivity {
                             e.printStackTrace();
                             Toast.makeText(getApplicationContext(), "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
                         }
-
 
                     }
                 },

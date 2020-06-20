@@ -95,13 +95,14 @@ private Button goTo_submit;
         goTo_submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                u_phone=input_mobile.getText().toString();
+                if( u_phone.length() > 9){
                 progressDialog = new ProgressDialog(LoginSignUp.this);
                 progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
                 progressDialog.show();
                 progressDialog.setMessage("Loading....");
                 progressDialog.setCancelable(false);
                 //u_phone=input_mobile.getText().toString();
-                u_phone=input_mobile.getText().toString();
                 RequestQueue queue = Volley.newRequestQueue(LoginSignUp.this);
                 StringRequest postRequest = new StringRequest(Request.Method.POST, Login_Otp_url,
                         new Response.Listener<String>()
@@ -169,6 +170,9 @@ private Button goTo_submit;
                 queue.add(postRequest);
                /* Intent goRegis=new Intent(LoginSignUp.this,Registration.class);
                 startActivity(goRegis);*/
+            }else {
+                Toast.makeText(LoginSignUp.this, "Invalid Mobile Number!", Toast.LENGTH_SHORT).show();
+            }
             }
         });
 

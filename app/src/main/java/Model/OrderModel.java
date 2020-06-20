@@ -1,8 +1,8 @@
 package Model;
 
 public class OrderModel {
- private     String order_mame,order_id,order_date,ship_status,instant,prescription_chk;
-  private   int tbl_order_id;
+ private String order_mame,order_id,order_date,ship_status,instant,prescription_chk,type;
+  private int tbl_order_id;
    /* public OrderModel(String order_id, String order_date, String order_mame) {
         this.order_id = order_id;
         this.order_date = order_date;
@@ -63,5 +63,13 @@ public class OrderModel {
 
     public void setOrder_date(String order_date) {
         this.order_date = order_date;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }

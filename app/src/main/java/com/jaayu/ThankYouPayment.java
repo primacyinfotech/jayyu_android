@@ -48,6 +48,7 @@ public class ThankYouPayment extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent GotoOrderPage=new Intent( ThankYouPayment.this,OrderPage.class);
+                GotoOrderPage.putExtra("from", "thankYou");
                 startActivity(GotoOrderPage);
                 overridePendingTransition(0,0);
                 finish();

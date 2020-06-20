@@ -391,7 +391,7 @@
             <TextView
                 android:id="@+id/qty_per"
                 android:textColor="#000"
-                android:fontFamily="@font/clearsansbold"
+                android:fontFamily="@font/clear_sans_regular"
                 android:textSize="15sp"
                 android:text=""
                 android:layout_marginTop="10dp"

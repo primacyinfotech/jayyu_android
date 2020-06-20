@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -38,6 +39,7 @@ public class PatientwisePrescriptionView extends AppCompatActivity {
     String u_id;
     int patient_id;
     SharedPreferences prefs_register;
+    private ImageView backButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,8 +50,19 @@ public class PatientwisePrescriptionView extends AppCompatActivity {
                 "Register Details", Context.MODE_PRIVATE);
         u_id=prefs_register.getString("USER_ID","");
         list_of_patient_prescription=(RecyclerView)findViewById(R.id.list_of_patient_prescription);
+        backButton = findViewById(R.id.back_button);
+
+        backButton.setOnClickListener(view -> {
+            onBackPressed();
+        });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         getPresciptionImage();
     }
+
     private void getPresciptionImage(){
         patientWisePrescriptionModels=new ArrayList<>();
         RequestQueue requestQueue = Volley.newRequestQueue(PatientwisePrescriptionView.this);
@@ -72,8 +85,10 @@ public class PatientwisePrescriptionView extends AppCompatActivity {
                                 for(int i=0;i<jsonArray.length();i++){
                                     PatientWisePrescriptionModel patientListModel=new PatientWisePrescriptionModel();
                                     JSONObject object=jsonArray.getJSONObject(i);
+                                    patientListModel.setId(object.getString("id"));
+                                    patientListModel.setUser_id(object.getString("user_id"));
+                                    patientListModel.setNormal(object.getString("normal"));
                                     patientListModel.setPatient_img(object.getString("prescription"));
-
 
                                     patientWisePrescriptionModels.add(patientListModel);
 
@@ -87,26 +102,18 @@ public class PatientwisePrescriptionView extends AppCompatActivity {
 
                                 list_of_patient_prescription.setAdapter(patientwisePrescriptionAdapter);
                                 patientwisePrescriptionAdapter.notifyDataSetChanged();
-
                             }
-
-
-
-
 
                         } catch (JSONException e) {
                             e.printStackTrace();
                             Toast.makeText(getApplicationContext(), "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
                         }
-
-
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         // error
-
                     }
                 }
         ) {

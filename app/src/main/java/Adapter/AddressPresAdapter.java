@@ -1,6 +1,8 @@
 package Adapter;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.util.Log;
@@ -83,11 +85,8 @@ public class AddressPresAdapter extends RecyclerView.Adapter<AddressPresAdapter.
                 String landmark=addressModel.getLanmark();
                 String phone=addressModel.getPhone();
 
-                Toast.makeText(context,
-                        "selected offer is " + add_id,
-                        Toast.LENGTH_LONG).show();
-                prefs_register = context.getSharedPreferences(
-                        "Register Details", Context.MODE_PRIVATE);
+               // Toast.makeText(context, "selected offer is " + add_id, Toast.LENGTH_LONG).show();
+                prefs_register = context.getSharedPreferences("Register Details", Context.MODE_PRIVATE);
                 final String u_id=prefs_register.getString("USER_ID","");
                 RequestQueue queue = Volley.newRequestQueue(context);
                 StringRequest postRequest = new StringRequest(Request.Method.POST, Instant_Uncheck_api,
@@ -102,7 +101,6 @@ public class AddressPresAdapter extends RecyclerView.Adapter<AddressPresAdapter.
                                     JSONObject person = new JSONObject(response);
                                     String status=person.getString("status");
                                     if(status.equals("1")) {
-
 
                                     }
 
@@ -142,6 +140,15 @@ public class AddressPresAdapter extends RecyclerView.Adapter<AddressPresAdapter.
                 goToOrderSammary.putExtra("ADDRESS_PHONE",phone);
                 goToOrderSammary.putExtra("ADDRESS_LAND",landmark);
                 context.startActivity(goToOrderSammary);
+
+                if(context instanceof Activity) {
+                    ((Activity) context).finishActivity(1);
+                    ((Activity) context).finish();
+                }
+                else if(context instanceof ContextWrapper) {
+                    ((Activity) ((ContextWrapper) context).getBaseContext()).finishActivity(1);
+                    ((Activity) ((ContextWrapper) context).getBaseContext()).finish();
+                }
 
             }
         });

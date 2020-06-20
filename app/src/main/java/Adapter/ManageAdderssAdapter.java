@@ -39,7 +39,7 @@ import Model.AddressModel;
 public class ManageAdderssAdapter extends RecyclerView.Adapter<ManageAdderssAdapter.MyViewHolder> {
     private ArrayList<AddressModel> modelList;
     private Context context;
-    private  String address_delete_url= BaseUrl.BaseUrlNew+"order_address_del";
+    private String address_delete_url = BaseUrl.BaseUrlNew + "order_address_del";
     SharedPreferences prefs_register;
 
     public ManageAdderssAdapter(ArrayList<AddressModel> modelList, Context context) {
@@ -59,9 +59,14 @@ public class ManageAdderssAdapter extends RecyclerView.Adapter<ManageAdderssAdap
     }
 
     @Override
+    public int getItemViewType(int position) {
+        return super.getItemViewType(position);
+    }
+
+    @Override
     public void onBindViewHolder(@NonNull ManageAdderssAdapter.MyViewHolder holder, final int position) {
-        final AddressModel addressModel=modelList.get(position);
-     /*   holder.pref_add.setText(addressModel.getAddress_pref());*/
+        final AddressModel addressModel = modelList.get(position);
+        /*   holder.pref_add.setText(addressModel.getAddress_pref());*/
         holder.pref_add.setText(StringUtils.capitalize(addressModel.getAddress_pref().toLowerCase().trim()));
         holder.name.setText(addressModel.getName());
         holder.address.setText(addressModel.getAddress());
@@ -73,8 +78,7 @@ public class ManageAdderssAdapter extends RecyclerView.Adapter<ManageAdderssAdap
             public void onClick(View v) {
                 RequestQueue queue = Volley.newRequestQueue(context);
                 StringRequest postRequest = new StringRequest(Request.Method.POST, address_delete_url,
-                        new Response.Listener<String>()
-                        {
+                        new Response.Listener<String>() {
                             @Override
                             public void onResponse(String response) {
                                 // response
@@ -82,23 +86,19 @@ public class ManageAdderssAdapter extends RecyclerView.Adapter<ManageAdderssAdap
                                 try {
                                     //Do it with this it will work
                                     JSONObject person = new JSONObject(response);
-                                    String status=person.getString("status");
-                                    if(status.equals("1")){
+                                    String status = person.getString("status");
+                                    if (status.equals("1")) {
                                         modelList.remove(position);
                                         notifyItemRemoved(position);
-                                        notifyItemRangeChanged(position,modelList.size());
-                                        String message=person.getString("message");
-                                        Toast.makeText(context,message,Toast.LENGTH_LONG).show();
-                                        Intent intent= new Intent(context, ManagaAddressView.class);
+                                        notifyItemRangeChanged(position, modelList.size());
+                                        String message = person.getString("message");
+                                        Toast.makeText(context, message, Toast.LENGTH_LONG).show();
+                                        Intent intent = new Intent(context, ManagaAddressView.class);
                                         intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                                         context.startActivity(intent);
+                                    } else {
+                                        Toast.makeText(context, "Address Not Removed", Toast.LENGTH_LONG).show();
                                     }
-                                    else {
-                                        Toast.makeText(context,status+" "+"Not Removed",Toast.LENGTH_LONG).show();
-                                    }
-
-
-
 
 
                                 } catch (JSONException e) {
@@ -109,8 +109,7 @@ public class ManageAdderssAdapter extends RecyclerView.Adapter<ManageAdderssAdap
 
                             }
                         },
-                        new Response.ErrorListener()
-                        {
+                        new Response.ErrorListener() {
                             @Override
                             public void onErrorResponse(VolleyError error) {
                                 // error
@@ -119,11 +118,9 @@ public class ManageAdderssAdapter extends RecyclerView.Adapter<ManageAdderssAdap
                         }
                 ) {
                     @Override
-                    protected Map<String, String> getParams()
-                    {
-                        Map<String, String>  params = new HashMap<String, String>();
+                    protected Map<String, String> getParams() {
+                        Map<String, String> params = new HashMap<String, String>();
                         params.put("aId", String.valueOf(addressModel.getAdd_id()));
-
 
 
                         return params;
@@ -135,9 +132,9 @@ public class ManageAdderssAdapter extends RecyclerView.Adapter<ManageAdderssAdap
         holder.edit_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                   Intent goToUpdate=new Intent(context, ManageAddress.class);
-                goToUpdate.putExtra("ADDRESS_ID",addressModel.getAdd_id());
-                ((Activity) context).overridePendingTransition(0,0);
+                Intent goToUpdate = new Intent(context, ManageAddress.class);
+                goToUpdate.putExtra("ADDRESS_ID", addressModel.getAdd_id());
+                ((Activity) context).overridePendingTransition(0, 0);
                 context.startActivity(goToUpdate);
             }
         });
@@ -149,18 +146,19 @@ public class ManageAdderssAdapter extends RecyclerView.Adapter<ManageAdderssAdap
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView pref_add,name,address,edit_add,address_land,address_zipt,address_phone;
+        TextView pref_add, name, address, edit_add, address_land, address_zipt, address_phone;
         TextView delete_address;
+
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            pref_add=(TextView)itemView.findViewById(R.id.pref_add);
-            name=(TextView)itemView.findViewById(R.id.name);
-            address=(TextView)itemView.findViewById(R.id.address);
-            edit_add=(TextView)itemView.findViewById(R.id.edit_add);
-            address_land=(TextView)itemView.findViewById(R.id.address_land);
-            address_zipt=(TextView)itemView.findViewById(R.id.address_zipt);
-            address_phone=(TextView)itemView.findViewById(R.id.address_phone);
-            delete_address=(TextView)itemView.findViewById(R.id.delete_address);
+            pref_add = (TextView) itemView.findViewById(R.id.pref_add);
+            name = (TextView) itemView.findViewById(R.id.name);
+            address = (TextView) itemView.findViewById(R.id.address);
+            edit_add = (TextView) itemView.findViewById(R.id.edit_add);
+            address_land = (TextView) itemView.findViewById(R.id.address_land);
+            address_zipt = (TextView) itemView.findViewById(R.id.address_zipt);
+            address_phone = (TextView) itemView.findViewById(R.id.address_phone);
+            delete_address = (TextView) itemView.findViewById(R.id.delete_address);
         }
     }
 }

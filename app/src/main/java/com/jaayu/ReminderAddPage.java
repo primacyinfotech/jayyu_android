@@ -60,7 +60,7 @@ public class ReminderAddPage extends AppCompatActivity {
  private CheckBox sunday,monday,tuesday,wednessday,thirstday,friday,saturday;
  String s_day,m_day,t_day,w_day,th_day,f_day,sat_day,daytime,weektime,monthtime,SendWeek,time_view_list,daySpin,monthSpin,
     weekcountSpinn,monthcountSpinner,repeat,duration,medSelected;
- RecyclerView  timer_list;
+ RecyclerView timer_list;
  private Button btn_save;
  ArrayList<String> daycountList;
     ArrayList<String> mothList;

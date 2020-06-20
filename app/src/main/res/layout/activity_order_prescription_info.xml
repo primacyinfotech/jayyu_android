@@ -185,7 +185,7 @@
             </View>
             <CheckBox
                 android:id="@+id/call_me"
-                android:text="Call me For Details"
+                android:text="Call me for details"
                 android:layout_width="wrap_content"
                 android:layout_height="50dp">
 

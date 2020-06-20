@@ -8,6 +8,8 @@ import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+import com.jaayu.Model.BaseUrl;
+
 public class WebViewTermandCondition extends AppCompatActivity {
     private WebView wv1;
     @Override
@@ -19,7 +21,7 @@ public class WebViewTermandCondition extends AppCompatActivity {
         wv1.getSettings().setLoadsImagesAutomatically(true);
         wv1.getSettings().setJavaScriptEnabled(true);
         wv1.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
-        wv1.loadUrl("https://work.primacyinfotech.com/jaayu/terms");
+        wv1.loadUrl(BaseUrl.imageUrlSub +"terms");
     }
     private class MyBrowser extends WebViewClient {
         @Override

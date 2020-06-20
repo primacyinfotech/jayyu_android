@@ -5,82 +5,86 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".PinSearchActivity">
-<TextView
-    android:layout_width="0dip"
-    android:id="@+id/choosetext"
-    android:text="Choose Your Location"
-    android:textSize="22sp"
-    app:layout_constraintWidth_percent="0.6"
-    app:layout_constraintTop_toTopOf="parent"
-    android:layout_marginTop="@dimen/activity_vertical_margin"
-    android:layout_marginRight="@dimen/activity_horizontal_margin"
-    android:layout_marginLeft="@dimen/activity_horizontal_margin"
-    android:textColor="@color/black"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintEnd_toStartOf="@+id/close_btn"
-    android:layout_height="wrap_content"/>
+
+    <TextView
+        android:id="@+id/choosetext"
+        android:layout_width="0dip"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:text="Choose Your Location"
+        android:textColor="@color/black"
+        android:textSize="22sp"
+        app:layout_constraintEnd_toStartOf="@+id/close_btn"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintWidth_percent="0.6" />
 
     <ImageView
         android:id="@+id/closebtn"
-        android:src="@drawable/close"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/activity_vertical_margin"
         android:layout_marginRight="@dimen/activity_horizontal_margin"
-        android:layout_height="wrap_content"/>
+        android:src="@drawable/close"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <LinearLayout
         android:id="@+id/searchboxlayout"
         android:layout_width="0dip"
-        app:layout_constraintTop_toBottomOf="@id/choosetext"
-        app:layout_constraintWidth_percent="0.75"
-        android:weightSum="4"
-        android:orientation="horizontal"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_height="35dip"
         android:layout_marginTop="@dimen/activity_horizontal_margin"
-        android:layout_height="35dip">
-<EditText
-    android:id="@+id/editpinet"
-    android:layout_weight="3"
-    android:background="@drawable/pinsearchetback"
-    android:layout_width="0dip"
-    android:layout_height="match_parent"
-    />
+        android:orientation="horizontal"
+        android:weightSum="4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/choosetext"
+        app:layout_constraintWidth_percent="0.75">
+
+        <EditText
+            android:id="@+id/editpinet"
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
+            android:background="@drawable/pinsearchetback"
+            android:paddingLeft="5dp" />
+
         <Button
             android:id="@+id/checkbtn"
-            android:text="Check"
-            android:textColor="@color/white"
             android:layout_width="0dip"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@drawable/pinsearchbtn"
-            android:layout_height="match_parent"
-            ></Button>
+            android:text="Check"
+            android:textColor="@color/white"></Button>
     </LinearLayout>
+
     <TextView
-        android:drawablePadding="@dimen/activity_horizontal_margin"
         android:id="@+id/select"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/activity_vertical_margin"
         android:drawableLeft="@drawable/ic_my_location"
+        android:drawablePadding="@dimen/activity_horizontal_margin"
         android:text="Select Current Location"
         android:textColor="@color/colorPrimary"
         app:layout_constraintStart_toStartOf="@id/searchboxlayout"
         app:layout_constraintTop_toBottomOf="@+id/searchboxlayout" />
+
     <ListView
         android:id="@+id/addresslist"
         android:layout_width="match_parent"
         android:layout_height="0dip"
-        android:focusable="false"
-        android:clickable="false"
-        android:dividerHeight="@dimen/activity_vertical_margin"
-        android:divider="@android:color/transparent"
-        app:layout_constraintTop_toBottomOf="@id/select"
         android:layout_marginLeft="@dimen/activity_horizontal_margin"
-        android:layout_marginRight="@dimen/activity_vertical_margin"
         android:layout_marginTop="@dimen/activity_vertical_margin"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginRight="@dimen/activity_vertical_margin"
         android:layout_marginBottom="@dimen/activity_vertical_margin"
-        />
+        android:clickable="false"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="@dimen/activity_vertical_margin"
+        android:focusable="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/select" />
 </androidx.constraintlayout.widget.ConstraintLayout>

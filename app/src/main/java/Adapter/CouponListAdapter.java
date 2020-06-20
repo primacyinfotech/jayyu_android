@@ -14,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.jaayu.CartActivity;
+import com.jaayu.Model.BaseUrl;
 import com.jaayu.R;
 import com.squareup.picasso.Picasso;
 
@@ -49,7 +50,8 @@ public class CouponListAdapter extends RecyclerView.Adapter<CouponListAdapter.My
         final CouponListModel mList = modelList.get(position);
        // holder.cpm.setImageResource(mList.getCoupon_img());
         myDb = new SaveCoupon(context);
-        Picasso.with(context).load("https://work.primacyinfotech.com/jaayu/upload/slider/"+mList.getCoupon_img()).into(holder.cpm);
+        //"https://work.primacyinfotech.com/jaayu/upload/slider/"
+        Picasso.with(context).load(BaseUrl.imageUrlSub + "upload/slider/" +mList.getCoupon_img()).into(holder.cpm);
 
         holder.cpn_txt.setText(mList.getCoupon_code());
         holder.main_off.setText(mList.getCoupon_code_des());
@@ -67,10 +69,10 @@ public class CouponListAdapter extends RecyclerView.Adapter<CouponListAdapter.My
                 boolean isUpdate=myDb.insertData(String.valueOf(mList.getCoupon_id()),coupon_code);
 
                 if(isUpdate){
-                    Toast.makeText(context,"Data Update",Toast.LENGTH_LONG).show();
+                    Toast.makeText(context,"Coupon Applied",Toast.LENGTH_LONG).show();
                 }
                 else {
-                    Toast.makeText(context,"Data not Updated",Toast.LENGTH_LONG).show();
+                    Toast.makeText(context,"Something Went Wrong!",Toast.LENGTH_LONG).show();
                 }
 
             }

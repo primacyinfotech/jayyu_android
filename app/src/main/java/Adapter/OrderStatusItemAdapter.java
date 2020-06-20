@@ -10,8 +10,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,15 +41,16 @@ import java.util.Map;
 
 import Model.OrderStatusItemModel;
 
-public class OrderStatusItemAdapter extends RecyclerView.Adapter<OrderStatusItemAdapter.MyViewHolder>{
-    public  static ArrayList<OrderStatusItemModel> modelList;
+public class OrderStatusItemAdapter extends RecyclerView.Adapter<OrderStatusItemAdapter.MyViewHolder> {
+    public static ArrayList<OrderStatusItemModel> modelList;
     private Context context;
     SharedPreferences prefs_register;
     SharedPreferences ord_id_instant;
-    private String u_id,spin_no;
-    private String Order_quantity_update_url= BaseUrl.BaseUrlNew+"order_quantity_edit";
-    private String Order_Item_Delete=BaseUrl.BaseUrlNew+"order_del_con";
+    private String u_id, spin_no;
+    private String Order_quantity_update_url = BaseUrl.BaseUrlNew + "order_quantity_edit";
+    private String Order_Item_Delete = BaseUrl.BaseUrlNew + "order_del_con";
     ProgressDialog progressDialog;
+    private ArrayList qtyList;
 
     public OrderStatusItemAdapter(ArrayList<OrderStatusItemModel> modelList, Context context) {
         this.modelList = modelList;
@@ -69,21 +73,51 @@ public class OrderStatusItemAdapter extends RecyclerView.Adapter<OrderStatusItem
         final OrderStatusItemModel mList = modelList.get(position);
         prefs_register = context.getSharedPreferences(
                 "Register Details", Context.MODE_PRIVATE);
-        u_id=prefs_register.getString("USER_ID","");
+        u_id = prefs_register.getString("USER_ID", "");
         holder.item_name.setText(mList.getTitle());
-        holder.amount.setText("Price: "+"\u20B9"+mList.getPrice_normal());
+        holder.amount.setText("Price: " + "\u20B9" + mList.getPrice_normal());
         holder.unit.setText(mList.getStrip());
         if (holder.mrp != null) {
           /*  DecimalFormat format_tot = new DecimalFormat("##.##");
             String formatted_sum = format_tot.format(mList.getTotal());*/
 
-            holder.mrp.setText("\u20B9"+mList.getMrp_price());
+            holder.mrp.setText("\u20B9" + mList.getMrp_price());
             // holder.item_total.setText(formatted_sum);
             holder.mrp.setPaintFlags(holder.mrp.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
         }
+
+        qtyList = new ArrayList<>();
+        try {
+            for (int i = 0; i < mList.getQuantity(); i++)
+                qtyList.add(i+1);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        final ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, qtyList);
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        holder.spn_qty.setAdapter(dataAdapter);
+        dataAdapter.notifyDataSetChanged();
+
+        holder.spn_qty.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                try {
+                    mList.setEditTextValue((int) qtyList.get(i));
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
         //holder.qyt.setText(mList.getQuantity()+"x");
-       // holder.cart_product_quantity_tv.setText(""+mList.getQuantity());
-        holder.cart_product_quantity_tv.setText(""+modelList.get(position).getQuantity());
+        // holder.cart_product_quantity_tv.setText(""+mList.getQuantity());
+        holder.cart_product_quantity_tv.setText("" + modelList.get(position).getQuantity());
         holder.cart_plus_img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -93,14 +127,14 @@ public class OrderStatusItemAdapter extends RecyclerView.Adapter<OrderStatusItem
                 progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER); // Progress Dialog Style Spinner
                 progressDialog.show(); // Display Progress Dialog
                 progressDialog.setCancelable(false);*/
-                int count=Integer.parseInt(String.valueOf(holder.cart_product_quantity_tv.getText()));
+                int count = Integer.parseInt(String.valueOf(holder.cart_product_quantity_tv.getText()));
 
-               /* if(count<=29)*/
-                int act_qy=modelList.get(position).getQuantity();
-                int sub_qty=act_qy-1;
-                if(count<act_qy){
+                /* if(count<=29)*/
+                int act_qy = modelList.get(position).getQuantity();
+                int sub_qty = act_qy - 1;
+                if (count < act_qy) {
                     count++;
-                    final int cou=count++;
+                    final int cou = count++;
                     holder.cart_product_quantity_tv.setText("" + cou);
                     modelList.get(position).setEditTextValue(cou);
                    /* RequestQueue queue = Volley.newRequestQueue(context);
@@ -182,11 +216,11 @@ public class OrderStatusItemAdapter extends RecyclerView.Adapter<OrderStatusItem
                 progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER); // Progress Dialog Style Spinner
                 progressDialog.show(); // Display Progress Dialog
                 progressDialog.setCancelable(false);*/
-                int count= Integer.parseInt(String.valueOf(holder.cart_product_quantity_tv.getText()));
-                if (count == 1){
+                int count = Integer.parseInt(String.valueOf(holder.cart_product_quantity_tv.getText()));
+                if (count == 1) {
                     holder.cart_product_quantity_tv.setText("1");
 
-                    final int cou2=count;
+                    final int cou2 = count;
                     modelList.get(position).setEditTextValue(cou2);
                    /* RequestQueue queue = Volley.newRequestQueue(context);
                     StringRequest postRequest = new StringRequest(Request.Method.POST, Order_quantity_update_url,
@@ -249,11 +283,10 @@ public class OrderStatusItemAdapter extends RecyclerView.Adapter<OrderStatusItem
                         }
                     };
                     queue.add(postRequest);*/
-                }
-                else {
+                } else {
                     count -= 1;
                     holder.cart_product_quantity_tv.setText("" + count);
-                    final int cou3=count;
+                    final int cou3 = count;
                     modelList.get(position).setEditTextValue(cou3);
                  /*   RequestQueue queue = Volley.newRequestQueue(context);
                     StringRequest postRequest = new StringRequest(Request.Method.POST, Order_quantity_update_url,
@@ -324,8 +357,7 @@ public class OrderStatusItemAdapter extends RecyclerView.Adapter<OrderStatusItem
             public void onClick(View v) {
                 RequestQueue queue = Volley.newRequestQueue(context);
                 StringRequest postRequest = new StringRequest(Request.Method.POST, Order_Item_Delete,
-                        new Response.Listener<String>()
-                        {
+                        new Response.Listener<String>() {
                             @Override
                             public void onResponse(String response) {
                                 // response
@@ -333,22 +365,22 @@ public class OrderStatusItemAdapter extends RecyclerView.Adapter<OrderStatusItem
                                 try {
                                     //Do it with this it will work
                                     JSONObject person = new JSONObject(response);
-                                    String status=person.getString("status");
-                                    if(status.equals("1")) {
-                                        String msg=person.getString("Message");
+                                    String status = person.getString("status");
+                                    if (status.equals("1")) {
+                                        String msg = person.getString("Message");
                                         modelList.remove(position);
                                         notifyItemRemoved(position);
                                         notifyItemRangeChanged(position, modelList.size());
-                                        Toast.makeText(context,msg,Toast.LENGTH_LONG).show();
+                                        Toast.makeText(context, msg, Toast.LENGTH_LONG).show();
                                         ord_id_instant = context.getSharedPreferences(
                                                 "Order_id Details", Context.MODE_PRIVATE);
-                                        int od_id=ord_id_instant.getInt("OrderID",0);
-                                        String od_instant=ord_id_instant.getString("INSTANT","");
-                                        Intent intent= new Intent(context, OrderStatusConfirm.class);
+                                        int od_id = ord_id_instant.getInt("OrderID", 0);
+                                        String od_instant = ord_id_instant.getString("INSTANT", "");
+                                        Intent intent = new Intent(context, OrderStatusConfirm.class);
                                        /* intent.putExtra("Order_id",od_id);
                                         intent.putExtra("Instant",od_instant);*/
                                         intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                                        ((Activity) context).overridePendingTransition(0,0);
+                                        ((Activity) context).overridePendingTransition(0, 0);
                                         context.startActivity(intent);
                                        /* Intent intent= new Intent("message_delete_intent");
 
@@ -359,9 +391,6 @@ public class OrderStatusItemAdapter extends RecyclerView.Adapter<OrderStatusItem
                                     }
 
 
-
-
-
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                     Toast.makeText(context, "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
@@ -370,8 +399,7 @@ public class OrderStatusItemAdapter extends RecyclerView.Adapter<OrderStatusItem
 
                             }
                         },
-                        new Response.ErrorListener()
-                        {
+                        new Response.ErrorListener() {
                             @Override
                             public void onErrorResponse(VolleyError error) {
                                 // error
@@ -380,11 +408,9 @@ public class OrderStatusItemAdapter extends RecyclerView.Adapter<OrderStatusItem
                         }
                 ) {
                     @Override
-                    protected Map<String, String> getParams()
-                    {
-                        Map<String, String>  params = new HashMap<String, String>();
+                    protected Map<String, String> getParams() {
+                        Map<String, String> params = new HashMap<String, String>();
                         params.put("id", String.valueOf(modelList.get(position).getItem_id()));
-
 
 
                         return params;
@@ -398,11 +424,10 @@ public class OrderStatusItemAdapter extends RecyclerView.Adapter<OrderStatusItem
         holder.item_select_check.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Integer pos=(Integer) holder.item_select_check.getTag();
-                if(modelList.get(pos).getSelected()){
+                Integer pos = (Integer) holder.item_select_check.getTag();
+                if (modelList.get(pos).getSelected()) {
                     modelList.get(pos).setSelected(false);
-                }
-                else {
+                } else {
                     modelList.get(pos).setSelected(true);
                 }
             }
@@ -416,21 +441,24 @@ public class OrderStatusItemAdapter extends RecyclerView.Adapter<OrderStatusItem
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        ImageView cart_minus_img,cart_plus_img;
-        TextView cart_product_quantity_tv,delete_item_button,item_name,qyt,unit,mrp,amount;
+        ImageView cart_minus_img, cart_plus_img;
+        TextView cart_product_quantity_tv, delete_item_button, item_name, qyt, unit, mrp, amount;
         CheckBox item_select_check;
+        Spinner spn_qty;
+
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            cart_plus_img=(ImageView)itemView.findViewById(R.id.cart_plus_img);
-            cart_minus_img=(ImageView)itemView.findViewById(R.id.cart_minus_img_);
-            delete_item_button=(TextView)itemView.findViewById(R.id.delete_item_button);
-            item_name=(TextView)itemView.findViewById(R.id.item_name);
-           // qyt=(TextView)itemView.findViewById(R.id.qyt);
-            unit=(TextView)itemView.findViewById(R.id.unit);
-            mrp=(TextView)itemView.findViewById(R.id.mrp);
-            amount=(TextView)itemView.findViewById(R.id.amount);
-            cart_product_quantity_tv=(TextView)itemView.findViewById(R.id.cart_product_quantity_tv);
-            item_select_check=(CheckBox)itemView.findViewById(R.id.item_select_check);
+            cart_plus_img = (ImageView) itemView.findViewById(R.id.cart_plus_img);
+            cart_minus_img = (ImageView) itemView.findViewById(R.id.cart_minus_img_);
+            delete_item_button = (TextView) itemView.findViewById(R.id.delete_item_button);
+            item_name = (TextView) itemView.findViewById(R.id.item_name);
+            // qyt=(TextView)itemView.findViewById(R.id.qyt);
+            unit = (TextView) itemView.findViewById(R.id.unit);
+            mrp = (TextView) itemView.findViewById(R.id.mrp);
+            amount = (TextView) itemView.findViewById(R.id.amount);
+            cart_product_quantity_tv = (TextView) itemView.findViewById(R.id.cart_product_quantity_tv);
+            item_select_check = (CheckBox) itemView.findViewById(R.id.item_select_check);
+            spn_qty = (itemView.findViewById(R.id.spn_qty));
         }
     }
 }

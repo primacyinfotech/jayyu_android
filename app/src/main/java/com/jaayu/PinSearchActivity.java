@@ -61,7 +61,7 @@ public class PinSearchActivity extends AppCompatActivity implements LocationList
     TextView locchecktv;
     String pincode;
     Button checkbtn;
-    EditText editpinet ;
+    EditText editpinet;
     Boolean whetherchekedornotdefault = false;
     String specialidfordefault;
     ImageView closebtn;
@@ -101,13 +101,12 @@ public class PinSearchActivity extends AppCompatActivity implements LocationList
 
                 if (ActivityCompat.checkSelfPermission(PinSearchActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(PinSearchActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 
-                    Log.i("tag","permission denied");
+                    Log.i("tag", "permission denied");
                     LocationPermission permission = new LocationPermission(PinSearchActivity.this);
                     permission.checkLocationPermission();
 
 
-                }
-                else {
+                } else {
 
                     locationgetter();
                 }
@@ -137,9 +136,7 @@ public class PinSearchActivity extends AppCompatActivity implements LocationList
         });
 
 
-
-        closebtn.setOnClickListener(new View.OnClickListener()
-                                    {
+        closebtn.setOnClickListener(new View.OnClickListener() {
                                         @Override
                                         public void onClick(View v) {
                                             onBackPressed();
@@ -149,8 +146,7 @@ public class PinSearchActivity extends AppCompatActivity implements LocationList
     }
 
 
-    private void locationgetter()
-    {
+    private void locationgetter() {
         LocationPermission permission = new LocationPermission(PinSearchActivity.this);
         permission.checkLocationPermission();
         LocationManager locationManager = (LocationManager) getApplicationContext().getSystemService(LOCATION_SERVICE);
@@ -176,10 +172,10 @@ public class PinSearchActivity extends AppCompatActivity implements LocationList
         }
 
     }
-    private void pincodeck(final String pin)
-    {
+
+    private void pincodeck(final String pin) {
         RequestQueue requestQueue = Volley.newRequestQueue(PinSearchActivity.this);
-        StringRequest postRequest = new StringRequest(Request.Method.POST, BaseUrl.BaseUrlNew+"pincode_checking",
+        StringRequest postRequest = new StringRequest(Request.Method.POST, BaseUrl.BaseUrlNew + "pincode_checking",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -188,20 +184,16 @@ public class PinSearchActivity extends AppCompatActivity implements LocationList
                         try {
                             //Do it with this it will work
                             JSONObject jsonres = new JSONObject(response);
-                            String status=jsonres.getString("status");
-                            if(status.contentEquals("1")) {
+                            String status = jsonres.getString("status");
+                            if (status.contentEquals("1")) {
                                 new SharedPref(getApplicationContext()).saveUserDetails(u_id, pin);
                                 Intent i = new Intent(getApplicationContext(), MainActivity.class);
                                 startActivity(i);
-                            }
-                            else
-                            {
+                            } else {
                                 Toast.makeText(PinSearchActivity.this, "This Pin is unavailable at the moment", Toast.LENGTH_SHORT).show();
                             }
 
-                        }
-
-                        catch (JSONException e) {
+                        } catch (JSONException e) {
                             e.printStackTrace();
                             Toast.makeText(getApplicationContext(), "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
                         }
@@ -226,10 +218,9 @@ public class PinSearchActivity extends AppCompatActivity implements LocationList
     }
 
 
-    private void listingapicall()
-    {
+    private void listingapicall() {
         RequestQueue requestQueue = Volley.newRequestQueue(PinSearchActivity.this);
-        StringRequest postRequest = new StringRequest(Request.Method.POST, BaseUrl.BaseUrlNew+"order_address",
+        StringRequest postRequest = new StringRequest(Request.Method.POST, BaseUrl.BaseUrlNew + "order_address",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -238,11 +229,11 @@ public class PinSearchActivity extends AppCompatActivity implements LocationList
                         try {
                             //Do it with this it will work
                             JSONObject jsonres = new JSONObject(response);
-                            String status=jsonres.getString("status");
-                            if(status.contentEquals("success")) {
-                                JSONArray jsonArray= jsonres.getJSONArray("address");
-                                for(int i=0;i<jsonArray.length();i++){
-                                    JSONObject jsonObject=jsonArray.getJSONObject(i);
+                            String status = jsonres.getString("status");
+                            if (status.contentEquals("success")) {
+                                JSONArray jsonArray = jsonres.getJSONArray("address");
+                                for (int i = 0; i < jsonArray.length(); i++) {
+                                    JSONObject jsonObject = jsonArray.getJSONObject(i);
                                     firstname.add(jsonObject.getString("first_name"));
                                     id.add(jsonObject.getString("id"));
                                     phonenum.add(jsonObject.getString("phone"));
@@ -250,14 +241,12 @@ public class PinSearchActivity extends AppCompatActivity implements LocationList
                                     landmark.add(jsonObject.getString("landmark"));
                                     zipcode.add(jsonObject.getString("zip_code"));
                                     atype.add(jsonObject.getString("atype"));
-                            }
-                               addresadap = new AddressList(getApplicationContext(),id, firstname, phonenum, address, landmark, zipcode, atype);
-                                addlist.setAdapter(addresadap);
                                 }
-
+                                addresadap = new AddressList(getApplicationContext(), id, firstname, phonenum, address, landmark, zipcode, atype);
+                                addlist.setAdapter(addresadap);
                             }
 
-                        catch (JSONException e) {
+                        } catch (JSONException e) {
                             e.printStackTrace();
                             Toast.makeText(getApplicationContext(), "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
                         }
@@ -288,7 +277,7 @@ public class PinSearchActivity extends AppCompatActivity implements LocationList
 
     private String getZipCodeFromLocation(Location location) {
         Address addr = getAddressFromLocation(location);
-        Log.i("tag","zip"+addr.getPostalCode());
+        Log.i("tag", "zip" + addr.getPostalCode());
         return addr.getPostalCode() == null ? "" : addr.getPostalCode();
     }
 
@@ -308,8 +297,8 @@ public class PinSearchActivity extends AppCompatActivity implements LocationList
 
     @Override
     public void onLocationChanged(Location location) {
-      String zip = new PinSearchActivity().getZipCodeFromLocation(location);
-      Log.i("tag","zip"+zip);
+        String zip = new PinSearchActivity().getZipCodeFromLocation(location);
+        Log.i("tag", "zip" + zip);
 
 
     }
@@ -330,14 +319,13 @@ public class PinSearchActivity extends AppCompatActivity implements LocationList
     }
 
 
-    class AddressList extends BaseAdapter
-    {
+    class AddressList extends BaseAdapter {
         ArrayList<String> mid = new ArrayList<>();
         ArrayList<String> mfirstname = new ArrayList<>();
         ArrayList<String> mphonenum = new ArrayList<>();
         ArrayList<String> maddress = new ArrayList<>();
         ArrayList<String> mlandmark = new ArrayList<>();
-        ArrayList<String>  mzipcode = new ArrayList<>();
+        ArrayList<String> mzipcode = new ArrayList<>();
         ArrayList<String> matype = new ArrayList<>();
 
         CheckBox cheboxclick;
@@ -347,13 +335,13 @@ public class PinSearchActivity extends AppCompatActivity implements LocationList
 
 
         public AddressList(Context applicationContext, ArrayList<String> id, ArrayList<String> firstname, ArrayList<String> phonenum, ArrayList<String> address, ArrayList<String> landmark, ArrayList<String> zipcode, ArrayList<String> atype) {
-         mid = id;
-         mfirstname = firstname;
-         mphonenum = phonenum;
-         maddress = address;
-         mlandmark = landmark;
-         mzipcode = zipcode;
-         matype = atype;
+            mid = id;
+            mfirstname = firstname;
+            mphonenum = phonenum;
+            maddress = address;
+            mlandmark = landmark;
+            mzipcode = zipcode;
+            matype = atype;
         }
 
         @Override
@@ -383,36 +371,28 @@ public class PinSearchActivity extends AppCompatActivity implements LocationList
             typeicon = convertView.findViewById(R.id.typeicon);
             cheboxclick = convertView.findViewById(R.id.checkboxclick);
 
-            if(whetherchekedornotdefault == true && specialidfordefault != null)
-            {
-                if (mid.get(position).contentEquals(specialidfordefault))
-                {
+            if (whetherchekedornotdefault == true && specialidfordefault != null) {
+                if (mid.get(position).contentEquals(specialidfordefault)) {
                     cheboxclick.setChecked(true);
                 }
             }
-            if (mfirstname.get(position) != null)
-            {
+            if (mfirstname.get(position) != null) {
                 nametv.setText(mfirstname.get(position));
             }
-            if (mphonenum.get(position) != null)
-            {
+            if (mphonenum.get(position) != null) {
                 phonetv.setText(mphonenum.get(position));
             }
-            if (mlandmark.get(position) != null && !mlandmark.get(position).contentEquals("null"))
-            {
+            if (mlandmark.get(position) != null && !mlandmark.get(position).contentEquals("null")) {
                 landmarktv.setText(mlandmark.get(position));
             }
-            if (mzipcode.get(position) != null)
-            {
+            if (mzipcode.get(position) != null) {
                 pincodetv.setText(mzipcode.get(position));
             }
-            if (maddress.get(position) != null)
-            {
+            if (maddress.get(position) != null) {
                 addresstv.setText(maddress.get(position));
             }
-            if (matype.get(position) != null)
-            {
-               // namdtypetv.setText(mfirstname.get(position) + " "+matype.get(position));
+            if (matype.get(position) != null) {
+                // namdtypetv.setText(mfirstname.get(position) + " "+matype.get(position));
                 namdtypetv.setText(matype.get(position));
             }
           /*  else if (matype.get(position) == null && mfirstname.get(position) != null)
@@ -442,25 +422,21 @@ public class PinSearchActivity extends AppCompatActivity implements LocationList
             cheboxclick.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    if (isChecked){
+                    if (isChecked) {
                         String addressid = id.get(position);
                         defaultcheckchange(addressid);
-                        Log.i("tag","getting checked address id"+addressid);
+                        Log.i("tag", "getting checked address id" + addressid);
 
                         defaultaddresschange();
-                        if(whetherchekedornotdefault && specialidfordefault != null)
-                        {
-                            if (mid.get(position).contentEquals(specialidfordefault))
-                            {
+                        if (whetherchekedornotdefault && specialidfordefault != null) {
+                            if (mid.get(position).contentEquals(specialidfordefault)) {
                                 cheboxclick.setChecked(true);
 
-                            }
-                            else
-                            {
+                            } else {
                                 cheboxclick.setChecked(false);
                             }
                         }
-                    }else {
+                    } else {
                         //do something else
                     }
                 }
@@ -474,10 +450,9 @@ public class PinSearchActivity extends AppCompatActivity implements LocationList
     }
 
 
-    private void defaultcheckchange(final String a_id)
-    {
+    private void defaultcheckchange(final String a_id) {
         RequestQueue requestQueue = Volley.newRequestQueue(PinSearchActivity.this);
-        StringRequest postRequest = new StringRequest(Request.Method.POST, BaseUrl.BaseUrlNew+"order_addres_change",
+        StringRequest postRequest = new StringRequest(Request.Method.POST, BaseUrl.BaseUrlNew + "order_addres_change",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -486,22 +461,18 @@ public class PinSearchActivity extends AppCompatActivity implements LocationList
                         try {
                             //Do it with this it will work
                             JSONObject jsonres = new JSONObject(response);
-                            String status=jsonres.getString("status");
-                            if(status.contentEquals("1")) {
-                               Log.i("tag","default address change");
-                               // locationgetter();
-                                String pin_st=jsonres.getString("pincode");
+                            String status = jsonres.getString("status");
+                            if (status.contentEquals("1")) {
+                                Log.i("tag", "default address change");
+                                // locationgetter();
+                                String pin_st = jsonres.getString("pincode");
                                 pincodeck(pin_st);
-                            }
-                            else
-                            {
+                            } else {
 
                                 //  Toast.makeText(PinSearchActivity.this, "This Pin is unavailable at the moment", Toast.LENGTH_SHORT).show();
                             }
 
-                        }
-
-                        catch (JSONException e) {
+                        } catch (JSONException e) {
                             e.printStackTrace();
                             Toast.makeText(getApplicationContext(), "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
                         }
@@ -527,10 +498,9 @@ public class PinSearchActivity extends AppCompatActivity implements LocationList
 
     }
 
-    private void defaultaddresschange()
-    {
+    private void defaultaddresschange() {
         RequestQueue requestQueue = Volley.newRequestQueue(PinSearchActivity.this);
-        StringRequest postRequest = new StringRequest(Request.Method.POST, BaseUrl.BaseUrlNew+"default_address_change",
+        StringRequest postRequest = new StringRequest(Request.Method.POST, BaseUrl.BaseUrlNew + "default_address_change",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -539,23 +509,19 @@ public class PinSearchActivity extends AppCompatActivity implements LocationList
                         try {
                             //Do it with this it will work
                             JSONObject jsonres = new JSONObject(response);
-                            String status=jsonres.getString("status");
-                            if(status.contentEquals("1")) {
-                               specialidfordefault  = jsonres.getString("aId");
+                            String status = jsonres.getString("status");
+                            if (status.contentEquals("1")) {
+                                specialidfordefault = jsonres.getString("aId");
                              /*  String pin_st=jsonres.getString("pincode");
                                 pincodeck(pin_st);*/
-                              whetherchekedornotdefault = true;
+                                whetherchekedornotdefault = true;
 
-                            }
-                            else
-                            {
+                            } else {
                                 whetherchekedornotdefault = false;
-                              //  Toast.makeText(PinSearchActivity.this, "This Pin is unavailable at the moment", Toast.LENGTH_SHORT).show();
+                                //  Toast.makeText(PinSearchActivity.this, "This Pin is unavailable at the moment", Toast.LENGTH_SHORT).show();
                             }
 
-                        }
-
-                        catch (JSONException e) {
+                        } catch (JSONException e) {
                             e.printStackTrace();
                             Toast.makeText(getApplicationContext(), "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
                         }

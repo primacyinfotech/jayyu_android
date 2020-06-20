@@ -44,17 +44,21 @@ public class OrderSummeryAdapter extends RecyclerView.Adapter<OrderSummeryAdapte
         holder.unit.setText(mList.getUnit());
         holder.percentage.setText(mList.getSaveings_percentage());
        // holder.percentage_amt.setText("\u20B9"+mList.getSave_amount());
-        holder.price_amt.setText("\u20B9"+mList.getPrice_amt());
+        holder.price_amt.setText(mList.getPrice_amt());
         holder.company_nam.setText(mList.getCompany_name());
-        holder.quantity.setText("Qty :"+mList.getQuantity());
+        holder.quantity.setText("Qty : "+mList.getQuantity());
         if (holder.item_total != null) {
           /*  DecimalFormat format_tot = new DecimalFormat("##.##");
             String formatted_sum = format_tot.format(mList.getTotal());*/
 
-            holder.item_total.setText(""+mList.getTotal());
+            holder.item_total.setText("\u20B9"+mList.getTotal());
             // holder.item_total.setText(formatted_sum);
             holder.item_total.setPaintFlags(holder.item_total.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
         }
+
+        if(position == (modelList.size()-1))
+            holder.view.setVisibility(View.INVISIBLE);
+
     }
 
     @Override
@@ -64,6 +68,7 @@ public class OrderSummeryAdapter extends RecyclerView.Adapter<OrderSummeryAdapte
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         TextView item_cart,item_total,unit,percentage,percentage_amt,price_amt,company_nam,quantity;
+        View view;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             item_cart=(TextView)itemView.findViewById(R.id.item_cart);
@@ -74,6 +79,7 @@ public class OrderSummeryAdapter extends RecyclerView.Adapter<OrderSummeryAdapte
             price_amt=(TextView)itemView.findViewById(R.id.price_amt);
             company_nam=(TextView)itemView.findViewById(R.id.company_nam);
             quantity=(TextView)itemView.findViewById(R.id.quantity);
+            view = itemView.findViewById(R.id.view);
         }
     }
 }

@@ -73,9 +73,7 @@ public class AddresAddActivity extends AppCompatActivity {
         back_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent gotoLocationAddress=new Intent(AddresAddActivity.this,LocationAddress.class);
-                startActivity(gotoLocationAddress);
-                finish();
+                onBackPressed();
             }
         });
         mstb_multi_id.setOnValueChangedListener(new ToggleButton.OnValueChangedListener() {
@@ -105,93 +103,108 @@ public class AddresAddActivity extends AppCompatActivity {
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                f_nm=first_name.getText().toString();
-                l_nm=last_name.getText().toString();
-                mob_num=mob_number.getText().toString();
-                pin_no=pin_number.getText().toString();
-                addr=address.getText().toString();
-                l_mark=lan_mark.getText().toString();
-                e_mail=email_add.getText().toString();
-               // count=country.getText().toString();
-                state=state_mark.getText().toString();
-                city=city_mark.getText().toString();
-                work_pref2=other_mark.getText().toString();
-                RequestQueue requestQueue = Volley.newRequestQueue(AddresAddActivity.this);
-                StringRequest postRequest = new StringRequest(Request.Method.POST,add_addressUrl,
-                        new Response.Listener<String>() {
-                            @Override
-                            public void onResponse(String response) {
-                                // response
-                                Log.d("Response", response);
-                                try {
-                                    //Do it with this it will work
-                                    JSONObject person = new JSONObject(response);
-                                    String status=person.getString("status");
-                                    if(status.equals("1")){
-                                        if(field_req.equals("1")){
-                                            Intent gotoLocationAddress=new Intent(AddresAddActivity.this,LocationAddress.class);
-                                            startActivity(gotoLocationAddress);
+                f_nm = first_name.getText().toString().trim();
+                l_nm = last_name.getText().toString().trim();
+                mob_num = mob_number.getText().toString();
+                pin_no = pin_number.getText().toString().trim();
+                addr = address.getText().toString().trim();
+                l_mark = lan_mark.getText().toString().trim();
+                e_mail = email_add.getText().toString().trim();
+                // count=country.getText().toString();
+                state = state_mark.getText().toString().trim();
+                city = city_mark.getText().toString().trim();
+                work_pref2 = other_mark.getText().toString().trim();
+                if (mob_number.length() < 13) {
+                    Toast.makeText(AddresAddActivity.this, "Invalid Mobile Number!", Toast.LENGTH_SHORT).show();
+                }else if(pin_no.length() < 6){
+                    Toast.makeText(AddresAddActivity.this, "Invalid Pincode!", Toast.LENGTH_SHORT).show();
+                }else if(l_mark.length() < 2){
+                    Toast.makeText(AddresAddActivity.this, "Invalid Landmark!", Toast.LENGTH_SHORT).show();
+                }else {
+                    RequestQueue requestQueue = Volley.newRequestQueue(AddresAddActivity.this);
+                    StringRequest postRequest = new StringRequest(Request.Method.POST, add_addressUrl,
+                            new Response.Listener<String>() {
+                                @Override
+                                public void onResponse(String response) {
+                                    // response
+                                    Log.d("Response", response);
+                                    try {
+                                        //Do it with this it will work
+                                        JSONObject person = new JSONObject(response);
+                                        String status = person.getString("status");
+                                        if (status.equals("1")) {
+                                            onBackPressed();
+                                           /* if (field_req.equals("1")) {
+                                                Intent gotoLocationAddress = new Intent(AddresAddActivity.this, LocationAddress.class);
+                                                startActivity(gotoLocationAddress);
+                                                finishActivity(007);
+                                                (AddresAddActivity.this).finish();
+                                            }
+                                            if (field_req.equals("2")) {
+                                                Intent gotoLocationAddress = new Intent(AddresAddActivity.this, PrescriptionLocationAddress.class);
+                                                startActivity(gotoLocationAddress);
+                                                finishActivity(007);
+                                                (AddresAddActivity.this).finish();
+                                            }*/
+
+                                        } else if (status.equals("2")) {
+                                            String message = person.getString("message");
+                                            Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
+                                        } else if (status.equals("0")) {
+                                            String message = person.getString("message");
+                                            Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
                                         }
-                                        if (field_req.equals("2")){
-                                            Intent gotoLocationAddress=new Intent(AddresAddActivity.this,PrescriptionLocationAddress.class);
-                                            startActivity(gotoLocationAddress);
-                                        }
 
-                                    }
-                                    else if(status.equals("2")) {
-                                        String message=person.getString("message");
-                                        Toast.makeText(getApplicationContext(),message,Toast.LENGTH_LONG).show();
-                                    }
-                                    else if(status.equals("0")){
-                                        String message=person.getString("message");
-                                        Toast.makeText(getApplicationContext(),message,Toast.LENGTH_LONG).show();
+
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                        Toast.makeText(getApplicationContext(), "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
                                     }
 
 
-
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
-                                    Toast.makeText(getApplicationContext(), "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
                                 }
+                            },
+                            new Response.ErrorListener() {
+                                @Override
+                                public void onErrorResponse(VolleyError error) {
+                                    // error
 
-
+                                }
                             }
-                        },
-                        new Response.ErrorListener() {
-                            @Override
-                            public void onErrorResponse(VolleyError error) {
-                                // error
+                    ) {
+                        @Override
+                        protected Map<String, String> getParams() {
+                            Map<String, String> params = new HashMap<String, String>();
 
+                            params.put("user_id", u_id);
+                            params.put("first_name", f_nm);
+                            params.put("last_name", l_nm);
+                            params.put("phone", mob_num);
+                            params.put("email", e_mail);
+                            params.put("address", addr);
+                            params.put("landmark", l_mark);
+                            params.put("state", state);
+                            params.put("city", city);
+                            params.put("zip_code", pin_no);
+                            if (work_pref2.equals("")) {
+                                params.put("atype", work_pref);
+                            } else {
+                                params.put("atype", work_pref2);
                             }
-                        }
-                ) {
-                    @Override
-                    protected Map<String, String> getParams() {
-                        Map<String, String> params = new HashMap<String, String>();
 
-                        params.put("user_id", u_id);
-                        params.put("first_name", f_nm);
-                        params.put("last_name", l_nm);
-                        params.put("phone", mob_num);
-                        params.put("email", e_mail);
-                        params.put("address", addr);
-                        params.put("landmark", l_mark);
-                        params.put("state", state);
-                        params.put("city", city);
-                        params.put("zip_code", pin_no);
-                        if(work_pref2.equals("")){
-                            params.put("atype", work_pref);
+                            return params;
                         }
-                        else {
-                            params.put("atype", work_pref2);
-                        }
+                    };
 
-                        return params;
-                    }
-                };
-
-                requestQueue.add(postRequest);
+                    requestQueue.add(postRequest);
+                }
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
     }
 }

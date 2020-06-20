@@ -18,7 +18,8 @@
     <View
         android:id="@+id/view"
         android:layout_below="@+id/tv_past"
-        android:layout_margin="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:background="@color/black"
         android:layout_width="match_parent"
         android:layout_height="2dp">

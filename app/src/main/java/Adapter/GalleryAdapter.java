@@ -39,13 +39,13 @@ import java.util.Map;
 
 import Model.PrescriptionModel;
 
-public class GalleryAdapter  extends RecyclerView.Adapter<GalleryAdapter.MyViewHolder> {
+public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.MyViewHolder> {
     ArrayList<PrescriptionModel> prescriptionModels;
     ArrayList<PrescriptionModel> prescriptionModels2;
     private Context context;
     private Context ctx;
-    private String prescription_delete_url= BaseUrl.BaseUrlNew+"prescription_req_del";
-    private String Oldprescription_delete_url=BaseUrl.BaseUrlNew+"prescription_old_del";
+    private String prescription_delete_url = BaseUrl.BaseUrlNew + "prescription_req_del";
+    private String Oldprescription_delete_url = BaseUrl.BaseUrlNew + "prescription_old_del";
 
 
     public GalleryAdapter(ArrayList<PrescriptionModel> prescriptionModels, Context context) {
@@ -69,20 +69,19 @@ public class GalleryAdapter  extends RecyclerView.Adapter<GalleryAdapter.MyViewH
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, final int position) {
-        Picasso.with(context).load("https://work.primacyinfotech.com/jaayu/upload/prescription/" + prescriptionModels.get(position).getPrescription_img()).into(holder.ivGallery);
+        Picasso.with(context).load(BaseUrl.imageUrl + prescriptionModels.get(position).getPrescription_img()).into(holder.ivGallery);
 
         holder.ivGallery.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final Dialog settingsDialog = new Dialog(context,R.style.AppBaseTheme);
+                final Dialog settingsDialog = new Dialog(context, R.style.AppBaseTheme);
                 settingsDialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
                 settingsDialog.getWindow().setBackgroundDrawable(null);
                 settingsDialog.setContentView(R.layout.full_screen_image);
-                PhotoView imageView=(PhotoView)settingsDialog.findViewById(R.id.full_screen);
-                ImageView  imageView2=(ImageView)settingsDialog.findViewById(R.id.close_full_img);
+                PhotoView imageView = (PhotoView) settingsDialog.findViewById(R.id.full_screen);
+                ImageView imageView2 = (ImageView) settingsDialog.findViewById(R.id.close_full_img);
                 Picasso.with(context)
-
-                        .load("https://work.primacyinfotech.com/jaayu/upload/prescription/" + prescriptionModels.get(position).getPrescription_img())
+                        .load(BaseUrl.imageUrl + prescriptionModels.get(position).getPrescription_img())
                         .into(imageView);
                 imageView2.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -94,74 +93,71 @@ public class GalleryAdapter  extends RecyclerView.Adapter<GalleryAdapter.MyViewH
             }
         });
 
-            holder.img_id.setText("" +prescriptionModels.get(position).getProduct_id());
-            holder.delete_prescription.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    RequestQueue queue = Volley.newRequestQueue(context);
-                    StringRequest postRequest = new StringRequest(Request.Method.POST, prescription_delete_url,
-                            new Response.Listener<String>() {
-                                @Override
-                                public void onResponse(String response) {
-                                    // response
-                                    Log.d("Response", response);
-                                    try {
-                                        //Do it with this it will work
-                                        JSONObject person = new JSONObject(response);
-                                        String status = person.getString("status");
-                                        if (status.equals("1")) {
-                                            Intent intent = new Intent(context, UploadToPrescription.class);
-                                            // intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                                            context.startActivity(intent);
-                                            ((Activity) context).overridePendingTransition(0, 0);
-                                            ((Activity) context).finish();
+        holder.img_id.setText("" + prescriptionModels.get(position).getProduct_id());
+        holder.delete_prescription.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                RequestQueue queue = Volley.newRequestQueue(context);
+                StringRequest postRequest = new StringRequest(Request.Method.POST, prescription_delete_url,
+                        new Response.Listener<String>() {
+                            @Override
+                            public void onResponse(String response) {
+                                // response
+                                Log.d("Response", response);
+                                try {
+                                    //Do it with this it will work
+                                    JSONObject person = new JSONObject(response);
+                                    String status = person.getString("status");
+                                    if (status.equals("1")) {
+                                        Intent intent = new Intent(context, UploadToPrescription.class);
+                                        // intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                                        context.startActivity(intent);
+                                        ((Activity) context).overridePendingTransition(0, 0);
+                                        ((Activity) context).finish();
 
-                                            prescriptionModels.remove(position);
-                                            notifyItemRemoved(position);
-                                            notifyItemRangeChanged(position, prescriptionModels.size());
-                                            Toast.makeText(context, status + " " + "Removed", Toast.LENGTH_LONG).show();
-
-
-                                        } else {
-                                            Toast.makeText(context, status + " " + "Not Removed", Toast.LENGTH_LONG).show();
-                                        }
+                                        prescriptionModels.remove(position);
+                                        notifyItemRemoved(position);
+                                        notifyItemRangeChanged(position, prescriptionModels.size());
+                                        //Toast.makeText(context, status + " " + "Removed", Toast.LENGTH_LONG).show();
 
 
-                                    } catch (JSONException e) {
-                                        e.printStackTrace();
-                                        Toast.makeText(context, "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                                    } else {
+                                        Toast.makeText(context, "Something Went Wrong!", Toast.LENGTH_LONG).show();
                                     }
 
 
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                    Toast.makeText(context, "Something Went Wrong!", Toast.LENGTH_LONG).show();
                                 }
-                            },
-                            new Response.ErrorListener() {
-                                @Override
-                                public void onErrorResponse(VolleyError error) {
-                                    // error
 
-                                }
+
                             }
-                    ) {
-                        @Override
-                        protected Map<String, String> getParams() {
-                            Map<String, String> params = new HashMap<String, String>();
-                            params.put("pid", String.valueOf(prescriptionModels.get(position).getProduct_id()));
+                        },
+                        new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                // error
 
-
-                            return params;
+                            }
                         }
-                    };
-                    queue.add(postRequest);
-                }
-            });
+                ) {
+                    @Override
+                    protected Map<String, String> getParams() {
+                        Map<String, String> params = new HashMap<String, String>();
+                        params.put("pid", String.valueOf(prescriptionModels.get(position).getProduct_id()));
 
 
-
-
+                        return params;
+                    }
+                };
+                queue.add(postRequest);
+            }
+        });
 
 
     }
+
     @Override
     public int getItemCount() {
         return prescriptionModels.size();
@@ -171,11 +167,12 @@ public class GalleryAdapter  extends RecyclerView.Adapter<GalleryAdapter.MyViewH
         ImageButton delete_prescription;
         ImageView ivGallery;
         TextView img_id;
+
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            delete_prescription=(ImageButton)itemView.findViewById(R.id.delete_prescription);
-            ivGallery=(ImageView)itemView.findViewById(R.id.ivGallery);
-            img_id=(TextView)itemView.findViewById(R.id.pres_id);
+            delete_prescription = (ImageButton) itemView.findViewById(R.id.delete_prescription);
+            ivGallery = (ImageView) itemView.findViewById(R.id.ivGallery);
+            img_id = (TextView) itemView.findViewById(R.id.pres_id);
         }
     }
 }

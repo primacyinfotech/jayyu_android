@@ -1,209 +1,232 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".PatienEditPage">
+
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
-        app:popupTheme="@style/AppTheme.PopupOverlay" >
+        app:popupTheme="@style/AppTheme.PopupOverlay">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
+
             <ImageView
                 android:id="@+id/back_button"
-                android:layout_gravity="center"
-                android:src="@drawable/ic_action_back_arrow"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_action_back_arrow" />
+
             <TextView
-                android:layout_gravity="center"
-                android:textColor="#fff"
-                android:layout_marginLeft="15dp"
-                android:text="Edit Patient"
-                android:textSize="22sp"
-                android:fontFamily="@font/clearsansbold"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="15dp"
+                android:fontFamily="@font/clearsansbold"
+                android:text="Edit Patient"
+                android:textColor="#fff"
+                android:textSize="22sp" />
+
             <ImageView
-                 android:src="@drawable/ic_delete"
                 android:id="@+id/delete_patient"
                 android:layout_width="32dp"
+                android:layout_height="32dp"
                 android:layout_marginLeft="155dp"
-                android:layout_height="32dp">
+                android:src="@drawable/ic_delete">
 
             </ImageView>
         </LinearLayout>
     </androidx.appcompat.widget.Toolbar>
-    <androidx.cardview.widget.CardView
-        app:cardCornerRadius="10dp"
-        android:layout_margin="10dp"
-        android:elevation="10dp"
+
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="500dp">
-        <ScrollView
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/update_btn"
+        android:layout_below="@+id/toolbar"
+        android:scrollbarThumbVertical="@null">
+
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:elevation="10dp"
+            app:cardCornerRadius="10dp">
+
             <LinearLayout
-                android:layout_margin="10dp"
-                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:orientation="vertical">
+
                 <TextView
-                    android:textColor="@color/colorAccent"
-                    android:text="Patient Name"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:text="Patient Name"
+                    android:textColor="@color/colorAccent">
 
                 </TextView>
+
                 <EditText
                     android:id="@+id/patient_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
                 </EditText>
+
                 <TextView
-                    android:textColor="@color/colorAccent"
-                    android:text="Relation with Patient"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:text="Relation with Patient"
+                    android:textColor="@color/colorAccent">
 
                 </TextView>
+
                 <EditText
                     android:id="@+id/patient_relation"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
                 </EditText>
+
                 <TextView
-                    android:textColor="@color/colorAccent"
-                    android:text="Date Of Birth"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:text="Date Of Birth"
+                    android:textColor="@color/colorAccent">
 
                 </TextView>
+
                 <EditText
                     android:id="@+id/dob"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
                 </EditText>
+
                 <TextView
-                    android:textColor="@color/colorAccent"
-                    android:text="Gender"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:text="Gender"
+                    android:textColor="@color/colorAccent">
 
                 </TextView>
+
                 <EditText
                     android:id="@+id/patient_gender"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
                 </EditText>
+
                 <TextView
-                    android:textColor="@color/colorAccent"
-                    android:text="Blood Group"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:text="Blood Group"
+                    android:textColor="@color/colorAccent">
 
                 </TextView>
+
                 <EditText
                     android:id="@+id/patient_blood"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
                 </EditText>
-              <!--  <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <LinearLayout
-                        android:orientation="vertical"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
-                        <TextView
-                            android:text="Height"
-                            android:textColor="@color/colorAccent"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content">
+                <!--  <LinearLayout
+                      android:orientation="horizontal"
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content">
+                      <LinearLayout
+                          android:orientation="vertical"
+                          android:layout_width="wrap_content"
+                          android:layout_height="wrap_content">
+                          <TextView
+                              android:text="Height"
+                              android:textColor="@color/colorAccent"
+                              android:layout_width="wrap_content"
+                              android:layout_height="wrap_content">
 
-                        </TextView>
-                        <EditText
-                            android:id="@+id/height"
-                            android:layout_width="195dp"
-                            android:layout_height="wrap_content">
+                          </TextView>
+                          <EditText
+                              android:id="@+id/height"
+                              android:layout_width="195dp"
+                              android:layout_height="wrap_content">
 
-                        </EditText>
-                    </LinearLayout>
-                    <LinearLayout
-                        android:orientation="vertical"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
-                        <TextView
-                            android:text="Weight"
-                            android:textColor="@color/colorAccent"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content">
+                          </EditText>
+                      </LinearLayout>
+                      <LinearLayout
+                          android:orientation="vertical"
+                          android:layout_width="wrap_content"
+                          android:layout_height="wrap_content">
+                          <TextView
+                              android:text="Weight"
+                              android:textColor="@color/colorAccent"
+                              android:layout_width="wrap_content"
+                              android:layout_height="wrap_content">
 
-                        </TextView>
-                        <EditText
-                            android:id="@+id/weight"
-                            android:layout_width="195dp"
-                            android:layout_height="wrap_content">
+                          </TextView>
+                          <EditText
+                              android:id="@+id/weight"
+                              android:layout_width="195dp"
+                              android:layout_height="wrap_content">
 
-                        </EditText>
-                       &lt;!&ndash; <RelativeLayout
-                            android:orientation="vertical"
-                            android:layout_width="195dp"
-                            android:layout_height="wrap_content">
-                            <EditText
-                                android:id="@+id/weight"
-                                android:layout_width="195dp"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                />
-                            <TextView
-                                android:id="@+id/text_hint"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentRight="true"
-                                android:layout_centerVertical="true"
-                                android:text="kg"
+                          </EditText>
+                         &lt;!&ndash; <RelativeLayout
+                              android:orientation="vertical"
+                              android:layout_width="195dp"
+                              android:layout_height="wrap_content">
+                              <EditText
+                                  android:id="@+id/weight"
+                                  android:layout_width="195dp"
+                                  android:layout_height="wrap_content"
+                                  android:layout_gravity="center"
+                                  />
+                              <TextView
+                                  android:id="@+id/text_hint"
+                                  android:layout_width="wrap_content"
+                                  android:layout_height="wrap_content"
+                                  android:layout_alignParentRight="true"
+                                  android:layout_centerVertical="true"
+                                  android:text="kg"
 
-                                android:textSize="18sp"
-                                android:layout_marginRight="100dp"
-                                android:textColor="#808080"
-                                />
-                        </RelativeLayout>&ndash;&gt;
-                    </LinearLayout>
-                </LinearLayout>-->
+                                  android:textSize="18sp"
+                                  android:layout_marginRight="100dp"
+                                  android:textColor="#808080"
+                                  />
+                          </RelativeLayout>&ndash;&gt;
+                      </LinearLayout>
+                  </LinearLayout>-->
                 <LinearLayout
-                    android:orientation="horizontal"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
                     <LinearLayout
-                        android:orientation="vertical"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
                         <TextView
-                            android:text="Height"
-                            android:textColor="@color/colorAccent"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content">
+                            android:layout_height="wrap_content"
+                            android:text="Height"
+                            android:textColor="@color/colorAccent">
 
                         </TextView>
+
                         <LinearLayout
-                            android:orientation="horizontal"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content">
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
                             <!--<EditText
                                 android:id="@+id/height"
                                 android:layout_width="195dp"
@@ -211,66 +234,69 @@
 
                             </EditText>-->
                             <RelativeLayout
-                                android:orientation="vertical"
                                 android:layout_width="98dp"
-                                android:layout_height="wrap_content">
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical">
+
                                 <EditText
                                     android:id="@+id/ft"
                                     android:layout_width="98dp"
-                                    android:inputType="number"
-                                    android:maxLength="1"
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="center"
-                                    />
+                                    android:inputType="number"
+                                    android:maxLength="1" />
+
                                 <TextView
                                     android:id="@+id/text_hint_ft"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_alignParentRight="true"
                                     android:layout_centerVertical="true"
-                                    android:text="ft"
-
-                                    android:textSize="18sp"
                                     android:layout_marginRight="25dp"
+
+                                    android:text="ft"
                                     android:textColor="#808080"
-                                    />
+                                    android:textSize="18sp" />
                             </RelativeLayout>
+
                             <RelativeLayout
-                                android:orientation="vertical"
                                 android:layout_width="98dp"
-                                android:layout_height="wrap_content">
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical">
+
                                 <EditText
                                     android:id="@+id/inch"
                                     android:layout_width="98dp"
-                                    android:maxLength="2"
-                                    android:inputType="number"
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="center"
-                                    />
+                                    android:inputType="number"
+                                    android:maxLength="2" />
+
                                 <TextView
                                     android:id="@+id/text_hint_inch"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_alignParentRight="true"
                                     android:layout_centerVertical="true"
-                                    android:text="inch"
-
-                                    android:textSize="18sp"
                                     android:layout_marginRight="25dp"
+
+                                    android:text="inch"
                                     android:textColor="#808080"
-                                    />
+                                    android:textSize="18sp" />
                             </RelativeLayout>
                         </LinearLayout>
                     </LinearLayout>
+
                     <LinearLayout
-                        android:orientation="vertical"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
                         <TextView
-                            android:text="Weight"
-                            android:textColor="@color/colorAccent"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content">
+                            android:layout_height="wrap_content"
+                            android:text="Weight"
+                            android:textColor="@color/colorAccent">
 
                         </TextView>
                         <!-- <EditText
@@ -280,148 +306,166 @@
 
                          </EditText>-->
                         <RelativeLayout
-                            android:orientation="vertical"
                             android:layout_width="195dp"
-                            android:layout_height="wrap_content">
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
                             <EditText
                                 android:id="@+id/weight"
                                 android:layout_width="195dp"
-                                android:inputType="number"
-                                android:maxLength="3"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
-                                />
+                                android:inputType="number"
+                                android:maxLength="3" />
+
                             <TextView
                                 android:id="@+id/text_hint_weight"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentRight="true"
                                 android:layout_centerVertical="true"
-                                android:text="kg"
-
-                                android:textSize="18sp"
                                 android:layout_marginRight="100dp"
+
+                                android:text="kg"
                                 android:textColor="#808080"
-                                />
+                                android:textSize="18sp" />
                         </RelativeLayout>
 
                     </LinearLayout>
                 </LinearLayout>
+
                 <TextView
-                    android:textColor="@color/colorAccent"
-                    android:text="Medical Condition"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:text="Medical Condition"
+                    android:textColor="@color/colorAccent">
 
                 </TextView>
+
                 <EditText
                     android:id="@+id/medical_condition"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
                 </EditText>
+
                 <TextView
-                    android:textColor="@color/colorAccent"
-                    android:text="Allergies and Reaction"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:text="Allergies and Reaction"
+                    android:textColor="@color/colorAccent">
 
                 </TextView>
+
                 <EditText
                     android:id="@+id/reaction"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
                 </EditText>
+
                 <TextView
-                    android:textColor="@color/colorAccent"
-                    android:text="Medication"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:text="Medication"
+                    android:textColor="@color/colorAccent">
 
                 </TextView>
+
                 <EditText
                     android:id="@+id/medication"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
                 </EditText>
+
                 <Button
                     android:id="@+id/view_prescrip"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_margin="10dp"
+                    android:background="@color/colorAccent"
                     android:text="Medical Prescription and Report"
                     android:textAllCaps="false"
-                    android:visibility="gone"
                     android:textColor="@color/white"
-                    android:background="@color/colorAccent"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:visibility="gone">
 
                 </Button>
-                <LinearLayout
-                    android:background="@color/light_gray"
-                    android:orientation="vertical"
-                    android:layout_width="match_parent"
-                    android:layout_height="100dp">
-                    <LinearLayout
-                        android:layout_marginTop="20dp"
-                        android:layout_marginLeft="10dp"
-                        android:orientation="horizontal"
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:background="@color/light_gray"
+                    android:orientation="vertical">
+
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:orientation="horizontal">
+
                         <TextView
-                            android:textColor="#000"
-                            android:text="Emergency Contact 1"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content">
-                        </TextView>
+                            android:layout_height="wrap_content"
+                            android:text="Emergency Contact 1"
+                            android:textColor="#000"></TextView>
+
                         <TextView
                             android:id="@+id/add_con_one"
-                            android:text="Add from Contact"
-                            android:textColor="@color/colorAccent"
-                            android:layout_marginLeft="50dp"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content">
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="50dp"
+                            android:text="Add from Contact"
+                            android:textColor="@color/colorAccent">
 
                         </TextView>
 
                     </LinearLayout>
+
                     <LinearLayout
-                        android:layout_marginTop="20dp"
-                        android:layout_marginLeft="10dp"
-                        android:orientation="horizontal"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="20dp"
+                        android:orientation="horizontal"
+                        android:visibility="gone">
+
                         <TextView
-                            android:textColor="#000"
-                            android:text="Emergency Contact 2"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content">
-                        </TextView>
+                            android:layout_height="wrap_content"
+                            android:text="Emergency Contact 2"
+                            android:textColor="#000"></TextView>
+
                         <TextView
                             android:id="@+id/add_con_two"
-                            android:text="Add from Contact"
-                            android:textColor="@color/colorAccent"
-                            android:layout_marginLeft="50dp"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content">
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="50dp"
+                            android:text="Add from Contact"
+                            android:textColor="@color/colorAccent">
 
                         </TextView>
 
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
-        </ScrollView>
-    </androidx.cardview.widget.CardView>
+        </androidx.cardview.widget.CardView>
+    </ScrollView>
+
     <Button
         android:id="@+id/update_btn"
-        android:textSize="20dp"
-        android:textColor="@color/white"
-        android:text="Update Patient"
-        android:layout_gravity="center"
-        android:background="@color/colorAccent"
-        android:fontFamily="@font/clearsansbold"
         android:layout_width="match_parent"
-        android:layout_height="50dp" />
-</LinearLayout>
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="center"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="15dp"
+        android:background="@drawable/coupon_button_back"
+        android:fontFamily="@font/clearsansbold"
+        android:text="Update Patient"
+        android:textColor="@color/white"
+        android:textSize="20dp" />
+</RelativeLayout>

@@ -24,6 +24,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
+import com.google.android.material.snackbar.Snackbar;
 import com.jaayu.CartActivity;
 import com.jaayu.CustomSlider;
 import com.jaayu.Model.BaseUrl;
@@ -43,10 +44,11 @@ import java.util.HashMap;
  */
 public class Home extends Fragment {
     LinearLayout search_layout;
-    private Button upload_prescription,subscription;
-    private String sliderUrl= BaseUrl.BaseUrlNew+"slider";
+    private Button upload_prescription, subscription;
+    private String sliderUrl = BaseUrl.BaseUrlNew + "slider";
     private SliderLayout banner_slider;
     ProgressDialog progressDialog;
+
     public Home() {
         // Required empty public constructor
     }
@@ -56,27 +58,30 @@ public class Home extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        final View view= inflater.inflate(R.layout.fragment_home, container, false);
+        final View view = inflater.inflate(R.layout.fragment_home, container, false);
         banner_slider = (SliderLayout) view.findViewById(R.id.relative_banner);
-        search_layout=(LinearLayout)view.findViewById(R.id.search_layout);
-        subscription=(Button)view.findViewById(R.id.subscription);
+        search_layout = (LinearLayout) view.findViewById(R.id.search_layout);
+        subscription = (Button) view.findViewById(R.id.subscription);
         progressDialog = new ProgressDialog(getActivity());
         progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         progressDialog.show();
-        progressDialog.setMessage("Downloading....");
-        progressDialog.setCancelable(false);
-        upload_prescription=(Button)view.findViewById(R.id.upload_prescription);
+        progressDialog.setMessage("Loading....");
+        //progressDialog.setCancelable(false);
+        upload_prescription = (Button) view.findViewById(R.id.upload_prescription);
         subscription.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intentGotoSubscription=new Intent(getActivity(), SuscriptionFront.class);
+                Intent intentGotoSubscription = new Intent(getActivity(), SuscriptionFront.class);
+                intentGotoSubscription.putExtra("from", "home");
                 getActivity().startActivity(intentGotoSubscription);
             }
         });
+
+
         upload_prescription.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intentGotoUploadPrescription=new Intent(getActivity(), OnlyUploadPrescription.class);
+                Intent intentGotoUploadPrescription = new Intent(getActivity(), OnlyUploadPrescription.class);
                 getActivity().startActivity(intentGotoUploadPrescription);
             }
         });
@@ -87,27 +92,28 @@ public class Home extends Fragment {
                 FragmentManager fragmentManager = getFragmentManager();
                 fragmentManager.beginTransaction().replace(R.id.contentPanel, fm)
                         .addToBackStack(null).commit();
-                Toast.makeText(getActivity(),"Ok",Toast.LENGTH_LONG).show();
+                //Toast.makeText(getActivity(),"Ok",Toast.LENGTH_LONG).show();
             }
         });
         makeGetBannerSliderRequest();
         return view;
     }
-/*private void makeGetBannerSliderRequest(){
-    ArrayList<HashMap<String, String>> listarray = new ArrayList<>();
-    List<String> images = new ArrayList<>();
-    HashMap<String,String> file_maps = new HashMap<String,String>();
-    file_maps.put("Hannibal","https://work.primacyinfotech.com/jaayu/upload/slider/1579076199.jpg");
-    file_maps.put("Big Bang Theory","https://images.pexels.com/photos/67636/rose-blue-flower-rose-blooms-67636.jpeg?cs=srgb&dl=nature-red-love-romantic-67636.jpg&fm=jpg");
-    file_maps.put("House of Cards","https://images.pexels.com/photos/67636/rose-blue-flower-rose-blooms-67636.jpeg?cs=srgb&dl=nature-red-love-romantic-67636.jpg&fm=jpg");
-    listarray.add(file_maps);
 
-   *//* HashMap<String, String> url_maps = new HashMap<String, String>();
+    /*private void makeGetBannerSliderRequest(){
+        ArrayList<HashMap<String, String>> listarray = new ArrayList<>();
+        List<String> images = new ArrayList<>();
+        HashMap<String,String> file_maps = new HashMap<String,String>();
+        file_maps.put("Hannibal","https://work.primacyinfotech.com/jaayu/upload/slider/1579076199.jpg");
+        file_maps.put("Big Bang Theory","https://images.pexels.com/photos/67636/rose-blue-flower-rose-blooms-67636.jpeg?cs=srgb&dl=nature-red-love-romantic-67636.jpg&fm=jpg");
+        file_maps.put("House of Cards","https://images.pexels.com/photos/67636/rose-blue-flower-rose-blooms-67636.jpeg?cs=srgb&dl=nature-red-love-romantic-67636.jpg&fm=jpg");
+        listarray.add(file_maps);
+
+       *//* HashMap<String, String> url_maps = new HashMap<String, String>();
     url_maps.put("slider_title", "slider_title");
     url_maps.put("sub_cat", "sub_cat");
     url_maps.put("slider_image", "https://www.pexels.com/photo/nature-red-love-romantic-67636/");
     listarray.add(url_maps);*//*
-  *//*  for (HashMap<String, String> name : listarray) {
+     *//*  for (HashMap<String, String> name : listarray) {
         CustomSlider textSliderView = new CustomSlider(getActivity());
         textSliderView.description(name.get("")).image(name.get("slider_image")).setScaleType(BaseSliderView.ScaleType.Fit);
         textSliderView.bundle(new Bundle());
@@ -126,67 +132,63 @@ public class Home extends Fragment {
         banner_slider.addSlider(textSliderView);
     }
 }*/
-private void makeGetBannerSliderRequest(){
-    RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
-    StringRequest postRequest = new StringRequest(Request.Method.POST,sliderUrl,
-            new Response.Listener<String>() {
-                @Override
-                public void onResponse(String response) {
-                    // response
-                    Log.d("Response", response);
-                    try {
-                        //Do it with this it will work
-                        JSONObject person = new JSONObject(response);
-                        String status=person.getString("status");
-                        if(status.equals("1")){
+    private void makeGetBannerSliderRequest() {
+        RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
+        StringRequest postRequest = new StringRequest(Request.Method.POST, sliderUrl,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        // response
+                        Log.d("Response", response);
+                        try {
+                            //Do it with this it will work
+                            JSONObject person = new JSONObject(response);
+                            String status = person.getString("status");
+                            if (status.equals("1")) {
+                                ArrayList<HashMap<String, String>> listarray = new ArrayList<>();
+                                JSONArray jsonArray = person.getJSONArray("slider");
+                                for (int i = 0; i < jsonArray.length(); i++) {
+                                    JSONObject jsonObject = jsonArray.getJSONObject(i);
+                                    HashMap<String, String> url_maps = new HashMap<String, String>();
+                                    url_maps.put("slider_id", jsonObject.getString("id"));
+                                    //"https://work.primacyinfotech.com/jaayu/"
+                                    url_maps.put("slider_image", BaseUrl.imageUrlSub + jsonObject.getString("image"));
+                                    listarray.add(url_maps);
+                                }
+                                for (HashMap<String, String> name : listarray) {
+                                    CustomSlider textSliderView = new CustomSlider(getActivity());
+                                    textSliderView.description(name.get("")).image(name.get("slider_image")).setScaleType(BaseSliderView.ScaleType.Fit);
+                                    textSliderView.bundle(new Bundle());
+                                    textSliderView.getBundle().putString("extra", name.get("slider_id"));
+                                    banner_slider.addSlider(textSliderView);
+                                    final String sub_cat = (String) textSliderView.getBundle().get("extra");
+                                    textSliderView.setOnSliderClickListener(new BaseSliderView.OnSliderClickListener() {
+                                        @Override
+                                        public void onSliderClick(BaseSliderView slider) {
+                                            // Toast.makeText(getActivity(), "" + sub_cat, Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
+                                }
+                            }
                             progressDialog.dismiss();
-                            ArrayList<HashMap<String, String>> listarray = new ArrayList<>();
-                            JSONArray jsonArray=person.getJSONArray("slider");
-                            for (int i=0;i<jsonArray.length();i++){
-                                JSONObject jsonObject =jsonArray.getJSONObject(i);
-                                HashMap<String, String> url_maps = new HashMap<String, String>();
-                                url_maps.put("slider_id",jsonObject.getString("id"));
-                                url_maps.put("slider_image","https://work.primacyinfotech.com/jaayu/"+jsonObject.getString("image"));
-                                listarray.add(url_maps);
-                            }
-                            for (HashMap<String, String> name : listarray){
-                                CustomSlider textSliderView = new CustomSlider(getActivity());
-                                textSliderView.description(name.get("")).image(name.get("slider_image")).setScaleType(BaseSliderView.ScaleType.Fit);
-                                textSliderView.bundle(new Bundle());
-                                textSliderView.getBundle().putString("extra", name.get("slider_id"));
-                                banner_slider.addSlider(textSliderView);
-                                final String sub_cat = (String) textSliderView.getBundle().get("extra");
-                                textSliderView.setOnSliderClickListener(new BaseSliderView.OnSliderClickListener() {
-                                    @Override
-                                    public void onSliderClick(BaseSliderView slider) {
-                                        Toast.makeText(getActivity(), "" + sub_cat, Toast.LENGTH_SHORT).show();
 
-                                    }
-                                });
-
-                            }
-
-
+                        } catch (JSONException e) {
+                            progressDialog.dismiss();
+                            e.printStackTrace();
+                            //Toast.makeText(getActivity(), "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
                         }
 
 
-
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                        Toast.makeText(getActivity(), "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
                     }
-
-
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // error
+                        progressDialog.dismiss();
+                    }
                 }
-            },
-            new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    // error
-
-                }
-            }
-    ) ;/*{
+        );/*{
         @Override
         protected Map<String, String> getParams() {
             Map<String, String> params = new HashMap<String, String>();
@@ -212,6 +214,6 @@ private void makeGetBannerSliderRequest(){
         }*/
 
 
-    requestQueue.add(postRequest);
-}
+        requestQueue.add(postRequest);
+    }
 }

@@ -59,15 +59,15 @@ public class OnlyUploadPrescription extends AppCompatActivity {
     int notti = 0;
     int count_cart;
     SharedPreferences prefs_register;
-    private String u_id,u_id2, status;
+    private String u_id, u_id2, status;
     String encodedImage;
     private Uri filePath;
     private Bitmap bitmap;
     private Button btn_continue;
     String imageEncoded;
     List<String> imagesEncodedList;
-    ProgressDialog progressDialog,progressDialog2;
-    private RecyclerView prescription_list_new,prescription_list_old;
+    ProgressDialog progressDialog, progressDialog2;
+    private RecyclerView prescription_list_new, prescription_list_old;
     OnlyGalleryAdapter galleryAdapter;
     OnlyOldGAlaeryAdapter oldGAlaeryAdapter;
     ArrayList<PrescriptionModel> prescriptionModels;
@@ -78,14 +78,13 @@ public class OnlyUploadPrescription extends AppCompatActivity {
     String gson_prescription_id;
 
 
-    private  String Upload_prescription_url= BaseUrl.BaseUrlNew+"prescription_required_press";
-    private  String fetchnew_prescription_url=BaseUrl.BaseUrlNew+"prescription_req_display_press";
-    private  String fetchold_prescription_url=BaseUrl.BaseUrlNew+"press_disp_old_add_press";
-
+    private String Upload_prescription_url = BaseUrl.BaseUrlNew + "prescription_required_press";
+    private String fetchnew_prescription_url = BaseUrl.BaseUrlNew + "prescription_req_display_press";
+    private String fetchold_prescription_url = BaseUrl.BaseUrlNew + "press_disp_old_add_press";
 
 
     private LinearLayout camera_choose, gallery_choose, past_prescription_choose;
-    private String Chk_data_hasCart_url = "https://work.primacyinfotech.com/jaayu/api/addtocart_chk";
+    //private String Chk_data_hasCart_url = "https://work.primacyinfotech.com/jaayu/api/addtocart_chk";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,53 +93,40 @@ public class OnlyUploadPrescription extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         EnableRuntimePermissionToAccessCamera();
-        prescriptionModels=new ArrayList<>();
-        prescriptionModels2=new ArrayList<>();
-        prescription_list_new=(RecyclerView)findViewById(R.id.prescription_list_new);
-        prescription_list_old=(RecyclerView)findViewById(R.id.prescription_list_old);
-        btn_continue=(Button)findViewById(R.id.btn_continue);
+        prescriptionModels = new ArrayList<>();
+        prescriptionModels2 = new ArrayList<>();
+        prescription_list_new = (RecyclerView) findViewById(R.id.prescription_list_new);
+        prescription_list_old = (RecyclerView) findViewById(R.id.prescription_list_old);
+        btn_continue = (Button) findViewById(R.id.btn_continue);
         camera_choose = (LinearLayout) findViewById(R.id.camera_choose);
         gallery_choose = (LinearLayout) findViewById(R.id.gallery_choose);
-        past_prescription_choose=(LinearLayout)findViewById(R.id.past_prescription_choose);
+        past_prescription_choose = (LinearLayout) findViewById(R.id.past_prescription_choose);
         back_button = (ImageView) findViewById(R.id.back_button);
         past_prescription_choose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent goToPastPrescription=new Intent(OnlyUploadPrescription.this,OnlyOldPrescriptionDisplay.class);
+                Intent goToPastPrescription = new Intent(OnlyUploadPrescription.this, OnlyOldPrescriptionDisplay.class);
                 startActivity(goToPastPrescription);
-                overridePendingTransition(0,0);
-                finish();
+                overridePendingTransition(0, 0);
             }
         });
 
         // getOldPrescription();
 
 
-
-         btn_continue.setOnClickListener(new View.OnClickListener() {
-             @Override
-             public void onClick(View v) {
-                 if(prescriptionModels.size()<=0){
-
-                 }
-                 else {
-                     Intent goToOrderInfo=new Intent(OnlyUploadPrescription.this,OrderPrescriptionInfo.class);
-                     startActivity(goToOrderInfo);
-                     overridePendingTransition(0,0);
-                     finish();
-                 }
-                 if(prescriptionModels2.size()<=0){
-
-                 }
-                 else {
-                     Intent goToOrderInfo=new Intent(OnlyUploadPrescription.this,OrderPrescriptionInfo.class);
-                     startActivity(goToOrderInfo);
-                     overridePendingTransition(0,0);
-                     finish();
-                 }
-
-             }
-         });
+        btn_continue.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (prescriptionModels.size() <= 0 && prescriptionModels2.size() <= 0) {
+                    Toast.makeText(OnlyUploadPrescription.this, "Please Upload Prescription!", Toast.LENGTH_SHORT).show();
+                } else {
+                    Intent goToOrderInfo = new Intent(OnlyUploadPrescription.this, OrderPrescriptionInfo.class);
+                    startActivity(goToOrderInfo);
+                    overridePendingTransition(0, 0);
+                    finish();
+                }
+            }
+        });
 
 
         Cart_item_number_counter = getSharedPreferences(
@@ -159,7 +145,7 @@ public class OnlyUploadPrescription extends AppCompatActivity {
                         .replace(R.id.contentPanel, fm, "Searchfragment")
                         .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                         .commit();*/
-                Intent intent = new Intent(OnlyUploadPrescription.this,MainActivity.class);
+                Intent intent = new Intent(OnlyUploadPrescription.this, MainActivity.class);
                 startActivity(intent);
                 overridePendingTransition(0, 0);
                 finish();
@@ -190,13 +176,14 @@ public class OnlyUploadPrescription extends AppCompatActivity {
         getNewPrescriptionModel();
         getOldPrescription();
     }
+
     public void EnableRuntimePermissionToAccessCamera() {
 
         if (ActivityCompat.shouldShowRequestPermissionRationale(this,
                 Manifest.permission.CAMERA)) {
 
             // Printing toast message after enabling runtime permission.
-         //   Toast.makeText(this, "CAMERA permission allows us to Access CAMERA app", Toast.LENGTH_LONG).show();
+            //   Toast.makeText(this, "CAMERA permission allows us to Access CAMERA app", Toast.LENGTH_LONG).show();
 
         } else {
 
@@ -214,11 +201,11 @@ public class OnlyUploadPrescription extends AppCompatActivity {
 
                 if (PResult.length > 0 && PResult[0] == PackageManager.PERMISSION_GRANTED) {
 
-                   // Toast.makeText(this, "Permission Granted, Now your application can access CAMERA.", Toast.LENGTH_LONG).show();
+                    // Toast.makeText(this, "Permission Granted, Now your application can access CAMERA.", Toast.LENGTH_LONG).show();
 
                 } else {
 
-                  //  Toast.makeText(this, "Permission Canceled, Now your application cannot access CAMERA.", Toast.LENGTH_LONG).show();
+                    //  Toast.makeText(this, "Permission Canceled, Now your application cannot access CAMERA.", Toast.LENGTH_LONG).show();
 
                 }
                 break;
@@ -236,10 +223,18 @@ public class OnlyUploadPrescription extends AppCompatActivity {
         }
 
     }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
+            progressDialog = new ProgressDialog(OnlyUploadPrescription.this);
+            progressDialog.setMessage("Uploading..."); // Setting Message
+            // progressDialog.setTitle("ADD TO CART...."); // Setting Title
+            progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER); // Progress Dialog Style Spinner
+            progressDialog.show(); // Display Progress Dialog
+            //progressDialog.setCancelable(false);
+
             filePath = data.getData();
             try {
                 bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), filePath);
@@ -251,8 +246,7 @@ public class OnlyUploadPrescription extends AppCompatActivity {
                 //return encodedImage;
                 RequestQueue queue = Volley.newRequestQueue(OnlyUploadPrescription.this);
                 StringRequest postRequest = new StringRequest(Request.Method.POST, Upload_prescription_url,
-                        new Response.Listener<String>()
-                        {
+                        new Response.Listener<String>() {
                             @Override
                             public void onResponse(String response) {
                                 // response
@@ -260,22 +254,17 @@ public class OnlyUploadPrescription extends AppCompatActivity {
                                 try {
                                     //Do it with this it will work
                                     JSONObject person = new JSONObject(response);
-                                    String status=person.getString("status");
-                                    if(status.equals("1")){
-                                        progressDialog = new ProgressDialog(OnlyUploadPrescription.this);
-                                        progressDialog.setMessage("Uploading..."); // Setting Message
-                                        // progressDialog.setTitle("ADD TO CART...."); // Setting Title
-                                        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER); // Progress Dialog Style Spinner
-                                        progressDialog.show(); // Display Progress Dialog
-                                        progressDialog.setCancelable(false);
+                                    String status = person.getString("status");
+                                    if (status.equals("1")) {
+
                                         new Thread(new Runnable() {
                                             public void run() {
                                                 try {
 
-                                                    Intent refreshPage=new Intent(getApplicationContext(),OnlyUploadPrescription.class);
+                                                    Intent refreshPage = new Intent(getApplicationContext(), OnlyUploadPrescription.class);
 
                                                     startActivity(refreshPage);
-                                                    overridePendingTransition(0,0);
+                                                    overridePendingTransition(0, 0);
                                                     Thread.sleep(2000);
                                                 } catch (Exception e) {
                                                     e.printStackTrace();
@@ -287,10 +276,8 @@ public class OnlyUploadPrescription extends AppCompatActivity {
                                     }
 
 
-
-
-
                                 } catch (JSONException e) {
+                                    progressDialog.dismiss();
                                     e.printStackTrace();
                                     Toast.makeText(getApplicationContext(), "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
                                 }
@@ -298,19 +285,18 @@ public class OnlyUploadPrescription extends AppCompatActivity {
 
                             }
                         },
-                        new Response.ErrorListener()
-                        {
+                        new Response.ErrorListener() {
                             @Override
                             public void onErrorResponse(VolleyError error) {
                                 // error
-
+                                progressDialog.dismiss();
+                                Toast.makeText(OnlyUploadPrescription.this, error.getMessage(), Toast.LENGTH_SHORT).show();
                             }
                         }
                 ) {
                     @Override
-                    protected Map<String, String> getParams()
-                    {
-                        Map<String, String>  params = new HashMap<String, String>();
+                    protected Map<String, String> getParams() {
+                        Map<String, String> params = new HashMap<String, String>();
 
                         params.put("prescription", encodedImage);
                         params.put("user_id", u_id);
@@ -380,10 +366,15 @@ public class OnlyUploadPrescription extends AppCompatActivity {
                 }*/
 
 
-
-
         }
         if (requestCode == CAMERA_IMAGE_REQUEST && resultCode == RESULT_OK) {
+            progressDialog2 = new ProgressDialog(OnlyUploadPrescription.this);
+            progressDialog2.setMessage("Uploading..."); // Setting Message
+            // progressDialog.setTitle("ADD TO CART...."); // Setting Title
+            progressDialog2.setProgressStyle(ProgressDialog.STYLE_SPINNER); // Progress Dialog Style Spinner
+            progressDialog2.show(); // Display Progress Dialog
+            //progressDialog2.setCancelable(false);
+
             Bitmap mphoto = (Bitmap) data.getExtras().get("data");
             //imgPath = data.getData();
             //  image_view.setImageBitmap(mphoto);
@@ -394,8 +385,7 @@ public class OnlyUploadPrescription extends AppCompatActivity {
             System.out.println("EncodeCam" + encodedImage);
             RequestQueue queue = Volley.newRequestQueue(OnlyUploadPrescription.this);
             StringRequest postRequest = new StringRequest(Request.Method.POST, Upload_prescription_url,
-                    new Response.Listener<String>()
-                    {
+                    new Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {
                             // response
@@ -403,21 +393,16 @@ public class OnlyUploadPrescription extends AppCompatActivity {
                             try {
                                 //Do it with this it will work
                                 JSONObject person = new JSONObject(response);
-                                String status=person.getString("status");
-                                if(status.equals("1")){
-                                    progressDialog2 = new ProgressDialog(OnlyUploadPrescription.this);
-                                    progressDialog2.setMessage("Uploading..."); // Setting Message
-                                    // progressDialog.setTitle("ADD TO CART...."); // Setting Title
-                                    progressDialog2.setProgressStyle(ProgressDialog.STYLE_SPINNER); // Progress Dialog Style Spinner
-                                    progressDialog2.show(); // Display Progress Dialog
-                                    progressDialog2.setCancelable(false);
+                                String status = person.getString("status");
+                                if (status.equals("1")) {
+
                                     new Thread(new Runnable() {
                                         public void run() {
                                             try {
                                                 Thread.sleep(2000);
-                                                Intent refreshPage=new Intent(getApplicationContext(),OnlyUploadPrescription.class);
+                                                Intent refreshPage = new Intent(getApplicationContext(), OnlyUploadPrescription.class);
                                                 startActivity(refreshPage);
-                                                overridePendingTransition(0,0);
+                                                overridePendingTransition(0, 0);
 
                                             } catch (Exception e) {
                                                 e.printStackTrace();
@@ -429,10 +414,8 @@ public class OnlyUploadPrescription extends AppCompatActivity {
                                 }
 
 
-
-
-
                             } catch (JSONException e) {
+                                progressDialog2.dismiss();
                                 e.printStackTrace();
                                 Toast.makeText(getApplicationContext(), "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
                             }
@@ -440,19 +423,18 @@ public class OnlyUploadPrescription extends AppCompatActivity {
 
                         }
                     },
-                    new Response.ErrorListener()
-                    {
+                    new Response.ErrorListener() {
                         @Override
                         public void onErrorResponse(VolleyError error) {
                             // error
-
+                            progressDialog2.dismiss();
+                            Toast.makeText(OnlyUploadPrescription.this, "Something Went Wrong!", Toast.LENGTH_SHORT).show();
                         }
                     }
             ) {
                 @Override
-                protected Map<String, String> getParams()
-                {
-                    Map<String, String>  params = new HashMap<String, String>();
+                protected Map<String, String> getParams() {
+                    Map<String, String> params = new HashMap<String, String>();
 
                     params.put("prescription", encodedImage);
                     params.put("user_id", u_id);
@@ -470,11 +452,11 @@ public class OnlyUploadPrescription extends AppCompatActivity {
         editor.commit();*/
 
     }
-    private void getNewPrescriptionModel(){
+
+    private void getNewPrescriptionModel() {
         RequestQueue queue = Volley.newRequestQueue(OnlyUploadPrescription.this);
         StringRequest postRequest = new StringRequest(Request.Method.POST, fetchnew_prescription_url,
-                new Response.Listener<String>()
-                {
+                new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         // response
@@ -483,16 +465,14 @@ public class OnlyUploadPrescription extends AppCompatActivity {
                             //Do it with this it will work
 
                             JSONObject person = new JSONObject(response);
-                            JSONArray jsonArray=person.getJSONArray("prescription_image");
-                            System.out.println("Num"+jsonArray.length());
+                            JSONArray jsonArray = person.getJSONArray("prescription_image");
+                            System.out.println("Num" + jsonArray.length());
 
 
-
-
-                            for (int i=0;i<jsonArray.length();i++){
+                            for (int i = 0; i < jsonArray.length(); i++) {
                                 //  prescriptionModels2.clear();
-                                PrescriptionModel  prescriptionModel=new PrescriptionModel();
-                                JSONObject jsonObject=jsonArray.getJSONObject(i);
+                                PrescriptionModel prescriptionModel = new PrescriptionModel();
+                                JSONObject jsonObject = jsonArray.getJSONObject(i);
                                 prescriptionModel.setProduct_id(jsonObject.getInt("id"));
                                 //String img=jsonObject.getString("prescription");
                                 prescriptionModel.setPrescription_img(jsonObject.getString("prescription"));
@@ -502,15 +482,11 @@ public class OnlyUploadPrescription extends AppCompatActivity {
 
                                 galleryAdapter = new OnlyGalleryAdapter(prescriptionModels, OnlyUploadPrescription.this);
                                 prescription_list_new.setHasFixedSize(true);
-                                prescription_list_new.setLayoutManager(new LinearLayoutManager(OnlyUploadPrescription.this,RecyclerView.HORIZONTAL,false));
+                                prescription_list_new.setLayoutManager(new LinearLayoutManager(OnlyUploadPrescription.this, RecyclerView.HORIZONTAL, false));
                                 prescription_list_new.setAdapter(galleryAdapter);
                                 galleryAdapter.notifyDataSetChanged();
                               /*pro_idList=new ArrayList<>();
                               pro_idList.add(jsonObject.getString("id"));*/
-
-
-
-
 
 
                             }
@@ -534,14 +510,13 @@ public class OnlyUploadPrescription extends AppCompatActivity {
 
                         } catch (JSONException e) {
                             e.printStackTrace();
-                            Toast.makeText(getApplicationContext(), "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                            //Toast.makeText(getApplicationContext(), "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
                         }
 
 
                     }
                 },
-                new Response.ErrorListener()
-                {
+                new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         // error
@@ -550,9 +525,8 @@ public class OnlyUploadPrescription extends AppCompatActivity {
                 }
         ) {
             @Override
-            protected Map<String, String> getParams()
-            {
-                Map<String, String>  params = new HashMap<String, String>();
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
 
                 params.put("user_id", u_id);
 
@@ -562,7 +536,8 @@ public class OnlyUploadPrescription extends AppCompatActivity {
         queue.add(postRequest);
 
     }
-    private void  getOldPrescription() {
+
+    private void getOldPrescription() {
         RequestQueue queue = Volley.newRequestQueue(OnlyUploadPrescription.this);
         StringRequest postRequest = new StringRequest(Request.Method.POST, fetchold_prescription_url,
                 new Response.Listener<String>() {
@@ -619,7 +594,7 @@ public class OnlyUploadPrescription extends AppCompatActivity {
 
                         } catch (JSONException e) {
                             e.printStackTrace();
-                            Toast.makeText(getApplicationContext(), "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                            //Toast.makeText(getApplicationContext(), "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
                         }
 
 
@@ -644,9 +619,10 @@ public class OnlyUploadPrescription extends AppCompatActivity {
         };
         queue.add(postRequest);
     }
+
     @Override
     public void onBackPressed() {
-        Intent intent = new Intent(OnlyUploadPrescription.this,MainActivity.class);
+        Intent intent = new Intent(OnlyUploadPrescription.this, MainActivity.class);
         startActivity(intent);
         overridePendingTransition(0, 0);
         finish();

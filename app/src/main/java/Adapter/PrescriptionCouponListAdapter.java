@@ -3,8 +3,8 @@ package Adapter;
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,11 +14,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.jaayu.CartActivity;
-import com.jaayu.OrderPrescriptionInfo;
+import com.jaayu.Model.BaseUrl;
 import com.jaayu.PrescriptionOrderSummery;
 import com.jaayu.R;
 import com.squareup.picasso.Picasso;
@@ -55,7 +53,7 @@ public class PrescriptionCouponListAdapter extends RecyclerView.Adapter<Prescrip
         final CouponListModel mList = modelList.get(position);
         // holder.cpm.setImageResource(mList.getCoupon_img());
         myDb = new SaveCoupon(context);
-        Picasso.with(context).load("https://work.primacyinfotech.com/jaayu/upload/slider/"+mList.getCoupon_img()).into(holder.cpm);
+        Picasso.with(context).load(BaseUrl.imageUrlSub + "upload/slider/" +mList.getCoupon_img()).into(holder.cpm);
 
         holder.cpn_txt.setText(mList.getCoupon_code());
         holder.main_off.setText(mList.getCoupon_code_des());
@@ -71,13 +69,18 @@ public class PrescriptionCouponListAdapter extends RecyclerView.Adapter<Prescrip
                 intentdataPass.putExtra("Coupon_id",mList.getCoupon_id());
                 context.startActivity(intentdataPass);
 
+                if (context instanceof Activity)
+                    ((Activity)context).finish();
+                else if (context instanceof ContextWrapper)
+                    ((Activity)((ContextWrapper)context).getBaseContext()).finish();
+
                 boolean isUpdate=myDb.insertData(String.valueOf(mList.getCoupon_id()),coupon_code);
 
                 if(isUpdate){
-                    Toast.makeText(context,"Data Update",Toast.LENGTH_LONG).show();
+                    //Toast.makeText(context,"Data Update",Toast.LENGTH_LONG).show();
                 }
                 else {
-                    Toast.makeText(context,"Data not Updated",Toast.LENGTH_LONG).show();
+                    //Toast.makeText(context,"Data not Updated",Toast.LENGTH_LONG).show();
                 }
 
             }

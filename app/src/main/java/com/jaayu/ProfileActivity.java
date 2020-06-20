@@ -1,12 +1,16 @@
 package com.jaayu;
 
+import Adapter.InputFilterMinMax;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
+import android.text.InputFilter;
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.Patterns;
@@ -17,6 +21,7 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -33,6 +38,7 @@ import com.jaayu.Model.BaseUrl;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -42,7 +48,7 @@ import java.util.Map;
 
 import io.github.gafurcseku.internetconnectivitychecker.NetworkUtil;
 
-public class ProfileActivity extends AppCompatActivity {
+public class  ProfileActivity extends AppCompatActivity {
     final Calendar myCalendar = Calendar.getInstance();
 
     Button updatebtn;
@@ -58,6 +64,8 @@ public class ProfileActivity extends AppCompatActivity {
             profilemaritalstatus, profileemergencycontact,profileemergencyname;
     TextView phonenumet;
     TextInputEditText nameet, dobet,emailet, weightet, emergencycontactnoet, emergencycontactname ;
+    ScrollView scrollView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -149,18 +157,18 @@ public class ProfileActivity extends AppCompatActivity {
                     phonenumet.setText("This field is required");
                     return;
                 }
-                if (genderspinner.getSelectedItemPosition() != 0)
-                {
+                /*if (genderspinner.getSelectedItemPosition() != 0)
+                {*/
                     mgender = genderspinner.getSelectedItem().toString();
-                }
-                if (bloodgroupspinner.getSelectedItemPosition() != 0)
-                {
+               // }
+               /* if (bloodgroupspinner.getSelectedItemPosition() != 0)
+                {*/
                     mblgrp = bloodgroupspinner.getSelectedItem().toString();
-                }
-                if (maritalstatusspinner.getSelectedItemPosition() != 0)
-                {
+                //}
+               /* if (maritalstatusspinner.getSelectedItemPosition() != 0)
+                {*/
                     mstat = maritalstatusspinner.getSelectedItem().toString();
-                }
+                //}
                 if (!emergencycontactnoet.getText().toString().trim().isEmpty() && emergencycontactnoet.getText().toString().trim().length() != 10)
                 {
                     Toast.makeText(getApplicationContext(),"Invalid Phone number",Toast.LENGTH_SHORT).show();
@@ -203,7 +211,7 @@ public class ProfileActivity extends AppCompatActivity {
                                             updatebtn.setText("UPDATE");
                                             Toast.makeText(ProfileActivity.this, "Updated Successfully", Toast.LENGTH_SHORT).show();
 
-                                            Intent i = new Intent(getApplicationContext(), ProfileActivity.class);
+                                            Intent i = new Intent(getApplicationContext(), AccountPage.class);
                                             startActivity(i);
                                         }
 
@@ -276,6 +284,10 @@ public class ProfileActivity extends AppCompatActivity {
         pgsbar = findViewById(R.id.pgsbar);
         pgsbar.setVisibility(View.GONE);
         backbtn = findViewById(R.id.back_button);
+        scrollView = findViewById(R.id.scrollView);
+
+        heightininch.setFilters(new InputFilter[]{new InputFilterMinMax("1", "12")});
+
 
     }
     private void valuesinit()
@@ -301,10 +313,6 @@ public class ProfileActivity extends AppCompatActivity {
         }
 
 
-
-
-
-
         final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
 
             @Override
@@ -317,7 +325,7 @@ public class ProfileActivity extends AppCompatActivity {
                 updateLabel();
             }
             private void updateLabel() {
-                String myFormat = "dd/MM/yyyy"; //In which you need put here
+                String myFormat = "dd-MM-yyyy"; //In which you need put here
                 SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.ENGLISH);
                 //fethcing current date
                 Date todayDate = Calendar.getInstance().getTime();
@@ -386,14 +394,26 @@ public class ProfileActivity extends AppCompatActivity {
                                     phonenumet.setText(profilephone);
                                 }
 
-                                if (profiledob == null && !profileemail.toString().contains("null") && profileemail.equals(null))
+                                if (profiledob == null && !profileemail.contains("null") && profileemail.equals(null))
                                 {
 
                                 }
                                 else
                                 {
-                                    if (!profiledob.toString().contains("null"))
+                                    if (!profiledob.contains("null")){
+
+                                        try {
+                                            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                                            Date testDate = sdf.parse(profiledob);
+                                            SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+                                            profiledob = formatter.format(testDate);
+                                        } catch (ParseException e) {
+                                            e.printStackTrace();
+                                        }
                                         dobet.setText(profiledob);
+
+                                    }
+
                                 }
 
                                 if (profgender == null && !profgender.toString().contains("null") && profgender.equals(null))

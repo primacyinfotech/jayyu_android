@@ -4,13 +4,21 @@
     android:background="@color/white"
     android:layout_width="wrap_content"
     android:layout_margin="5dp"
-    android:elevation="5dp"
     android:layout_height="wrap_content">
 <ImageView
     android:scaleType="fitXY"
     android:id="@+id/patient_pres_img"
     android:layout_width="150dp"
-    android:layout_height="180dp">
-
-</ImageView>
+    android:layout_height="180dp"
+    android:elevation="5dp"/>
+    <Button
+        android:id="@+id/btn_unassign"
+        android:layout_gravity="center_horizontal"
+        android:textSize="14dp"
+        android:text="UNASSIGN"
+        android:textColor="@color/white"
+        android:background="@drawable/coupon_button_back"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_marginTop="5dp"/>
 </LinearLayout>

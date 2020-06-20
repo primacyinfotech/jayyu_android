@@ -30,7 +30,7 @@
                 android:fontFamily="@font/clearsansbold"
                 android:layout_marginTop="5dp"
                 android:textColor="@color/white"
-                android:text="Thank You !" />
+                android:text="Thank You!" />
 
             <TextView
                 android:layout_width="match_parent"

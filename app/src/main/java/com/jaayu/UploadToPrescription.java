@@ -192,26 +192,15 @@ public class UploadToPrescription extends AppCompatActivity {
                 Gson gson=new Gson();
                 String gson_prescription_id=gson.toJson(pro_idList_two);
                 System.out.println("PRO_IMG"+gson_prescription_id);*/
-                  if(prescriptionModels.size()<=0){
-
-                  }
-                  else {
+                  if(prescriptionModels.size()<=0 && prescriptionModels2.size()<=0){
+                      Toast.makeText(UploadToPrescription.this, "Please Upload Prescription!", Toast.LENGTH_SHORT).show();
+                  }else {
                       Intent goToOrderSumm=new Intent(UploadToPrescription.this,OrderSummery.class);
                       //goToOrderSumm.putExtra("Prescription",gson_prescription_id);
                       startActivity(goToOrderSumm);
                       overridePendingTransition(0,0);
-                      finish();
                   }
-                  if(prescriptionModels2.size()<=0){
 
-                  }
-                  else {
-                      Intent goToOrderSumm=new Intent(UploadToPrescription.this,OrderSummery.class);
-                      //goToOrderSumm.putExtra("Prescription",gson_prescription_id);
-                      startActivity(goToOrderSumm);
-                      overridePendingTransition(0,0);
-                      finish();
-                  }
               /*  Intent goToOrderSumm=new Intent(UploadToPrescription.this,OrderSummery.class);
                 //goToOrderSumm.putExtra("Prescription",gson_prescription_id);
                 startActivity(goToOrderSumm);
@@ -230,7 +219,7 @@ public class UploadToPrescription extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
+      /*  // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.second_menu, menu);
         notifiCart = Cart_item_number_counter.getInt("Counter_Item", 0);
         if (notifiCart > 0) {
@@ -243,12 +232,12 @@ public class UploadToPrescription extends AppCompatActivity {
                     notti);
 
         }
-      /*  else if(notifiCart==0){
+      *//*  else if(notifiCart==0){
             BadgeCounter.update(this,
                     menu.findItem(R.id.action_cart),R.drawable.ic_action_cart, BadgeCounter.BadgeColor.RED,
                     notifiCart);
-        }*/
-      /*  else {
+        }*//*
+      *//*  else {
             BadgeCounter.hide(menu.findItem(R.id.action_cart));
         }*/
         return true;
@@ -360,7 +349,7 @@ public class UploadToPrescription extends AppCompatActivity {
 
                 if (PResult.length > 0 && PResult[0] == PackageManager.PERMISSION_GRANTED) {
 
-                    Toast.makeText(this, "Permission Granted, Now your application can access CAMERA.", Toast.LENGTH_LONG).show();
+                    //Toast.makeText(this, "Permission Granted, Now your application can access CAMERA.", Toast.LENGTH_LONG).show();
 
                 } else {
 
@@ -387,6 +376,13 @@ public class UploadToPrescription extends AppCompatActivity {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
+
+            progressDialog2 = new ProgressDialog(UploadToPrescription.this);
+            progressDialog2.setMessage("Uploading..."); // Setting Message
+            // progressDialog.setTitle("ADD TO CART...."); // Setting Title
+            progressDialog2.setProgressStyle(ProgressDialog.STYLE_SPINNER); // Progress Dialog Style Spinner
+            progressDialog2.show(); // Display Progress Dialog
+
             filePath = data.getData();
             try {
                 bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), filePath);
@@ -409,12 +405,6 @@ public class UploadToPrescription extends AppCompatActivity {
                                     JSONObject person = new JSONObject(response);
                                     String status=person.getString("status");
                                     if(status.equals("1")){
-                                        progressDialog = new ProgressDialog(UploadToPrescription.this);
-                                        progressDialog.setMessage("Uploading..."); // Setting Message
-                                        // progressDialog.setTitle("ADD TO CART...."); // Setting Title
-                                        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER); // Progress Dialog Style Spinner
-                                        progressDialog.show(); // Display Progress Dialog
-                                        progressDialog.setCancelable(false);
                                         new Thread(new Runnable() {
                                             public void run() {
                                                 try {
@@ -427,7 +417,7 @@ public class UploadToPrescription extends AppCompatActivity {
                                                 } catch (Exception e) {
                                                     e.printStackTrace();
                                                 }
-                                                progressDialog.dismiss();
+                                                progressDialog2.dismiss();
                                             }
                                         }).start();
                                         //Toast.makeText(getApplicationContext(),status,Toast.LENGTH_LONG).show();
@@ -438,6 +428,7 @@ public class UploadToPrescription extends AppCompatActivity {
 
 
                                 } catch (JSONException e) {
+                                    progressDialog2.dismiss();
                                     e.printStackTrace();
                                     Toast.makeText(getApplicationContext(), "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
                                 }
@@ -450,7 +441,7 @@ public class UploadToPrescription extends AppCompatActivity {
                             @Override
                             public void onErrorResponse(VolleyError error) {
                                 // error
-
+                                progressDialog2.dismiss();
                             }
                         }
                 ) {
@@ -531,6 +522,13 @@ public class UploadToPrescription extends AppCompatActivity {
 
             }
             if (requestCode == CAMERA_IMAGE_REQUEST && resultCode == RESULT_OK) {
+
+                progressDialog2 = new ProgressDialog(UploadToPrescription.this);
+                progressDialog2.setMessage("Uploading..."); // Setting Message
+                // progressDialog.setTitle("ADD TO CART...."); // Setting Title
+                progressDialog2.setProgressStyle(ProgressDialog.STYLE_SPINNER); // Progress Dialog Style Spinner
+                progressDialog2.show(); // Display Progress Dialog
+
                 Bitmap mphoto = (Bitmap) data.getExtras().get("data");
                 //imgPath = data.getData();
                 //  image_view.setImageBitmap(mphoto);
@@ -552,12 +550,7 @@ public class UploadToPrescription extends AppCompatActivity {
                                     JSONObject person = new JSONObject(response);
                                     String status=person.getString("status");
                                     if(status.equals("1")){
-                                        progressDialog2 = new ProgressDialog(UploadToPrescription.this);
-                                        progressDialog2.setMessage("Uploading..."); // Setting Message
-                                        // progressDialog.setTitle("ADD TO CART...."); // Setting Title
-                                        progressDialog2.setProgressStyle(ProgressDialog.STYLE_SPINNER); // Progress Dialog Style Spinner
-                                        progressDialog2.show(); // Display Progress Dialog
-                                        progressDialog2.setCancelable(false);
+
                                         new Thread(new Runnable() {
                                             public void run() {
                                                 try {
@@ -580,6 +573,7 @@ public class UploadToPrescription extends AppCompatActivity {
 
 
                                 } catch (JSONException e) {
+                                    progressDialog2.dismiss();
                                     e.printStackTrace();
                                     Toast.makeText(getApplicationContext(), "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
                                 }
@@ -592,7 +586,7 @@ public class UploadToPrescription extends AppCompatActivity {
                             @Override
                             public void onErrorResponse(VolleyError error) {
                                 // error
-
+                                progressDialog2.dismiss();
                             }
                         }
                 ) {
@@ -683,7 +677,7 @@ public class UploadToPrescription extends AppCompatActivity {
 
                       } catch (JSONException e) {
                           e.printStackTrace();
-                          Toast.makeText(getApplicationContext(), "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                          //Toast.makeText(getApplicationContext(), "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
                       }
 
 
@@ -776,7 +770,7 @@ private void  getOldPrescription(){
 
                     } catch (JSONException e) {
                         e.printStackTrace();
-                        Toast.makeText(getApplicationContext(), "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                        //Toast.makeText(getApplicationContext(), "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
                     }
 
 

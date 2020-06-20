@@ -74,7 +74,7 @@
                             android:id="@+id/upper_save_amt"
                             android:layout_marginLeft="10dp"
                             android:layout_marginTop="10dp"
-                            android:text="25% Savings will be applied on the MRP"
+                            android:text="@string/savings_auto"
                             android:textSize="15sp"
                             android:fontFamily="@font/clearsansbold"
                             android:layout_width="wrap_content"
@@ -107,7 +107,53 @@
                 </LinearLayout>
 
             </LinearLayout>
-                <LinearLayout
+                <RelativeLayout
+                    android:id="@+id/apply_coupon_btn"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/border_coupon_text"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:orientation="horizontal"
+
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp">
+                    <ImageView
+                        android:id="@+id/iv_offer_percent"
+                        android:src="@drawable/pb"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="5dp"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp" />
+                    <TextView
+                        android:id="@+id/place_apply_coupon"
+                        android:textSize="12sp"
+                        android:textColor="@color/colorAccent"
+                        android:text="Apply Coupon"
+                        android:fontFamily="@font/clearsansbold"
+                        android:layout_marginLeft="5dp"
+                        android:layout_centerVertical="true"
+                        android:layout_toRightOf="@+id/iv_offer_percent"
+                        android:layout_width="210dp"
+                        android:layout_height="wrap_content" />
+                    <!--   <ImageView
+                           android:id="@+id/coupon_off_on"
+                           android:src="@drawable/rigth_arrow"
+                           android:layout_gravity="center"
+                           android:layout_marginLeft="55dp"
+                           android:layout_width="20dp"
+                           android:layout_height="20dp" />-->
+                    <TextView
+                        android:id="@+id/coupon_off_on"
+                        android:textColor="#000"
+                        android:text="Remove"
+                        android:src="@drawable/rigth_arrow"
+                        android:layout_marginRight="15dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:layout_alignParentRight="true"/>
+                </RelativeLayout>
+                <!--<LinearLayout
                     android:id="@+id/apply_coupon_btn"
                     android:layout_marginTop="10dp"
                     android:background="@drawable/border_coupon_text"
@@ -134,13 +180,13 @@
                         android:layout_gravity="center"
                         android:layout_width="210dp"
                         android:layout_height="wrap_content" />
-                    <!--   <ImageView
+                    &lt;!&ndash;   <ImageView
                            android:id="@+id/coupon_off_on"
                            android:src="@drawable/rigth_arrow"
                            android:layout_gravity="center"
                            android:layout_marginLeft="55dp"
                            android:layout_width="20dp"
-                           android:layout_height="20dp" />-->
+                           android:layout_height="20dp" />&ndash;&gt;
                     <TextView
                         android:id="@+id/coupon_off_on"
                         android:textColor="#000"
@@ -150,7 +196,8 @@
                         android:layout_marginLeft="55dp"
                         android:layout_width="wrap_content"
                         android:layout_height="20dp" />
-                </LinearLayout>
+                </LinearLayout>-->
+
                 <LinearLayout
                     android:layout_marginTop="10dp"
                     android:orientation="horizontal"

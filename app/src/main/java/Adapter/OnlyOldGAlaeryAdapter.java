@@ -57,7 +57,7 @@ public class OnlyOldGAlaeryAdapter extends RecyclerView.Adapter<OnlyOldGAlaeryAd
 
     @Override
     public void onBindViewHolder(@NonNull OnlyOldGAlaeryAdapter.MyViewHolder holder, final int position) {
-        Picasso.with(context).load("https://work.primacyinfotech.com/jaayu/upload/prescription/" + prescriptionModels2.get(position).getPrescription_img()).into(holder.ivGallery);
+        Picasso.with(context).load(BaseUrl.imageUrl + prescriptionModels2.get(position).getPrescription_img()).into(holder.ivGallery);
         holder.ivGallery.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -66,7 +66,7 @@ public class OnlyOldGAlaeryAdapter extends RecyclerView.Adapter<OnlyOldGAlaeryAd
                 settingsDialog.setContentView(R.layout.full_screen_image);
                 PhotoView imageView=(PhotoView)settingsDialog.findViewById(R.id.full_screen);
                 ImageView  imageView2=(ImageView)settingsDialog.findViewById(R.id.close_full_img);
-                Picasso.with(context).load("https://work.primacyinfotech.com/jaayu/upload/prescription/" + prescriptionModels2.get(position).getPrescription_img()).into(imageView);
+                Picasso.with(context).load(BaseUrl.imageUrl + prescriptionModels2.get(position).getPrescription_img()).into(imageView);
                 imageView2.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

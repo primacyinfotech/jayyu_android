@@ -10,18 +10,19 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.jaayu.Model.BaseUrl;
 import com.jaayu.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-import Model.HelpModel;
-import Model.SuscriptionFetureNodel;
+import Model.SubscriptionBenefit;
 
 public class SubscriptionFtureAdapter extends RecyclerView.Adapter<SubscriptionFtureAdapter.MyViewHolder> {
-    ArrayList<SuscriptionFetureNodel> fetureModels;
+    ArrayList<SubscriptionBenefit> fetureModels;
     Context context;
 
-    public SubscriptionFtureAdapter(ArrayList<SuscriptionFetureNodel> fetureModels, Context context) {
+    public SubscriptionFtureAdapter(ArrayList<SubscriptionBenefit> fetureModels, Context context) {
         this.fetureModels = fetureModels;
         this.context = context;
     }
@@ -39,9 +40,9 @@ public class SubscriptionFtureAdapter extends RecyclerView.Adapter<SubscriptionF
 
     @Override
     public void onBindViewHolder(@NonNull SubscriptionFtureAdapter.MyViewHolder holder, int position) {
-        holder.feture_subs_img.setImageResource(fetureModels.get(position).getFeture_img());
-        holder.feture_head.setText(fetureModels.get(position).getFeture_titel());
-        holder.feture_content.setText(fetureModels.get(position).getFeture_content());
+        Picasso.with(context).load(BaseUrl.imageUrlSub + fetureModels.get(position).getPhoto()).into(holder.feture_subs_img);
+        holder.feture_head.setText(fetureModels.get(position).getTitle());
+        holder.feture_content.setText(fetureModels.get(position).getDescription());
 
     }
 

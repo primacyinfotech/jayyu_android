@@ -9,6 +9,8 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.Spanned;
@@ -43,23 +45,24 @@ import java.util.Map;
 
 public class Payment extends AppCompatActivity implements PaymentResultListener {
     ImageView back_button;
-    private CheckBox paytm,amazon_pay,ola_money,paypal_pay,netbank,credit_debit_card,jaayu_details,cash_delivery,wallet;
+    private CheckBox paytm, amazon_pay, ola_money, paypal_pay, netbank, credit_debit_card, jaayu_details, cash_delivery, wallet;
     private RadioGroup radio_three;
-    String user_id,user_add,day_time,duration,cod,nor_wallet,jy_wallet,net_bank,presc_img,order_id,instant,u_id,mrp_amt,save_amt,shippingcharge,tot_pay,
-            balance_og,balance_jy,pay_status,u_email,u_phone,ord_jy_id;
+    String user_id, user_add, day_time, duration, cod, nor_wallet, jy_wallet, net_bank, presc_img, order_id, instant, u_id, mrp_amt, save_amt, shippingcharge, tot_pay,
+            balance_og, balance_jy, pay_status, u_email, u_phone, ord_jy_id;
     SharedPreferences prefs_register;
-    private String Orderdetails_url= BaseUrl.BaseUrlNew+"order_details_profile";
-    private String Place_order_url=BaseUrl.BaseUrlNew+"order_payment";
-    private String Normal_wallet_url=BaseUrl.BaseUrlNew+"normal_wallet_display";
-    private String Jaayu_wallet_url=BaseUrl.BaseUrlNew+"jaayu_wallet_display";
-    private  String disclaimer_url=BaseUrl.BaseUrlNew+"disclaimer";
+    private String Orderdetails_url = BaseUrl.BaseUrlNew + "order_details_profile";
+    private String Place_order_url = BaseUrl.BaseUrlNew + "order_payment";
+    private String Normal_wallet_url = BaseUrl.BaseUrlNew + "normal_wallet_display";
+    private String Jaayu_wallet_url = BaseUrl.BaseUrlNew + "jaayu_wallet_display";
+    private String disclaimer_url = BaseUrl.BaseUrlNew + "disclaimer";
 
-    private TextView open_item,mrp_total,total_save_price,shipping_charge,payable_amount,save_amount,discount_limit_amt,main_pay,
-            customer_name,address_text,email_add,wallwt_amount,jy_wallwt_amount,wallet_amount_,jywallet_amount_,disclaimer;
+    private TextView open_item, mrp_total, total_save_price, shipping_charge, payable_amount, save_amount, discount_limit_amt, main_pay,
+            customer_name, address_text, email_add, wallwt_amount, jy_wallwt_amount, wallet_amount_, jywallet_amount_, disclaimer;
     private Button submit_btn;
-    int w_bal,Jay_wal;
-    double reminder_bal,reminder_bal_jy,jy_wal_substract,persentage;
+    int w_bal, Jay_wal;
+    double reminder_bal, reminder_bal_jy, jy_wal_substract, persentage;
     ProgressDialog progressDialog;
+    private boolean payment  = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,37 +74,37 @@ public class Payment extends AppCompatActivity implements PaymentResultListener 
         //LocalBroadcastManager.getInstance(Payment.this).registerReceiver(mMessageReceiver, new IntentFilter("message_wallet_intent"));
         prefs_register = getSharedPreferences(
                 "Register Details", Context.MODE_PRIVATE);
-        u_id=prefs_register.getString("USER_ID","");
-        u_email=prefs_register.getString("USER_EMAIL","");
-        u_phone=prefs_register.getString("USER_PHONE","");
-        Intent ftch_Order=getIntent();
-        order_id=ftch_Order.getStringExtra("ORDER_ID");
-        instant=ftch_Order.getStringExtra("INSTANT");
-        ord_jy_id=ftch_Order.getStringExtra("ORDER_JY_ID");
-        back_button=(ImageView)toolbar.findViewById(R.id.back_button);
-        radio_three=(RadioGroup)findViewById(R.id.radio_three);
-        cash_delivery=(CheckBox)findViewById(R.id.cash_delivery);
-        netbank=(CheckBox)findViewById(R.id.netbank);
-        disclaimer=(TextView)findViewById(R.id.disclaimer);
+        u_id = prefs_register.getString("USER_ID", "");
+        u_email = prefs_register.getString("USER_EMAIL", "");
+        u_phone = prefs_register.getString("USER_PHONE", "");
+        Intent ftch_Order = getIntent();
+        order_id = ftch_Order.getStringExtra("ORDER_ID");
+        instant = ftch_Order.getStringExtra("INSTANT");
+        ord_jy_id = ftch_Order.getStringExtra("ORDER_JY_ID");
+        back_button = (ImageView) toolbar.findViewById(R.id.back_button);
+        radio_three = (RadioGroup) findViewById(R.id.radio_three);
+        cash_delivery = (CheckBox) findViewById(R.id.cash_delivery);
+        netbank = (CheckBox) findViewById(R.id.netbank);
+        disclaimer = (TextView) findViewById(R.id.disclaimer);
         //paytm=(CheckBox)findViewById(R.id.paytm);
-       // amazon_pay=(CheckBox)findViewById(R.id.amazon_pay);
-       // ola_money=(CheckBox)findViewById(R.id.ola_money);
-       // paypal_pay=(CheckBox)findViewById(R.id.paypal_pay);
-        credit_debit_card=(CheckBox)findViewById(R.id.credit_debit_card);
-        jaayu_details=(CheckBox)findViewById(R.id.jaayu_wallet);
-        wallet=(CheckBox)findViewById(R.id.wallet);
-        submit_btn=(Button)findViewById(R.id.submit_btn) ;
-        mrp_total=(TextView)findViewById(R.id.mrp_total);
-        total_save_price=(TextView)findViewById(R.id.total_save_price);
-        shipping_charge=(TextView)findViewById(R.id.shipping_charge);
-        payable_amount=(TextView)findViewById(R.id.payable_amount);
-        save_amount=(TextView)findViewById(R.id.save_amount);
-        discount_limit_amt=(TextView)findViewById(R.id.discount_limit_amt);
-        main_pay=(TextView)findViewById(R.id.main_pay);
-        wallwt_amount=(TextView)findViewById(R.id.wallwt_amount);
-        jy_wallwt_amount=(TextView)findViewById(R.id.jy_wallwt_amount);
-        wallet_amount_=(TextView)findViewById(R.id.wallet_amount_);
-        jywallet_amount_=(TextView)findViewById(R.id.jywallet_amount_);
+        // amazon_pay=(CheckBox)findViewById(R.id.amazon_pay);
+        // ola_money=(CheckBox)findViewById(R.id.ola_money);
+        // paypal_pay=(CheckBox)findViewById(R.id.paypal_pay);
+        credit_debit_card = (CheckBox) findViewById(R.id.credit_debit_card);
+        jaayu_details = (CheckBox) findViewById(R.id.jaayu_wallet);
+        wallet = (CheckBox) findViewById(R.id.wallet);
+        submit_btn = (Button) findViewById(R.id.submit_btn);
+        mrp_total = (TextView) findViewById(R.id.mrp_total);
+        total_save_price = (TextView) findViewById(R.id.total_save_price);
+        shipping_charge = (TextView) findViewById(R.id.shipping_charge);
+        payable_amount = (TextView) findViewById(R.id.payable_amount);
+        save_amount = (TextView) findViewById(R.id.save_amount);
+        discount_limit_amt = (TextView) findViewById(R.id.discount_limit_amt);
+        main_pay = (TextView) findViewById(R.id.main_pay);
+        wallwt_amount = (TextView) findViewById(R.id.wallwt_amount);
+        jy_wallwt_amount = (TextView) findViewById(R.id.jy_wallwt_amount);
+        wallet_amount_ = (TextView) findViewById(R.id.wallet_amount_);
+        jywallet_amount_ = (TextView) findViewById(R.id.jywallet_amount_);
         calcutate_section();
         normal_wallet_amt_display();
         jaayu_wallet_amount_displat();
@@ -150,11 +153,11 @@ public class Payment extends AppCompatActivity implements PaymentResultListener 
                         .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                         .commit();*/
                 Intent intent = new Intent(Payment.this, OrderDetails.class);
-                intent.putExtra("Order_id",Integer.valueOf(order_id));
-                intent.putExtra("Order_Vid",ord_jy_id);
-                intent.putExtra("Instant",instant);
+                intent.putExtra("Order_id", Integer.valueOf(order_id));
+                intent.putExtra("Order_Vid", ord_jy_id);
+                intent.putExtra("Instant", instant);
                 startActivity(intent);
-                overridePendingTransition(0,0);
+                overridePendingTransition(0, 0);
                 finish();
             }
         });
@@ -539,84 +542,189 @@ public class Payment extends AppCompatActivity implements PaymentResultListener 
             }
         }
     });*/
-    netbank.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-        @Override
-        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-            if(netbank.isChecked()){
-                cod="netbank";
-                pay_status="1";
-                Toast.makeText(getApplicationContext(),cod,Toast.LENGTH_LONG).show();
-                netbank.setSelected(true);
-                netbank.setChecked(true);
+        netbank.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (netbank.isChecked()) {
+                    cod = "netbank";
+                    pay_status = "1";
+                    //Toast.makeText(getApplicationContext(),cod,Toast.LENGTH_LONG).show();
+                    netbank.setSelected(true);
+                    netbank.setChecked(true);
                 /*paytm.setChecked(false);
                 amazon_pay.setChecked(false);
                 ola_money.setChecked(false);
                 paypal_pay.setChecked(false);*/
-                credit_debit_card.setChecked(false);
-                cash_delivery.setChecked(false);
-                jaayu_details.setSelected(true);
-                wallet.setSelected(true);
+                    credit_debit_card.setChecked(false);
+                    cash_delivery.setChecked(false);
+                    jaayu_details.setSelected(true);
+                    wallet.setSelected(true);
+                }
             }
-        }
-    });
-    credit_debit_card.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-        @Override
-        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-            if(credit_debit_card.isChecked()){
-                cod="credit_debit_card";
-                pay_status="1";
-                Toast.makeText(getApplicationContext(),cod,Toast.LENGTH_LONG).show();
-                credit_debit_card.setSelected(true);
-                credit_debit_card.setChecked(true);
+        });
+        credit_debit_card.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (credit_debit_card.isChecked()) {
+                    cod = "credit_debit_card";
+                    pay_status = "1";
+                    //Toast.makeText(getApplicationContext(),cod,Toast.LENGTH_LONG).show();
+                    credit_debit_card.setSelected(true);
+                    credit_debit_card.setChecked(true);
                /* amazon_pay.setChecked(false);
                 ola_money.setChecked(false);
                 paypal_pay.setChecked(false);*/
-                netbank.setChecked(false);
-                cash_delivery.setChecked(false);
-                jaayu_details.setSelected(true);
-                wallet.setSelected(true);
+                    netbank.setChecked(false);
+                    cash_delivery.setChecked(false);
+                    jaayu_details.setSelected(true);
+                    wallet.setSelected(true);
+                }
             }
-        }
-    });
-    cash_delivery.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-        @Override
-        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-            if(cash_delivery.isChecked()){
-                cod="cod";
-                pay_status="1";
-                Toast.makeText(getApplicationContext(),cod,Toast.LENGTH_LONG).show();
-                cash_delivery.setSelected(true);
-                cash_delivery.setChecked(true);
+        });
+        cash_delivery.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (cash_delivery.isChecked()) {
+                    cod = "cod";
+                    pay_status = "1";
+                    //Toast.makeText(getApplicationContext(),cod,Toast.LENGTH_LONG).show();
+                    cash_delivery.setSelected(true);
+                    cash_delivery.setChecked(true);
                 /*amazon_pay.setChecked(false);
                 ola_money.setChecked(false);
                 paypal_pay.setChecked(false);*/
+                    netbank.setChecked(false);
+                    credit_debit_card.setChecked(false);
+                    jaayu_details.setSelected(true);
+                    wallet.setSelected(true);
+                }
+            }
+        });
+
+        jaayu_details.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            double remainBal = Double.parseDouble(main_pay.getText().toString().trim()) - Double.parseDouble(wallet_amount_.getText().toString().trim());
+            if (isChecked) {
+                persentage = Double.parseDouble(tot_pay) * 20 / 100;
+                if (Double.parseDouble(main_pay.getText().toString().trim()) >= persentage) {
+                    jywallet_amount_.setText("" + Math.round(Double.parseDouble(new DecimalFormat("##.##").format(persentage))));
+                    double mainPay = Double.parseDouble(main_pay.getText().toString().trim());
+                    main_pay.setText("" + Math.round(Double.parseDouble(new DecimalFormat("##.##").format(mainPay - persentage))));
+                } else {
+                    jywallet_amount_.setText(main_pay.getText().toString().trim());
+                    main_pay.setText("0");
+                }
+            } else {
+                jywallet_amount_.setText("0");
+                main_pay.setText(String.valueOf(Math.round(Double.parseDouble(tot_pay) - Double.parseDouble(wallet_amount_.getText().toString().trim()))));
+            }
+
+            if (Double.parseDouble(main_pay.getText().toString().trim()) == 0) {
+                pay_status = "1";
+                netbank.setEnabled(false);
+                credit_debit_card.setEnabled(false);
+                cash_delivery.setEnabled(false);
                 netbank.setChecked(false);
                 credit_debit_card.setChecked(false);
-                jaayu_details.setSelected(true);
-                wallet.setSelected(true);
+                cash_delivery.setChecked(false);
+            } else {
+                netbank.setEnabled(true);
+                credit_debit_card.setEnabled(true);
+                cash_delivery.setEnabled(true);
             }
-        }
-    });
-    jaayu_details.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-        @Override
-        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-            if(jaayu_details.isChecked()){
-                jy_wallet="Jaayu_Wallet";
-               // pay_status="1";
-                Toast.makeText(getApplicationContext(),cod,Toast.LENGTH_LONG).show();
-                jaayu_details.setSelected(true);
-                jaayu_details.setChecked(true);
-               /* amazon_pay.setChecked(false);
-                ola_money.setChecked(false);
-                paypal_pay.setChecked(false);*/
+        });
 
-              /*  persentage=Double.parseDouble(tot_pay)*20/100;
+        wallet.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            double remainBal = Double.parseDouble(tot_pay) - Double.parseDouble(jywallet_amount_.getText().toString().trim());
+            if (jaayu_details.isChecked()) {
+                jywallet_amount_.setText("0");
+                main_pay.setText(tot_pay);
+                remainBal = Double.parseDouble(tot_pay) - Double.parseDouble(jywallet_amount_.getText().toString().trim());
+            }
+            if (isChecked) {
+                try {
+                    if (Double.parseDouble(main_pay.getText().toString().trim()) >= Double.parseDouble(balance_og)) {
+                        wallet_amount_.setText("" + Math.round(Double.parseDouble(new DecimalFormat("##.##").format(Double.parseDouble(balance_og)))));
+
+                        main_pay.setText("" + Math.round(Double.parseDouble(new DecimalFormat("##.##").format(remainBal)) - Double.parseDouble(balance_og)));
+                    } else {
+                        wallet_amount_.setText(main_pay.getText().toString().trim());
+                        main_pay.setText("0");
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            } else {
+                wallet_amount_.setText("0");
+                main_pay.setText(String.valueOf(Math.round(Double.parseDouble(tot_pay) - Double.parseDouble(jywallet_amount_.getText().toString().trim()))));
+            }
+            if (jaayu_details.isChecked()) {
+                persentage = Double.parseDouble(tot_pay) * 20 / 100;
+                if (Double.parseDouble(main_pay.getText().toString().trim()) >= persentage) {
+                    jywallet_amount_.setText("" + Math.round(Double.parseDouble(new DecimalFormat("##.##").format(persentage))));
+                    double mainPay = Double.parseDouble(main_pay.getText().toString().trim());
+                    main_pay.setText("" + Math.round(Double.parseDouble(new DecimalFormat("##.##").format(mainPay - persentage))));
+                } else {
+                    jywallet_amount_.setText(main_pay.getText().toString().trim());
+                    main_pay.setText("0");
+                }
+
+                if (Double.parseDouble(main_pay.getText().toString().trim()) == 0) {
+                    pay_status = "1";
+                    // wallet.setChecked(true);
+                    netbank.setEnabled(false);
+                    credit_debit_card.setEnabled(false);
+                    cash_delivery.setEnabled(false);
+                    netbank.setChecked(false);
+                    credit_debit_card.setChecked(false);
+                    cash_delivery.setChecked(false);
+                } else {
+                    netbank.setEnabled(true);
+                    credit_debit_card.setEnabled(true);
+                    cash_delivery.setEnabled(true);
+                }
+
+            } else {
+
+                if (Double.parseDouble(main_pay.getText().toString().trim()) == 0) {
+                    pay_status = "1";
+                    jaayu_details.setEnabled(false);
+                    jaayu_details.setChecked(false);
+                    netbank.setEnabled(false);
+                    credit_debit_card.setEnabled(false);
+                    cash_delivery.setEnabled(false);
+                    netbank.setChecked(false);
+                    credit_debit_card.setChecked(false);
+                    cash_delivery.setChecked(false);
+                } else {
+                    jaayu_details.setEnabled(true);
+                    netbank.setEnabled(true);
+                    credit_debit_card.setEnabled(true);
+                    cash_delivery.setEnabled(true);
+                }
+            }
+        });
+
+
+      /*  jaayu_details.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (jaayu_details.isChecked()) {
+                    jy_wallet = "Jaayu_Wallet";
+                    // pay_status="1";
+                    //Toast.makeText(getApplicationContext(),cod,Toast.LENGTH_LONG).show();
+                    jaayu_details.setSelected(true);
+                    jaayu_details.setChecked(true);
+               *//* amazon_pay.setChecked(false);
+                ola_money.setChecked(false);
+                paypal_pay.setChecked(false);*//*
+
+         *//*  persentage=Double.parseDouble(tot_pay)*20/100;
                 reminder_bal_jy=Double.parseDouble(balance_jy)-persentage;
                 jywallet_amount_.setText("-"+new DecimalFormat("##.##").format(reminder_bal_jy));
                 //Double sum_val=reminder_bal-persentage;
                 jy_wal_substract=reminder_bal-persentage;
-                main_pay.setText("\u20B9"+new DecimalFormat("##.##").format(jy_wal_substract));*/
-             /*   if(Double.parseDouble(balance_jy)>Double.parseDouble(tot_pay)){
+                main_pay.setText("\u20B9"+new DecimalFormat("##.##").format(jy_wal_substract));*//*
+         *//*   if(Double.parseDouble(balance_jy)>Double.parseDouble(tot_pay)){
                     jywallet_amount_.setText("-"+Double.parseDouble(tot_pay));
                 }
                 else {
@@ -627,71 +735,74 @@ public class Payment extends AppCompatActivity implements PaymentResultListener 
                 jy_wal_substract=reminder_bal-persentage;
                 main_pay.setText("\u20B9"+new DecimalFormat("##.##").format(jy_wal_substract));
 
-                }*/
-                persentage=Double.parseDouble(tot_pay)*20/100;
-             if(Double.parseDouble(balance_jy)>= persentage){
-                 jywallet_amount_.setText(""+new DecimalFormat("##.##").format(persentage));
-                 jy_wal_substract=Double.parseDouble(tot_pay)-reminder_bal-persentage;
-                 if(wallet.isChecked()==true){
+                }*//*
+                    //persentage=Double.parseDouble(tot_pay)*20/100;
+
+                    persentage = Double.parseDouble(main_pay.getText().toString().trim()) * 20 / 100;
+                    if (Double.parseDouble(balance_jy) >= persentage) {
+                        jywallet_amount_.setText("" + Math.round(Double.parseDouble(new DecimalFormat("##.##").format(persentage))));
+                        jy_wal_substract = Double.parseDouble(main_pay.getText().toString().trim()) - reminder_bal - persentage;
+                *//* if(wallet.isChecked()==true){
                      jy_wal_substract=reminder_bal-persentage;
                  }
                  else {
                      jy_wal_substract=Double.parseDouble(tot_pay)-persentage;
-                 }
+                 }*//*
 
-                // main_pay.setText(""+new DecimalFormat("##.##").format(jy_wal_substract));
-                 main_pay.setText(""+Math.round(Double.parseDouble(new DecimalFormat("##.##").format(jy_wal_substract))));
+                        // main_pay.setText(""+new DecimalFormat("##.##").format(jy_wal_substract));
+                        main_pay.setText("" + Math.round(Double.parseDouble(new DecimalFormat("##.##").format(jy_wal_substract))));
 
-             }
-             else {
+                    } else if(Double.parseDouble(balance_jy) < persentage){
+                        jywallet_amount_.setText("" + Math.round(Double.parseDouble(new DecimalFormat("##.##").format(Double.parseDouble(main_pay.getText().toString().trim())))));
 
-                 //reminder_bal_jy=Double.parseDouble(balance_jy)-persentage;
-                 jywallet_amount_.setText(""+new DecimalFormat("##.##").format(Double.parseDouble(balance_jy)));
-                 //Double sum_val=reminder_bal-persentage;
-                 if(wallet.isChecked()==true){
+                        main_pay.setText("0");
+                    }else {
+                        //reminder_bal_jy=Double.parseDouble(balance_jy)-persentage;
+                        jywallet_amount_.setText("" + Math.round(Double.parseDouble(new DecimalFormat("##.##").format(Double.parseDouble(balance_jy)))));
+                        //Double sum_val=reminder_bal-persentage;
+                *//* if(wallet.isChecked()==true){
                      jy_wal_substract=reminder_bal-Double.parseDouble(balance_jy);
                  }
                  else {
                      jy_wal_substract=Double.parseDouble(tot_pay)-Double.parseDouble(balance_jy);
-                 }
-                 //main_pay.setText(""+new DecimalFormat("##.##").format(jy_wal_substract));
-                 main_pay.setText(""+Math.round(Double.parseDouble(new DecimalFormat("##.##").format(jy_wal_substract))));
-             }
-             if(jy_wal_substract==0.0){
-                 pay_status="1";
-                 netbank.setEnabled(false);
-                 credit_debit_card.setEnabled(false);
-                 cash_delivery.setEnabled(false);
-                 wallet.setEnabled(false);
-                 wallet.setChecked(false);
-                 netbank.setChecked(false);
-                 credit_debit_card.setChecked(false);
-                 cash_delivery.setChecked(false);
+                 }*//*
+                        //main_pay.setText(""+new DecimalFormat("##.##").format(jy_wal_substract));
+                        main_pay.setText("" + Math.round(Double.parseDouble(new DecimalFormat("##.##").format(jy_wal_substract))));
+                    }
+                    if (jy_wal_substract == 0.0) {
+                        pay_status = "1";
+                        netbank.setEnabled(false);
+                        credit_debit_card.setEnabled(false);
+                        cash_delivery.setEnabled(false);
+                        wallet.setEnabled(false);
+                        wallet.setChecked(false);
+                        netbank.setChecked(false);
+                        credit_debit_card.setChecked(false);
+                        cash_delivery.setChecked(false);
 
 
-                 //wallet.setEnabled(true);
-             }
-           /*  else {
+                        //wallet.setEnabled(true);
+                    }
+           *//*  else {
                  netbank.setEnabled(true);
                  credit_debit_card.setEnabled(true);
                  cash_delivery.setEnabled(true);
                  wallet.setEnabled(true);
-             }*/
+             }*//*
 
 
-            }
-            else {
-
-
+                } else {
                     //reminder_bal_jy=Double.parseDouble(balance_jy)-persentage;
-                   // jywallet_amount_.setText("-"+new DecimalFormat("##.##").format(Double.parseDouble(balance_jy)));
+                    // jywallet_amount_.setText("-"+new DecimalFormat("##.##").format(Double.parseDouble(balance_jy)));
                     jywallet_amount_.setText("0");
                     //Double sum_val=reminder_bal-persentage;
 
 
-               /*     main_pay.setText(""+new DecimalFormat("##.##").format(reminder_bal));*/
-                main_pay.setText(""+Math.round(Double.parseDouble(new DecimalFormat("##.##").format(reminder_bal))));
-                /*if(jy_wal_substract!=0.0){
+                    *//*     main_pay.setText(""+new DecimalFormat("##.##").format(reminder_bal));*//*
+                    //main_pay.setText(""+Math.round(Double.parseDouble(new DecimalFormat("##.##").format(reminder_bal))));
+                    Double remainAmount = Double.parseDouble(tot_pay) - Double.parseDouble(wallet_amount_.getText().toString().trim());
+                    main_pay.setText("" + Math.round(Double.parseDouble(new DecimalFormat("##.##").format(remainAmount))));
+                *//*if(jy_wal_substract!=0.0){
                     netbank.setEnabled(true);
                     credit_debit_card.setEnabled(true);
                     cash_delivery.setEnabled(true);
@@ -706,88 +817,96 @@ public class Payment extends AppCompatActivity implements PaymentResultListener 
                     netbank.setEnabled(true);
                     credit_debit_card.setEnabled(true);
                     cash_delivery.setEnabled(true);
-                }*/
+                }*//*
 
+                }
             }
-        }
-    });
-    wallet.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-        @Override
-        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-            if(wallet.isChecked()){
-                nor_wallet="Wallet";
-               // pay_status="1";
-                wallet.setSelected(true);
-                wallet.setChecked(true);
-               /* jaayu_details.setChecked(false);
+        });
+        wallet.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (wallet.isChecked()) {
+                    nor_wallet = "Wallet";
+                    // pay_status="1";
+                    wallet.setSelected(true);
+                    wallet.setChecked(true);
+               *//* jaayu_details.setChecked(false);
                 netbank.setChecked(false);
                 credit_debit_card.setChecked(false);
-                cash_delivery.setChecked(false);*/
+                cash_delivery.setChecked(false);*//*
 
-                     if(Double.parseDouble(balance_og)>=Double.parseDouble(tot_pay)){
-                         wallet_amount_.setText(""+Double.parseDouble(tot_pay));
-                         reminder_bal=Double.parseDouble(tot_pay)-Double.parseDouble(tot_pay);
-                         main_pay.setText(""+new DecimalFormat("##.##").format(reminder_bal));
-                        /* main_pay.setText(""+Math.round(Double.parseDouble(new DecimalFormat("##.##").format(reminder_bal))));*/
+                    if (Double.parseDouble(balance_og) >= Double.parseDouble(tot_pay)) {
+                        wallet_amount_.setText("" + Double.parseDouble(tot_pay));
+                        reminder_bal = Double.parseDouble(tot_pay) - Double.parseDouble(tot_pay);
+                        //* main_pay.setText(""+new DecimalFormat("##.##").format(reminder_bal));
+                        Double remainAmount = Double.parseDouble(tot_pay) - (Double.parseDouble(wallet_amount_.getText().toString().trim()) + Double.parseDouble(jywallet_amount_.getText().toString().trim()));
+                        main_pay.setText("" + new DecimalFormat("##.##").format(remainAmount));
+                        *//* main_pay.setText(""+Math.round(Double.parseDouble(new DecimalFormat("##.##").format(reminder_bal))));*//*
 
-                     }
-                     else {
-                         reminder_bal=Double.parseDouble(tot_pay)-Double.parseDouble(balance_og);
-                         wallet_amount_.setText(""+balance_og);
-                         main_pay.setText(""+new DecimalFormat("##.##").format(reminder_bal));
-                        /* main_pay.setText(""+Math.round(Double.parseDouble(new DecimalFormat("##.##").format(reminder_bal))));*/
-                     }
-                     if(reminder_bal==0.0){
-                         pay_status="1";
-                         jaayu_details.setEnabled(false);
+                    }*//*else if(Double.parseDouble(balance_og) < Double.parseDouble(main_pay.getText().toString().trim())){
+                        wallet_amount_.setText(main_pay.getText().toString().trim());
+                        main_pay.setText("0");
+                    }*//*
+                    else {
+                        reminder_bal = Double.parseDouble(tot_pay) - Double.parseDouble(balance_og);
+                        wallet_amount_.setText("" + balance_og);
+                        //*main_pay.setText(""+new DecimalFormat("##.##").format(reminder_bal));
+                        Double remainAmount = Double.parseDouble(tot_pay) - (Double.parseDouble(wallet_amount_.getText().toString().trim()) + Double.parseDouble(jywallet_amount_.getText().toString().trim()));
+                        main_pay.setText("" + new DecimalFormat("##.##").format(remainAmount));
+                        *//* main_pay.setText(""+Math.round(Double.parseDouble(new DecimalFormat("##.##").format(reminder_bal))));*//*
+                    }
+                    if (reminder_bal == 0.0) {
+                        pay_status = "1";
+                        jaayu_details.setEnabled(false);
                         // wallet.setChecked(true);
-                         netbank.setEnabled(false);
-                         credit_debit_card.setEnabled(false);
-                         cash_delivery.setEnabled(false);
-                         jaayu_details.setChecked(false);
-                         netbank.setChecked(false);
-                         credit_debit_card.setChecked(false);
-                         cash_delivery.setChecked(false);
+                        netbank.setEnabled(false);
+                        credit_debit_card.setEnabled(false);
+                        cash_delivery.setEnabled(false);
+                        jaayu_details.setChecked(false);
+                        netbank.setChecked(false);
+                        credit_debit_card.setChecked(false);
+                        cash_delivery.setChecked(false);
 
 
-                     }
-                     else {
-                         jaayu_details.setEnabled(true);
-                         netbank.setEnabled(true);
-                         credit_debit_card.setEnabled(true);
-                         cash_delivery.setEnabled(true);
-                     }
+                    } else {
+                        jaayu_details.setEnabled(true);
+                        netbank.setEnabled(true);
+                        credit_debit_card.setEnabled(true);
+                        cash_delivery.setEnabled(true);
+                    }
 
-              /*  reminder_bal=Double.parseDouble(balance_og)-Double.parseDouble(tot_pay);
-                wallet_amount_.setText("-"+reminder_bal);*/
-                //wallwt_amount.setText("("+"\u20B9"+""+reminder_bal+")");
+              *//*  reminder_bal=Double.parseDouble(balance_og)-Double.parseDouble(tot_pay);
+                wallet_amount_.setText("-"+reminder_bal);*//*
+                    //wallwt_amount.setText("("+"\u20B9"+""+reminder_bal+")");
 
 
-            }
-            else {
-               // reminder_bal=Double.parseDouble(tot_pay)+Double.parseDouble(balance_og);
-                wallet_amount_.setText("0");
-                main_pay.setText(""+new DecimalFormat("##.##").format(Double.parseDouble(tot_pay)));
-            /*    main_pay.setText(""+Math.round(Double.parseDouble(new DecimalFormat("##.##").format(tot_pay))));*/
+                } else {
+                    // reminder_bal=Double.parseDouble(tot_pay)+Double.parseDouble(balance_og);
+                    wallet_amount_.setText("0");
+                    //*main_pay.setText(""+new DecimalFormat("##.##").format(Double.parseDouble(tot_pay)));
+                    Double remainAmount = Double.parseDouble(tot_pay) - (Double.parseDouble(wallet_amount_.getText().toString().trim()) + Double.parseDouble(jywallet_amount_.getText().toString().trim()));
+                    main_pay.setText("" + new DecimalFormat("##.##").format(remainAmount));
+                    *//*    main_pay.setText(""+Math.round(Double.parseDouble(new DecimalFormat("##.##").format(tot_pay))));*//*
 
                     jaayu_details.setEnabled(true);
                     netbank.setEnabled(true);
                     credit_debit_card.setEnabled(true);
                     cash_delivery.setEnabled(true);
-                   /* jaayu_details.setChecked(true);
+                   *//* jaayu_details.setChecked(true);
                     netbank.setChecked(true);
                     credit_debit_card.setChecked(true);
-                    cash_delivery.setChecked(true);*/
+                    cash_delivery.setChecked(true);*//*
 
-                /*else {
+         *//*else {
                     jaayu_details.setEnabled(true);
                     netbank.setEnabled(false);
                     credit_debit_card.setEnabled(true);
                     cash_delivery.setEnabled(true);
-                }*/
+                }*//*
+                }
             }
-        }
-    });
+        });*/
+
         submit_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -839,104 +958,111 @@ public class Payment extends AppCompatActivity implements PaymentResultListener 
                 };
 
                 requestQueue.add(postRequest);*/
-               if(!netbank.isChecked()&& !credit_debit_card.isChecked()){
-                   RequestQueue requestQueue = Volley.newRequestQueue(Payment.this);
-                   StringRequest postRequest = new StringRequest(Request.Method.POST,Place_order_url,
-                           new Response.Listener<String>() {
-                               @Override
-                               public void onResponse(String response) {
-                                   // response
-                                   Log.d("Response", response);
-                                   try {
-                                       //Do it with this it will work
-                                       JSONObject person = new JSONObject(response);
-                                       String status=person.getString("status");
-                                       if(status.equals("1")){
-                                           String message=person.getString("Message");
-                                           //Toast.makeText(getApplicationContext(),message,Toast.LENGTH_LONG).show();
+                if (!netbank.isChecked() && !credit_debit_card.isChecked()) {
+                    RequestQueue requestQueue = Volley.newRequestQueue(Payment.this);
+                    StringRequest postRequest = new StringRequest(Request.Method.POST, Place_order_url,
+                            new Response.Listener<String>() {
+                                @Override
+                                public void onResponse(String response) {
+                                    // response
+                                    Log.d("Response", response);
+                                    try {
+                                        //Do it with this it will work
+                                        JSONObject person = new JSONObject(response);
+                                        String status = person.getString("status");
+                                        if (status.equals("1")) {
+                                            String message = person.getString("Message");
+                                            //Toast.makeText(getApplicationContext(),message,Toast.LENGTH_LONG).show();
                                           /* Intent goToThankPage=new Intent(Payment.this,ThankYouPayment.class);
                                            startActivity(goToThankPage);
                                            overridePendingTransition(0,0);
                                            finish();*/
-                                           ViewGroup viewGroup = findViewById(android.R.id.content);
+                                            ViewGroup viewGroup = findViewById(android.R.id.content);
 
-                                           //then we will inflate the custom alert dialog xml that we created
-                                           View dialogView = LayoutInflater.from(Payment.this).inflate(R.layout.payment_success_dialog, viewGroup, false);
-                                           TextView masege=(TextView)dialogView.findViewById(R.id.return_msg) ;
-                                           Button buttonOk=(Button)dialogView.findViewById(R.id.buttonOk);
-                                           masege.setText(message);
-
-
-                                           //Now we need an AlertDialog.Builder object
-                                           AlertDialog.Builder builder = new AlertDialog.Builder(Payment.this);
-
-                                           //setting the view of the builder to our custom view that we already inflated
-                                           builder.setView(dialogView);
-
-                                           //finally creating the alert dialog and displaying it
-                                           final AlertDialog alertDialog = builder.create();
-                                           alertDialog.show();
-                                           buttonOk.setOnClickListener(new View.OnClickListener() {
-                                               @Override
-                                               public void onClick(View view) {
-                                                   alertDialog.dismiss();
-                                                   Intent goJumpPage=new Intent(Payment.this,OrderPage.class);
-
-                                                   startActivity(goJumpPage);
-                                                   overridePendingTransition(0,0);
-                                                   finish();
-                                               }
-                                           });
-                                       }
-
-                                   } catch (JSONException e) {
-                                       e.printStackTrace();
-                                       Toast.makeText(getApplicationContext(), "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
-                                   }
+                                            //then we will inflate the custom alert dialog xml that we created
+                                            View dialogView = LayoutInflater.from(Payment.this).inflate(R.layout.payment_success_dialog, viewGroup, false);
+                                            TextView masege = (TextView) dialogView.findViewById(R.id.return_msg);
+                                            Button buttonOk = (Button) dialogView.findViewById(R.id.buttonOk);
+                                            masege.setText(message);
 
 
-                               }
-                           },
-                           new Response.ErrorListener() {
-                               @Override
-                               public void onErrorResponse(VolleyError error) {
-                                   // error
+                                            //Now we need an AlertDialog.Builder object
+                                            AlertDialog.Builder builder = new AlertDialog.Builder(Payment.this);
 
-                               }
-                           }
-                   ) {
-                       @Override
-                       protected Map<String, String> getParams() {
-                           Map<String, String> params = new HashMap<String, String>();
+                                            //setting the view of the builder to our custom view that we already inflated
+                                            builder.setView(dialogView);
 
-                           params.put("user_id", u_id);
-                           params.put("order_id", order_id);
-                           params.put("payment_status", pay_status);
-                           params.put("payment_id", "1");
-                           params.put("total_payment",tot_pay);
-                           params.put("n_wallet", String.valueOf(Math.round(Double.parseDouble(wallet_amount_.getText().toString()))));
-                           params.put("j_wallet",String.valueOf(Math.round(Double.parseDouble(jywallet_amount_.getText().toString()))));
-                           params.put("cod_pay", String.valueOf(Math.round(Double.parseDouble(main_pay.getText().toString()))));
-                           params.put("online_pay", "0");
-                           // params.put("spid", presc_img);
+                                            //finally creating the alert dialog and displaying it
+                                            final AlertDialog alertDialog = builder.create();
+                                            alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                                            alertDialog.setCancelable(false);
+                                            alertDialog.show();
+                                            payment = true;
+                                            buttonOk.setOnClickListener(new View.OnClickListener() {
+                                                @Override
+                                                public void onClick(View view) {
+                                                    alertDialog.dismiss();
+                                                    backPressed();
+                                                }
+                                            });
+                                        }
 
-                          // params.put("status", "1");
-                           return params;
-                       }
-                   };
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                        Toast.makeText(getApplicationContext(), "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                                    }
 
-                   requestQueue.add(postRequest);
-               }
-               else {
-                   startPayment();
-               }
+
+                                }
+                            },
+                            new Response.ErrorListener() {
+                                @Override
+                                public void onErrorResponse(VolleyError error) {
+                                    // error
+
+                                }
+                            }
+                    ) {
+                        @Override
+                        protected Map<String, String> getParams() {
+                            Map<String, String> params = new HashMap<String, String>();
+
+                            params.put("user_id", u_id);
+                            params.put("order_id", order_id);
+                            params.put("payment_status", pay_status);
+                            params.put("payment_id", "1");
+                            params.put("total_payment", tot_pay);
+                            params.put("n_wallet", String.valueOf(Math.round(Double.parseDouble(wallet_amount_.getText().toString()))));
+                            params.put("j_wallet", String.valueOf(Math.round(Double.parseDouble(jywallet_amount_.getText().toString()))));
+                            params.put("cod_pay", String.valueOf(Math.round(Double.parseDouble(main_pay.getText().toString()))));
+                            params.put("online_pay", "0");
+                            // params.put("spid", presc_img);
+
+                            // params.put("status", "1");
+                            return params;
+                        }
+                    };
+
+                    requestQueue.add(postRequest);
+                } else {
+                    startPayment();
+                }
 
             }
         });
     }
-    private void  calcutate_section(){
+
+    private void backPressed() {
+        Intent goJumpPage = new Intent(Payment.this, OrderPage.class);
+        goJumpPage.putExtra("from","payment");
+        startActivity(goJumpPage);
+        overridePendingTransition(0, 0);
+        finishAffinity();
+    }
+
+    private void calcutate_section() {
         RequestQueue requestQueue = Volley.newRequestQueue(Payment.this);
-        StringRequest postRequest = new StringRequest(Request.Method.POST,Orderdetails_url,
+        StringRequest postRequest = new StringRequest(Request.Method.POST, Orderdetails_url,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -946,10 +1072,10 @@ public class Payment extends AppCompatActivity implements PaymentResultListener 
                             //Do it with this it will work
                             progressDialog.dismiss();
                             JSONObject person = new JSONObject(response);
-                            mrp_amt=person.getString("MRP");
-                            save_amt=person.getString("Saving");
-                            shippingcharge=person.getString("Shipping charge");
-                            tot_pay=person.getString("Total Pay");
+                            mrp_amt = person.getString("MRP");
+                            save_amt = person.getString("Saving");
+                            shippingcharge = person.getString("Shipping charge");
+                            tot_pay = person.getString("Total Pay");
 
                             mrp_total.setText(mrp_amt);
 
@@ -994,9 +1120,10 @@ public class Payment extends AppCompatActivity implements PaymentResultListener 
 
         requestQueue.add(postRequest);
     }
-    private void normal_wallet_amt_display(){
+
+    private void normal_wallet_amt_display() {
         RequestQueue requestQueue = Volley.newRequestQueue(Payment.this);
-        StringRequest postRequest = new StringRequest(Request.Method.POST,Normal_wallet_url,
+        StringRequest postRequest = new StringRequest(Request.Method.POST, Normal_wallet_url,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -1005,19 +1132,23 @@ public class Payment extends AppCompatActivity implements PaymentResultListener 
                         try {
                             //Do it with this it will work
                             JSONObject person = new JSONObject(response);
-                            String status=person.getString("status");
+                            String status = person.getString("status");
 
 
-                            if(status.equals("1")){
+                            if (status.equals("1")) {
                                 progressDialog.dismiss();
-                                 balance_og=person.getString("balance");
-                                 wallwt_amount.setText(" "+"\u20B9"+balance_og+" ");
-
+                                balance_og = person.getString("balance");
+                                try {
+                                    if (Integer.parseInt(balance_og) < 0) {
+                                        balance_og = "0";
+                                    }
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                    balance_og = "0";
+                                }
+                                wallwt_amount.setText(" " + "\u20B9" + balance_og + " ");
 
                             }
-
-
-
 
 
                         } catch (JSONException e) {
@@ -1041,7 +1172,7 @@ public class Payment extends AppCompatActivity implements PaymentResultListener 
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
 
-                params.put("user_id" ,u_id);
+                params.put("user_id", u_id);
                 /* params.put("user_id" ,"35");*/
 
                 return params;
@@ -1050,9 +1181,10 @@ public class Payment extends AppCompatActivity implements PaymentResultListener 
         };
         requestQueue.add(postRequest);
     }
-    private void jaayu_wallet_amount_displat(){
+
+    private void jaayu_wallet_amount_displat() {
         RequestQueue requestQueue = Volley.newRequestQueue(Payment.this);
-        StringRequest postRequest = new StringRequest(Request.Method.POST,Jaayu_wallet_url,
+        StringRequest postRequest = new StringRequest(Request.Method.POST, Jaayu_wallet_url,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -1061,21 +1193,22 @@ public class Payment extends AppCompatActivity implements PaymentResultListener 
                         try {
                             //Do it with this it will work
                             JSONObject person = new JSONObject(response);
-                            String status=person.getString("status");
+                            String status = person.getString("status");
 
 
-                            if(status.equals("1")){
+                            if (status.equals("1")) {
                                 progressDialog.dismiss();
-                                        balance_jy=person.getString("balance");
+                                balance_jy = person.getString("balance");
+                                try {
+                                    if (Integer.parseInt(balance_jy) < 0)
+                                        balance_jy = "0";
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                    balance_jy = "0";
+                                }
 
-                                jy_wallwt_amount.setText(" "+"\u20B9"+balance_jy+" ");
-
-
+                                jy_wallwt_amount.setText(" " + "\u20B9" + balance_jy + " ");
                             }
-
-
-
-
 
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -1097,7 +1230,7 @@ public class Payment extends AppCompatActivity implements PaymentResultListener 
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
 
-                params.put("user_id" ,u_id);
+                params.put("user_id", u_id);
                 /* params.put("user_id" ,"35");*/
 
                 return params;
@@ -1106,47 +1239,53 @@ public class Payment extends AppCompatActivity implements PaymentResultListener 
         };
         requestQueue.add(postRequest);
     }
- public void startPayment(){
-     final Activity activity = this;
 
-     final Checkout co = new Checkout();
+    public void startPayment() {
+        final Activity activity = this;
 
-     try {
-         JSONObject options = new JSONObject();
-         options.put("name","JAAYU");
-         options.put("description", "Payment Charges");
-         options.put("image", "https://s3.amazonaws.com/rzp-mobile/images/rzp.png");
-         options.put("currency", "INR");
-         double total = Math.round(Double.parseDouble(main_pay.getText().toString()));
-         total = total * 100;
-         options.put("amount", Math.round(total));
-         JSONObject preFill = new JSONObject();
-         preFill.put("email", u_email);
-         preFill.put("contact", u_phone);
-         options.put("prefill", preFill);
-         co.open(activity, options);
-     } catch (JSONException e) {
-        // e.printStackTrace();
-         Toast.makeText(activity, "Error in payment: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-         e.printStackTrace();
-     }
- }
+        final Checkout co = new Checkout();
+
+        try {
+            JSONObject options = new JSONObject();
+            options.put("name", "JAAYU");
+            options.put("description", "Payment Charges");
+            options.put("image", "https://s3.amazonaws.com/rzp-mobile/images/rzp.png");
+            options.put("currency", "INR");
+            double total = Math.round(Double.parseDouble(main_pay.getText().toString()));
+            total = total * 100;
+            options.put("amount", Math.round(total));
+            JSONObject preFill = new JSONObject();
+            preFill.put("email", u_email);
+            preFill.put("contact", u_phone);
+            options.put("prefill", preFill);
+            co.open(activity, options);
+        } catch (JSONException e) {
+            // e.printStackTrace();
+            Toast.makeText(activity, "Error in payment: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+            e.printStackTrace();
+        }
+    }
+
     @Override
     public void onBackPressed() {
-        Intent intent = new Intent(Payment.this, OrderDetails.class);
-        intent.putExtra("Order_id",Integer.valueOf(order_id));
-        intent.putExtra("Order_Vid",ord_jy_id);
-        intent.putExtra("Instant",instant);
-        startActivity(intent);
-        overridePendingTransition(0,0);
-        finish();
+        if(payment){
+            backPressed();
+        }else {
+            Intent intent = new Intent(Payment.this, OrderDetails.class);
+            intent.putExtra("Order_id", Integer.valueOf(order_id));
+            intent.putExtra("Order_Vid", ord_jy_id);
+            intent.putExtra("Instant", instant);
+            startActivity(intent);
+            overridePendingTransition(0, 0);
+            finish();
+        }
     }
 
     @Override
     public void onPaymentSuccess(final String razorpayPaymentID) {
         //Toast.makeText(this,  razorpayPaymentID, Toast.LENGTH_SHORT).show();
         RequestQueue requestQueue = Volley.newRequestQueue(Payment.this);
-        StringRequest postRequest = new StringRequest(Request.Method.POST,Place_order_url,
+        StringRequest postRequest = new StringRequest(Request.Method.POST, Place_order_url,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -1155,10 +1294,10 @@ public class Payment extends AppCompatActivity implements PaymentResultListener 
                         try {
                             //Do it with this it will work
                             JSONObject person = new JSONObject(response);
-                            String status=person.getString("status");
-                            if(status.equals("1")){
-                                String message=person.getString("Message");
-                               // Toast.makeText(getApplicationContext(),message,Toast.LENGTH_LONG).show();
+                            String status = person.getString("status");
+                            if (status.equals("1")) {
+                                String message = person.getString("Message");
+                                // Toast.makeText(getApplicationContext(),message,Toast.LENGTH_LONG).show();
                               /*  Intent goToThankPage=new Intent(Payment.this,ThankYouPayment.class);
                                 startActivity(goToThankPage);
                                 overridePendingTransition(0,0);
@@ -1167,8 +1306,8 @@ public class Payment extends AppCompatActivity implements PaymentResultListener 
 
                                 //then we will inflate the custom alert dialog xml that we created
                                 View dialogView = LayoutInflater.from(Payment.this).inflate(R.layout.payment_success_dialog, viewGroup, false);
-                                TextView masege=(TextView)dialogView.findViewById(R.id.return_msg) ;
-                                Button buttonOk=(Button)dialogView.findViewById(R.id.buttonOk);
+                                TextView masege = (TextView) dialogView.findViewById(R.id.return_msg);
+                                Button buttonOk = (Button) dialogView.findViewById(R.id.buttonOk);
                                 masege.setText(message);
 
 
@@ -1185,10 +1324,10 @@ public class Payment extends AppCompatActivity implements PaymentResultListener 
                                     @Override
                                     public void onClick(View view) {
                                         alertDialog.dismiss();
-                                        Intent goJumpPage=new Intent(Payment.this,OrderPage.class);
+                                        Intent goJumpPage = new Intent(Payment.this, OrderPage.class);
 
                                         startActivity(goJumpPage);
-                                        overridePendingTransition(0,0);
+                                        overridePendingTransition(0, 0);
                                         finish();
                                     }
                                 });
@@ -1218,9 +1357,9 @@ public class Payment extends AppCompatActivity implements PaymentResultListener 
                 params.put("order_id", order_id);
                 params.put("payment_status", pay_status);
                 params.put("payment_id", razorpayPaymentID);
-                params.put("total_payment",tot_pay);
+                params.put("total_payment", tot_pay);
                 params.put("n_wallet", String.valueOf(Math.round(Double.parseDouble(wallet_amount_.getText().toString()))));
-                params.put("j_wallet",String.valueOf(Math.round(Double.parseDouble(jywallet_amount_.getText().toString()))));
+                params.put("j_wallet", String.valueOf(Math.round(Double.parseDouble(jywallet_amount_.getText().toString()))));
                 params.put("cod_pay", "0");
                 params.put("online_pay", String.valueOf(Math.round(Double.parseDouble(main_pay.getText().toString()))));
                 // params.put("spid", presc_img);
@@ -1241,9 +1380,10 @@ public class Payment extends AppCompatActivity implements PaymentResultListener 
             Log.e("OnPaymentError", "Exception in onPaymentError", e);
         }
     }
-    private void getDisclimer(){
+
+    private void getDisclimer() {
         RequestQueue requestQueue = Volley.newRequestQueue(Payment.this);
-        StringRequest postRequest = new StringRequest(Request.Method.POST,disclaimer_url,
+        StringRequest postRequest = new StringRequest(Request.Method.POST, disclaimer_url,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -1252,10 +1392,10 @@ public class Payment extends AppCompatActivity implements PaymentResultListener 
                         try {
                             //Do it with this it will work
                             JSONObject person = new JSONObject(response);
-                            String status=person.getString("status");
-                            if(status.equals("1")){
-                                JSONObject ins_con=person.getJSONObject("discm");
-                                String content_ins=ins_con.getString("body");
+                            String status = person.getString("status");
+                            if (status.equals("1")) {
+                                JSONObject ins_con = person.getJSONObject("discm");
+                                String content_ins = ins_con.getString("body");
                                 Spanned htmlAsSpanned = Html.fromHtml(content_ins);
                                 disclaimer.setText(String.valueOf(htmlAsSpanned));
 
@@ -1264,7 +1404,6 @@ public class Payment extends AppCompatActivity implements PaymentResultListener 
                                 card_view_istant.setVisibility(View.GONE);
                             }
 */
-
 
 
                         } catch (JSONException e) {

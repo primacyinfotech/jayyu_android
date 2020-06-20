@@ -5,7 +5,8 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="90dp"
-        android:background="@color/colorPrimary">
+        android:background="@color/colorPrimary"
+        android:visibility="gone">
 
         <ImageView
             android:layout_width="80dp"
@@ -25,7 +26,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="What is the reson of cancel ?"
+            android:text="Reason for Cancellation?"
             android:textAlignment="center"
             android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
 

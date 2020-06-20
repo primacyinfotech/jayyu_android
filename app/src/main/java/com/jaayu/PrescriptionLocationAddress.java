@@ -65,7 +65,7 @@ public class PrescriptionLocationAddress extends AppCompatActivity {
             public void onClick(View v) {
                 Intent gotoAddress = new Intent(PrescriptionLocationAddress.this, AddresAddActivity.class);
                 gotoAddress.putExtra("FIELD_REQ","2");
-                startActivity(gotoAddress);
+                startActivityForResult(gotoAddress,007);
             }
         });
         back_button.setOnClickListener(new View.OnClickListener() {
@@ -77,6 +77,12 @@ public class PrescriptionLocationAddress extends AppCompatActivity {
                 finish();
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        fetchAddress();
     }
 
     private void fetchAddress() {
@@ -171,6 +177,8 @@ public class PrescriptionLocationAddress extends AppCompatActivity {
     }
     @Override
     public void onBackPressed() {
+       /* super.onBackPressed();
+        finish();*/
         Intent intent = new Intent(PrescriptionLocationAddress.this, PrescriptionOrderSummery.class);
         startActivity(intent);
         overridePendingTransition(0,0);

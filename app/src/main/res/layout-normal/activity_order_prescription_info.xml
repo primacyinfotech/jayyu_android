@@ -141,7 +141,9 @@
                            android:layout_width="50dp"
                            android:inputType="number"
                            android:maxLength="2"
-                           android:layout_height="40dp">
+                           android:singleLine="true"
+                           android:lines="1"
+                           android:layout_height="wrap_content">
                        </EditText>
                        <TextView
                            android:text="Days"
@@ -180,7 +182,7 @@
                 android:id="@+id/edit_specify_medicin"
                 android:layout_width="match_parent"
                 android:layout_margin="10dp"
-                android:hint="Medicine(s)name,quantity/duration"
+                android:hint="Medicines Name, Quantity"
                 android:layout_height="wrap_content">
 
             </EditText>
@@ -192,7 +194,7 @@
             </View>
             <CheckBox
                 android:id="@+id/call_me"
-                android:text="Call me For Details"
+                android:text="Call me for details"
                 android:layout_width="wrap_content"
                 android:layout_height="50dp">
 
@@ -283,12 +285,12 @@ and is not involved is sales of any products"
         android:textColor="@color/white"
         android:textAllCaps="false"
         android:textSize="18dp"
-        android:background="@drawable/corner_round_button"
         android:text="Continue"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
         android:layout_marginTop="5dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
         android:layout_marginBottom="15dp"
+        android:background="@drawable/coupon_button_back"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"/>

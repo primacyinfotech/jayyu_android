@@ -16,6 +16,7 @@ import android.provider.ContactsContract;
 import android.text.InputFilter;
 import android.text.InputType;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -139,78 +140,90 @@ public class PatientAddPage extends AppCompatActivity {
              finish();
             }
         });
-        patient_blood.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AlertDialog.Builder alertdialogbuilder = new AlertDialog.Builder(PatientAddPage.this);
-                alertdialogbuilder.setTitle("Select A BloodType ");
-                alertdialogbuilder.setItems(value, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        String selectedText = Arrays.asList(value).get(which);
-                        patient_blood.setText(selectedText);
-                    }
-                });
-                AlertDialog dialog = alertdialogbuilder.create();
 
+        AlertDialog.Builder alertdialogbuilder = new AlertDialog.Builder(PatientAddPage.this);
+        alertdialogbuilder.setTitle("Select A BloodType ");
+
+        alertdialogbuilder.setItems(value, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                String selectedText = Arrays.asList(value).get(which);
+                patient_blood.setText(selectedText);
+            }
+        });
+        final AlertDialog dialog = alertdialogbuilder.create();
+
+        patient_blood.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
                 dialog.show();
+                return true;
             }
         });
-        patient_gender.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AlertDialog.Builder alertgender = new AlertDialog.Builder(PatientAddPage.this);
-                alertgender.setTitle("Select Gender");
-                alertgender.setItems(gender, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        String selectedText = Arrays.asList(gender).get(which);
-                        patient_gender.setText(selectedText);
-                    }
-                });
-                AlertDialog dialoggen = alertgender.create();
 
+        AlertDialog.Builder alertgender = new AlertDialog.Builder(PatientAddPage.this);
+        alertgender.setTitle("Select Gender");
+        alertgender.setItems(gender, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                String selectedText = Arrays.asList(gender).get(which);
+                patient_gender.setText(selectedText);
+            }
+        });
+        final AlertDialog dialoggen = alertgender.create();
+
+        patient_gender.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
                 dialoggen.show();
+                return true;
             }
         });
-        patient_relation.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AlertDialog.Builder alertrelation = new AlertDialog.Builder(PatientAddPage.this);
-                alertrelation.setTitle("Choose Relation");
-                alertrelation.setItems(relation, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        String selectedText = Arrays.asList(relation).get(which);
-                        patient_relation.setText(selectedText);
-                    }
-                });
-                AlertDialog dialogrelation = alertrelation.create();
 
+
+        AlertDialog.Builder alertrelation = new AlertDialog.Builder(PatientAddPage.this);
+        alertrelation.setTitle("Choose Relation");
+        alertrelation.setItems(relation, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                String selectedText = Arrays.asList(relation).get(which);
+                patient_relation.setText(selectedText);
+            }
+        });
+        final AlertDialog dialogrelation = alertrelation.create();
+
+        patient_relation.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
                 dialogrelation.show();
+                return true;
             }
         });
-        dob.setOnClickListener(new View.OnClickListener() {
+
+        final Calendar c = Calendar.getInstance();
+        mYear = c.get(Calendar.YEAR);
+        mMonth = c.get(Calendar.MONTH);
+        mDay = c.get(Calendar.DAY_OF_MONTH);
+        final DatePickerDialog datePickerDialog = new DatePickerDialog(PatientAddPage.this,
+                new DatePickerDialog.OnDateSetListener() {
+
+                    @Override
+                    public void onDateSet(DatePicker view, int year,
+                                          int monthOfYear, int dayOfMonth) {
+
+                        dob.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
+
+                    }
+                }, mYear, mMonth, mDay);
+
+        dob.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public void onClick(View v) {
-                final Calendar c = Calendar.getInstance();
-                mYear = c.get(Calendar.YEAR);
-                mMonth = c.get(Calendar.MONTH);
-                mDay = c.get(Calendar.DAY_OF_MONTH);
-                DatePickerDialog datePickerDialog = new DatePickerDialog(PatientAddPage.this,
-                        new DatePickerDialog.OnDateSetListener() {
-
-                            @Override
-                            public void onDateSet(DatePicker view, int year,
-                                                  int monthOfYear, int dayOfMonth) {
-
-                                dob.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
-
-                            }
-                        }, mYear, mMonth, mDay);
+            public boolean onTouch(View view, MotionEvent motionEvent) {
                 datePickerDialog.show();
+                return true;
             }
         });
+
         add_con_one.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -282,7 +295,7 @@ public class PatientAddPage extends AppCompatActivity {
             else if( dob.getText().toString().isEmpty()){
                 dob.setError("Field Cannot be Blank!");
             }
-            else if(con1.equals("Add from Contact")|| con2.equals("Add from Contact")){
+            else if(con1.equals("Add from Contact")){
                 Toast.makeText(getApplicationContext(),"Please, Fill Up Required Contact Number!!",Toast.LENGTH_LONG).show();
             }
             else {
@@ -333,7 +346,7 @@ public class PatientAddPage extends AppCompatActivity {
                             @Override
                             public void onErrorResponse(VolleyError error) {
                                 // error
-
+                                error.printStackTrace();
                             }
                         }
                 ) {

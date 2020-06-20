@@ -30,6 +30,7 @@ import org.json.JSONObject;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -85,6 +86,13 @@ public class Wallet extends AppCompatActivity {
 
                             if(status.equals("1")){
                                 String balance_og=person.getString("balance");
+                                try {
+                                    if (Double.parseDouble(balance_og) < 0) {
+                                        balance_og = "0";
+                                    }
+                                } catch (Exception e) {
+                                    balance_og = "0";
+                                }
                                 balance.setText("\u20B9"+balance_og);
                                 normalWalletModels=new ArrayList<>();
                                 JSONArray jsonArray=person.getJSONArray("history");
@@ -95,15 +103,20 @@ public class Wallet extends AppCompatActivity {
                                     walletModel.setCredit(object.getString("credit"));
                                     walletModel.setRemark(object.getString("remark"));
                                     String fetch_date=object.getString("created_at");
-                                    SimpleDateFormat input = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                                    SimpleDateFormat output = new SimpleDateFormat("MMMM dd,yyyy");
-                                    Date date=input.parse(fetch_date);
-                                    String newFDate=output.format(date);
+                                    try {
+                                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                                        Date testDate = sdf.parse(fetch_date);
+                                        SimpleDateFormat formatter = new SimpleDateFormat("dd MMM,yyyy");
+                                        fetch_date = formatter.format(testDate);
+                                    } catch (ParseException e) {
+                                        e.printStackTrace();
+                                    }
 
-                                    walletModel.setDate_val(newFDate);
+                                    walletModel.setDate_val(fetch_date);
                                     normalWalletModels.add(walletModel);
 
                                 }
+                                Collections.reverse(normalWalletModels);
                                 normalWalletAdapter=new NormalWalletAdapter(normalWalletModels,Wallet.this);
                                 wallet_history.setHasFixedSize(true);
                                 LinearLayoutManager layoutManager=new LinearLayoutManager(getApplicationContext(),RecyclerView.VERTICAL,false);
@@ -122,8 +135,6 @@ public class Wallet extends AppCompatActivity {
                         } catch (JSONException e) {
                             e.printStackTrace();
                             Toast.makeText(getApplicationContext(), "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
-                        } catch (ParseException e) {
-                            e.printStackTrace();
                         }
 
 

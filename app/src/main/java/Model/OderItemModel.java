@@ -1,7 +1,7 @@
 package Model;
 
 public class OderItemModel {
-    String Item_Name,Item_amt,Item_unit,Item_mrp,Item_qty;
+    String Item_Name,Item_amt,Item_unit,Item_mrp,Item_qty, com_name, normal_disc;
 
    /* public OderItemModel(String item_Name, String item_amt, String item_unit) {
         Item_Name = item_Name;
@@ -47,5 +47,21 @@ public class OderItemModel {
 
     public void setItem_unit(String item_unit) {
         Item_unit = item_unit;
+    }
+
+    public String getCom_name() {
+        return com_name;
+    }
+
+    public void setCom_name(String com_name) {
+        this.com_name = com_name;
+    }
+
+    public String getNormal_disc() {
+        return normal_disc;
+    }
+
+    public void setNormal_disc(String normal_disc) {
+        this.normal_disc = normal_disc;
     }
 }

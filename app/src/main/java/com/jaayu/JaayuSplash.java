@@ -193,7 +193,7 @@ public class JaayuSplash extends AppCompatActivity {
 
                         } catch (JSONException e) {
                             e.printStackTrace();
-                            Toast.makeText(getApplicationContext(), "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                            //Toast.makeText(getApplicationContext(), "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
                         }
 
 
@@ -203,8 +203,7 @@ public class JaayuSplash extends AppCompatActivity {
                 {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        // error
-
+                         error.printStackTrace();
                     }
                 }
         ) {

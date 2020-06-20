@@ -40,12 +40,13 @@
         android:textColor="#000"
         android:textSize="18dp"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:layout_marginLeft="5dp"/>
     <TextView
         android:id="@+id/abt_body"
-        android:layout_marginTop="20dp"
-
-        android:fontFamily="@font/clearsansbold"
+        android:layout_margin="5dp"
+        android:fontFamily="@font/clear_sans_regular"
         android:textColor="#000"
         android:textSize="15dp"
         android:layout_width="wrap_content"

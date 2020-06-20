@@ -1,5 +1,6 @@
 package com.jaayu;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -10,6 +11,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
@@ -60,10 +62,14 @@ public class SearchActivity extends AppCompatActivity {
         names.add(new Searchmodel("Roxin",R.drawable.ic_action_arrow));
         names.add(new Searchmodel("Rantac",R.drawable.ic_action_arrow));
         names.add(new Searchmodel("Casit",R.drawable.ic_action_arrow));*/
+
+        names=new ArrayList<>();
         search_layout_edit=(EditText)findViewById(R.id.search_layout_edit);
-        search_layout_edit.setShowSoftInputOnFocus(true);
-        search_layout_edit.setFocusable(true);
-        search_layout_edit.setFocusableInTouchMode(true);
+        search_layout_edit.requestFocus();
+        ((InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE)).toggleSoftInput(
+                InputMethodManager.SHOW_FORCED,
+                InputMethodManager.HIDE_IMPLICIT_ONLY
+        );
       //  fack_image=(ImageView)findViewById(R.id.fack_image);
         back_button=(ImageView)findViewById(R.id.back_button);
         recyclerView=(RecyclerView)findViewById(R.id.rv_search);
@@ -85,7 +91,7 @@ public class SearchActivity extends AppCompatActivity {
                 //after the change calling the method and passing the search input
                 //filter(editable.toString());
                 srch_text=search_layout_edit.getText().toString();
-                names=new ArrayList<>();
+                names.clear();
                 RequestQueue requestQueue = Volley.newRequestQueue(SearchActivity.this);
                 StringRequest postRequest = new StringRequest(Request.Method.POST,search_url,
                         new Response.Listener<String>()  {
@@ -117,9 +123,9 @@ public class SearchActivity extends AppCompatActivity {
                                         recyclerView.setHasFixedSize(true);
                                         recyclerView.setLayoutManager(new LinearLayoutManager(SearchActivity.this));
                                         searchAdapter.notifyDataSetChanged();
-                                        search_layout_edit.clearFocus();
+                                        /*search_layout_edit.clearFocus();
                                         InputMethodManager in = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-                                        in.hideSoftInputFromWindow(search_layout_edit.getWindowToken(), 0);
+                                        in.hideSoftInputFromWindow(search_layout_edit.getWindowToken(), 0);*/
 
                                     }
                                     else {
@@ -159,13 +165,30 @@ public class SearchActivity extends AppCompatActivity {
                 requestQueue.add(postRequest);
             }
         });
+
+        recyclerView.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
+            @Override
+            public boolean onInterceptTouchEvent(@NonNull RecyclerView rv, @NonNull MotionEvent e) {
+                search_layout_edit.clearFocus();
+                InputMethodManager in = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                in.hideSoftInputFromWindow(search_layout_edit.getWindowToken(), 0);
+
+                return false;
+            }
+
+            @Override
+            public void onTouchEvent(@NonNull RecyclerView rv, @NonNull MotionEvent e) {
+            }
+
+            @Override
+            public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
+            }
+        });
+
         back_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(SearchActivity.this, MainActivity.class);
-                startActivity(intent);
-                overridePendingTransition(0,0);
-                finish();
+                onBackPressed();
             }
         });
     }
@@ -234,6 +257,8 @@ public class SearchActivity extends AppCompatActivity {
     }*/
     @Override
     public void onBackPressed() {
+        InputMethodManager in = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+        in.hideSoftInputFromWindow(search_layout_edit.getWindowToken(), 0);
         Intent intent = new Intent(SearchActivity.this, MainActivity.class);
         startActivity(intent);
         overridePendingTransition(0,0);

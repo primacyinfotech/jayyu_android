@@ -40,6 +40,7 @@ import com.jaayu.Model.PrescriptionReqDatabase;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -50,64 +51,66 @@ import Model.ViewDialog;
 
 public class DetailsItems extends AppCompatActivity {
     PrescriptionReqDatabase prescriptionReqDatabase;
-    TextView pin_set_txt,pin_set_button,comny_mame,comny_compo,comny_compo3,mrp,save_percernt,save_amt,qty_per,disclaimar_txt;
+    TextView pin_set_txt, pin_set_button, comny_mame, comny_compo, comny_compo3, mrp, save_percernt, save_amt, qty_per, disclaimar_txt;
     RecyclerView recyclerView;
     private ArrayList<Item_model> modelList;
     Item_view item_view;
-    ImageView back_button,search_page,cart_view,required_pres_img;
-    ArrayList<String> Categories2;;
+    ImageView back_button, search_page, cart_view, required_pres_img;
+    ArrayList<String> Categories2;
+    ;
     private Spinner country_select;
-    private  int pro_id,spinner_no;
-    private String product_details_url= BaseUrl.BaseUrlNew+"product/single";
-    private String product_add_cart=BaseUrl.BaseUrlNew+"addtocart";
-   /* private String Chk_data_hasCart_url="https://work.primacyinfotech.com/jaayu/api/addtocart/all";*/
-   private String Chk_data_hasCart_url=BaseUrl.BaseUrlNew+"addtocart_chk";
-    private  String disclaimer_url=BaseUrl.BaseUrlNew+"disclaimer";
+    private int pro_id, spinner_no;
+    private String product_details_url = BaseUrl.BaseUrlNew + "product/single";
+    private String product_add_cart = BaseUrl.BaseUrlNew + "addtocart";
+    /* private String Chk_data_hasCart_url="https://work.primacyinfotech.com/jaayu/api/addtocart/all";*/
+    private String Chk_data_hasCart_url = BaseUrl.BaseUrlNew + "addtocart_chk";
+    private String disclaimer_url = BaseUrl.BaseUrlNew + "disclaimer";
     private Button add_cart;
     private ScrollView tcuch_scroll;
     LinearLayout linearLayout_sheet;
     BottomSheetBehavior bottomSheetBehavior;
     SharedPreferences prefs_register;
     SharedPreferences product_id_Store;
-    private String u_id,status;
+    private String u_id, status;
     SharedPreferences Cart_item_number_counter;
-    int notifiCart,prescription_requird,stote_pro_id;
-    int notti=0;
-    int clickcount=0;
+    int notifiCart, prescription_requird, stote_pro_id;
+    int notti = 0;
+    int clickcount = 0;
     int count_cart;
     ProgressDialog progressDialog;
     int prescription_required;
     int prescrp_req;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details_items);
-        prescriptionReqDatabase=new PrescriptionReqDatabase(this);
+        prescriptionReqDatabase = new PrescriptionReqDatabase(this);
         Cart_item_number_counter = getSharedPreferences(
                 "CARTITEM_COUNTER", Context.MODE_PRIVATE);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         prefs_register = getSharedPreferences(
                 "Register Details", Context.MODE_PRIVATE);
-        u_id=prefs_register.getString("USER_ID","");
-        Intent prodid=getIntent();
-        pro_id=prodid.getIntExtra("Product Id",0) ;
+        u_id = prefs_register.getString("USER_ID", "");
+        Intent prodid = getIntent();
+        pro_id = prodid.getIntExtra("Product Id", 0);
         product_id_Store = getSharedPreferences(
                 "Store_product", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor=product_id_Store.edit();
-        editor.putInt("Product_Store",pro_id);
+        SharedPreferences.Editor editor = product_id_Store.edit();
+        editor.putInt("Product_Store", pro_id);
         editor.commit();
-        stote_pro_id=product_id_Store.getInt("Product_Store",0);
-        back_button=(ImageView)toolbar.findViewById(R.id.back_button);
-        search_page=(ImageView)toolbar.findViewById(R.id.search_page);
-        cart_view=(ImageView)toolbar.findViewById(R.id.cart_view);
-        required_pres_img=(ImageView)findViewById(R.id.required_pres_img);
-        country_select=(Spinner)findViewById(R.id.country_select);
-        tcuch_scroll=(ScrollView)findViewById(R.id.tcuch_scroll);
-        linearLayout_sheet=(LinearLayout)findViewById(R.id.bottom_sheet);
-        disclaimar_txt=(TextView)findViewById(R.id.disclaimar_txt);
+        stote_pro_id = product_id_Store.getInt("Product_Store", 0);
+        back_button = (ImageView) toolbar.findViewById(R.id.back_button);
+        search_page = (ImageView) toolbar.findViewById(R.id.search_page);
+        cart_view = (ImageView) toolbar.findViewById(R.id.cart_view);
+        required_pres_img = (ImageView) findViewById(R.id.required_pres_img);
+        country_select = (Spinner) findViewById(R.id.country_select);
+        tcuch_scroll = (ScrollView) findViewById(R.id.tcuch_scroll);
+        linearLayout_sheet = (LinearLayout) findViewById(R.id.bottom_sheet);
+        disclaimar_txt = (TextView) findViewById(R.id.disclaimar_txt);
 
-       //bottomSheetBehavior=BottomSheetBehavior.from(linearLayout_sheet);
+        //bottomSheetBehavior=BottomSheetBehavior.from(linearLayout_sheet);
         /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             tcuch_scroll.setOnScrollChangeListener(new View.OnScrollChangeListener() {
                 @Override
@@ -130,8 +133,8 @@ public class DetailsItems extends AppCompatActivity {
                 }
             });
         }*/
-        add_cart=(Button)findViewById(R.id.add_cart);
-        Categories2=new ArrayList<>();
+        add_cart = (Button) findViewById(R.id.add_cart);
+        Categories2 = new ArrayList<>();
         Categories2.add("1");
         Categories2.add("2");
         Categories2.add("3");
@@ -164,12 +167,12 @@ public class DetailsItems extends AppCompatActivity {
         Categories2.add("30");
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, Categories2);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-       country_select.setAdapter(dataAdapter);
+        country_select.setAdapter(dataAdapter);
         dataAdapter.notifyDataSetChanged();
         country_select.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                spinner_no=Integer.parseInt(country_select.getSelectedItem().toString());
+                spinner_no = Integer.parseInt(country_select.getSelectedItem().toString());
             }
 
             @Override
@@ -182,8 +185,7 @@ public class DetailsItems extends AppCompatActivity {
             public void onClick(View v) {
                 RequestQueue queue = Volley.newRequestQueue(DetailsItems.this);
                 StringRequest postRequest = new StringRequest(Request.Method.POST, product_add_cart,
-                        new Response.Listener<String>()
-                        {
+                        new Response.Listener<String>() {
                             @Override
                             public void onResponse(String response) {
                                 // response
@@ -191,22 +193,21 @@ public class DetailsItems extends AppCompatActivity {
                                 try {
                                     //Do it with this it will work
                                     JSONObject person = new JSONObject(response);
-                                    String status=person.getString("status");
-                                    if(status.equals("success")){
-                                        if(prescrp_req==1){
-                                            boolean isUpdate=prescriptionReqDatabase.insertData(String.valueOf(prescrp_req));
+                                    String status = person.getString("status");
+                                    if (status.equals("success")) {
+                                        if (prescrp_req == 1) {
+                                            boolean isUpdate = prescriptionReqDatabase.insertData(String.valueOf(prescrp_req));
 
-                                            if(isUpdate){
-                                                Toast.makeText(DetailsItems.this,"Data Update",Toast.LENGTH_LONG).show();
-                                            }
-                                            else {
-                                                Toast.makeText(DetailsItems.this,"Data not Updated",Toast.LENGTH_LONG).show();
+                                            if (isUpdate) {
+                                                //Toast.makeText(DetailsItems.this, "Data Update", Toast.LENGTH_LONG).show();
+                                            } else {
+                                                //Toast.makeText(DetailsItems.this, "Data not Updated", Toast.LENGTH_LONG).show();
                                             }
                                         }
-                                        Intent goToCart=new Intent(DetailsItems.this,CartActivity.class);
+                                        Intent goToCart = new Intent(DetailsItems.this, CartActivity.class);
                                         startActivity(goToCart);
                                         finish();
-                                        overridePendingTransition(0,0);
+                                        overridePendingTransition(0, 0);
                                        /* progressDialog = new ProgressDialog(DetailsItems.this);
                                         progressDialog.setMessage("Loading..."); // Setting Message
                                         progressDialog.setTitle("ADD TO CART...."); // Setting Title
@@ -231,26 +232,22 @@ public class DetailsItems extends AppCompatActivity {
                                         startActivity(gotoRefresh);
                                         overridePendingTransition(0,0);*/
                                     }
-                                    if(status.equals("2")){
-                                        String msg=person.getString("message");
+                                    if (status.equals("2")) {
+                                        String msg = person.getString("message");
                                         ViewDialog alert = new ViewDialog();
                                         alert.showDialog(DetailsItems.this, msg);
                                     }
 
 
-
-
-
                                 } catch (JSONException e) {
                                     e.printStackTrace();
-                                    Toast.makeText(getApplicationContext(), "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                                    Toast.makeText(getApplicationContext(), "Something Went Wrong!", Toast.LENGTH_LONG).show();
                                 }
 
 
                             }
                         },
-                        new Response.ErrorListener()
-                        {
+                        new Response.ErrorListener() {
                             @Override
                             public void onErrorResponse(VolleyError error) {
                                 // error
@@ -259,9 +256,8 @@ public class DetailsItems extends AppCompatActivity {
                         }
                 ) {
                     @Override
-                    protected Map<String, String> getParams()
-                    {
-                        Map<String, String>  params = new HashMap<String, String>();
+                    protected Map<String, String> getParams() {
+                        Map<String, String> params = new HashMap<String, String>();
                         params.put("product_id", String.valueOf(stote_pro_id));
                         params.put("quantity", String.valueOf(spinner_no));
                         params.put("user_id", u_id);
@@ -275,17 +271,17 @@ public class DetailsItems extends AppCompatActivity {
         });
         GetItems();
         getDisclimer();
-      //  GetItems();
-        pin_set_txt=(TextView)findViewById(R.id.pin_set_txt);
-        pin_set_button=(TextView)findViewById(R.id.pin_set_button);
-        comny_mame=(TextView)findViewById(R.id.comny_mame);
-        comny_compo=(TextView)findViewById(R.id.comny_compo);
-        comny_compo3=(TextView)findViewById(R.id.comny_compo3);
-        mrp=(TextView)findViewById(R.id.mrp) ;
-        save_percernt=(TextView)findViewById(R.id.save_percernt) ;
-        save_amt=(TextView)findViewById(R.id.save_amt) ;
-        qty_per=(TextView)findViewById(R.id.qty_per) ;
-       // recyclerView=(RecyclerView)findViewById(R.id.overlapImage);
+        //  GetItems();
+        pin_set_txt = (TextView) findViewById(R.id.pin_set_txt);
+        pin_set_button = (TextView) findViewById(R.id.pin_set_button);
+        comny_mame = (TextView) findViewById(R.id.comny_mame);
+        comny_compo = (TextView) findViewById(R.id.comny_compo);
+        comny_compo3 = (TextView) findViewById(R.id.comny_compo3);
+        mrp = (TextView) findViewById(R.id.mrp);
+        save_percernt = (TextView) findViewById(R.id.save_percernt);
+        save_amt = (TextView) findViewById(R.id.save_amt);
+        qty_per = (TextView) findViewById(R.id.qty_per);
+        // recyclerView=(RecyclerView)findViewById(R.id.overlapImage);
      /*   recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         modelList=new ArrayList<>();
@@ -304,10 +300,10 @@ public class DetailsItems extends AppCompatActivity {
                         .replace(R.id.contentPanel, fm, "Searchfragment")
                         .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                         .commit();*/
-             //   prescriptionReqDatabase.deleteDataPres();
+                //   prescriptionReqDatabase.deleteDataPres();
                 Intent intent = new Intent(DetailsItems.this, SearchActivity.class);
                 startActivity(intent);
-                overridePendingTransition(0,0);
+                overridePendingTransition(0, 0);
                 finish();
             }
         });
@@ -322,7 +318,7 @@ public class DetailsItems extends AppCompatActivity {
                         .commit();*/
                 Intent intent = new Intent(DetailsItems.this, SearchActivity.class);
                 startActivity(intent);
-                overridePendingTransition(0,0);
+                overridePendingTransition(0, 0);
                 finish();
             }
         });
@@ -340,11 +336,11 @@ public class DetailsItems extends AppCompatActivity {
         });
 */
     }
+
     private void GetItems() {
         RequestQueue queue = Volley.newRequestQueue(this);
         StringRequest postRequest = new StringRequest(Request.Method.POST, product_details_url,
-                new Response.Listener<String>()
-                {
+                new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         // response
@@ -352,6 +348,7 @@ public class DetailsItems extends AppCompatActivity {
                         try {
                             //Do it with this it will work
                             JSONObject person = new JSONObject(response);
+                            DecimalFormat decimalFormat = new DecimalFormat("##.##");
                            /* String product_name=person.getString("product_name");
                             String company_name=person.getString("com_name");
                             String composition=person.getString("composition");
@@ -360,14 +357,18 @@ public class DetailsItems extends AppCompatActivity {
                             String qty_per_pro=person.getString("box");
                             String save_ammount=person.getString("offer_price");
                             prescription_required=person.getInt("prescription_required");*/
-                            String pr_mn=person.getString("product_name");
-                            String cmm_name=person.getString("com_name");
-                            String compo=person.getString("composition");
-                            String save_per=person.getString("normal_disct");
-                            String mrp_priz=person.getString("mrp");
-                            String qty_per_prod=person.getString("box");
-                            String save_amt_of=person.getString("offer_price");
-                            prescrp_req=person.getInt("prescription_required");
+                            String pr_mn = person.getString("product_name");
+                            String cmm_name = person.getString("com_name");
+                            String compo = person.getString("composition");
+                            String save_per = person.getString("normal_disct");
+                            String mrp_priz = decimalFormat.format(person.getDouble("mrp"));
+                            String qty_per_prod = person.getString("box");
+                            String save_amt_of = decimalFormat.format(person.getDouble("offer_price"));
+                            try {
+                                prescrp_req = person.getInt("prescription_required");
+                            }catch (Exception e){
+                                prescrp_req = 0;
+                            }
                           /* if(prescrp_req==1){
                                boolean isUpdate=prescriptionReqDatabase.insertData(String.valueOf(prescrp_req));
 
@@ -382,28 +383,28 @@ public class DetailsItems extends AppCompatActivity {
 
                             SharedPreferences preferences = getSharedPreferences("PRESCRIPTION REQUIRED", Context.MODE_PRIVATE);
                             SharedPreferences.Editor editor = preferences.edit();
-                            editor.putString("Product Name",pr_mn);
-                            editor.putString("Company Name",cmm_name);
-                            editor.putString("compo Name",compo);
-                            editor.putString("sav_percent",save_per);
-                            editor.putString("Mrp Price",mrp_priz);
-                            editor.putString("Product Qty Per",qty_per_prod);
-                            editor.putString("Saving Amount",save_amt_of);
-                            editor.putInt("Prescrip_requir",prescrp_req);
+                            editor.putString("Product Name", pr_mn);
+                            editor.putString("Company Name", cmm_name);
+                            editor.putString("compo Name", compo);
+                            editor.putString("sav_percent", save_per);
+                            editor.putString("Mrp Price", mrp_priz);
+                            editor.putString("Product Qty Per", qty_per_prod);
+                            editor.putString("Saving Amount", save_amt_of);
+                            editor.putInt("Prescrip_requir", prescrp_req);
                             editor.apply();
-                            String product_name=preferences.getString("Product Name","");
-                            String company_name=preferences.getString("Company Name","");
-                            String composition=preferences.getString("compo Name","");
-                            String                                                                          save_percen=preferences.getString("sav_percent","");
-                            String mrp_price=preferences.getString("Mrp Price","");
-                            String qty_per_pro=preferences.getString("Product Qty Per","");
-                            String save_ammount=preferences.getString("Saving Amount","");
-                            prescription_required=preferences.getInt("Prescrip_requir",0);
+                            String product_name = preferences.getString("Product Name", "");
+                            String company_name = preferences.getString("Company Name", "");
+                            String composition = preferences.getString("compo Name", "");
+                            String save_percen = preferences.getString("sav_percent", "");
+                            String mrp_price = preferences.getString("Mrp Price", "");
+                            String qty_per_pro = preferences.getString("Product Qty Per", "");
+                            String save_ammount = preferences.getString("Saving Amount", "");
+                            prescription_required = preferences.getInt("Prescrip_requir", 0);
 
                             comny_mame.setText(product_name);
                             comny_compo.setText(company_name);
                             comny_compo3.setText(composition);
-                            save_percernt.setText("Save@"+save_percen);
+                            save_percernt.setText("Save@" + save_percen);
                             if (mrp != null) {
                                 mrp.setText(mrp_price);
                                 mrp.setPaintFlags(mrp.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
@@ -411,26 +412,23 @@ public class DetailsItems extends AppCompatActivity {
 
                             qty_per.setText(qty_per_pro);
                             save_amt.setText(save_ammount);
-                            if (prescription_required==0){
+                            if (prescription_required == 0) {
                                 required_pres_img.setVisibility(View.GONE);
-                            }
-                            else {
+                            } else {
                                 required_pres_img.setVisibility(View.VISIBLE);
                                 required_pres_img.setImageResource(R.drawable.prescriptionrequired2);
                             }
 
 
-
                         } catch (JSONException e) {
                             e.printStackTrace();
-                           // Toast.makeText(getApplicationContext(), "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                            // Toast.makeText(getApplicationContext(), "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
                         }
 
 
                     }
                 },
-                new Response.ErrorListener()
-                {
+                new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         // error
@@ -439,9 +437,8 @@ public class DetailsItems extends AppCompatActivity {
                 }
         ) {
             @Override
-            protected Map<String, String> getParams()
-            {
-                Map<String, String>  params = new HashMap<String, String>();
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
                 params.put("id", String.valueOf(pro_id));
 
 
@@ -450,14 +447,14 @@ public class DetailsItems extends AppCompatActivity {
         };
         queue.add(postRequest);
     }
+
     @Override
     public boolean onCreateOptionsMenu(final Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
         RequestQueue queue2 = Volley.newRequestQueue(DetailsItems.this);
         StringRequest postRequest2 = new StringRequest(Request.Method.POST, Chk_data_hasCart_url,
-                new Response.Listener<String>()
-                {
+                new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         // response
@@ -465,27 +462,23 @@ public class DetailsItems extends AppCompatActivity {
                         try {
                             //Do it with this it will work
                             JSONObject person = new JSONObject(response);
-                            String status=person.getString("status");
-                            count_cart=person.getInt("count");
-                            if(status.equals("0")){
+                            String status = person.getString("status");
+                            count_cart = person.getInt("count");
+                            if (status.equals("0")) {
 
                               /*  BadgeCounter.update(DetailsItems.this,
                                         menu.findItem(R.id.action_cart),R.drawable.ic_action_cart, BadgeCounter.BadgeColor.RED,
                                         count_cart);*/
                                 BadgeCounter.update(DetailsItems.this,
-                                        menu.findItem(R.id.action_cart),R.drawable.ic_action_cart,null,null);
+                                        menu.findItem(R.id.action_cart), R.drawable.ic_action_cart, null, null);
 
-                            }
-                            else if(status.equals("1")) {
+                            } else if (status.equals("1")) {
 
                                 BadgeCounter.update(DetailsItems.this,
-                                        menu.findItem(R.id.action_cart),R.drawable.ic_action_cart, BadgeCounter.BadgeColor.RED,
+                                        menu.findItem(R.id.action_cart), R.drawable.ic_action_cart, BadgeCounter.BadgeColor.RED,
                                         count_cart);
 
                             }
-
-
-
 
 
                         } catch (JSONException e) {
@@ -496,8 +489,7 @@ public class DetailsItems extends AppCompatActivity {
 
                     }
                 },
-                new Response.ErrorListener()
-                {
+                new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         // error
@@ -506,9 +498,8 @@ public class DetailsItems extends AppCompatActivity {
                 }
         ) {
             @Override
-            protected Map<String, String> getParams()
-            {
-                Map<String, String>  params = new HashMap<String, String>();
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
 
                 params.put("user_id", u_id);
 
@@ -552,15 +543,14 @@ public class DetailsItems extends AppCompatActivity {
             return true;
         }
         if (id == R.id.action_cart) {
-           // notifiCart--;
+            // notifiCart--;
 
-           // BadgeCounter.update(item, notifiCart);
+            // BadgeCounter.update(item, notifiCart);
 
 
             RequestQueue queue2 = Volley.newRequestQueue(DetailsItems.this);
             StringRequest postRequest2 = new StringRequest(Request.Method.POST, Chk_data_hasCart_url,
-                    new Response.Listener<String>()
-                    {
+                    new Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {
                             // response
@@ -568,17 +558,16 @@ public class DetailsItems extends AppCompatActivity {
                             try {
                                 //Do it with this it will work
                                 JSONObject person = new JSONObject(response);
-                                String status=person.getString("status");
-                                count_cart=person.getInt("count");
-                                if(status.equals("0")){
+                                String status = person.getString("status");
+                                count_cart = person.getInt("count");
+                                if (status.equals("0")) {
 
                                     BadgeCounter.update(item, count_cart);
-                                    Intent intentCart=new Intent(DetailsItems.this,EmptyCart.class);
+                                    Intent intentCart = new Intent(DetailsItems.this, EmptyCart.class);
                                     startActivity(intentCart);
                                     finish();
-                                  //  Toast.makeText(getApplicationContext(),status,Toast.LENGTH_LONG).show();
-                                }
-                                else if(status.equals("1")) {
+                                    //  Toast.makeText(getApplicationContext(),status,Toast.LENGTH_LONG).show();
+                                } else if (status.equals("1")) {
 
                                     BadgeCounter.update(item, count_cart);
                                     /*SharedPreferences preferences = getSharedPreferences("PRESCRIPTION REQUIRED", Context.MODE_PRIVATE);
@@ -586,26 +575,22 @@ public class DetailsItems extends AppCompatActivity {
                                     editor.putInt("Prescrip_required",prescription_required);
                                     editor.commit();
                                     prescription_requird=preferences.getInt("Prescrip_required",0);*/
-                                    Intent intentCart=new Intent(DetailsItems.this,CartActivity.class);
-                                   // intentCart.putExtra("P_Required",prescription_requird);
+                                    Intent intentCart = new Intent(DetailsItems.this, CartActivity.class);
+                                    // intentCart.putExtra("P_Required",prescription_requird);
                                     startActivity(intentCart);
                                     finish();
                                 }
 
 
-
-
-
                             } catch (JSONException e) {
                                 e.printStackTrace();
-                              //  Toast.makeText(getApplicationContext(), "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                                //  Toast.makeText(getApplicationContext(), "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
                             }
 
 
                         }
                     },
-                    new Response.ErrorListener()
-                    {
+                    new Response.ErrorListener() {
                         @Override
                         public void onErrorResponse(VolleyError error) {
                             // error
@@ -614,9 +599,8 @@ public class DetailsItems extends AppCompatActivity {
                     }
             ) {
                 @Override
-                protected Map<String, String> getParams()
-                {
-                    Map<String, String>  params = new HashMap<String, String>();
+                protected Map<String, String> getParams() {
+                    Map<String, String> params = new HashMap<String, String>();
 
                     params.put("user_id", u_id);
 
@@ -630,12 +614,14 @@ public class DetailsItems extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
-    private void  cart_count(){
+
+    private void cart_count() {
 
     }
-    private void getDisclimer(){
+
+    private void getDisclimer() {
         RequestQueue requestQueue = Volley.newRequestQueue(DetailsItems.this);
-        StringRequest postRequest = new StringRequest(Request.Method.POST,disclaimer_url,
+        StringRequest postRequest = new StringRequest(Request.Method.POST, disclaimer_url,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -644,10 +630,10 @@ public class DetailsItems extends AppCompatActivity {
                         try {
                             //Do it with this it will work
                             JSONObject person = new JSONObject(response);
-                            String status=person.getString("status");
-                            if(status.equals("1")){
-                                JSONObject ins_con=person.getJSONObject("discm");
-                                String content_ins=ins_con.getString("body");
+                            String status = person.getString("status");
+                            if (status.equals("1")) {
+                                JSONObject ins_con = person.getJSONObject("discm");
+                                String content_ins = ins_con.getString("body");
                                 Spanned htmlAsSpanned = Html.fromHtml(content_ins);
 
                                 disclaimar_txt.setText(String.valueOf(htmlAsSpanned));
@@ -656,7 +642,6 @@ public class DetailsItems extends AppCompatActivity {
                                 card_view_istant.setVisibility(View.GONE);
                             }
 */
-
 
 
                         } catch (JSONException e) {
@@ -687,10 +672,10 @@ public class DetailsItems extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-      //  prescriptionReqDatabase.deleteDataPres();
+        //  prescriptionReqDatabase.deleteDataPres();
         Intent intent = new Intent(DetailsItems.this, SearchActivity.class);
         startActivity(intent);
-        overridePendingTransition(0,0);
+        overridePendingTransition(0, 0);
         finish();
     }
 }

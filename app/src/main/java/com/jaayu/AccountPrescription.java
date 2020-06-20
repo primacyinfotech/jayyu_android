@@ -43,7 +43,8 @@ public class AccountPrescription extends AppCompatActivity {
     SharedPreferences prefs_register;
     private String u_id;
     //private String patient_assign_list_url= BaseUrl.BaseUrlNew+"patient_assign_list";
-    private String patient_assign_list_url= BaseUrl.BaseUrlNew+"patient_list";
+    private String patient_assign_list_url = BaseUrl.BaseUrlNew + "patient_list";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,35 +53,36 @@ public class AccountPrescription extends AppCompatActivity {
         setSupportActionBar(toolbar);
         prefs_register = getSharedPreferences(
                 "Register Details", Context.MODE_PRIVATE);
-        u_id=prefs_register.getString("USER_ID","");
-        back_button=(ImageView)toolbar.findViewById(R.id.back_button);
-        patient_assign=(RecyclerView)findViewById(R.id.patient_assign);
-        all_prescription=(LinearLayout)findViewById(R.id.all_prescription);
+        u_id = prefs_register.getString("USER_ID", "");
+        back_button = (ImageView) toolbar.findViewById(R.id.back_button);
+        patient_assign = (RecyclerView) findViewById(R.id.patient_assign);
+        all_prescription = (LinearLayout) findViewById(R.id.all_prescription);
         back_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent GotOaccount=new Intent(AccountPrescription.this,AccountPage.class);
+                Intent GotOaccount = new Intent(AccountPrescription.this, AccountPage.class);
                 startActivity(GotOaccount);
-                overridePendingTransition(0,0);
+                overridePendingTransition(0, 0);
                 finish();
             }
         });
         all_prescription.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent gotoAssignPrescription=new Intent(AccountPrescription.this,AccounPrescriptionView.class);
+                Intent gotoAssignPrescription = new Intent(AccountPrescription.this, AccounPrescriptionView.class);
                 startActivity(gotoAssignPrescription);
-                overridePendingTransition(0,0);
+                overridePendingTransition(0, 0);
                 finish();
             }
         });
         getUpdateAssignPatient();
 
     }
-    private void getUpdateAssignPatient(){
-        accountPresPatientModels=new ArrayList<>();
+
+    private void getUpdateAssignPatient() {
+        accountPresPatientModels = new ArrayList<>();
         RequestQueue requestQueue = Volley.newRequestQueue(AccountPrescription.this);
-        StringRequest postRequest = new StringRequest(Request.Method.POST,patient_assign_list_url,
+        StringRequest postRequest = new StringRequest(Request.Method.POST, patient_assign_list_url,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -91,10 +93,10 @@ public class AccountPrescription extends AppCompatActivity {
                             JSONObject person = new JSONObject(response);
                             String status = person.getString("status");
                             if (status.equals("1")) {
-                                JSONArray jsonArray=person.getJSONArray("patient_list");
-                                for(int i=0;i<jsonArray.length();i++){
-                                    AccountPresPatientModel assignPrescriptionModel=new AccountPresPatientModel();
-                                    JSONObject object=jsonArray.getJSONObject(i);
+                                JSONArray jsonArray = person.getJSONArray("patient_list");
+                                for (int i = 0; i < jsonArray.length(); i++) {
+                                    AccountPresPatientModel assignPrescriptionModel = new AccountPresPatientModel();
+                                    JSONObject object = jsonArray.getJSONObject(i);
                                     assignPrescriptionModel.setPatient_id(object.getInt("id"));
                                     assignPrescriptionModel.setPatient_name(object.getString("name"));
 
@@ -102,7 +104,7 @@ public class AccountPrescription extends AppCompatActivity {
                                     accountPresPatientModels.add(assignPrescriptionModel);
 
                                 }
-                                accountPresPatientAdapter=new AccountPresPatientAdapter(accountPresPatientModels,AccountPrescription.this);
+                                accountPresPatientAdapter = new AccountPresPatientAdapter(accountPresPatientModels, AccountPrescription.this);
                                 patient_assign.setHasFixedSize(true);
                                 patient_assign.setLayoutManager(new LinearLayoutManager(AccountPrescription.this));
                                 patient_assign.setAdapter(accountPresPatientAdapter);
@@ -110,29 +112,22 @@ public class AccountPrescription extends AppCompatActivity {
 
                             }
 
-
-
-
                         } catch (JSONException e) {
                             e.printStackTrace();
                             Toast.makeText(getApplicationContext(), "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
                         }
-
-
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         // error
-
+                        Toast.makeText(AccountPrescription.this, "Something Went Wrong!", Toast.LENGTH_SHORT).show();
                     }
                 }
-        )
-        {
+        ) {
             @Override
-            protected Map<String, String> getParams ()
-            {
+            protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
 
                 params.put("user_id", u_id);
@@ -144,11 +139,12 @@ public class AccountPrescription extends AppCompatActivity {
         };
         requestQueue.add(postRequest);
     }
+
     @Override
     public void onBackPressed() {
-        Intent GotOaccount=new Intent(AccountPrescription.this,AccountPage.class);
+        Intent GotOaccount = new Intent(AccountPrescription.this, AccountPage.class);
         startActivity(GotOaccount);
-        overridePendingTransition(0,0);
+        overridePendingTransition(0, 0);
         finish();
     }
 }

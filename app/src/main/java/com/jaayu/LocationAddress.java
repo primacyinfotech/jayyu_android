@@ -70,14 +70,18 @@ public class LocationAddress extends AppCompatActivity  {
           back_button.setOnClickListener(new View.OnClickListener() {
               @Override
               public void onClick(View v) {
-                  Intent intent = new Intent(LocationAddress.this, OrderSummery.class);
-                  startActivity(intent);
-                  overridePendingTransition(0,0);
-                  finish();
+                  onBackPressed();
               }
           });
     }
-private void fetchAddress(){
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        fetchAddress();
+    }
+
+    private void fetchAddress(){
 
     RequestQueue requestQueue = Volley.newRequestQueue(LocationAddress.this);
     StringRequest postRequest = new StringRequest(Request.Method.POST,order_addressUrl,
@@ -173,6 +177,8 @@ private void fetchAddress(){
 }
     @Override
     public void onBackPressed() {
+      /*  super.onBackPressed();
+        this.finishAndRemoveTask();*/
         Intent intent = new Intent(LocationAddress.this, OrderSummery.class);
         startActivity(intent);
         overridePendingTransition(0,0);

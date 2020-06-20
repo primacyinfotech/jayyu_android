@@ -47,22 +47,22 @@ import Model.MinMaxFilter;
 
 public class PatienEditPage extends AppCompatActivity {
     SharedPreferences prefs_register;
-    private ImageView back_button,delete_patient;
+    private ImageView back_button, delete_patient;
     private EditText patient_name, patient_relation, dob, patient_gender, patient_blood, height, medical_condition, reaction, medication;
-    private Button view_prescrip,update_btn;
+    private Button view_prescrip, update_btn;
     private int mYear, mMonth, mDay, mHour, mMinute;
-    private TextView add_con_one, add_con_two,text_hint_ft,text_hint_inch,text_hint_weight;
-    String u_id, p_name,p_relation,date_of_birth,p_gen,blood_group,height_of_patient,weight_of_patient,m_condition,reaction_patient,
-            medication_of_patient,con1,con2;
-     int patient_id;
-     private EditText ft,inch,weight;
+    private TextView add_con_one, add_con_two, text_hint_ft, text_hint_inch, text_hint_weight;
+    String u_id, p_name, p_relation, date_of_birth, p_gen, blood_group, height_of_patient, weight_of_patient, m_condition, reaction_patient,
+            medication_of_patient, con1, con2;
+    int patient_id;
+    private EditText ft, inch, weight;
     DatePickerDialog datePickerDialog;
     ProgressDialog progressDialog;
-    private static  int RQS_PICK_CONTACT=1;
-    private static  int RQS_PICK_CONTACT_SECOND=2;
-    private String fetch_update_patient_url= BaseUrl.BaseUrlNew+"patient_single";
-    private String update_patient_url=BaseUrl.BaseUrlNew+"patient_edit";
-    private String delete_patient_url=BaseUrl.BaseUrlNew+"patient_delete";
+    private static int RQS_PICK_CONTACT = 1;
+    private static int RQS_PICK_CONTACT_SECOND = 2;
+    private String fetch_update_patient_url = BaseUrl.BaseUrlNew + "patient_single";
+    private String update_patient_url = BaseUrl.BaseUrlNew + "patient_edit";
+    private String delete_patient_url = BaseUrl.BaseUrlNew + "patient_delete";
     String[] value = new String[]{
             "Not Set",
             "A+",
@@ -75,12 +75,12 @@ public class PatienEditPage extends AppCompatActivity {
             "O-",
             "Other"
     };
-    String[] gender=new String[]{
+    String[] gender = new String[]{
             "Male",
             "Female",
             "Others"
     };
-    String[] relation=new String[]{
+    String[] relation = new String[]{
             "Myself",
             "Father",
             "Mother",
@@ -92,17 +92,18 @@ public class PatienEditPage extends AppCompatActivity {
             "Grandmother",
             "Other"
     };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_patien_edit_page);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        Intent fetchP_id=getIntent();
-        patient_id=fetchP_id.getIntExtra("Patient_Id",0);
+        Intent fetchP_id = getIntent();
+        patient_id = fetchP_id.getIntExtra("Patient_Id", 0);
         prefs_register = getSharedPreferences(
                 "Register Details", Context.MODE_PRIVATE);
-        u_id=prefs_register.getString("USER_ID","");
+        u_id = prefs_register.getString("USER_ID", "");
         back_button = (ImageView) toolbar.findViewById(R.id.back_button);
         delete_patient = (ImageView) toolbar.findViewById(R.id.delete_patient);
         patient_name = (EditText) findViewById(R.id.patient_name);
@@ -112,9 +113,9 @@ public class PatienEditPage extends AppCompatActivity {
         dob.setInputType(InputType.TYPE_NULL);
         patient_blood = (EditText) findViewById(R.id.patient_blood);
         patient_blood.setInputType(InputType.TYPE_NULL);
-        ft= (EditText) findViewById(R.id.ft);
-        inch=(EditText)findViewById(R.id.inch);
-        inch.setFilters( new InputFilter[]{ new MinMaxFilter( "1" , "12" )}) ;
+        ft = (EditText) findViewById(R.id.ft);
+        inch = (EditText) findViewById(R.id.inch);
+        inch.setFilters(new InputFilter[]{new MinMaxFilter("1", "12")});
         weight = (EditText) findViewById(R.id.weight);
         medical_condition = (EditText) findViewById(R.id.medical_condition);
         reaction = (EditText) findViewById(R.id.reaction);
@@ -125,25 +126,25 @@ public class PatienEditPage extends AppCompatActivity {
         update_btn = (Button) findViewById(R.id.update_btn);
         add_con_one = (TextView) findViewById(R.id.add_con_one);
         add_con_two = (TextView) findViewById(R.id.add_con_two);
-        text_hint_ft=(TextView) findViewById(R.id.text_hint_ft);
-        text_hint_inch=(TextView) findViewById(R.id.text_hint_inch);
-        text_hint_weight=(TextView) findViewById(R.id.text_hint_weight);
+        text_hint_ft = (TextView) findViewById(R.id.text_hint_ft);
+        text_hint_inch = (TextView) findViewById(R.id.text_hint_inch);
+        text_hint_weight = (TextView) findViewById(R.id.text_hint_weight);
         view_prescrip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent goTtoReport=new Intent(PatienEditPage.this,MedicalPrescriptionReport.class);
-                goTtoReport.putExtra("Patient_Id",patient_id);
+                Intent goTtoReport = new Intent(PatienEditPage.this, MedicalPrescriptionReport.class);
+                goTtoReport.putExtra("Patient_Id", patient_id);
                 startActivity(goTtoReport);
-                overridePendingTransition(0,0);
+                overridePendingTransition(0, 0);
                 finish();
             }
         });
         back_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent goTtoBack=new Intent(PatienEditPage.this,PatientListView.class);
+                Intent goTtoBack = new Intent(PatienEditPage.this, PatientListView.class);
                 startActivity(goTtoBack);
-                overridePendingTransition(0,0);
+                overridePendingTransition(0, 0);
                 finish();
             }
         });
@@ -240,10 +241,10 @@ public class PatienEditPage extends AppCompatActivity {
             public void onClick(View v) {
                 ViewGroup viewGroup = findViewById(android.R.id.content);
                 View dialogView = LayoutInflater.from(PatienEditPage.this).inflate(R.layout.delete_confermation_dialog, viewGroup, false);
-                TextView masege=(TextView)dialogView.findViewById(R.id.return_msg) ;
-                Button buttonOk=(Button)dialogView.findViewById(R.id.buttonOk);
-              //  masege.setText(msg);
-               AlertDialog.Builder builder = new AlertDialog.Builder(PatienEditPage.this);
+                TextView masege = (TextView) dialogView.findViewById(R.id.return_msg);
+                Button buttonOk = (Button) dialogView.findViewById(R.id.buttonOk);
+                //  masege.setText(msg);
+                AlertDialog.Builder builder = new AlertDialog.Builder(PatienEditPage.this);
                 builder.setView(dialogView);
 
                 //finally creating the alert dialog and displaying it
@@ -255,8 +256,7 @@ public class PatienEditPage extends AppCompatActivity {
 
                         RequestQueue queue = Volley.newRequestQueue(PatienEditPage.this);
                         StringRequest postRequest = new StringRequest(Request.Method.POST, delete_patient_url,
-                                new Response.Listener<String>()
-                                {
+                                new Response.Listener<String>() {
                                     @Override
                                     public void onResponse(String response) {
                                         // response
@@ -264,13 +264,13 @@ public class PatienEditPage extends AppCompatActivity {
                                         try {
                                             //Do it with this it will work
                                             JSONObject person = new JSONObject(response);
-                                            String status=person.getString("status");
+                                            String status = person.getString("status");
 
 
-                                            if(status.equals("1")){
+                                            if (status.equals("1")) {
 
-                                                Intent refreshPage=new Intent(getApplicationContext(),PatientListView.class);
-                                                overridePendingTransition(0,0);
+                                                Intent refreshPage = new Intent(getApplicationContext(), PatientListView.class);
+                                                overridePendingTransition(0, 0);
                                                 startActivity(refreshPage);
                                                 finish();
                                                 alertDialog.dismiss();
@@ -287,8 +287,7 @@ public class PatienEditPage extends AppCompatActivity {
 
                                     }
                                 },
-                                new Response.ErrorListener()
-                                {
+                                new Response.ErrorListener() {
                                     @Override
                                     public void onErrorResponse(VolleyError error) {
                                         // error
@@ -297,9 +296,8 @@ public class PatienEditPage extends AppCompatActivity {
                                 }
                         ) {
                             @Override
-                            protected Map<String, String> getParams()
-                            {
-                                Map<String, String>  params = new HashMap<String, String>();
+                            protected Map<String, String> getParams() {
+                                Map<String, String> params = new HashMap<String, String>();
                                 params.put("pa_id", String.valueOf(patient_id));
 
                                 return params;
@@ -316,22 +314,21 @@ public class PatienEditPage extends AppCompatActivity {
         update_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                p_name=patient_name.getText().toString();
-                p_relation=patient_relation.getText().toString();
-                date_of_birth=dob.getText().toString();
-                p_gen=patient_gender.getText().toString();
-                blood_group=patient_blood.getText().toString();
-                height_of_patient=ft.getText().toString()+" "+text_hint_ft.getText().toString()+" "+inch.getText().toString()+" "+text_hint_inch.getText().toString();
-                weight_of_patient=weight.getText().toString()+" "+text_hint_weight.getText().toString();
-                m_condition=medical_condition.getText().toString();
-                reaction_patient=reaction.getText().toString();
-                medication_of_patient=medication.getText().toString();
-                con1=add_con_one.getText().toString();
-                con2=add_con_two.getText().toString();
+                p_name = patient_name.getText().toString();
+                p_relation = patient_relation.getText().toString();
+                date_of_birth = dob.getText().toString();
+                p_gen = patient_gender.getText().toString();
+                blood_group = patient_blood.getText().toString();
+                height_of_patient = ft.getText().toString() + " " + text_hint_ft.getText().toString() + " " + inch.getText().toString() + " " + text_hint_inch.getText().toString();
+                weight_of_patient = weight.getText().toString() + " " + text_hint_weight.getText().toString();
+                m_condition = medical_condition.getText().toString();
+                reaction_patient = reaction.getText().toString();
+                medication_of_patient = medication.getText().toString();
+                con1 = add_con_one.getText().toString();
+                con2 = add_con_two.getText().toString();
                 RequestQueue queue = Volley.newRequestQueue(PatienEditPage.this);
                 StringRequest postRequest = new StringRequest(Request.Method.POST, update_patient_url,
-                        new Response.Listener<String>()
-                        {
+                        new Response.Listener<String>() {
                             @Override
                             public void onResponse(String response) {
                                 // response
@@ -339,13 +336,13 @@ public class PatienEditPage extends AppCompatActivity {
                                 try {
                                     //Do it with this it will work
                                     JSONObject person = new JSONObject(response);
-                                    String status=person.getString("status");
+                                    String status = person.getString("status");
 
 
-                                    if(status.equals("1")){
+                                    if (status.equals("1")) {
 
-                                        Intent refreshPage=new Intent(getApplicationContext(),PatientListView.class);
-                                        overridePendingTransition(0,0);
+                                        Intent refreshPage = new Intent(getApplicationContext(), PatientListView.class);
+                                        overridePendingTransition(0, 0);
                                         startActivity(refreshPage);
                                         finish();
 
@@ -361,8 +358,7 @@ public class PatienEditPage extends AppCompatActivity {
 
                             }
                         },
-                        new Response.ErrorListener()
-                        {
+                        new Response.ErrorListener() {
                             @Override
                             public void onErrorResponse(VolleyError error) {
                                 // error
@@ -371,9 +367,8 @@ public class PatienEditPage extends AppCompatActivity {
                         }
                 ) {
                     @Override
-                    protected Map<String, String> getParams()
-                    {
-                        Map<String, String>  params = new HashMap<String, String>();
+                    protected Map<String, String> getParams() {
+                        Map<String, String> params = new HashMap<String, String>();
                         params.put("pa_id", String.valueOf(patient_id));
                         params.put("user_id", u_id);
                         params.put("name", p_name);
@@ -396,11 +391,11 @@ public class PatienEditPage extends AppCompatActivity {
         });
         getUpdateValue();
     }
-    private void getUpdateValue(){
+
+    private void getUpdateValue() {
         RequestQueue queue = Volley.newRequestQueue(PatienEditPage.this);
         StringRequest postRequest = new StringRequest(Request.Method.POST, fetch_update_patient_url,
-                new Response.Listener<String>()
-                {
+                new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         // response
@@ -408,81 +403,76 @@ public class PatienEditPage extends AppCompatActivity {
                         try {
                             //Do it with this it will work
                             JSONObject person = new JSONObject(response);
-                            String status=person.getString("status");
+                            String status = person.getString("status");
 
 
-                            if(status.equals("1")){
-                           JSONObject Obj=person.getJSONObject("patient_single");
+                            if (status.equals("1")) {
+                                JSONObject Obj = person.getJSONObject("patient_single");
                                 patient_name.setText(Obj.getString("name"));
                                 patient_relation.setText(Obj.getString("rel"));
                                 dob.setText(Obj.getString("dob"));
                                 patient_gender.setText(Obj.getString("sex"));
                                 patient_blood.setText(Obj.getString("blood"));
-                                String hight_sec=Obj.getString("height");
-                                String[] arrayString = hight_sec.split(" ");
-                                String fit=arrayString[0];
-                                if(fit.equals("null")){
-                                    ft.setText("");
-                                }
-                                else {
-                                    ft.setText(fit);
-                                }
+                                String hight_sec = Obj.getString("height");
+                                String fit = "", tvfit = "", inc = "", tvinc = "", wt = "", tvwt = "";
+                                String[] arrayString = {""}, arraywt = {""};
+                                if (hight_sec != null || !hight_sec.equals("null"))
+                                    arrayString = hight_sec.split(" ");
 
-                                String tvfit=arrayString[1];
+                                if (arrayString.length > 0)
+                                    fit = arrayString[0];
+
+                                ft.setText(fit);
+
+                                if (arrayString.length > 1)
+                                    tvfit = arrayString[1];
                                 text_hint_ft.setText(tvfit);
-                                String inc=arrayString[2];
-                                if(inc.equals("nul")){
-                                    inch.setText("");
-                                }
-                                else {
-                                    inch.setText(inc);
-                                }
+                                if (arrayString.length > 2)
+                                    inc = arrayString[2];
+                                inch.setText(inc);
 
-                                String tvinc=arrayString[3];
+
+                                if (arrayString.length > 3)
+                                    tvinc = arrayString[3];
                                 text_hint_inch.setText(tvinc);
-                                String weight_sec=Obj.getString("weight");
-                                String[] arraywt = weight_sec.split(" ");
-                                String wt=arraywt[0];
-                                if(wt.equals("")){
-                                    weight.setText("");
-                                }
-                                else {
-                                    weight.setText(wt);
-                                }
-                                String tvwt=arraywt[1];
+                                String weight_sec = Obj.getString("weight");
+                                if (weight_sec != null || !weight_sec.equals("null"))
+                                    arraywt = weight_sec.split(" ");
+
+                                if (arraywt.length > 0)
+                                    wt = arraywt[0];
+                                weight.setText(wt);
+
+                                if (arraywt.length > 1)
+                                    tvwt = arraywt[1];
 
                                 text_hint_weight.setText(tvwt);
 
 
                                 /*height.setText(Obj.getString("height"));
                                 weight.setText(Obj.getString("weight"));*/
-                                String m_con=Obj.getString("mcon");
-                                if(m_con.equals("null")){
+                                String m_con = Obj.getString("mcon");
+                                if (m_con == null || m_con.equals("null")) {
                                     medical_condition.setText("");
+                                } else {
+                                    medical_condition.setText(m_con);
                                 }
-                                else {
-                                    medical_condition.setText(Obj.getString("mcon"));
-                                }
-                               /* medical_condition.setText(Obj.getString("mcon"));*/
-                                String react=Obj.getString("alerg");
-                                if(react.equals("null")){
+                                /* medical_condition.setText(Obj.getString("mcon"));*/
+                                String react = Obj.getString("alerg");
+                                if (react == null || react.equals("null")) {
                                     reaction.setText("");
+                                } else {
+                                    reaction.setText(react);
                                 }
-                                else {
-                                    reaction.setText(Obj.getString("alerg"));
-                                }
-                               String nedi=Obj.getString("med_cation");
-                                if(nedi.equals("null")){
+                                String nedi = Obj.getString("med_cation");
+                                if (nedi == null || nedi.equals("null")) {
                                     medication.setText("");
-                                }
-                                else {
-                                    medication.setText(Obj.getString("med_cation"));
+                                } else {
+                                    medication.setText(nedi);
                                 }
 
                                 add_con_one.setText(Obj.getString("emgconct1"));
                                 add_con_two.setText(Obj.getString("emgconct2"));
-
-
 
 
                             }
@@ -496,8 +486,7 @@ public class PatienEditPage extends AppCompatActivity {
 
                     }
                 },
-                new Response.ErrorListener()
-                {
+                new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         // error
@@ -506,9 +495,8 @@ public class PatienEditPage extends AppCompatActivity {
                 }
         ) {
             @Override
-            protected Map<String, String> getParams()
-            {
-                Map<String, String>  params = new HashMap<String, String>();
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
                 params.put("pa_id", String.valueOf(patient_id));
 
                 return params;
@@ -516,12 +504,13 @@ public class PatienEditPage extends AppCompatActivity {
         };
         queue.add(postRequest);
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         // TODO Auto-generated method stub
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(requestCode == RQS_PICK_CONTACT) {
+        if (requestCode == RQS_PICK_CONTACT) {
             if (resultCode == RESULT_OK) {
                 Uri contactData = data.getData();
                 Cursor cursor = managedQuery(contactData, null, null, null, null);
@@ -534,13 +523,13 @@ public class PatienEditPage extends AppCompatActivity {
                 //contactEmail.setText(email);
             }
         }
-        if(requestCode==RQS_PICK_CONTACT_SECOND){
-            if(resultCode == RESULT_OK){
+        if (requestCode == RQS_PICK_CONTACT_SECOND) {
+            if (resultCode == RESULT_OK) {
                 Uri contactData2 = data.getData();
-                Cursor cursor2 =  managedQuery(contactData2, null, null, null, null);
+                Cursor cursor2 = managedQuery(contactData2, null, null, null, null);
                 cursor2.moveToFirst();
 
-                String number2 =       cursor2.getString(cursor2.getColumnIndexOrThrow(ContactsContract.CommonDataKinds.Phone.NUMBER));
+                String number2 = cursor2.getString(cursor2.getColumnIndexOrThrow(ContactsContract.CommonDataKinds.Phone.NUMBER));
 
                 //contactName.setText(name);
                 add_con_two.setText(number2);
@@ -548,11 +537,12 @@ public class PatienEditPage extends AppCompatActivity {
             }
         }
     }
+
     @Override
     public void onBackPressed() {
-        Intent goTtoBack=new Intent(PatienEditPage.this,PatientListView.class);
+        Intent goTtoBack = new Intent(PatienEditPage.this, PatientListView.class);
         startActivity(goTtoBack);
-        overridePendingTransition(0,0);
+        overridePendingTransition(0, 0);
         finish();
     }
 

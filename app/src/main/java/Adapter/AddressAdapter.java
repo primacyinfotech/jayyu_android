@@ -1,6 +1,8 @@
 package Adapter;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.util.Log;
@@ -41,8 +43,8 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyViewHo
     private Context context;
     private int selectedStarPosition = -1;
     private AdapterView.OnItemClickListener onItemClickListener;
-    private  String address_delete_url= BaseUrl.BaseUrlNew+"order_address_del";
-    private  String Instant_Uncheck_api=BaseUrl.BaseUrlNew+"instant_unchecke";
+    private String address_delete_url = BaseUrl.BaseUrlNew + "order_address_del";
+    private String Instant_Uncheck_api = BaseUrl.BaseUrlNew + "instant_unchecke";
     SharedPreferences prefs_register;
 
    /* private static RadioButton lastChecked = null;
@@ -67,7 +69,7 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyViewHo
 
     @Override
     public void onBindViewHolder(@NonNull AddressAdapter.MyViewHolder holder, final int position) {
-        final AddressModel addressModel=modelList.get(position);
+        final AddressModel addressModel = modelList.get(position);
 
         holder.pref_add.setText(addressModel.getAddress_pref());
         holder.name.setText(addressModel.getName());
@@ -81,8 +83,7 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyViewHo
             public void onClick(View v) {
                 RequestQueue queue = Volley.newRequestQueue(context);
                 StringRequest postRequest = new StringRequest(Request.Method.POST, address_delete_url,
-                        new Response.Listener<String>()
-                        {
+                        new Response.Listener<String>() {
                             @Override
                             public void onResponse(String response) {
                                 // response
@@ -90,23 +91,20 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyViewHo
                                 try {
                                     //Do it with this it will work
                                     JSONObject person = new JSONObject(response);
-                                    String status=person.getString("status");
-                                    if(status.equals("1")){
+                                    String status = person.getString("status");
+                                    if (status.equals("1")) {
                                         modelList.remove(position);
                                         notifyItemRemoved(position);
-                                        notifyItemRangeChanged(position,modelList.size());
-                                        String message=person.getString("message");
-                                        Toast.makeText(context,message,Toast.LENGTH_LONG).show();
-                                        Intent intent= new Intent(context, LocationAddress.class);
+                                        notifyItemRangeChanged(position, modelList.size());
+                                        String message = person.getString("message");
+                                        Toast.makeText(context, message, Toast.LENGTH_LONG).show();
+                                        Intent intent = new Intent(context, LocationAddress.class);
                                         intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                                         context.startActivity(intent);
+
+                                    } else {
+                                        Toast.makeText(context, status + " " + "Not Removed", Toast.LENGTH_LONG).show();
                                     }
-                                    else {
-                                        Toast.makeText(context,status+" "+"Not Removed",Toast.LENGTH_LONG).show();
-                                    }
-
-
-
 
 
                                 } catch (JSONException e) {
@@ -117,8 +115,7 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyViewHo
 
                             }
                         },
-                        new Response.ErrorListener()
-                        {
+                        new Response.ErrorListener() {
                             @Override
                             public void onErrorResponse(VolleyError error) {
                                 // error
@@ -127,11 +124,9 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyViewHo
                         }
                 ) {
                     @Override
-                    protected Map<String, String> getParams()
-                    {
-                        Map<String, String>  params = new HashMap<String, String>();
+                    protected Map<String, String> getParams() {
+                        Map<String, String> params = new HashMap<String, String>();
                         params.put("aId", String.valueOf(addressModel.getAdd_id()));
-
 
 
                         return params;
@@ -143,9 +138,9 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyViewHo
         holder.chk_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                selectedStarPosition= position;
+                selectedStarPosition = position;
                 notifyDataSetChanged();
-                int add_id=addressModel.getAdd_id();
+                int add_id = addressModel.getAdd_id();
                /* String nameValue=addressModel.getName();
                 String addresss_pref=addressModel.getAddress_pref();
                 String addressValue=addressModel.getAddress();
@@ -153,16 +148,13 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyViewHo
                 String landmark=addressModel.getLanmark();
                 String phone=addressModel.getPhone();*/
 
-                Toast.makeText(context,
-                        "selected offer is " + add_id,
-                        Toast.LENGTH_LONG).show();
+                //Toast.makeText(context, "selected offer is " + add_id, Toast.LENGTH_LONG).show();
                 prefs_register = context.getSharedPreferences(
                         "Register Details", Context.MODE_PRIVATE);
-                final String u_id=prefs_register.getString("USER_ID","");
+                final String u_id = prefs_register.getString("USER_ID", "");
                 RequestQueue queue = Volley.newRequestQueue(context);
                 StringRequest postRequest = new StringRequest(Request.Method.POST, Instant_Uncheck_api,
-                        new Response.Listener<String>()
-                        {
+                        new Response.Listener<String>() {
                             @Override
                             public void onResponse(String response) {
                                 // response
@@ -170,8 +162,8 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyViewHo
                                 try {
                                     //Do it with this it will work
                                     JSONObject person = new JSONObject(response);
-                                    String status=person.getString("status");
-                                    if(status.equals("1")) {
+                                    String status = person.getString("status");
+                                    if (status.equals("1")) {
 
 
                                     }
@@ -184,8 +176,7 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyViewHo
 
                             }
                         },
-                        new Response.ErrorListener()
-                        {
+                        new Response.ErrorListener() {
                             @Override
                             public void onErrorResponse(VolleyError error) {
                                 // error
@@ -194,17 +185,16 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyViewHo
                         }
                 ) {
                     @Override
-                    protected Map<String, String> getParams()
-                    {
-                        Map<String, String>  params = new HashMap<String, String>();
+                    protected Map<String, String> getParams() {
+                        Map<String, String> params = new HashMap<String, String>();
                         params.put("aId", String.valueOf(addressModel.getAdd_id()));
                         params.put("user_id", u_id);
                         return params;
                     }
                 };
                 queue.add(postRequest);
-                Intent goToOrderSammary=new Intent(context, OrderSummery.class);
-                goToOrderSammary.putExtra("ADDRESS_ID",add_id);
+                Intent goToOrderSammary = new Intent(context, OrderSummery.class);
+                goToOrderSammary.putExtra("ADDRESS_ID", add_id);
                /* goToOrderSammary.putExtra("NAME",nameValue);
                 goToOrderSammary.putExtra("ADDRESS_PREF",addresss_pref);
                 goToOrderSammary.putExtra("ADDRESS",addressValue);
@@ -212,6 +202,14 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyViewHo
                 goToOrderSammary.putExtra("ADDRESS_PHONE",phone);
                 goToOrderSammary.putExtra("ADDRESS_LAND",landmark);*/
                 context.startActivity(goToOrderSammary);
+
+                if (context instanceof Activity) {
+                    ((Activity) context).finishActivity(1);
+                    ((Activity) context).finish();
+                } else if (context instanceof ContextWrapper) {
+                    ((Activity) ((ContextWrapper) context).getBaseContext()).finishActivity(1);
+                    ((Activity) ((ContextWrapper) context).getBaseContext()).finish();
+                }
 
             }
         });
@@ -234,26 +232,26 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyViewHo
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
-        TextView pref_add,name,address,address_land,address_zipt,address_phone;
+        TextView pref_add, name, address, address_land, address_zipt, address_phone;
         RadioButton chk_add;
         LinearLayout delete_address;
         LinearLayout layout_address;
+
         public MyViewHolder(View itemView) {
             super(itemView);
 
-            pref_add=(TextView)itemView.findViewById(R.id.pref_add);
-            name=(TextView)itemView.findViewById(R.id.name);
-            address=(TextView)itemView.findViewById(R.id.address);
-            address_land=(TextView)itemView.findViewById(R.id.address_land);
-            address_zipt=(TextView)itemView.findViewById(R.id.address_zipt);
-            address_phone=(TextView)itemView.findViewById(R.id.address_phone);
-            chk_add=(RadioButton)itemView.findViewById(R.id.chk_add);
-            delete_address=(LinearLayout)itemView.findViewById(R.id.delete_address);
-            layout_address=(LinearLayout)itemView.findViewById(R.id.layout_address);
+            pref_add = (TextView) itemView.findViewById(R.id.pref_add);
+            name = (TextView) itemView.findViewById(R.id.name);
+            address = (TextView) itemView.findViewById(R.id.address);
+            address_land = (TextView) itemView.findViewById(R.id.address_land);
+            address_zipt = (TextView) itemView.findViewById(R.id.address_zipt);
+            address_phone = (TextView) itemView.findViewById(R.id.address_phone);
+            chk_add = (RadioButton) itemView.findViewById(R.id.chk_add);
+            delete_address = (LinearLayout) itemView.findViewById(R.id.delete_address);
+            layout_address = (LinearLayout) itemView.findViewById(R.id.layout_address);
 
 
         }
-
 
 
     }

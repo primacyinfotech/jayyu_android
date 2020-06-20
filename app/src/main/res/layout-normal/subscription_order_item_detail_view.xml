@@ -5,7 +5,7 @@
     android:layout_margin="5dp"
     android:background="@color/white"
     android:elevation="5dp"
-    android:layout_height="150dp">
+    android:layout_height="wrap_content">
     <TextView
         android:id="@+id/item_name"
         android:textSize="15sp"
@@ -16,32 +16,101 @@
         android:layout_marginLeft="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/med_company"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="5dp"
+        android:textColor="#000"
+        android:textSize="12dp"
+        android:text="Company "/>
+
+    <TextView
+        android:id="@+id/unit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="5dp"
+        android:text="Strip of 15 tablets"
+        android:textColor="#000"
+        android:textSize="13dp" />
+
     <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/unit"
-            android:textSize="13sp"
-            android:textColor="#000"
-            android:layout_marginLeft="10dp"
-            android:fontFamily="@font/clearsansbold"
-            android:text="1 strip 15 Tablets"
-
-            android:layout_marginTop="5dp"
-
+        <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal">
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="M.R.P. ₹ "
+                android:fontFamily="@font/clearsansbold"
+                android:textColor="#000" />
+
+            <TextView
+                android:id="@+id/item_total"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/clear_sans_regular"
+                android:inputType="numberDecimal|numberSigned"
+                android:text="14.59"
+                android:textColor="#000" />
+
+            <TextView
+                android:id="@+id/price_amt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:fontFamily="@font/clearsansbold"
+                android:inputType="numberDecimal|numberSigned"
+                android:text="14.59"
+                android:textColor="#000" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_saving"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/clearsansbold"
+                android:text="Saving @ "
+                android:textColor="@color/colorAccent"
+                android:textSize="13dp" />
+
+            <TextView
+                android:id="@+id/percentage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/clearsansbold"
+                android:text="25"
+                android:textColor="@color/colorAccent"
+                android:textSize="13dp" />
+        </LinearLayout>
     </LinearLayout>
+
+
     <LinearLayout
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
         android:orientation="horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
         <TextView
-            android:text="Qty"
+            android:text="Qty:"
             android:textSize="16sp"
             android:textColor="#000"
             android:layout_marginLeft="10dp"
@@ -52,14 +121,12 @@
             android:textSize="16sp"
             android:textColor="#000"
             android:fontFamily="@font/clearsansbold"
-
-            android:layout_marginLeft="10dp"
-
+            android:layout_marginLeft="1dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
-
         </TextView>
 
-
     </LinearLayout>
+
+
 </LinearLayout>

@@ -22,6 +22,7 @@
     <string name="normal_string3"> and </string>
     <string name="normal_string4"><u>Privacy Policy.</u></string>
     <string name="sign_up">Continue</string>
+    <string name="savings_auto">Savings will be auto-applied on M.R.P.</string>
     <string-array name="planets_array">
         <item>Home</item>
         <item>Work</item>
@@ -45,9 +46,10 @@
         <item>Other</item>
     </string-array>
     <string-array name="marital_status">
+        <item>Single</item>
         <item>Married</item>
-        <item>Un-Married</item>
-
+        <item>Divorced</item>
+        <item>Widow/Widower</item>
 
     </string-array>
 </resources>

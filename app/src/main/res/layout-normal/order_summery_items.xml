@@ -72,7 +72,7 @@
     <TextView
         android:id="@+id/unit"
         android:textColor="#000"
-        android:fontFamily="@font/clearsansbold"
+        android:fontFamily="@font/clear_sans_regular"
         android:text=""
         android:layout_marginTop="10dp"
         android:layout_marginLeft="10dp"
@@ -91,12 +91,9 @@
             android:text=""
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />-->
-        <View
-            android:layout_width="120dp"
-            android:layout_height="0dp"></View>
+
         <LinearLayout
             android:orientation="vertical"
-            android:layout_marginLeft="50dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
             <LinearLayout
@@ -105,22 +102,22 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
                 <TextView
-                    android:text="M.R.P ₹ "
-
+                    android:text="M.R.P. "
                     android:textColor="#000"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/clearsansbold"/>
                 <TextView
                     android:id="@+id/item_total"
                     android:text=""
-                    android:fontFamily="@font/clearsansbold"
+                    android:fontFamily="@font/clear_sans_regular"
                     android:textColor="#000"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
                 <TextView
                     android:id="@+id/price_amt"
                     android:text=""
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginLeft="5dp"
                     android:inputType="numberDecimal|numberSigned"
                     android:fontFamily="@font/clearsansbold"
                     android:textColor="#000"
@@ -180,18 +177,17 @@
     </LinearLayout>
  <TextView
      android:id="@+id/quantity"
-
      android:layout_marginLeft="10dp"
      android:textSize="17sp"
      android:textColor="#000"
-     android:fontFamily="@font/clearsansbold"
+     android:fontFamily="@font/clear_sans_regular"
      android:layout_width="wrap_content"
      android:layout_height="wrap_content" />
     <View
+        android:id="@+id/view"
         android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="2dp"
-
         android:background="@color/light_gray">
 
     </View>

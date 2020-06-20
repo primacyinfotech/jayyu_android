@@ -36,13 +36,18 @@ public class JaayuWalletAdapter extends RecyclerView.Adapter<JaayuWalletAdapter.
     }
 
     @Override
+    public int getItemViewType(int position) {
+        return position;
+    }
+
+    @Override
     public void onBindViewHolder(@NonNull JaayuWalletAdapter.MyViewHolder holder, int position) {
         NormalWalletModel walletModel=normalWalletModels.get(position);
         if(!walletModel.getCredit().equals("0")){
             holder.received_amount.setText("\u20B9"+walletModel.getCredit());
             holder.txt_recived.setVisibility(View.VISIBLE);
             holder.txt_paid.setVisibility(View.GONE);
-            // holder.paid_amount.setVisibility(View.GONE);
+            holder.paid_amount.setVisibility(View.GONE);
         }
 
         if(!walletModel.getDebit().equals("0")){

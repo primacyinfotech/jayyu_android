@@ -41,13 +41,18 @@
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="5dp"
+            android:gravity="center_vertical"
+            android:weightSum="4">
             <ImageView
+                android:id="@+id/iv_wallet"
                 android:src="@drawable/d"
-                android:layout_marginLeft="10dp"
-                android:layout_gravity="center"
+                android:layout_centerVertical="true"
                 android:layout_width="32dp"
-                android:layout_height="32dp">
+                android:layout_height="32dp"
+                android:layout_weight=".1">
 
             </ImageView>
             <TextView
@@ -55,9 +60,11 @@
               android:textColor="#000"
                 android:textSize="16dp"
                 android:layout_marginLeft="5dp"
-                android:layout_gravity="center"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_centerVertical="true"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/iv_wallet"
+                android:layout_weight="2.9">
 
             </TextView>
             <TextView
@@ -65,10 +72,10 @@
                 android:text="0.0"
                 android:fontFamily="@font/clearsansbold"
                 android:textSize="16dp"
-                android:layout_marginLeft="170dp"
-                android:layout_gravity="center"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textColor="#000">
 
             </TextView>
         </LinearLayout>

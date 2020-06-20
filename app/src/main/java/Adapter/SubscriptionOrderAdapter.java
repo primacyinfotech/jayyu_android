@@ -1,5 +1,6 @@
 package Adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -50,9 +51,15 @@ public class SubscriptionOrderAdapter extends RecyclerView.Adapter<SubscriptionO
             sendSubSOrdId.putExtra("Ord_subs_id",String.valueOf(subscriptionOrderModels.get(position).getSubscription_tbl_id()));
             sendSubSOrdId.putExtra("Invoice_Id",subscriptionOrderModels.get(position).getSubscription_order());
             context.startActivity(sendSubSOrdId);
+            ((Activity)context).finish();
 
         }
     });
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        return position;
     }
 
     @Override

@@ -59,7 +59,7 @@ public class OldGAlaeryAdapter extends RecyclerView.Adapter<OldGAlaeryAdapter.My
 
     @Override
     public void onBindViewHolder(@NonNull OldGAlaeryAdapter.MyViewHolder holder, final int position) {
-        Picasso.with(context).load("https://work.primacyinfotech.com/jaayu/upload/prescription/"+ prescriptionModels2.get(position).getPrescription_img()).into(holder.ivGallery);
+        Picasso.with(context).load(BaseUrl.imageUrl+ prescriptionModels2.get(position).getPrescription_img()).into(holder.ivGallery);
         holder.ivGallery.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -68,7 +68,7 @@ public class OldGAlaeryAdapter extends RecyclerView.Adapter<OldGAlaeryAdapter.My
                 settingsDialog.setContentView(R.layout.full_screen_image);
                 PhotoView imageView=(PhotoView)settingsDialog.findViewById(R.id.full_screen);
                 ImageView  imageView2=(ImageView)settingsDialog.findViewById(R.id.close_full_img);
-                Picasso.with(context).load("https://work.primacyinfotech.com/jaayu/upload/prescription/" + prescriptionModels2.get(position).getPrescription_img()).into(imageView);
+                Picasso.with(context).load(BaseUrl.imageUrl + prescriptionModels2.get(position).getPrescription_img()).into(imageView);
                 imageView2.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -110,17 +110,16 @@ public class OldGAlaeryAdapter extends RecyclerView.Adapter<OldGAlaeryAdapter.My
                                         prescriptionModels2.remove(position);
                                         notifyItemRemoved(position);
                                         notifyItemRangeChanged(position, prescriptionModels2.size());
-                                        Toast.makeText(context, status + " " + "Removed", Toast.LENGTH_LONG).show();
-
+                                        //Toast.makeText(context, status + " " + "Removed", Toast.LENGTH_LONG).show();
 
                                     } else {
-                                        Toast.makeText(context, status + " " + "Not Removed", Toast.LENGTH_LONG).show();
+                                        Toast.makeText(context, "Something Went Wrong!", Toast.LENGTH_LONG).show();
                                     }
 
 
                                 } catch (JSONException e) {
                                     e.printStackTrace();
-                                    Toast.makeText(context, "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                                    Toast.makeText(context, "Something Went Wrong!", Toast.LENGTH_LONG).show();
                                 }
 
 

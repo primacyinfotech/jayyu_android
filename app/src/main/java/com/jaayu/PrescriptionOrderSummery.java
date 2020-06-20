@@ -27,6 +27,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -63,40 +64,40 @@ public class PrescriptionOrderSummery extends AppCompatActivity {
     private Animation animationDown;
     private CheckBox chk_instant;
     private CardView card_view_istant;
-    private TextView open_item,mrp_total,total_save_price,shipping_charge,payable_amount,save_amount,discount_limit_amt,main_pay,upper_save_amt,
-            customer_name,address_text,email_add,address_edit,items_view;
-    private TextView place_apply_coupon,instan_content,disclaimer,type_add,coupon_off_on,sav_prescrtn,
-            address_land,address_zipt,address_phone,free_charge;
-    private String order_summery_item_url="https://work.primacyinfotech.com/jaayu/api/addtocart/all";
-    private String Order_tiem_total_dataUrl="https://work.primacyinfotech.com/jaayu/api/addtocart/sum_value";
-    private  String orderLast_addressUrl= BaseUrl.BaseUrlNew+"order_address_single_last";
-    private  String InstantOrderChkUrl=BaseUrl.BaseUrlNew+"instant_chk";
-    private  String Change_instant_Url="https://work.primacyinfotech.com/jaayu/api/change_to_instant";
-    private  String pass_val_url=BaseUrl.BaseUrlNew+"subscription_status";
-    private  String press_Order_url=BaseUrl.BaseUrlNew+"prescription_order";
-    private  String instan_content_url=BaseUrl.BaseUrlNew+"instant_content";
-    private  String disclaimer_url=BaseUrl.BaseUrlNew+"disclaimer";
-    private String coupon_list_url= BaseUrl.BaseUrlNew+"coupon_listing";
-    private  String free_delivery_url=BaseUrl.BaseUrlNew+"delivery_charge";
-    String address,user_name,us_nm,us_add,sing_fullname,all_address,prescription_image,Common_Address,Common_Address2;
-    String add_typ,formatted,ad_phone;
-    int address_id,address_id_second,sing_add_id,prescription_requird,Addd_Second,Addd_first;
+    private TextView open_item, mrp_total, total_save_price, shipping_charge, payable_amount, save_amount, discount_limit_amt, main_pay, upper_save_amt,
+            customer_name, address_text, email_add, address_edit, items_view;
+    private TextView place_apply_coupon, instan_content, disclaimer, type_add, coupon_off_on, sav_prescrtn,
+            address_land, address_zipt, address_phone, free_charge;
+    //private String order_summery_item_url = "https://work.primacyinfotech.com/jaayu/api/addtocart/all";
+    //private String Order_tiem_total_dataUrl = "https://work.primacyinfotech.com/jaayu/api/addtocart/sum_value";
+    private String orderLast_addressUrl = BaseUrl.BaseUrlNew + "order_address_single_last";
+    private String InstantOrderChkUrl = BaseUrl.BaseUrlNew + "instant_chk";
+    //private String Change_instant_Url = "https://work.primacyinfotech.com/jaayu/api/change_to_instant";
+    private String pass_val_url = BaseUrl.BaseUrlNew + "subscription_status";
+    private String press_Order_url = BaseUrl.BaseUrlNew + "prescription_order";
+    private String instan_content_url = BaseUrl.BaseUrlNew + "instant_content";
+    private String disclaimer_url = BaseUrl.BaseUrlNew + "disclaimer";
+    private String coupon_list_url = BaseUrl.BaseUrlNew + "coupon_listing";
+    private String free_delivery_url = BaseUrl.BaseUrlNew + "delivery_charge";
+    String address, user_name, us_nm, us_add, sing_fullname, all_address, prescription_image, Common_Address, Common_Address2;
+    String add_typ, formatted, ad_phone;
+    int address_id, address_id_second, sing_add_id, prescription_requird, Addd_Second, Addd_first;
     SharedPreferences prefs_register;
     SharedPreferences prefs_Address;
     SharedPreferences prefs_Address_pin;
     SharedPreferences prefs_Address_second;
-    SharedPreferences prefs_Pass_Value1,prefs_Pass_Value2,prefs_Pass_Value3,prefs_Pass_Value4,prefs_Pass_Value;
-    private String u_id,check_pincode_Second,check_pincode_first,add_zip,sing_zip_code;
-    private String Add_type,a_typ,lan_mark,lan_MArk,l_mark,sing_landmark,sing_ad_typ,
-            sing_phone,a_zip,show_coupon,coupon_id;
-    String pin_cod,pin_cod2,instant,val,val1,val2,val3,val4,pass_val,pass_val_pref,pref;
+    SharedPreferences prefs_Pass_Value1, prefs_Pass_Value2, prefs_Pass_Value3, prefs_Pass_Value4, prefs_Pass_Value;
+    private String u_id, check_pincode_Second, check_pincode_first, add_zip, sing_zip_code;
+    private String Add_type, a_typ, lan_mark, lan_MArk, l_mark, sing_landmark, sing_ad_typ,
+            sing_phone, a_zip, show_coupon, coupon_id;
+    String pin_cod, pin_cod2, instant, val, val1, val2, val3, val4, pass_val, pass_val_pref, pref;
     ProgressDialog progressDialog;
-    private LinearLayout apply_coupon_btn;
+    private RelativeLayout apply_coupon_btn;
     PrescriptionCouponListAdapter couponListAdapter;
     private ArrayList<CouponListModel> couponListModelArrayList;
     Dialog dialog;
     ProgressDialog progressDialogLoader;
-  public   BroadcastReceiver mMessageReceiver;
+    public BroadcastReceiver mMessageReceiver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,15 +111,15 @@ public class PrescriptionOrderSummery extends AppCompatActivity {
         progressDialogLoader.show();
         progressDialogLoader.setMessage("Downloading...");*/
         //progressDialogLoader.setCancelable(false);
-        Intent fetchAddress=getIntent();
-        address_id=fetchAddress.getIntExtra("ADDRESS_ID",0);
-        address=fetchAddress.getStringExtra("ADDRESS");
-        user_name=fetchAddress.getStringExtra("NAME");
-        prescription_image=fetchAddress.getStringExtra("Prescription");
-        add_zip=fetchAddress.getStringExtra("ADDRESS_zip");
-        Add_type=fetchAddress.getStringExtra("ADDRESS_PREF");
-        lan_mark=fetchAddress.getStringExtra("ADDRESS_LAND");
-        String add_phone=fetchAddress.getStringExtra("ADDRESS_PHONE");
+        Intent fetchAddress = getIntent();
+        address_id = fetchAddress.getIntExtra("ADDRESS_ID", 0);
+        address = fetchAddress.getStringExtra("ADDRESS");
+        user_name = fetchAddress.getStringExtra("NAME");
+        prescription_image = fetchAddress.getStringExtra("Prescription");
+        add_zip = fetchAddress.getStringExtra("ADDRESS_zip");
+        Add_type = fetchAddress.getStringExtra("ADDRESS_PREF");
+        lan_mark = fetchAddress.getStringExtra("ADDRESS_LAND");
+        String add_phone = fetchAddress.getStringExtra("ADDRESS_PHONE");
 
         prefs_register = getSharedPreferences(
                 "Register Details", Context.MODE_PRIVATE);
@@ -127,59 +128,58 @@ public class PrescriptionOrderSummery extends AppCompatActivity {
         prefs_Address_pin = getSharedPreferences(
                 "Address pin Details", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = prefs_Address.edit();
-        editor.putString("USER_NAME",user_name);
-        editor.putString("USER_ADDRESS",address);
-        editor.putString("TYPE_ADDRESS",Add_type);
-        editor.putString("LAND_ADDRESS",lan_mark);
-        editor.putString("PHONE_ADDRESS",add_phone);
+        editor.putString("USER_NAME", user_name);
+        editor.putString("USER_ADDRESS", address);
+        editor.putString("TYPE_ADDRESS", Add_type);
+        editor.putString("LAND_ADDRESS", lan_mark);
+        editor.putString("PHONE_ADDRESS", add_phone);
         editor.putInt("FIRST_ADD", address_id);
         editor.putString("Zip_ADD", add_zip);
         editor.commit();
-        us_nm=prefs_Address.getString("USER_NAME","");
-        us_add=prefs_Address.getString("USER_ADDRESS","");
-        Addd_first=prefs_Address.getInt("FIRST_ADD",0);
-        a_typ=prefs_Address.getString("TYPE_ADDRESS","");
-        lan_MArk=prefs_Address.getString("LAND_ADDRESS","");
-        ad_phone=prefs_Address.getString("PHONE_ADDRESS","");
-        u_id=prefs_register.getString("USER_ID","");
-        a_zip=prefs_Address.getString("Zip_ADD","");
-        back_button=(ImageView)toolbar.findViewById(R.id.back_button);
-        address_edit=(TextView) findViewById(R.id.address_edit);
-        submit_btn=(Button)findViewById(R.id.submit_btn);
-        mrp_total=(TextView)findViewById(R.id.mrp_total);
-        total_save_price=(TextView)findViewById(R.id.total_save_price);
-        shipping_charge=(TextView)findViewById(R.id.shipping_charge);
-        payable_amount=(TextView)findViewById(R.id.payable_amount);
-        save_amount=(TextView)findViewById(R.id.save_amount);
-        discount_limit_amt=(TextView)findViewById(R.id.discount_limit_amt);
-        main_pay=(TextView)findViewById(R.id.main_pay);
-        customer_name=(TextView)findViewById(R.id.customer_name);
-        address_text=(TextView)findViewById(R.id.address_text);
-        address_land=(TextView)findViewById(R.id.address_land);
-        address_zipt=(TextView)findViewById(R.id.address_zipt);
-        address_phone=(TextView)findViewById(R.id.address_phone);
-        email_add=(TextView)findViewById(R.id.email_add);
-        instan_content=(TextView)findViewById(R.id.instan_content);
-        type_add=(TextView)findViewById(R.id.type_add);
-        disclaimer=(TextView)findViewById(R.id.disclaimer);
-        coupon_off_on=(TextView) findViewById(R.id.coupon_off_on);
-        chk_instant=(CheckBox)findViewById(R.id.chk_instant);
-        card_view_istant=(CardView)findViewById(R.id.card_view_istant);
-        apply_coupon_btn=(LinearLayout)findViewById(R.id.apply_coupon_btn);
-        place_apply_coupon=(TextView)findViewById(R.id.place_apply_coupon);
-        free_charge=(TextView) findViewById(R.id.free_charge);
+        us_nm = prefs_Address.getString("USER_NAME", "");
+        us_add = prefs_Address.getString("USER_ADDRESS", "");
+        Addd_first = prefs_Address.getInt("FIRST_ADD", 0);
+        a_typ = prefs_Address.getString("TYPE_ADDRESS", "");
+        lan_MArk = prefs_Address.getString("LAND_ADDRESS", "");
+        ad_phone = prefs_Address.getString("PHONE_ADDRESS", "");
+        u_id = prefs_register.getString("USER_ID", "");
+        a_zip = prefs_Address.getString("Zip_ADD", "");
+        back_button = (ImageView) toolbar.findViewById(R.id.back_button);
+        address_edit = (TextView) findViewById(R.id.address_edit);
+        submit_btn = (Button) findViewById(R.id.submit_btn);
+        mrp_total = (TextView) findViewById(R.id.mrp_total);
+        total_save_price = (TextView) findViewById(R.id.total_save_price);
+        shipping_charge = (TextView) findViewById(R.id.shipping_charge);
+        payable_amount = (TextView) findViewById(R.id.payable_amount);
+        save_amount = (TextView) findViewById(R.id.save_amount);
+        discount_limit_amt = (TextView) findViewById(R.id.discount_limit_amt);
+        main_pay = (TextView) findViewById(R.id.main_pay);
+        customer_name = (TextView) findViewById(R.id.customer_name);
+        address_text = (TextView) findViewById(R.id.address_text);
+        address_land = (TextView) findViewById(R.id.address_land);
+        address_zipt = (TextView) findViewById(R.id.address_zipt);
+        address_phone = (TextView) findViewById(R.id.address_phone);
+        email_add = (TextView) findViewById(R.id.email_add);
+        instan_content = (TextView) findViewById(R.id.instan_content);
+        type_add = (TextView) findViewById(R.id.type_add);
+        disclaimer = (TextView) findViewById(R.id.disclaimer);
+        coupon_off_on = (TextView) findViewById(R.id.coupon_off_on);
+        chk_instant = (CheckBox) findViewById(R.id.chk_instant);
+        card_view_istant = (CardView) findViewById(R.id.card_view_istant);
+        apply_coupon_btn = findViewById(R.id.apply_coupon_btn);
+        place_apply_coupon = (TextView) findViewById(R.id.place_apply_coupon);
+        free_charge = (TextView) findViewById(R.id.free_charge);
         card_view_istant.setVisibility(View.GONE);
         getFerrCharge();
-        Cursor res=myDb.getAllData();
-        while (res.moveToNext()){
-            coupon_id=res.getString(1);
-            show_coupon=res.getString(2);
+        Cursor res = myDb.getAllData();
+        while (res.moveToNext()) {
+            coupon_id = res.getString(1);
+            show_coupon = res.getString(2);
         }
-        if(show_coupon!=null){
+        if (show_coupon != null) {
             place_apply_coupon.setText(show_coupon);
             coupon_off_on.setVisibility(View.VISIBLE);
-        }
-        else {
+        } else {
             place_apply_coupon.setText("Apply Coupon");
             coupon_off_on.setVisibility(View.GONE);
         }
@@ -187,7 +187,7 @@ public class PrescriptionOrderSummery extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 myDb.deleteData();
-                Toast.makeText(getApplicationContext(),"Data Deleted",Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "Data Deleted", Toast.LENGTH_LONG).show();
                 place_apply_coupon.setText("Apply Coupon");
                 coupon_off_on.setVisibility(View.GONE);
             }
@@ -195,13 +195,13 @@ public class PrescriptionOrderSummery extends AppCompatActivity {
         apply_coupon_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                couponListModelArrayList=new ArrayList<>();
-                 dialog = new Dialog(PrescriptionOrderSummery.this);
+                couponListModelArrayList = new ArrayList<>();
+                dialog = new Dialog(PrescriptionOrderSummery.this);
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 dialog.setContentView(R.layout.coupon_dialog_layout);
 
-                ImageView close_btn=(ImageView)dialog.findViewById(R.id.close_btn);
-                final RecyclerView coupon_list=(RecyclerView)dialog.findViewById(R.id.coupon_list);
+                ImageView close_btn = (ImageView) dialog.findViewById(R.id.close_btn);
+                final RecyclerView coupon_list = (RecyclerView) dialog.findViewById(R.id.coupon_list);
             /*  couponListModelArrayList.add(new CouponListModel(R.drawable.myntra,"MYNTRA","Flat Rs.250 off in Myntra","Get Rs.250 Voucher with in 7 days",
                       "Expire In 2 Days"));
               couponListModelArrayList.add(new CouponListModel(R.drawable.myntra,"GOFERCE","Flat Rs.250 off in Myntra","Get Rs.250 Voucher with in 7 days",
@@ -214,7 +214,7 @@ public class PrescriptionOrderSummery extends AppCompatActivity {
               coupon_list.setAdapter(couponListAdapter);
               couponListAdapter.notifyDataSetChanged();*/
                 RequestQueue requestQueue = Volley.newRequestQueue(PrescriptionOrderSummery.this);
-                StringRequest postRequest = new StringRequest(Request.Method.POST,coupon_list_url,
+                StringRequest postRequest = new StringRequest(Request.Method.POST, coupon_list_url,
                         new Response.Listener<String>() {
                             @Override
                             public void onResponse(String response) {
@@ -223,16 +223,14 @@ public class PrescriptionOrderSummery extends AppCompatActivity {
                                 try {
                                     //Do it with this it will work
                                     JSONObject person = new JSONObject(response);
-                                    String status=person.getString("status");
+                                    String status = person.getString("status");
 
+                                    if (status.equals("1")) {
 
-                                    if(status.equals("1")){
-
-
-                                        JSONArray jsonArray=person.getJSONArray("list");
-                                        for(int i=0;i<jsonArray.length();i++){
-                                            CouponListModel couponListModel=new CouponListModel();
-                                            JSONObject object=jsonArray.getJSONObject(i);
+                                        JSONArray jsonArray = person.getJSONArray("list");
+                                        for (int i = 0; i < jsonArray.length(); i++) {
+                                            CouponListModel couponListModel = new CouponListModel();
+                                            JSONObject object = jsonArray.getJSONObject(i);
                                             couponListModel.setCoupon_id(object.getInt("id"));
                                             couponListModel.setCoupon_code(object.getString("coupon_code"));
                                             couponListModel.setCoupon_img(object.getString("image"));
@@ -242,20 +240,20 @@ public class PrescriptionOrderSummery extends AppCompatActivity {
                                             Spanned htmlAsSpanned = Html.fromHtml(cDes);
                                             couponListModel.setCoupon_code_des(String.valueOf(htmlAsSpanned));*/
 
-                                            String date_view=object.getString("validtill");
+                                            String date_view = object.getString("validtill");
                                             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-                                            Date testDate=sdf.parse(date_view);
+                                            Date testDate = sdf.parse(date_view);
                                             SimpleDateFormat formatter = new SimpleDateFormat("dd MMMM,yyyy");
                                             String newFormat = formatter.format(testDate);
                                             couponListModel.setCoupon_time(newFormat);
-                                           // couponListModel.setCoupon_code_des(object.getString("descr"));
+                                            // couponListModel.setCoupon_code_des(object.getString("descr"));
 
                                             couponListModelArrayList.add(couponListModel);
 
                                         }
-                                        couponListAdapter=new PrescriptionCouponListAdapter(couponListModelArrayList,PrescriptionOrderSummery.this);
+                                        couponListAdapter = new PrescriptionCouponListAdapter(couponListModelArrayList, PrescriptionOrderSummery.this);
                                         coupon_list.setHasFixedSize(true);
-                                        LinearLayoutManager layoutManager=new LinearLayoutManager(getApplicationContext(),RecyclerView.VERTICAL,false);
+                                        LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext(), RecyclerView.VERTICAL, false);
                                         //address_list.setLayoutManager(new LinearLayoutManager(LocationAddress.this));
                                         coupon_list.setLayoutManager(layoutManager);
 
@@ -265,9 +263,6 @@ public class PrescriptionOrderSummery extends AppCompatActivity {
                                     }
 
 
-
-
-
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                     Toast.makeText(getApplicationContext(), "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
@@ -275,14 +270,12 @@ public class PrescriptionOrderSummery extends AppCompatActivity {
                                     e.printStackTrace();
                                 }
 
-
                             }
                         },
                         new Response.ErrorListener() {
                             @Override
                             public void onErrorResponse(VolleyError error) {
                                 // error
-
                             }
                         }
                 ) {
@@ -326,12 +319,11 @@ public class PrescriptionOrderSummery extends AppCompatActivity {
         getDisclimer();
 
 
-
         chk_instant.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(chk_instant.isChecked()){
-                   instant="1";
+                if (chk_instant.isChecked()) {
+                    instant = "1";
                 }
               /*  else {
                   instant="0";
@@ -341,30 +333,31 @@ public class PrescriptionOrderSummery extends AppCompatActivity {
         address_edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent goToLocationAddress=new Intent(PrescriptionOrderSummery.this,PrescriptionLocationAddress.class);
+                Intent goToLocationAddress = new Intent(PrescriptionOrderSummery.this, PrescriptionLocationAddress.class);
                 startActivity(goToLocationAddress);
+                finish();
             }
         });
         back_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(PrescriptionOrderSummery.this, OrderPrescriptionInfo.class);
+               /* Intent intent = new Intent(PrescriptionOrderSummery.this, OrderPrescriptionInfo.class);
                 startActivity(intent);
-                overridePendingTransition(0,0);
-                finish();
+                overridePendingTransition(0, 0);
+                finish();*/
+               onBackPressed();
             }
         });
         submit_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(String.valueOf(Addd_Second).equals("0")){
+                if (String.valueOf(Addd_Second).equals("0")) {
                     ViewDialog alert = new ViewDialog();
                     alert.showDialog(PrescriptionOrderSummery.this, "Address Should be Required......");
-                }
-                else {
-                    if(String.valueOf(Addd_first).equals(String.valueOf(address_id))){
-                        Common_Address=String.valueOf(Addd_first);
-                        if(!Common_Address.equals("0")){
+                } else {
+                    if (String.valueOf(Addd_first).equals(String.valueOf(address_id))) {
+                        Common_Address = String.valueOf(Addd_first);
+                        if (!Common_Address.equals("0")) {
                            /* Intent intentGotoDelivery = new Intent(OrderSummery.this, SubscriptionDelivery.class);
                             intentGotoDelivery.putExtra("Address", String.valueOf(Addd_first));
                             intentGotoDelivery.putExtra("userID", u_id);
@@ -372,7 +365,7 @@ public class PrescriptionOrderSummery extends AppCompatActivity {
                             startActivity(intentGotoDelivery);
                             finish();*/
                             RequestQueue requestQueue = Volley.newRequestQueue(PrescriptionOrderSummery.this);
-                            StringRequest postRequest = new StringRequest(Request.Method.POST,press_Order_url,
+                            StringRequest postRequest = new StringRequest(Request.Method.POST, press_Order_url,
                                     new Response.Listener<String>() {
                                         @Override
                                         public void onResponse(String response) {
@@ -381,29 +374,23 @@ public class PrescriptionOrderSummery extends AppCompatActivity {
                                             try {
                                                 //Do it with this it will work
                                                 JSONObject person = new JSONObject(response);
-                                                String status=person.getString("status");
-                                                if(status.equals("1")){
-                                                String OrdID=person.getString("orderid");
-                                               /* String message=person.getString("message");
-                                                Toast.makeText(getApplicationContext(),OrdID+" "+message,Toast.LENGTH_LONG).show();*/
+                                                String status = person.getString("status");
+                                                if (status.equals("1")) {
+                                                    String OrdID = person.getString("orderid");
                                                     myDb.deleteData();
-                                                    Intent goToIthankU=new Intent(PrescriptionOrderSummery.this,PrescriptionThankYouPage.class);
-                                                    goToIthankU.putExtra("OrderID",OrdID);
+                                                    Intent goToIthankU = new Intent(PrescriptionOrderSummery.this, PrescriptionThankYouPage.class);
+                                                    goToIthankU.putExtra("OrderID", OrdID);
                                                     startActivity(goToIthankU);
-                                                    overridePendingTransition(0,0);
-                                                    finish();
-
+                                                    overridePendingTransition(0, 0);
+                                                    finishAffinity();
+                                                }else {
+                                                Toast.makeText(getApplicationContext(),person.getString("message"),Toast.LENGTH_LONG).show();
                                                 }
-
-
-
-
 
                                             } catch (JSONException e) {
                                                 e.printStackTrace();
-                                                Toast.makeText(getApplicationContext(), "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                                                Toast.makeText(getApplicationContext(), "Something Went Wrong!", Toast.LENGTH_LONG).show();
                                             }
-
 
                                         }
                                     },
@@ -411,7 +398,8 @@ public class PrescriptionOrderSummery extends AppCompatActivity {
                                         @Override
                                         public void onErrorResponse(VolleyError error) {
                                             // error
-
+                                            error.printStackTrace();
+                                            Toast.makeText(getApplicationContext(), "Something Went Wrong!", Toast.LENGTH_LONG).show();
                                         }
                                     }
                             ) {
@@ -419,23 +407,18 @@ public class PrescriptionOrderSummery extends AppCompatActivity {
                                 protected Map<String, String> getParams() {
                                     Map<String, String> params = new HashMap<String, String>();
 
-
-
-
-                                    params.put("user_id" ,u_id);
-                                    params.put("aId1" ,String.valueOf(Addd_first));
-                                    if(instant!=null){
-                                        params.put("instant" ,instant);
+                                    params.put("user_id", u_id);
+                                    params.put("aId1", String.valueOf(Addd_first));
+                                    if (instant != null) {
+                                        params.put("instant", instant);
+                                    } else {
+                                        params.put("instant", "0");
                                     }
-                                    else {
-                                        params.put("instant" ,"0");
+                                    if (coupon_id != null) {
+                                        params.put("cpid", coupon_id);
                                     }
-                                    if(coupon_id!=null){
-                                        params.put("cpid" ,coupon_id);
-                                    }
-
                                     //params.put("instant" ,instant);
-                                    params.put("source" ,"1");
+                                    params.put("source", "1");
 
 
                                     return params;
@@ -444,8 +427,7 @@ public class PrescriptionOrderSummery extends AppCompatActivity {
                             };
                             requestQueue.add(postRequest);
 
-                        }
-                        else {
+                        } else {
                          /*   Intent intentGotoDelivery = new Intent(OrderSummery.this, SubscriptionDelivery.class);
                             intentGotoDelivery.putExtra("Address", String.valueOf(Addd_Second));
                             intentGotoDelivery.putExtra("userID", u_id);
@@ -453,7 +435,7 @@ public class PrescriptionOrderSummery extends AppCompatActivity {
                             startActivity(intentGotoDelivery);
                             finish();*/
                             RequestQueue requestQueue = Volley.newRequestQueue(PrescriptionOrderSummery.this);
-                            StringRequest postRequest = new StringRequest(Request.Method.POST,press_Order_url,
+                            StringRequest postRequest = new StringRequest(Request.Method.POST, press_Order_url,
                                     new Response.Listener<String>() {
                                         @Override
                                         public void onResponse(String response) {
@@ -462,40 +444,32 @@ public class PrescriptionOrderSummery extends AppCompatActivity {
                                             try {
                                                 //Do it with this it will work
                                                 JSONObject person = new JSONObject(response);
-                                                String status=person.getString("status");
-                                                if(status.equals("1")){
-                                                    String OrdID=person.getString("orderid");
-                                                    /*String message=person.getString("message");
-                                                    Toast.makeText(getApplicationContext(),OrdID+" "+message,Toast.LENGTH_LONG).show();*/
+                                                String status = person.getString("status");
+                                                if (status.equals("1")) {
+                                                    String OrdID = person.getString("orderid");
                                                     myDb.deleteData();
-                                                    Intent goToIthankU=new Intent(PrescriptionOrderSummery.this,PrescriptionThankYouPage.class);
-                                                    goToIthankU.putExtra("OrderID",OrdID);
+                                                    Intent goToIthankU = new Intent(PrescriptionOrderSummery.this, PrescriptionThankYouPage.class);
+                                                    goToIthankU.putExtra("OrderID", OrdID);
                                                     startActivity(goToIthankU);
-                                                    overridePendingTransition(0,0);
-                                                    finish();
-
-
-
-
+                                                    overridePendingTransition(0, 0);
+                                                    finishAffinity();
+                                                }else {
+                                                    Toast.makeText(getApplicationContext(),person.getString("message"),Toast.LENGTH_LONG).show();
                                                 }
-
-
-
 
 
                                             } catch (JSONException e) {
                                                 e.printStackTrace();
-                                                Toast.makeText(getApplicationContext(), "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                                                Toast.makeText(getApplicationContext(), "Something Went Wrong!", Toast.LENGTH_LONG).show();
                                             }
-
-
                                         }
                                     },
                                     new Response.ErrorListener() {
                                         @Override
                                         public void onErrorResponse(VolleyError error) {
                                             // error
-
+                                            error.printStackTrace();
+                                            Toast.makeText(PrescriptionOrderSummery.this, "Something Went Wrong!", Toast.LENGTH_SHORT).show();
                                         }
                                     }
                             ) {
@@ -503,31 +477,24 @@ public class PrescriptionOrderSummery extends AppCompatActivity {
                                 protected Map<String, String> getParams() {
                                     Map<String, String> params = new HashMap<String, String>();
 
+                                    params.put("user_id", u_id);
+                                    params.put("aId1", String.valueOf(Addd_Second));
 
-
-
-                                    params.put("user_id" ,u_id);
-                                    params.put("aId1" , String.valueOf(Addd_Second));
-
-                                    if(instant!=null){
-                                        params.put("instant" ,instant);
+                                    if (instant != null) {
+                                        params.put("instant", instant);
+                                    } else {
+                                        params.put("instant", "0");
                                     }
-                                    else {
-                                        params.put("instant" ,"0");
+                                    if (coupon_id != null) {
+                                        params.put("cpid", coupon_id);
                                     }
-                                    if(coupon_id!=null){
-                                        params.put("cpid" ,coupon_id);
-                                    }
-                                    params.put("source" ,"1");
-
+                                    params.put("source", "1");
 
                                     return params;
                                 }
-
                             };
                             requestQueue.add(postRequest);
                         }
-
                     }
                 }
             }
@@ -538,9 +505,10 @@ public class PrescriptionOrderSummery extends AppCompatActivity {
         ViewItems();
 
     }
-    private void getFerrCharge(){
+
+    private void getFerrCharge() {
         RequestQueue requestQueue = Volley.newRequestQueue(PrescriptionOrderSummery.this);
-        StringRequest postRequest = new StringRequest(Request.Method.POST,free_delivery_url,
+        StringRequest postRequest = new StringRequest(Request.Method.POST, free_delivery_url,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -549,25 +517,20 @@ public class PrescriptionOrderSummery extends AppCompatActivity {
                         try {
                             //Do it with this it will work
                             JSONObject person = new JSONObject(response);
-                            String status=person.getString("status");
-                            if(status.equals("1")){
-                                String ferr_charg=person.getString("free_delivery_charge");
+                            String status = person.getString("status");
+                            if (status.equals("1")) {
+                                String ferr_charg = person.getString("free_delivery_charge");
 
-                                free_charge.setText("Free Delivery above Rs."+ferr_charg+" | Save more!");
+                                free_charge.setText("Free Delivery above Rs." + ferr_charg);
                             }
                             /*else {
                                 card_view_istant.setVisibility(View.GONE);
                             }
 */
-
-
-
                         } catch (JSONException e) {
                             e.printStackTrace();
                             Toast.makeText(getApplicationContext(), "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
                         }
-
-
                     }
                 },
                 new Response.ErrorListener() {
@@ -587,7 +550,8 @@ public class PrescriptionOrderSummery extends AppCompatActivity {
         };
         requestQueue.add(postRequest);
     }
-    private void  Order_address() {
+
+    private void Order_address() {
         prefs_Address_second = getSharedPreferences(
                 "SECOND_ADDRESS", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = prefs_Address_second.edit();
@@ -615,9 +579,10 @@ public class PrescriptionOrderSummery extends AppCompatActivity {
             address_phone.setText(ad_phone);
         }
     }
-        private void last_address(){
+
+    private void last_address() {
         RequestQueue requestQueue = Volley.newRequestQueue(PrescriptionOrderSummery.this);
-        StringRequest postRequest = new StringRequest(Request.Method.POST,orderLast_addressUrl,
+        StringRequest postRequest = new StringRequest(Request.Method.POST, orderLast_addressUrl,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -628,62 +593,60 @@ public class PrescriptionOrderSummery extends AppCompatActivity {
                             JSONObject person = new JSONObject(response);
                             String status = person.getString("status");
                             if (status.equals("1")) {
-                                JSONObject object=person.getJSONObject("address");
-                                sing_add_id=object.getInt("id");
-                                address_id_second=sing_add_id;
+                                JSONObject object = person.getJSONObject("address");
+                                sing_add_id = object.getInt("id");
+                                address_id_second = sing_add_id;
 
-                                String sing_first_nm=object.getString("first_name");
+                                String sing_first_nm = object.getString("first_name");
                                 // String sing_last_nm=object.getString("last_name");
-                                 sing_phone=object.getString("phone");
+                                sing_phone = object.getString("phone");
                                 // String sing_email=object.getString("email");
-                                String sing_address=object.getString("address");
+                                String sing_address = object.getString("address");
                                 //String sing_country=object.getString("country");
                                 // String sing_state=object.getString("state");
                                 // String sing_city=object.getString("city");
-                                sing_landmark=object.getString("landmark");
-                                String sing_ad_typ=object.getString("atype");
-                                add_typ=sing_ad_typ;
-                                sing_zip_code=object.getString("zip_code");
+                                sing_landmark = object.getString("landmark");
+                                String sing_ad_typ = object.getString("atype");
+                                add_typ = sing_ad_typ;
+                                sing_zip_code = object.getString("zip_code");
 
-                                l_mark=sing_landmark;
-                                sing_fullname=sing_first_nm;
-                                all_address=sing_address;
+                                l_mark = sing_landmark;
+                                sing_fullname = sing_first_nm;
+                                all_address = sing_address;
                                 prefs_Address_second = getSharedPreferences(
                                         "SECOND_ADDRESS", Context.MODE_PRIVATE);
                                 SharedPreferences.Editor editor = prefs_Address_second.edit();
                                 editor.putInt("SECOND_ADD", address_id_second);
-                                editor.putString("PIN_CODE",sing_zip_code);
+                                editor.putString("PIN_CODE", sing_zip_code);
                                 editor.commit();
-                                Addd_Second=prefs_Address_second.getInt("SECOND_ADD",0);
-                                check_pincode_Second=prefs_Address_second.getString("PIN_CODE","");
-                                if(check_pincode_first.equals("")){
+                                Addd_Second = prefs_Address_second.getInt("SECOND_ADD", 0);
+                                check_pincode_Second = prefs_Address_second.getString("PIN_CODE", "");
+                                if (check_pincode_first.equals("")) {
                                     SecondVisibilityCheck(check_pincode_Second);
                                 }
 
 
-
-                                System.out.println("id"+address_id_second+Addd_first);
+                                System.out.println("id" + address_id_second + Addd_first);
                                 prefs_Address = getSharedPreferences(
                                         "Address Details", Context.MODE_PRIVATE);
                                 SharedPreferences.Editor e = prefs_Address.edit();
                                 e.remove("FIRST_ADD");
                                 e.commit();
 
-                                if (us_nm.equals("")&&us_add.equals("")) {
-                                    String unknown=sing_fullname;
-                                    String unknown_add=all_address;
-                                    String unkown_add_type=add_typ;
-                                    String unkown_land=l_mark;
-                                    String unkown_zip=sing_zip_code;
-                                    String unkown_ph=sing_phone;
+                                if (us_nm.equals("") && us_add.equals("")) {
+                                    String unknown = sing_fullname;
+                                    String unknown_add = all_address;
+                                    String unkown_add_type = add_typ;
+                                    String unkown_land = l_mark;
+                                    String unkown_zip = sing_zip_code;
+                                    String unkown_ph = sing_phone;
                                     customer_name.setText(unknown);
                                     address_text.setText(unknown_add);
                                     type_add.setText(unkown_add_type);
                                     address_zipt.setText(unkown_zip);
                                     address_land.setText(unkown_land);
                                     address_phone.setText(unkown_ph);
-                                }
-                                else {
+                                } else {
                                     customer_name.setText(us_nm);
                                     address_text.setText(us_add);
                                     type_add.setText(a_typ);
@@ -691,7 +654,6 @@ public class PrescriptionOrderSummery extends AppCompatActivity {
                                 }
 
                                 // email_add.setText(email);
-
 
 
                             }
@@ -726,16 +688,17 @@ public class PrescriptionOrderSummery extends AppCompatActivity {
 
         requestQueue.add(postRequest);
     }
-    private void  VisibleOrNotVisibleCheckBox(){
 
-        check_pincode_first=prefs_Address.getString("Zip_ADD","");
-       // check_pincode_Second=prefs_Address_second.getString("PIN_CODE","");
-        pin_cod=check_pincode_first;
-       // pin_cod2=check_pincode_Second;
+    private void VisibleOrNotVisibleCheckBox() {
+
+        check_pincode_first = prefs_Address.getString("Zip_ADD", "");
+        // check_pincode_Second=prefs_Address_second.getString("PIN_CODE","");
+        pin_cod = check_pincode_first;
+        // pin_cod2=check_pincode_Second;
         /*if(pin_cod.matches(check_pincode_first))*/
-        if(pin_cod!=null){
+        if (pin_cod != null) {
             RequestQueue requestQueue = Volley.newRequestQueue(PrescriptionOrderSummery.this);
-            StringRequest postRequest = new StringRequest(Request.Method.POST,InstantOrderChkUrl,
+            StringRequest postRequest = new StringRequest(Request.Method.POST, InstantOrderChkUrl,
                     new Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {
@@ -744,21 +707,19 @@ public class PrescriptionOrderSummery extends AppCompatActivity {
                             try {
                                 //Do it with this it will work
                                 JSONObject person = new JSONObject(response);
-                                String status=person.getString("status");
-                                if(status.equals("1")){
+                                String status = person.getString("status");
+                                if (status.equals("1")) {
                                     //progressDialogLoader.dismiss();
                                     card_view_istant.setVisibility(View.VISIBLE);
-                                  prefs_Address_second = getSharedPreferences(
-                                          "SECOND_ADDRESS", Context.MODE_PRIVATE);
-                                  SharedPreferences.Editor editor2 = prefs_Address_second.edit();
-                                  editor2.remove("PIN_CODE");
-                                  editor2.apply();
+                                    prefs_Address_second = getSharedPreferences(
+                                            "SECOND_ADDRESS", Context.MODE_PRIVATE);
+                                    SharedPreferences.Editor editor2 = prefs_Address_second.edit();
+                                    editor2.remove("PIN_CODE");
+                                    editor2.apply();
                                 }
                            /* else {
                                 card_view_istant.setVisibility(View.GONE);
                             }*/
-
-
 
 
                             } catch (JSONException e) {
@@ -782,9 +743,8 @@ public class PrescriptionOrderSummery extends AppCompatActivity {
                     Map<String, String> params = new HashMap<String, String>();
 
 
-
-                    params.put("pincode" ,pin_cod);
-                    params.put("user_id" ,u_id);
+                    params.put("pincode", pin_cod);
+                    params.put("user_id", u_id);
 
 
                     return params;
@@ -793,7 +753,7 @@ public class PrescriptionOrderSummery extends AppCompatActivity {
             };
             requestQueue.add(postRequest);
         }
-       /* if(pin_cod2.matches(check_pincode_Second))*/
+        /* if(pin_cod2.matches(check_pincode_Second))*/
       /*  if(pin_cod2!=null){
             RequestQueue requestQueue = Volley.newRequestQueue(PrescriptionOrderSummery.this);
             StringRequest postRequest = new StringRequest(Request.Method.POST,InstantOrderChkUrl,
@@ -861,12 +821,13 @@ public class PrescriptionOrderSummery extends AppCompatActivity {
         }*/
 
     }
-    private void  SecondVisibilityCheck(final String second_pin){
+
+    private void SecondVisibilityCheck(final String second_pin) {
        /* check_pincode_Second=prefs_Address_second.getString("PIN_CODE","");
         pin_cod2=check_pincode_Second;*/
-        if(second_pin!=null){
+        if (second_pin != null) {
             RequestQueue requestQueue = Volley.newRequestQueue(PrescriptionOrderSummery.this);
-            StringRequest postRequest = new StringRequest(Request.Method.POST,InstantOrderChkUrl,
+            StringRequest postRequest = new StringRequest(Request.Method.POST, InstantOrderChkUrl,
                     new Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {
@@ -875,9 +836,9 @@ public class PrescriptionOrderSummery extends AppCompatActivity {
                             try {
                                 //Do it with this it will work
                                 JSONObject person = new JSONObject(response);
-                                String status=person.getString("status");
-                                if(status.equals("1")){
-                                  //  progressDialogLoader.dismiss();
+                                String status = person.getString("status");
+                                if (status.equals("1")) {
+                                    //  progressDialogLoader.dismiss();
                                     card_view_istant.setVisibility(View.VISIBLE);
                                /*   prefs_Address = getSharedPreferences(
                                     "Address Details", Context.MODE_PRIVATE);
@@ -892,51 +853,47 @@ public class PrescriptionOrderSummery extends AppCompatActivity {
                                 }
 
 
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                                Toast.makeText(getApplicationContext(), "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                            }
 
 
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                            Toast.makeText(getApplicationContext(), "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
                         }
+                    },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            // error
 
-
+                        }
                     }
-        },
-        new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                // error
-
-            }
-        }
             ) {
-            @Override
-            protected Map<String, String> getParams() {
-                Map<String, String> params = new HashMap<String, String>();
+                @Override
+                protected Map<String, String> getParams() {
+                    Map<String, String> params = new HashMap<String, String>();
 
 
+                    params.put("pincode", second_pin);
+                    params.put("user_id", u_id);
 
-                params.put("pincode" ,second_pin);
-                params.put("user_id" ,u_id);
 
+                    return params;
+                }
 
-                return params;
-            }
-
-        };
-        requestQueue.add(postRequest);
+            };
+            requestQueue.add(postRequest);
         }
     }
 
-    private void ViewItems(){
-        items_view=(TextView)findViewById(R.id.items_view);
-        Intent fetchPassVal =getIntent();
-        val=fetchPassVal.getStringExtra("Value");
-        pref=fetchPassVal.getStringExtra("Pref");
-       // Toast.makeText(getApplicationContext(),val+pref,Toast.LENGTH_LONG).show();
+    private void ViewItems() {
+        items_view = (TextView) findViewById(R.id.items_view);
+        Intent fetchPassVal = getIntent();
+        val = fetchPassVal.getStringExtra("Value");
+        pref = fetchPassVal.getStringExtra("Pref");
+        // Toast.makeText(getApplicationContext(),val+pref,Toast.LENGTH_LONG).show();
         RequestQueue requestQueue = Volley.newRequestQueue(PrescriptionOrderSummery.this);
-        StringRequest postRequest = new StringRequest(Request.Method.POST,pass_val_url,
+        StringRequest postRequest = new StringRequest(Request.Method.POST, pass_val_url,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -945,21 +902,21 @@ public class PrescriptionOrderSummery extends AppCompatActivity {
                         try {
                             //Do it with this it will work
                             JSONObject person = new JSONObject(response);
-                            String status=person.getString("status");
+                            String status = person.getString("status");
 
-                            if(status.equals("1")){
-                                String result=person.getString("result");
-                                String msg=person.getString("message");
+                            if (status.equals("1")) {
+                                String result = person.getString("result");
+                                String msg = person.getString("message");
 
                                 prefs_Pass_Value = getSharedPreferences(
                                         "PASS_DATA", Context.MODE_PRIVATE);
                                 SharedPreferences.Editor editor = prefs_Pass_Value.edit();
-                                editor.putString("Pass_Value",result);
-                                editor.putString("Pass_Value_pref",msg);
+                                editor.putString("Pass_Value", result);
+                                editor.putString("Pass_Value_pref", msg);
                                 editor.commit();
-                                pass_val=prefs_Pass_Value.getString("Pass_Value","");
-                                pass_val_pref=prefs_Pass_Value.getString("Pass_Value_pref","");
-                                items_view.setText(pass_val_pref+"\n"+pass_val);
+                                pass_val = prefs_Pass_Value.getString("Pass_Value", "");
+                                pass_val_pref = prefs_Pass_Value.getString("Pass_Value_pref", "");
+                                items_view.setText(pass_val_pref + "\n" + pass_val);
 
                             }
                          /* else {
@@ -990,10 +947,8 @@ public class PrescriptionOrderSummery extends AppCompatActivity {
                 Map<String, String> params = new HashMap<String, String>();
 
 
-
-                params.put("dur" ,val);
-                params.put("subs" ,pref);
-
+                params.put("dur", val);
+                params.put("subs", pref);
 
 
                 return params;
@@ -1034,14 +989,15 @@ public class PrescriptionOrderSummery extends AppCompatActivity {
         }*/
         prefs_Pass_Value = getSharedPreferences(
                 "PASS_DATA", Context.MODE_PRIVATE);
-        pass_val=prefs_Pass_Value.getString("Pass_Value","");
-        pass_val_pref=prefs_Pass_Value.getString("Pass_Value_pref","");
-        items_view.setText(pass_val_pref+"\n"+pass_val);
+        pass_val = prefs_Pass_Value.getString("Pass_Value", "");
+        pass_val_pref = prefs_Pass_Value.getString("Pass_Value_pref", "");
+        items_view.setText(pass_val_pref + "\n" + pass_val);
 
     }
-    private  void  getInstantContent(){
+
+    private void getInstantContent() {
         RequestQueue requestQueue = Volley.newRequestQueue(PrescriptionOrderSummery.this);
-        StringRequest postRequest = new StringRequest(Request.Method.POST,instan_content_url,
+        StringRequest postRequest = new StringRequest(Request.Method.POST, instan_content_url,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -1050,18 +1006,17 @@ public class PrescriptionOrderSummery extends AppCompatActivity {
                         try {
                             //Do it with this it will work
                             JSONObject person = new JSONObject(response);
-                            String status=person.getString("status");
-                            if(status.equals("1")){
-                                JSONObject ins_con=person.getJSONObject("instt");
-                                String content_ins=ins_con.getString("body");
+                            String status = person.getString("status");
+                            if (status.equals("1")) {
+                                JSONObject ins_con = person.getJSONObject("instt");
+                                String content_ins = ins_con.getString("body");
                                 Spanned htmlAsSpanned = Html.fromHtml(content_ins);
-                                instan_content.setText(String.valueOf(htmlAsSpanned));
+                                instan_content.setText(String.valueOf(htmlAsSpanned).split("\n\n")[0]);
                             }
                             /*else {
                                 card_view_istant.setVisibility(View.GONE);
                             }
 */
-
 
 
                         } catch (JSONException e) {
@@ -1089,9 +1044,10 @@ public class PrescriptionOrderSummery extends AppCompatActivity {
         };
         requestQueue.add(postRequest);
     }
-    private void getDisclimer(){
+
+    private void getDisclimer() {
         RequestQueue requestQueue = Volley.newRequestQueue(PrescriptionOrderSummery.this);
-        StringRequest postRequest = new StringRequest(Request.Method.POST,disclaimer_url,
+        StringRequest postRequest = new StringRequest(Request.Method.POST, disclaimer_url,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -1100,10 +1056,10 @@ public class PrescriptionOrderSummery extends AppCompatActivity {
                         try {
                             //Do it with this it will work
                             JSONObject person = new JSONObject(response);
-                            String status=person.getString("status");
-                            if(status.equals("1")){
-                                JSONObject ins_con=person.getJSONObject("discm");
-                                String content_ins=ins_con.getString("body");
+                            String status = person.getString("status");
+                            if (status.equals("1")) {
+                                JSONObject ins_con = person.getJSONObject("discm");
+                                String content_ins = ins_con.getString("body");
                                 Spanned htmlAsSpanned = Html.fromHtml(content_ins);
                                 disclaimer.setText(String.valueOf(htmlAsSpanned));
                             }
@@ -1111,7 +1067,6 @@ public class PrescriptionOrderSummery extends AppCompatActivity {
                                 card_view_istant.setVisibility(View.GONE);
                             }
 */
-
 
 
                         } catch (JSONException e) {
@@ -1142,10 +1097,12 @@ public class PrescriptionOrderSummery extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        Intent intent = new Intent(PrescriptionOrderSummery.this, OrderPrescriptionInfo.class);
+        super.onBackPressed();
+        myDb.deleteData();
+       /* Intent intent = new Intent(PrescriptionOrderSummery.this, OrderPrescriptionInfo.class);
         startActivity(intent);
-        overridePendingTransition(0,0);
-        finish();
+        overridePendingTransition(0, 0);
+        finish();*/
     }
 
 

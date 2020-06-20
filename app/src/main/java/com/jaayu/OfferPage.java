@@ -56,7 +56,7 @@ public class OfferPage extends AppCompatActivity {
         progressDialog = new ProgressDialog(OfferPage.this);
         progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         progressDialog.show();
-        progressDialog.setMessage("Downloading....");
+        progressDialog.setMessage("Loading....");
         progressDialog.setCancelable(false);
         offer_list=(RecyclerView)findViewById(R.id.offer_list);
         back_button.setOnClickListener(new View.OnClickListener() {
@@ -99,19 +99,20 @@ public class OfferPage extends AppCompatActivity {
                                     Spanned htmlAsSpanned = null;
                                     if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
                                         htmlAsSpanned = Html.fromHtml(longdes,Html.FROM_HTML_MODE_COMPACT);
-                                        offerPageModel.setOffer_long_des(String.valueOf(htmlAsSpanned));
                                     }
                                     else {
-                                        offerPageModel.setOffer_long_des(String.valueOf(htmlAsSpanned));
-                                    }
-                                   // offerPageModel.setOffer_des(String.valueOf(htmlAsSpanned));
+                                        htmlAsSpanned = Html.fromHtml(longdes);
+                                   }
+                                    offerPageModel.setOffer_long_des(String.valueOf(htmlAsSpanned));
+                                   //offerPageModel.setOffer_des(String.valueOf(htmlAsSpanned));
                                     offerPageModel.setOffer_img(object.getString("image"));
                                     String exp=object.getString("expiry_date");
-                                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd");
+                                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                                     Date testDate=sdf.parse(exp);
-                                    SimpleDateFormat formatter = new SimpleDateFormat("MMM dd,yyyy hh:mm a");
+                                    //SimpleDateFormat formatter = new SimpleDateFormat("dd MMM, yyyy hh:mm a");
+                                    SimpleDateFormat formatter = new SimpleDateFormat("dd MMM, yyyy");
                                     String newFormat = formatter.format(testDate);
-                                    offerPageModel.setOffer_exp_date("Exp Date :"+newFormat);
+                                    offerPageModel.setOffer_exp_date("Exp Date : "+newFormat);
 
                                     offerPageModels.add(offerPageModel);
                                 }

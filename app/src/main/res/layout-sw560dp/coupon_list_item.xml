@@ -35,17 +35,7 @@
     android:layout_gravity="center"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content" />
-    <Button
-        android:layout_marginLeft="50dp"
-        android:layout_gravity="center"
-        android:textColor="@color/colorAccent"
-        android:fontFamily="@font/clearsansbold"
-        android:text="Apply"
-        android:textSize="12sp"
-        android:background="#EFEFEF"
-        android:id="@+id/cpn_apply_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="30dp" />
+
 </LinearLayout>
 <TextView
     android:layout_marginLeft="20dp"
@@ -60,19 +50,35 @@
     <TextView
         android:layout_marginLeft="20dp"
         android:id="@+id/main_off_des"
-
-
+        android:layout_marginTop="5dp"
+        android:fontFamily="@font/clear_sans_regular"
         android:text="Get Rs.250 Myntra Voucher within 7 days of your order Delivery"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
-    <TextView
-        android:layout_marginLeft="20dp"
-        android:id="@+id/main_off_time"
-        android:fontFamily="@font/clearsansbold"
-        android:text=""
-
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp">
+        <TextView
+            android:layout_marginLeft="20dp"
+            android:id="@+id/main_off_time"
+            android:fontFamily="@font/clear_sans_regular"
+            android:text="29.05.20202"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <Button
+            android:layout_marginRight="10dp"
+            android:layout_gravity="center"
+            android:textColor="@color/colorAccent"
+            android:fontFamily="@font/clearsansbold"
+            android:text="Apply"
+            android:textSize="12sp"
+            android:background="#EFEFEF"
+            android:id="@+id/cpn_apply_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_alignParentRight="true"/>
+    </RelativeLayout>
     <View
         android:layout_marginTop="5dp"
         android:layout_below="@+id/delete_btn"

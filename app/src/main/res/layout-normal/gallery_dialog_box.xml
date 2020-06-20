@@ -41,7 +41,7 @@
         <EditText
             android:id="@+id/report_name_gal"
             android:layout_marginTop="20dp"
-            android:fontFamily="@font/clearsansbold"
+            android:fontFamily="@font/clear_sans_regular"
             android:hint="Enter Report Name"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
@@ -51,8 +51,9 @@
         <EditText
             android:id="@+id/report_up_date_gal"
             android:layout_marginTop="20dp"
-            android:fontFamily="@font/clearsansbold"
+            android:fontFamily="@font/clear_sans_regular"
             android:hint="Enter Report Upload Date"
+            android:textColor="@color/black"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:enabled="false"

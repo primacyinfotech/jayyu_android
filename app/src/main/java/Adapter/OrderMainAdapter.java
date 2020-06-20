@@ -2,6 +2,7 @@ package Adapter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.util.Log;
@@ -33,7 +34,10 @@ import com.jaayu.R;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -41,29 +45,41 @@ import Model.OrderModel;
 import Model.OrderPressModel;
 
 public class OrderMainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    private final static int TYPE_NORMAL=1,TYPE_PRESS=2;
-    ArrayList<Object> normalandPress=new ArrayList<>();
+    private final static int TYPE_NORMAL = 1, TYPE_PRESS = 2;
+    //*ArrayList<Object> normalandPress=new ArrayList<>();
+    ArrayList<OrderModel> normalandPress = new ArrayList<>();
     Context context;
     SharedPreferences ord_id_instant;
     SharedPreferences prefs_register;
-    private String  reorder_url= BaseUrl.BaseUrlNew+"reorder";
-     String u_id;
+    private String reorder_url = BaseUrl.BaseUrlNew + "reorder";
+    String u_id;
+
     public OrderMainAdapter(Context context) {
         this.context = context;
     }
 
-    public void setNormalandPress(ArrayList<Object> normalandPress) {
+    //*
+    /*public void setNormalandPress(ArrayList<Object> normalandPress) {
+        this.normalandPress = normalandPress;
+    }*/
+    public void setNormalandPress(ArrayList<OrderModel> normalandPress) {
         this.normalandPress = normalandPress;
     }
 
+    /*@Override
+    public int getItemViewType(int position) {
+        return position;
+    }*/
+
     @Override
     public int getItemViewType(int position) {
-        if(normalandPress.get(position)instanceof OrderModel){
+        if (normalandPress.get(position) instanceof OrderModel) {
             return TYPE_NORMAL;
         }
-        else if(normalandPress.get(position)instanceof OrderPressModel){
+        //*
+       /* else if(normalandPress.get(position)instanceof OrderPressModel){
             return TYPE_PRESS;
-        }
+        }*/
         return -1;
     }
 
@@ -71,19 +87,19 @@ public class OrderMainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         RecyclerView.ViewHolder viewHolder;
-        switch (viewType){
+        switch (viewType) {
             case TYPE_NORMAL:
                 View normalorderitemView = LayoutInflater.from(parent.getContext())
                         .inflate(R.layout.order_item_view, parent, false);
-                viewHolder=new NormalOrder(normalorderitemView);
+                viewHolder = new NormalOrder(normalorderitemView);
                 break;
             case TYPE_PRESS:
                 View pressorderitemView = LayoutInflater.from(parent.getContext())
                         .inflate(R.layout.order_item_view, parent, false);
-                viewHolder=new PressOrderView(pressorderitemView);
+                viewHolder = new PressOrderView(pressorderitemView);
                 break;
             default:
-                viewHolder=null;
+                viewHolder = null;
                 break;
         }
         return viewHolder;
@@ -91,16 +107,17 @@ public class OrderMainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        int viewType=holder.getItemViewType();
-        switch (viewType){
+        int viewType = holder.getItemViewType();
+        switch (viewType) {
             case TYPE_NORMAL:
-                OrderModel orderModel=(OrderModel)normalandPress.get(position);
-                ((NormalOrder)holder).showNormalOrderDetails(orderModel);
+                OrderModel orderModel = (OrderModel) normalandPress.get(position);
+                ((NormalOrder) holder).showNormalOrderDetails(orderModel);
                 break;
-            case TYPE_PRESS:
+            //*
+           /* case TYPE_PRESS:
                 OrderPressModel orderPressModel=(OrderPressModel)normalandPress.get(position);
                 ((PressOrderView)holder).showPressOrderDetails(orderPressModel);
-                break;
+                break;*/
         }
 
     }
@@ -109,50 +126,66 @@ public class OrderMainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     public int getItemCount() {
         return normalandPress.size();
     }
-    public class  NormalOrder extends RecyclerView.ViewHolder{
 
-        TextView order_name,order_id,order_date,reoder_btn,active_order,active_order_two,active_order_three,active_order_four,active_order_five,active_order_six,
-                active_order_seven,active_order_eight,active_order_nine,active_orderten,active_order_eleven;
+    public class NormalOrder extends RecyclerView.ViewHolder {
+
+        TextView order_name, order_id, order_date, reoder_btn, active_order, active_order_two, active_order_three, active_order_four, active_order_five, active_order_six,
+                active_order_seven, active_order_eight, active_order_nine, active_orderten, active_order_eleven;
         ImageView order_status_icon;
         CardView card_order;
+
         public NormalOrder(@NonNull View itemView) {
             super(itemView);
-            order_name=(TextView)itemView.findViewById(R.id.order_name);
-            order_id=(TextView)itemView.findViewById(R.id.order_id);
-            order_date=(TextView)itemView.findViewById(R.id.order_date);
-            reoder_btn=(TextView)itemView.findViewById(R.id.reoder_btn);
-            active_order=(TextView)itemView.findViewById(R.id.active_order);
-            active_order_two=(TextView)itemView.findViewById(R.id.active_order_two);
-            active_order_three=(TextView)itemView.findViewById(R.id.active_order_three);
-            active_order_four=(TextView)itemView.findViewById(R.id.active_order_four);
-            active_order_five=(TextView)itemView.findViewById(R.id.active_order_five);
-            active_order_six=(TextView)itemView.findViewById(R.id.active_order_six);
-            active_order_seven=(TextView)itemView.findViewById(R.id.active_order_seven);
-            active_order_eight=(TextView)itemView.findViewById(R.id.active_order_eight);
-            active_order_nine=(TextView)itemView.findViewById(R.id.active_order_nine);
-            active_orderten=(TextView)itemView.findViewById(R.id.active_orderten);
-            active_order_eleven=(TextView)itemView.findViewById(R.id.active_order_eleven);
-            order_status_icon=(ImageView)itemView.findViewById(R.id.order_status_icon);
-            card_order=(CardView)itemView.findViewById(R.id.card_order);
+            order_name = (TextView) itemView.findViewById(R.id.order_name);
+            order_id = (TextView) itemView.findViewById(R.id.order_id);
+            order_date = (TextView) itemView.findViewById(R.id.order_date);
+            reoder_btn = (TextView) itemView.findViewById(R.id.reoder_btn);
+            active_order = (TextView) itemView.findViewById(R.id.active_order);
+            active_order_two = (TextView) itemView.findViewById(R.id.active_order_two);
+            active_order_three = (TextView) itemView.findViewById(R.id.active_order_three);
+            active_order_four = (TextView) itemView.findViewById(R.id.active_order_four);
+            active_order_five = (TextView) itemView.findViewById(R.id.active_order_five);
+            active_order_six = (TextView) itemView.findViewById(R.id.active_order_six);
+            active_order_seven = (TextView) itemView.findViewById(R.id.active_order_seven);
+            active_order_eight = (TextView) itemView.findViewById(R.id.active_order_eight);
+            active_order_nine = (TextView) itemView.findViewById(R.id.active_order_nine);
+            active_orderten = (TextView) itemView.findViewById(R.id.active_orderten);
+            active_order_eleven = (TextView) itemView.findViewById(R.id.active_order_eleven);
+            order_status_icon = (ImageView) itemView.findViewById(R.id.order_status_icon);
+            card_order = (CardView) itemView.findViewById(R.id.card_order);
         }
-        public void showNormalOrderDetails(final OrderModel normalorder){
-          order_name.setText(normalorder.getOrder_mame());
+
+        public void showNormalOrderDetails(final OrderModel normalorder) {
+            order_name.setText(normalorder.getOrder_mame());
             // holder.order_name.setText(order_people_name);
-           order_id.setText(normalorder.getOrder_id());
-            order_date.setText(normalorder.getOrder_date());
+            order_id.setText(normalorder.getOrder_id());
+
+            //order_date.setText(normalorder.getOrder_date());
+            String newFormatDate = "";
+            try {
+                SimpleDateFormat sdf = new SimpleDateFormat("dd MMM, yyyy HH:mm");
+                Date testDate = sdf.parse(normalorder.getOrder_date());
+                SimpleDateFormat formatter = new SimpleDateFormat("dd MMM, yyyy");
+                newFormatDate = formatter.format(testDate);
+                order_date.setText(newFormatDate);
+            } catch (ParseException e) {
+                e.printStackTrace();
+                order_date.setText(normalorder.getOrder_date());
+            }
+
             prefs_register = context.getSharedPreferences(
                     "Register Details", Context.MODE_PRIVATE);
 
-            u_id=prefs_register.getString("USER_ID","");
+            u_id = prefs_register.getString("USER_ID", "");
             ord_id_instant = context.getSharedPreferences(
                     "Order_id Details", Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = ord_id_instant.edit();
-            editor.putInt("OrderID",normalorder.getTbl_order_id());
-            editor.putString("INSTANT",normalorder.getInstant());
+            editor.putInt("OrderID", normalorder.getTbl_order_id());
+            editor.putString("INSTANT", normalorder.getInstant());
             editor.commit();
             active_order_two.setVisibility(View.GONE);
-           active_order_three.setVisibility(View.GONE);
-           card_order.setOnClickListener(new View.OnClickListener() {
+            active_order_three.setVisibility(View.GONE);
+            card_order.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                  /*   Intent intentGotodetaails=new Intent(context, OrderDetails.class);
@@ -161,8 +194,8 @@ public class OrderMainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                     context.startActivity(intentGotodetaails);
                     ((Activity) context).overridePendingTransition(0,0);
                     ((Activity) context).finish();*/
-                    String press_chk=normalorder.getPrescription_chk();
-                    if(press_chk.equals("0")){
+//                    String press_chk=normalorder.getPrescription_chk();
+//                    if(press_chk.equals("0")){
                       /*  Intent intentGotodetaails=new Intent(context, OrderDetails.class);
                         intentGotodetaails.putExtra("Order_id",normalorder.getTbl_order_id());
                         intentGotodetaails.putExtra("Instant",normalorder.getInstant());
@@ -176,45 +209,48 @@ public class OrderMainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                         context.startActivity(intentGotodetaails);
                         ((Activity) context).overridePendingTransition(0,0);
                         ((Activity) context).finish();*/
-                        Intent intentGotodetaails=new Intent(context, OrderDetails.class);
-                        intentGotodetaails.putExtra("Order_Vid",normalorder.getOrder_id());
-                        intentGotodetaails.putExtra("Order_id",normalorder.getTbl_order_id());
-                        intentGotodetaails.putExtra("Instant",normalorder.getInstant());
-                        context.startActivity(intentGotodetaails);
-                        ((Activity) context).overridePendingTransition(0,0);
-                        ((Activity) context).finish();
+                    Intent intentGotodetaails = new Intent(context, OrderDetails.class);
+                    intentGotodetaails.putExtra("Order_Vid", normalorder.getOrder_id());
+                    intentGotodetaails.putExtra("Order_id", normalorder.getTbl_order_id());
+                    intentGotodetaails.putExtra("Instant", normalorder.getInstant());
+                    intentGotodetaails.putExtra("type", normalorder.getType());
+                    context.startActivity(intentGotodetaails);
+                    ((Activity) context).overridePendingTransition(0, 0);
+                    //((Activity) context).finish();
 
-                    }
-                    if(press_chk.equals("1")){
-                       /* Intent intentGotodetaails=new Intent(context, PrescriptionOrderDetails.class);
+//                    }
+                    /* if(press_chk.equals("1")){
+                     *//* Intent intentGotodetaails=new Intent(context, PrescriptionOrderDetails.class);
                         intentGotodetaails.putExtra("Order_id",normalorder.getTbl_order_id());
                         intentGotodetaails.putExtra("Instant",normalorder.getInstant());
                         context.startActivity(intentGotodetaails);
                         ((Activity) context).overridePendingTransition(0,0);
-                        ((Activity) context).finish();*/
-                      /*  Intent intentGotodetaails=new Intent(context, OrderStatusConfirm.class);
+                        ((Activity) context).finish();*//*
+                     *//*  Intent intentGotodetaails=new Intent(context, OrderStatusConfirm.class);
                         intentGotodetaails.putExtra("Order_Vid",normalorder.getOrder_id());
                         intentGotodetaails.putExtra("Order_id",normalorder.getTbl_order_id());
                         intentGotodetaails.putExtra("Instant",normalorder.getInstant());
                         context.startActivity(intentGotodetaails);
                         ((Activity) context).overridePendingTransition(0,0);
-                        ((Activity) context).finish();*/
+                        ((Activity) context).finish();*//*
                         Intent intentGotodetaails=new Intent(context, OrderDetails.class);
                         intentGotodetaails.putExtra("Order_Vid",normalorder.getOrder_id());
                         intentGotodetaails.putExtra("Order_id",normalorder.getTbl_order_id());
                         intentGotodetaails.putExtra("Instant",normalorder.getInstant());
+                        intentGotodetaails.putExtra("type",normalorder.getType());
                         context.startActivity(intentGotodetaails);
                         ((Activity) context).overridePendingTransition(0,0);
-                        ((Activity) context).finish();
-                    }
-                    if(normalorder.getShip_status().equals("0")){
+                        //((Activity) context).finish();
+                    }*/
+                   /* if(normalorder.getShip_status().equals("0")){
                         Intent intentGotodetaails=new Intent(context, OrderDetails.class);
                         intentGotodetaails.putExtra("Order_Vid",normalorder.getOrder_id());
                         intentGotodetaails.putExtra("Order_id",normalorder.getTbl_order_id());
                         intentGotodetaails.putExtra("Instant",normalorder.getInstant());
+                        intentGotodetaails.putExtra("type",normalorder.getType());
                         context.startActivity(intentGotodetaails);
                         ((Activity) context).overridePendingTransition(0,0);
-                        ((Activity) context).finish();
+                        //((Activity) context).finish();
                     }
 
                   if(normalorder.getShip_status().equals("2")){
@@ -224,7 +260,7 @@ public class OrderMainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                       intentGotodetaails.putExtra("Instant",normalorder.getInstant());
                       context.startActivity(intentGotodetaails);
                       ((Activity) context).overridePendingTransition(0,0);
-                      ((Activity) context).finish();
+                      //((Activity) context).finish();
                     }
                     if(normalorder.getShip_status().equals("3")){
                         Intent intentGotodetaails=new Intent(context, OrderDetails.class);
@@ -233,7 +269,7 @@ public class OrderMainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                         intentGotodetaails.putExtra("Instant",normalorder.getInstant());
                         context.startActivity(intentGotodetaails);
                         ((Activity) context).overridePendingTransition(0,0);
-                        ((Activity) context).finish();
+                        //((Activity) context).finish();
                     }
                     if(normalorder.getShip_status().equals("4")){
                         Intent intentGotodetaails=new Intent(context, OrderDetails.class);
@@ -242,7 +278,7 @@ public class OrderMainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                         intentGotodetaails.putExtra("Instant",normalorder.getInstant());
                         context.startActivity(intentGotodetaails);
                         ((Activity) context).overridePendingTransition(0,0);
-                        ((Activity) context).finish();
+                        //((Activity) context).finish();
                     }
                     if(normalorder.getShip_status().equals("5")){
                         Intent intentGotodetaails=new Intent(context, OrderDetails.class);
@@ -251,7 +287,7 @@ public class OrderMainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                         intentGotodetaails.putExtra("Instant",normalorder.getInstant());
                         context.startActivity(intentGotodetaails);
                         ((Activity) context).overridePendingTransition(0,0);
-                        ((Activity) context).finish();
+                        //((Activity) context).finish();
                     }
                     if(normalorder.getShip_status().equals("6")){
                         Intent intentGotodetaails=new Intent(context, OrderDetails.class);
@@ -260,7 +296,7 @@ public class OrderMainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                         intentGotodetaails.putExtra("Instant",normalorder.getInstant());
                         context.startActivity(intentGotodetaails);
                         ((Activity) context).overridePendingTransition(0,0);
-                        ((Activity) context).finish();
+                        //((Activity) context).finish();
                     }
                     if(normalorder.getShip_status().equals("7")){
                         Intent intentGotodetaails=new Intent(context, OrderDetails.class);
@@ -269,7 +305,7 @@ public class OrderMainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                         intentGotodetaails.putExtra("Instant",normalorder.getInstant());
                         context.startActivity(intentGotodetaails);
                         ((Activity) context).overridePendingTransition(0,0);
-                        ((Activity) context).finish();
+                        //((Activity) context).finish();
                     }
                     if(normalorder.getShip_status().equals("8")){
                         Intent intentGotodetaails=new Intent(context, OrderDetails.class);
@@ -278,7 +314,7 @@ public class OrderMainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                         intentGotodetaails.putExtra("Instant",normalorder.getInstant());
                         context.startActivity(intentGotodetaails);
                         ((Activity) context).overridePendingTransition(0,0);
-                        ((Activity) context).finish();
+                        //((Activity) context).finish();
                     }
                     if(normalorder.getShip_status().equals("9")){
                         Intent intentGotodetaails=new Intent(context, OrderDetails.class);
@@ -287,7 +323,7 @@ public class OrderMainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                         intentGotodetaails.putExtra("Instant",normalorder.getInstant());
                         context.startActivity(intentGotodetaails);
                         ((Activity) context).overridePendingTransition(0,0);
-                        ((Activity) context).finish();
+                        //((Activity) context).finish();
                     }
                     if(normalorder.getShip_status().equals("10")){
                         Intent intentGotodetaails=new Intent(context, OrderDetails.class);
@@ -296,33 +332,23 @@ public class OrderMainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                         intentGotodetaails.putExtra("Instant",normalorder.getInstant());
                         context.startActivity(intentGotodetaails);
                         ((Activity) context).overridePendingTransition(0,0);
-                        ((Activity) context).finish();
+                        //((Activity) context).finish();
                     }
+*/
+                   /* if(context instanceof Activity)
+                        ((Activity) context).finish();
+                    else if(context instanceof ContextWrapper)
+                        ((Activity) ((ContextWrapper) context).getBaseContext()).finish();*/
 
 
                 }
             });
 
-            String status=normalorder.getShip_status();
-            if(status.equals("0")){
+            String status = normalorder.getShip_status();
+            if (status.equals("0")) {
                 order_status_icon.setImageResource(R.drawable.tickyellow);
-               active_order.setVisibility(View.VISIBLE);
-               active_order_two.setVisibility(View.GONE);
-               active_order_three.setVisibility(View.GONE);
-               active_order_four.setVisibility(View.GONE);
-                active_order_five.setVisibility(View.GONE);
-                active_order_six.setVisibility(View.GONE);
-                active_order_seven.setVisibility(View.GONE);
-                active_order_eight.setVisibility(View.GONE);
-                active_order_nine.setVisibility(View.GONE);
-                active_orderten.setVisibility(View.GONE);
-                active_order_eleven.setVisibility(View.GONE);
-               reoder_btn.setVisibility(View.GONE);
-            }
-            if(status.equals("1")){
-               order_status_icon.setImageResource(R.drawable.tick);
-               active_order.setVisibility(View.GONE);
-               active_order_two.setVisibility(View.VISIBLE);
+                active_order.setVisibility(View.VISIBLE);
+                active_order_two.setVisibility(View.GONE);
                 active_order_three.setVisibility(View.GONE);
                 active_order_four.setVisibility(View.GONE);
                 active_order_five.setVisibility(View.GONE);
@@ -332,9 +358,24 @@ public class OrderMainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 active_order_nine.setVisibility(View.GONE);
                 active_orderten.setVisibility(View.GONE);
                 active_order_eleven.setVisibility(View.GONE);
-               reoder_btn.setVisibility(View.GONE);
+                reoder_btn.setVisibility(View.GONE);
             }
-            if(status.equals("2")){
+            if (status.equals("1")) {
+                order_status_icon.setImageResource(R.drawable.tick);
+                active_order.setVisibility(View.GONE);
+                active_order_two.setVisibility(View.VISIBLE);
+                active_order_three.setVisibility(View.GONE);
+                active_order_four.setVisibility(View.GONE);
+                active_order_five.setVisibility(View.GONE);
+                active_order_six.setVisibility(View.GONE);
+                active_order_seven.setVisibility(View.GONE);
+                active_order_eight.setVisibility(View.GONE);
+                active_order_nine.setVisibility(View.GONE);
+                active_orderten.setVisibility(View.GONE);
+                active_order_eleven.setVisibility(View.GONE);
+                reoder_btn.setVisibility(View.GONE);
+            }
+            if (status.equals("2")) {
                 order_status_icon.setImageResource(R.drawable.tick);
                 active_order.setVisibility(View.GONE);
                 active_order_two.setVisibility(View.GONE);
@@ -350,13 +391,13 @@ public class OrderMainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 reoder_btn.setVisibility(View.GONE);
 
             }
-            if(status.equals("3")){
+            if (status.equals("3")) {
                 order_status_icon.setImageResource(R.drawable.tick);
-               active_order.setVisibility(View.GONE);
-               active_order_two.setVisibility(View.GONE);
-               active_order_three.setVisibility(View.GONE);
+                active_order.setVisibility(View.GONE);
+                active_order_two.setVisibility(View.GONE);
+                active_order_three.setVisibility(View.GONE);
                 active_order_four.setVisibility(View.VISIBLE);
-               active_order_five.setVisibility(View.GONE);
+                active_order_five.setVisibility(View.GONE);
                 active_order_six.setVisibility(View.GONE);
                 active_order_seven.setVisibility(View.GONE);
                 active_order_eight.setVisibility(View.GONE);
@@ -368,7 +409,7 @@ public class OrderMainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                     @Override
                     public void onClick(View view) {
                         RequestQueue requestQueue = Volley.newRequestQueue(context);
-                        StringRequest postRequest = new StringRequest(Request.Method.POST,reorder_url,
+                        StringRequest postRequest = new StringRequest(Request.Method.POST, reorder_url,
                                 new Response.Listener<String>() {
                                     @Override
                                     public void onResponse(String response) {
@@ -377,15 +418,15 @@ public class OrderMainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                                         try {
                                             //Do it with this it will work
                                             JSONObject person = new JSONObject(response);
-                                            String status=person.getString("status");
-                                            if(status.equals("1")){
-                                                String message=person.getString("message");
-                                                Toast.makeText(context,message,Toast.LENGTH_LONG).show();
-
+                                            String status = person.getString("status");
+                                            if (status.equals("1")) {
                                                 Intent intent = new Intent(context, CartActivity.class);
                                                 context.startActivity(intent);
-                                                ((Activity) context).overridePendingTransition(0,0);
+                                                ((Activity) context).overridePendingTransition(0, 0);
                                                 ((Activity) context).finish();
+                                            }else {
+                                                String message = person.getString("message");
+                                                Toast.makeText(context, message, Toast.LENGTH_LONG).show();
                                             }
 
 
@@ -419,25 +460,25 @@ public class OrderMainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                     }
                 });
             }
-            if (status.equals("4")){
+            if (status.equals("4")) {
                 order_status_icon.setImageResource(R.drawable.tickyellow);
                 active_order.setVisibility(View.GONE);
                 active_order_two.setVisibility(View.GONE);
-               active_order_three.setVisibility(View.GONE);
-               active_order_four.setVisibility(View.GONE);
-               active_order_five.setVisibility(View.VISIBLE);
+                active_order_three.setVisibility(View.GONE);
+                active_order_four.setVisibility(View.GONE);
+                active_order_five.setVisibility(View.VISIBLE);
                 active_order_six.setVisibility(View.GONE);
                 active_order_seven.setVisibility(View.GONE);
                 active_order_eight.setVisibility(View.GONE);
                 active_order_nine.setVisibility(View.GONE);
                 active_orderten.setVisibility(View.GONE);
                 active_order_eleven.setVisibility(View.GONE);
-               reoder_btn.setVisibility(View.VISIBLE);
+                reoder_btn.setVisibility(View.VISIBLE);
                 reoder_btn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         RequestQueue requestQueue = Volley.newRequestQueue(context);
-                        StringRequest postRequest = new StringRequest(Request.Method.POST,reorder_url,
+                        StringRequest postRequest = new StringRequest(Request.Method.POST, reorder_url,
                                 new Response.Listener<String>() {
                                     @Override
                                     public void onResponse(String response) {
@@ -446,15 +487,15 @@ public class OrderMainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                                         try {
                                             //Do it with this it will work
                                             JSONObject person = new JSONObject(response);
-                                            String status=person.getString("status");
-                                            if(status.equals("1")){
-                                                String message=person.getString("message");
-                                                Toast.makeText(context,message,Toast.LENGTH_LONG).show();
-
+                                            String status = person.getString("status");
+                                            if (status.equals("1")) {
                                                 Intent intent = new Intent(context, CartActivity.class);
                                                 context.startActivity(intent);
-                                                ((Activity) context).overridePendingTransition(0,0);
+                                                ((Activity) context).overridePendingTransition(0, 0);
                                                 ((Activity) context).finish();
+                                            }else {
+                                                String message = person.getString("message");
+                                                Toast.makeText(context, message, Toast.LENGTH_LONG).show();
                                             }
 
 
@@ -488,7 +529,7 @@ public class OrderMainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                     }
                 });
             }
-            if (status.equals("5")){
+            if (status.equals("5")) {
                 order_status_icon.setImageResource(R.drawable.tickyellow);
                 active_order.setVisibility(View.GONE);
                 active_order_two.setVisibility(View.GONE);
@@ -506,7 +547,7 @@ public class OrderMainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                     @Override
                     public void onClick(View view) {
                         RequestQueue requestQueue = Volley.newRequestQueue(context);
-                        StringRequest postRequest = new StringRequest(Request.Method.POST,reorder_url,
+                        StringRequest postRequest = new StringRequest(Request.Method.POST, reorder_url,
                                 new Response.Listener<String>() {
                                     @Override
                                     public void onResponse(String response) {
@@ -515,15 +556,15 @@ public class OrderMainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                                         try {
                                             //Do it with this it will work
                                             JSONObject person = new JSONObject(response);
-                                            String status=person.getString("status");
-                                            if(status.equals("1")){
-                                                String message=person.getString("message");
-                                                Toast.makeText(context,message,Toast.LENGTH_LONG).show();
-
+                                            String status = person.getString("status");
+                                            if (status.equals("1")) {
                                                 Intent intent = new Intent(context, CartActivity.class);
                                                 context.startActivity(intent);
-                                                ((Activity) context).overridePendingTransition(0,0);
+                                                ((Activity) context).overridePendingTransition(0, 0);
                                                 ((Activity) context).finish();
+                                            }else {
+                                                String message = person.getString("message");
+                                                Toast.makeText(context, message, Toast.LENGTH_LONG).show();
                                             }
 
 
@@ -557,7 +598,7 @@ public class OrderMainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                     }
                 });
             }
-            if (status.equals("6")){
+            if (status.equals("6")) {
                 order_status_icon.setImageResource(R.drawable.tickyellow);
                 active_order.setVisibility(View.GONE);
                 active_order_two.setVisibility(View.GONE);
@@ -575,7 +616,7 @@ public class OrderMainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                     @Override
                     public void onClick(View view) {
                         RequestQueue requestQueue = Volley.newRequestQueue(context);
-                        StringRequest postRequest = new StringRequest(Request.Method.POST,reorder_url,
+                        StringRequest postRequest = new StringRequest(Request.Method.POST, reorder_url,
                                 new Response.Listener<String>() {
                                     @Override
                                     public void onResponse(String response) {
@@ -584,15 +625,15 @@ public class OrderMainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                                         try {
                                             //Do it with this it will work
                                             JSONObject person = new JSONObject(response);
-                                            String status=person.getString("status");
-                                            if(status.equals("1")){
-                                                String message=person.getString("message");
-                                                Toast.makeText(context,message,Toast.LENGTH_LONG).show();
-
+                                            String status = person.getString("status");
+                                            if (status.equals("1")) {
                                                 Intent intent = new Intent(context, CartActivity.class);
                                                 context.startActivity(intent);
-                                                ((Activity) context).overridePendingTransition(0,0);
+                                                ((Activity) context).overridePendingTransition(0, 0);
                                                 ((Activity) context).finish();
+                                            }else {
+                                                String message = person.getString("message");
+                                                Toast.makeText(context, message, Toast.LENGTH_LONG).show();
                                             }
 
 
@@ -626,7 +667,7 @@ public class OrderMainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                     }
                 });
             }
-            if (status.equals("7")){
+            if (status.equals("7")) {
                 order_status_icon.setImageResource(R.drawable.tickyellow);
                 active_order.setVisibility(View.GONE);
                 active_order_two.setVisibility(View.GONE);
@@ -644,7 +685,7 @@ public class OrderMainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                     @Override
                     public void onClick(View view) {
                         RequestQueue requestQueue = Volley.newRequestQueue(context);
-                        StringRequest postRequest = new StringRequest(Request.Method.POST,reorder_url,
+                        StringRequest postRequest = new StringRequest(Request.Method.POST, reorder_url,
                                 new Response.Listener<String>() {
                                     @Override
                                     public void onResponse(String response) {
@@ -653,15 +694,15 @@ public class OrderMainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                                         try {
                                             //Do it with this it will work
                                             JSONObject person = new JSONObject(response);
-                                            String status=person.getString("status");
-                                            if(status.equals("1")){
-                                                String message=person.getString("message");
-                                                Toast.makeText(context,message,Toast.LENGTH_LONG).show();
-
+                                            String status = person.getString("status");
+                                            if (status.equals("1")) {
                                                 Intent intent = new Intent(context, CartActivity.class);
                                                 context.startActivity(intent);
-                                                ((Activity) context).overridePendingTransition(0,0);
+                                                ((Activity) context).overridePendingTransition(0, 0);
                                                 ((Activity) context).finish();
+                                            }else {
+                                                String message = person.getString("message");
+                                                Toast.makeText(context, message, Toast.LENGTH_LONG).show();
                                             }
 
 
@@ -695,7 +736,7 @@ public class OrderMainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                     }
                 });
             }
-            if (status.equals("8")){
+            if (status.equals("8")) {
                 order_status_icon.setImageResource(R.drawable.tickyellow);
                 active_order.setVisibility(View.GONE);
                 active_order_two.setVisibility(View.GONE);
@@ -713,7 +754,7 @@ public class OrderMainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                     @Override
                     public void onClick(View view) {
                         RequestQueue requestQueue = Volley.newRequestQueue(context);
-                        StringRequest postRequest = new StringRequest(Request.Method.POST,reorder_url,
+                        StringRequest postRequest = new StringRequest(Request.Method.POST, reorder_url,
                                 new Response.Listener<String>() {
                                     @Override
                                     public void onResponse(String response) {
@@ -722,15 +763,15 @@ public class OrderMainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                                         try {
                                             //Do it with this it will work
                                             JSONObject person = new JSONObject(response);
-                                            String status=person.getString("status");
-                                            if(status.equals("1")){
-                                                String message=person.getString("message");
-                                                Toast.makeText(context,message,Toast.LENGTH_LONG).show();
-
+                                            String status = person.getString("status");
+                                            if (status.equals("1")) {
                                                 Intent intent = new Intent(context, CartActivity.class);
                                                 context.startActivity(intent);
-                                                ((Activity) context).overridePendingTransition(0,0);
+                                                ((Activity) context).overridePendingTransition(0, 0);
                                                 ((Activity) context).finish();
+                                            }else {
+                                                String message = person.getString("message");
+                                                Toast.makeText(context, message, Toast.LENGTH_LONG).show();
                                             }
 
 
@@ -764,7 +805,7 @@ public class OrderMainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                     }
                 });
             }
-            if (status.equals("9")){
+            if (status.equals("9")) {
                 order_status_icon.setImageResource(R.drawable.tickyellow);
                 active_order.setVisibility(View.GONE);
                 active_order_two.setVisibility(View.GONE);
@@ -782,7 +823,7 @@ public class OrderMainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                     @Override
                     public void onClick(View view) {
                         RequestQueue requestQueue = Volley.newRequestQueue(context);
-                        StringRequest postRequest = new StringRequest(Request.Method.POST,reorder_url,
+                        StringRequest postRequest = new StringRequest(Request.Method.POST, reorder_url,
                                 new Response.Listener<String>() {
                                     @Override
                                     public void onResponse(String response) {
@@ -791,15 +832,15 @@ public class OrderMainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                                         try {
                                             //Do it with this it will work
                                             JSONObject person = new JSONObject(response);
-                                            String status=person.getString("status");
-                                            if(status.equals("1")){
-                                                String message=person.getString("message");
-                                                Toast.makeText(context,message,Toast.LENGTH_LONG).show();
-
+                                            String status = person.getString("status");
+                                            if (status.equals("1")) {
                                                 Intent intent = new Intent(context, CartActivity.class);
                                                 context.startActivity(intent);
-                                                ((Activity) context).overridePendingTransition(0,0);
+                                                ((Activity) context).overridePendingTransition(0, 0);
                                                 ((Activity) context).finish();
+                                            }else {
+                                                String message = person.getString("message");
+                                                Toast.makeText(context, message, Toast.LENGTH_LONG).show();
                                             }
 
 
@@ -833,7 +874,7 @@ public class OrderMainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                     }
                 });
             }
-            if (status.equals("10")){
+            if (status.equals("10")) {
                 order_status_icon.setImageResource(R.drawable.tickyellow);
                 active_order.setVisibility(View.GONE);
                 active_order_two.setVisibility(View.GONE);
@@ -851,7 +892,7 @@ public class OrderMainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                     @Override
                     public void onClick(View view) {
                         RequestQueue requestQueue = Volley.newRequestQueue(context);
-                        StringRequest postRequest = new StringRequest(Request.Method.POST,reorder_url,
+                        StringRequest postRequest = new StringRequest(Request.Method.POST, reorder_url,
                                 new Response.Listener<String>() {
                                     @Override
                                     public void onResponse(String response) {
@@ -860,15 +901,15 @@ public class OrderMainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                                         try {
                                             //Do it with this it will work
                                             JSONObject person = new JSONObject(response);
-                                            String status=person.getString("status");
-                                            if(status.equals("1")){
-                                                String message=person.getString("message");
-                                                Toast.makeText(context,message,Toast.LENGTH_LONG).show();
-
+                                            String status = person.getString("status");
+                                            if (status.equals("1")) {
                                                 Intent intent = new Intent(context, CartActivity.class);
                                                 context.startActivity(intent);
-                                                ((Activity) context).overridePendingTransition(0,0);
+                                                ((Activity) context).overridePendingTransition(0, 0);
                                                 ((Activity) context).finish();
+                                            }else {
+                                                String message = person.getString("message");
+                                                Toast.makeText(context, message, Toast.LENGTH_LONG).show();
                                             }
 
 
@@ -907,35 +948,36 @@ public class OrderMainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         }
 
 
-
     }
 
     public class PressOrderView extends RecyclerView.ViewHolder {
-        TextView order_name,order_id,order_date,reoder_btn,active_order,active_order_two,active_order_three,active_order_four,active_order_five,active_order_six,
-                active_order_seven,active_order_eight,active_order_nine,active_orderten,active_order_eleven;
+        TextView order_name, order_id, order_date, reoder_btn, active_order, active_order_two, active_order_three, active_order_four, active_order_five, active_order_six,
+                active_order_seven, active_order_eight, active_order_nine, active_orderten, active_order_eleven;
         ImageView order_status_icon;
         CardView card_order;
+
         public PressOrderView(View pressorderitemView) {
             super(pressorderitemView);
-            order_name=(TextView)pressorderitemView.findViewById(R.id.order_name);
-            order_id=(TextView)pressorderitemView.findViewById(R.id.order_id);
-            order_date=(TextView)pressorderitemView.findViewById(R.id.order_date);
-            reoder_btn=(TextView)pressorderitemView.findViewById(R.id.reoder_btn);
-            active_order=(TextView)pressorderitemView.findViewById(R.id.active_order);
-            active_order_two=(TextView)pressorderitemView.findViewById(R.id.active_order_two);
-            active_order_three=(TextView)pressorderitemView.findViewById(R.id.active_order_three);
-            active_order_four=(TextView)pressorderitemView.findViewById(R.id.active_order_four);
-            active_order_five=(TextView)pressorderitemView.findViewById(R.id.active_order_five);
-            active_order_six=(TextView)itemView.findViewById(R.id.active_order_six);
-            active_order_seven=(TextView)itemView.findViewById(R.id.active_order_seven);
-            active_order_eight=(TextView)itemView.findViewById(R.id.active_order_eight);
-            active_order_nine=(TextView)itemView.findViewById(R.id.active_order_nine);
-            active_orderten=(TextView)itemView.findViewById(R.id.active_orderten);
-            active_order_eleven=(TextView)itemView.findViewById(R.id.active_order_eleven);
-            order_status_icon=(ImageView)pressorderitemView.findViewById(R.id.order_status_icon);
-            card_order=(CardView)pressorderitemView.findViewById(R.id.card_order);
+            order_name = (TextView) pressorderitemView.findViewById(R.id.order_name);
+            order_id = (TextView) pressorderitemView.findViewById(R.id.order_id);
+            order_date = (TextView) pressorderitemView.findViewById(R.id.order_date);
+            reoder_btn = (TextView) pressorderitemView.findViewById(R.id.reoder_btn);
+            active_order = (TextView) pressorderitemView.findViewById(R.id.active_order);
+            active_order_two = (TextView) pressorderitemView.findViewById(R.id.active_order_two);
+            active_order_three = (TextView) pressorderitemView.findViewById(R.id.active_order_three);
+            active_order_four = (TextView) pressorderitemView.findViewById(R.id.active_order_four);
+            active_order_five = (TextView) pressorderitemView.findViewById(R.id.active_order_five);
+            active_order_six = (TextView) itemView.findViewById(R.id.active_order_six);
+            active_order_seven = (TextView) itemView.findViewById(R.id.active_order_seven);
+            active_order_eight = (TextView) itemView.findViewById(R.id.active_order_eight);
+            active_order_nine = (TextView) itemView.findViewById(R.id.active_order_nine);
+            active_orderten = (TextView) itemView.findViewById(R.id.active_orderten);
+            active_order_eleven = (TextView) itemView.findViewById(R.id.active_order_eleven);
+            order_status_icon = (ImageView) pressorderitemView.findViewById(R.id.order_status_icon);
+            card_order = (CardView) pressorderitemView.findViewById(R.id.card_order);
         }
-        public void showPressOrderDetails(final OrderPressModel pressorder){
+
+        public void showPressOrderDetails(final OrderPressModel pressorder) {
             order_name.setText(pressorder.getOrder_mame());
             // holder.order_name.setText(order_people_name);
             order_id.setText(pressorder.getOrder_id());
@@ -945,14 +987,14 @@ public class OrderMainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             card_order.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    String press_chk=pressorder.getPrescription_chk();
-                    if(press_chk.equals("0")){
-                        Intent intentGotodetaails=new Intent(context, OldPresOrderDetailsPage.class);
-                        intentGotodetaails.putExtra("Order_id",pressorder.getOrder_id());
-                        intentGotodetaails.putExtra("table_id",pressorder.getTbl_order_id());
-                        intentGotodetaails.putExtra("Instant",pressorder.getInstant());
+                    String press_chk = pressorder.getPrescription_chk();
+                    if (press_chk.equals("0")) {
+                        Intent intentGotodetaails = new Intent(context, OldPresOrderDetailsPage.class);
+                        intentGotodetaails.putExtra("Order_id", pressorder.getOrder_id());
+                        intentGotodetaails.putExtra("table_id", pressorder.getTbl_order_id());
+                        intentGotodetaails.putExtra("Instant", pressorder.getInstant());
                         context.startActivity(intentGotodetaails);
-                        ((Activity) context).overridePendingTransition(0,0);
+                        ((Activity) context).overridePendingTransition(0, 0);
                         ((Activity) context).finish();
 
                     }
@@ -960,8 +1002,8 @@ public class OrderMainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 }
             });
 
-            String status=pressorder.getShip_status();
-            if(status.equals("0")){
+            String status = pressorder.getShip_status();
+            if (status.equals("0")) {
                 order_status_icon.setImageResource(R.drawable.tickyellow);
                 active_order.setVisibility(View.VISIBLE);
                 active_order_two.setVisibility(View.GONE);
@@ -976,7 +1018,7 @@ public class OrderMainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 active_order_eleven.setVisibility(View.GONE);
                 reoder_btn.setVisibility(View.GONE);
             }
-            if(status.equals("1")){
+            if (status.equals("1")) {
                 order_status_icon.setImageResource(R.drawable.tick);
                 active_order.setVisibility(View.GONE);
                 active_order_two.setVisibility(View.VISIBLE);
@@ -991,7 +1033,7 @@ public class OrderMainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 active_order_eleven.setVisibility(View.GONE);
                 reoder_btn.setVisibility(View.GONE);
             }
-            if(status.equals("2")){
+            if (status.equals("2")) {
                 order_status_icon.setImageResource(R.drawable.tick);
                 active_order.setVisibility(View.GONE);
                 active_order_two.setVisibility(View.GONE);
@@ -1007,7 +1049,7 @@ public class OrderMainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 reoder_btn.setVisibility(View.GONE);
 
             }
-            if(status.equals("3")){
+            if (status.equals("3")) {
                 order_status_icon.setImageResource(R.drawable.tick);
                 active_order.setVisibility(View.GONE);
                 active_order_two.setVisibility(View.GONE);
@@ -1022,7 +1064,7 @@ public class OrderMainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 active_order_eleven.setVisibility(View.GONE);
                 reoder_btn.setVisibility(View.VISIBLE);
             }
-            if (status.equals("4")){
+            if (status.equals("4")) {
                 order_status_icon.setImageResource(R.drawable.tickyellow);
                 active_order.setVisibility(View.GONE);
                 active_order_two.setVisibility(View.GONE);
@@ -1037,7 +1079,7 @@ public class OrderMainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 active_order_eleven.setVisibility(View.GONE);
                 reoder_btn.setVisibility(View.VISIBLE);
             }
-            if (status.equals("5")){
+            if (status.equals("5")) {
                 order_status_icon.setImageResource(R.drawable.tickyellow);
                 active_order.setVisibility(View.GONE);
                 active_order_two.setVisibility(View.GONE);
@@ -1052,7 +1094,7 @@ public class OrderMainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 active_order_eleven.setVisibility(View.GONE);
                 reoder_btn.setVisibility(View.VISIBLE);
             }
-            if (status.equals("6")){
+            if (status.equals("6")) {
                 order_status_icon.setImageResource(R.drawable.tickyellow);
                 active_order.setVisibility(View.GONE);
                 active_order_two.setVisibility(View.GONE);
@@ -1067,7 +1109,7 @@ public class OrderMainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 active_order_eleven.setVisibility(View.GONE);
                 reoder_btn.setVisibility(View.VISIBLE);
             }
-            if (status.equals("7")){
+            if (status.equals("7")) {
                 order_status_icon.setImageResource(R.drawable.tickyellow);
                 active_order.setVisibility(View.GONE);
                 active_order_two.setVisibility(View.GONE);
@@ -1082,7 +1124,7 @@ public class OrderMainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 active_order_eleven.setVisibility(View.GONE);
                 reoder_btn.setVisibility(View.VISIBLE);
             }
-            if (status.equals("8")){
+            if (status.equals("8")) {
                 order_status_icon.setImageResource(R.drawable.tickyellow);
                 active_order.setVisibility(View.GONE);
                 active_order_two.setVisibility(View.GONE);
@@ -1097,7 +1139,7 @@ public class OrderMainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 active_order_eleven.setVisibility(View.GONE);
                 reoder_btn.setVisibility(View.VISIBLE);
             }
-            if (status.equals("9")){
+            if (status.equals("9")) {
                 order_status_icon.setImageResource(R.drawable.tickyellow);
                 active_order.setVisibility(View.GONE);
                 active_order_two.setVisibility(View.GONE);
@@ -1112,7 +1154,7 @@ public class OrderMainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 active_order_eleven.setVisibility(View.GONE);
                 reoder_btn.setVisibility(View.VISIBLE);
             }
-            if (status.equals("10")){
+            if (status.equals("10")) {
                 order_status_icon.setImageResource(R.drawable.tickyellow);
                 active_order.setVisibility(View.GONE);
                 active_order_two.setVisibility(View.GONE);

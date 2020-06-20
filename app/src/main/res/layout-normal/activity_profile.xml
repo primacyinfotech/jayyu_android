@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,8 +7,6 @@
     tools:context=".ProfileActivity">
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary">
@@ -33,31 +31,31 @@
                 android:layout_height="wrap_content"/>
         </LinearLayout>
     </androidx.appcompat.widget.Toolbar>
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <!--<androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="0dip"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_margin="@dimen/activity_vertical_margin"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_5sdp"
         android:background="@drawable/border_gray_field"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toolbar">
+        android:layout_below="@+id/toolbar"
+        android:layout_above="@+id/fl_bottom">-->
         <ScrollView
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            android:id="@+id/scrollView"
+            android:layout_below="@+id/toolbar"
+            android:layout_above="@+id/fl_bottom"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:background="@drawable/border_gray_field"
+            android:scrollbarThumbVertical="@null">
             <LinearLayout
                 android:layout_width="match_parent"
-                android:weightSum="9"
-                app:layout_constraintTop_toTopOf="parent"
-                android:layout_margin="@dimen/activity_vertical_margin"
+                android:layout_margin="10dp"
                 android:orientation="vertical"
-                android:paddingBottom="45dip"
                 android:layout_height="wrap_content">
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:hint="Name*"
+                    app:hintTextColor="@color/black"
+                    android:textColorHint="@color/black"
                     android:layout_height="wrap_content">
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
@@ -65,6 +63,7 @@
                         android:imeOptions="actionNext"
                         android:maxLines="1"
                         android:inputType="text"
+                        app:hintTextColor="@color/black"
                         android:nextFocusDown="@id/mobilenumet"
                         android:layout_height="wrap_content"/>
 
@@ -97,16 +96,21 @@
                             android:inputType="none"
                             android:layout_height="wrap_content"/>
                     </LinearLayout>
+                    <ImageView
+                        android:background="#646464"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dip"/>
                 </com.google.android.material.textfield.TextInputLayout>
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
-                    android:hint="Email ID"
+                    android:hint="Email ID*"
+                    app:hintTextColor="@color/black"
+                    android:textColorHint="@color/black"
                     android:layout_marginTop="@dimen/activity_vertical_margin"
                     android:layout_height="wrap_content">
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
                         android:id="@+id/emailet"
-
                         android:layout_height="wrap_content"/>
                 </com.google.android.material.textfield.TextInputLayout>
                 <com.google.android.material.textfield.TextInputLayout
@@ -138,9 +142,9 @@
                         android:layout_height="wrap_content"/>
                 </com.google.android.material.textfield.TextInputLayout>
                 <ImageView
-                    android:background="#cacaca"
+                    android:background="#646464"
                     android:layout_width="match_parent"
-                    android:layout_height="3dip"/>
+                    android:layout_height="1dip"/>
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     app:prefixText="Blood Group"
@@ -153,9 +157,10 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"/>
                     <ImageView
-                        android:background="#cacaca"
+                        android:background="#646464"
                         android:layout_width="match_parent"
-                        android:layout_height="3dip"/>
+                        android:layout_height="1dip"/>
+
                 </com.google.android.material.textfield.TextInputLayout>
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -163,11 +168,12 @@
                     android:layout_marginTop="@dimen/activity_vertical_margin"
                     android:layout_height="wrap_content">
                     <LinearLayout
+                        android:id="@+id/ll_height"
                         app:layout_constraintStart_toStartOf="parent"
                         android:layout_width="0dip"
                         app:layout_constraintWidth_percent="0.6"
-                        android:layout_marginLeft="@dimen/activity_vertical_margin"
                         app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
                         <com.google.android.material.textfield.TextInputLayout
@@ -176,22 +182,23 @@
                             android:layout_height="wrap_content">
                             <LinearLayout
                                 android:orientation="horizontal"
-
                                 android:layout_width="wrap_content"
-                                android:layout_height="wrap_content">
-                                <EditText
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="10dp">
+                               <!-- <EditText
                                     android:id="@+id/ftht"
                                     android:maxLength="2"
                                     android:layout_width="wrap_content"
                                     android:hint="ft"
+                                    android:textSize="12sp"
                                     android:inputType="number"
                                     android:nextFocusRight="@id/ftin"
                                     android:background="@android:color/transparent"
                                     android:layout_height="wrap_content"/>
                                 <TextView
                                     android:layout_width="wrap_content"
-                                    android:text="  ft  "
-                                    android:textSize="12sp"
+                                    android:text="  Ft  "
+                                    android:textSize="14sp"
                                     android:gravity="bottom"
                                     android:layout_height="wrap_content"/>
                                 <EditText
@@ -199,6 +206,7 @@
                                     android:maxLength="2"
                                     android:layout_width="wrap_content"
                                     android:hint=" inch "
+                                    android:textSize="12sp"
                                     android:inputType="number"
                                     android:nextFocusRight="@id/weightet"
                                     android:background="@android:color/transparent"
@@ -207,28 +215,70 @@
 
                                 <TextView
                                     android:layout_width="wrap_content"
-                                    android:text="  inch  "
-                                    android:textSize="12sp"
+                                    android:text="  Inch  "
+                                    android:textSize="14sp"
+                                    android:gravity="bottom"
+                                    android:layout_height="wrap_content"/>-->
+                                <EditText
+                                    android:id="@+id/ftht"
+                                    android:maxLength="1"
+                                    android:layout_width="50dp"
+                                    android:hint="ft"
+                                    android:textSize="14sp"
+                                    android:inputType="number"
+                                    android:nextFocusRight="@id/ftin"
+                                    android:background="@android:color/transparent"
+                                    android:layout_height="match_parent"/>
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:text="Ft"
+                                    android:textSize="16sp"
+                                    android:gravity="bottom"
+                                    android:layout_height="wrap_content"/>
+                                <EditText
+                                    android:id="@+id/ftin"
+                                    android:maxLength="2"
+                                    android:layout_width="wrap_content"
+                                    android:hint="inch"
+                                    android:textSize="14sp"
+                                    android:inputType="number"
+                                    android:nextFocusRight="@id/weightet"
+                                    android:background="@android:color/transparent"
+                                    android:gravity="bottom"
+                                    android:layout_height="wrap_content"
+                                    android:paddingLeft="30dp"
+                                    android:paddingRight="10dp"/>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:text="Inch  "
+                                    android:textSize="16sp"
                                     android:gravity="bottom"
                                     android:layout_height="wrap_content"/>
                             </LinearLayout>
                         </com.google.android.material.textfield.TextInputLayout>
                         <ImageView
-                            android:background="#cacaca"
+                            android:background="#646464"
                             android:layout_width="match_parent"
-                            android:layout_height="3dip"/>
+                            android:layout_height="1dip"/>
+
                     </LinearLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="wrap_content"
                         app:layout_constraintEnd_toEndOf="parent"
-                        android:hint="Weight(kg)"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/ll_height"
+                        app:hintTextColor="@color/black"
+                        android:hint="Weight(Kg)"
+                        android:textColorHint="@color/black"
                         android:layout_marginRight="@dimen/activity_vertical_margin"
                         app:layout_constraintTop_toTopOf="parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        app:hintTextAppearance="@style/TextLabel">
                         <com.google.android.material.textfield.TextInputEditText
                             android:layout_width="wrap_content"
-                            android:hint="Weight(kg)"
+                            android:textSize="14sp"
                             android:maxLength="3"
                             android:inputType="number"
                             android:id="@+id/weightet"
@@ -249,9 +299,9 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <ImageView
-                    android:background="#cacaca"
+                    android:background="#646464"
                     android:layout_width="match_parent"
-                    android:layout_height="3dip"/>
+                    android:layout_height="1dip"/>
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
@@ -265,7 +315,9 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:text="+91 "
-                            android:layout_height="wrap_content"></TextView>
+                            android:textSize="17sp"
+                            android:textColor="@color/black"
+                            android:layout_height="wrap_content"/>
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/emergencynum"
@@ -280,21 +332,30 @@
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:hint="Emergency Contact Name"
-                    android:layout_height="wrap_content">
+                    app:hintTextColor="@color/black"
+                    android:textColorHint="@color/black"
+                    app:hintTextAppearance="@style/TextInputLayoutHintText"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp">
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
                         android:id="@+id/emergencyname"
-                        android:hint="Emergency Contact Name"
+                        android:textSize="16sp"
                         android:layout_height="wrap_content"/>
                 </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
         </ScrollView>
-    </androidx.constraintlayout.widget.ConstraintLayout>
+   <!-- </androidx.constraintlayout.widget.ConstraintLayout>-->
 
-    <FrameLayout
+    <RelativeLayout
+        android:id="@+id/fl_bottom"
         android:layout_width="match_parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginBottom="15dp"
+        android:layout_alignParentBottom="true">
 
         <Button
             android:layout_width="match_parent"
@@ -303,7 +364,7 @@
             android:text="UPDAte"
             android:id="@+id/updatebtn"
             android:textSize="16sp"
-            android:background="@color/colorPrimary"
+            android:background="@drawable/coupon_button_back"
             android:textColor="@color/white"
             android:layout_height="wrap_content"></Button>
 
@@ -316,7 +377,7 @@
             android:indeterminateTint="@color/white"
             android:layout_height="wrap_content"/>
 
-    </FrameLayout>
+    </RelativeLayout>
 
 
     <FrameLayout
@@ -332,4 +393,4 @@
             android:layout_gravity="center"
             android:layout_height="wrap_content"></ProgressBar>
     </FrameLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>

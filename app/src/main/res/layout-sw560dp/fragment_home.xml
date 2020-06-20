@@ -78,12 +78,7 @@
                 <com.daimajia.slider.library.SliderLayout
                     android:id="@+id/relative_banner"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginTop="5dp"
-
-                    android:layout_marginRight="5dp"
-                    android:layout_marginBottom="5dp" />
+                    android:layout_height="match_parent"/>
             </LinearLayout>
         <RelativeLayout
             android:layout_marginTop="15dp"

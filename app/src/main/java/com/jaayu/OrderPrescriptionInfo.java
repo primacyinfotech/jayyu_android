@@ -117,7 +117,7 @@ public class OrderPrescriptionInfo extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 myDb.deleteData();
-                Toast.makeText(getApplicationContext(),"Data Deleted",Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(),"Coupon Removed",Toast.LENGTH_LONG).show();
                 place_apply_coupon.setText("Apply Coupon");
                 coupon_off_on.setVisibility(View.GONE);
             }
@@ -269,8 +269,6 @@ public class OrderPrescriptionInfo extends AppCompatActivity {
                 else {
                     first_child.setVisibility(View.GONE);
                     odrevery="";
-
-
                 }
              }
          });
@@ -363,14 +361,10 @@ public class OrderPrescriptionInfo extends AppCompatActivity {
             Toast.makeText(getApplicationContext(),sp,Toast.LENGTH_LONG).show();
             Toast.makeText(getApplicationContext(),duration,Toast.LENGTH_LONG).show();
             Toast.makeText(getApplicationContext(),odrevery,Toast.LENGTH_LONG).show();*/
-       if(!order_by_press.isChecked()){
-           Toast.makeText(getApplicationContext(),"nothing",Toast.LENGTH_LONG).show();
-       }
-       else {
-           if(!for_days.isChecked()){
-               Toast.makeText(getApplicationContext(),"choose",Toast.LENGTH_LONG).show();
-           }
-           else {
+
+       if(order_by_press.isChecked()) {
+
+           if(for_days.isChecked()) {
                RequestQueue requestQueue = Volley.newRequestQueue(OrderPrescriptionInfo.this);
                StringRequest postRequest = new StringRequest(Request.Method.POST,Choose_first_url,
                        new Response.Listener<String>() {
@@ -405,7 +399,7 @@ public class OrderPrescriptionInfo extends AppCompatActivity {
                                        gotoPresOrderSummery.putExtra("Pref",val_sub_1);
                                        startActivity(gotoPresOrderSummery);
                                        overridePendingTransition(0,0);
-                                       finish();
+                                       //finish();
 
                                    }
 
@@ -421,7 +415,7 @@ public class OrderPrescriptionInfo extends AppCompatActivity {
                            @Override
                            public void onErrorResponse(VolleyError error) {
                                // error
-
+                               error.printStackTrace();
                            }
                        }
                ) {
@@ -448,11 +442,11 @@ public class OrderPrescriptionInfo extends AppCompatActivity {
                };
 
                requestQueue.add(postRequest);
+           }else {
+               //Toast.makeText(getApplicationContext(),"choose",Toast.LENGTH_LONG).show();
            }
-            if(!during_doctor.isChecked()){
-               Toast.makeText(getApplicationContext(),"choose2",Toast.LENGTH_LONG).show();
-           }
-           else {
+
+           if(during_doctor.isChecked()) {
                 RequestQueue requestQueue = Volley.newRequestQueue(OrderPrescriptionInfo.this);
                 StringRequest postRequest = new StringRequest(Request.Method.POST,Choose_first_url,
                         new Response.Listener<String>() {
@@ -481,7 +475,7 @@ public class OrderPrescriptionInfo extends AppCompatActivity {
                                         gotoPresOrderSummery.putExtra("Pref",val_sub_2);
                                         startActivity(gotoPresOrderSummery);
                                         overridePendingTransition(0,0);
-                                        finish();
+                                        //finish();
 
                                     }
 
@@ -497,7 +491,7 @@ public class OrderPrescriptionInfo extends AppCompatActivity {
                             @Override
                             public void onErrorResponse(VolleyError error) {
                                 // error
-
+                                error.printStackTrace();
                             }
                         }
                 ) {
@@ -511,20 +505,18 @@ public class OrderPrescriptionInfo extends AppCompatActivity {
                         if(note!=null){
                             params.put("note", note);
                         }
-
-
                         return params;
                     }
                 };
-
                 requestQueue.add(postRequest);
+           }else {
+               //Toast.makeText(getApplicationContext(),"choose2",Toast.LENGTH_LONG).show();
            }
+       }else{
+           //Toast.makeText(getApplicationContext(),"nothing",Toast.LENGTH_LONG).show();
+       }
 
-       }
-       if(!specify_medicin.isChecked()||specify.matches("")){
-           Toast.makeText(getApplicationContext(),"nothing",Toast.LENGTH_LONG).show();
-       }
-       else {
+       if(specify_medicin.isChecked()||!specify.matches("")) {
           // Toast.makeText(getApplicationContext(),"Ok",Toast.LENGTH_LONG).show();
            RequestQueue requestQueue = Volley.newRequestQueue(OrderPrescriptionInfo.this);
            StringRequest postRequest = new StringRequest(Request.Method.POST,Choose_second_url,
@@ -554,23 +546,20 @@ public class OrderPrescriptionInfo extends AppCompatActivity {
                                    gotoPresOrderSummery.putExtra("Pref",val_sub3);
                                    startActivity(gotoPresOrderSummery);
                                    overridePendingTransition(0,0);
-                                   finish();
-
+                                   //finish();
                                }
 
                            } catch (JSONException e) {
                                e.printStackTrace();
                                Toast.makeText(getApplicationContext(), "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
                            }
-
-
                        }
                    },
                    new Response.ErrorListener() {
                        @Override
                        public void onErrorResponse(VolleyError error) {
                            // error
-
+                           error.printStackTrace();
                        }
                    }
            ) {
@@ -584,18 +573,16 @@ public class OrderPrescriptionInfo extends AppCompatActivity {
                    if(note!=null){
                        params.put("note", note);
                    }
-
-
                    return params;
                }
            };
 
            requestQueue.add(postRequest);
+       }else {
+           //Toast.makeText(getApplicationContext(),"nothing",Toast.LENGTH_LONG).show();
        }
-       if(!call_me.isChecked()){
-           Toast.makeText(getApplicationContext(),"nothing",Toast.LENGTH_LONG).show();
-       }
-       else {
+
+       if(call_me.isChecked()) {
            RequestQueue requestQueue = Volley.newRequestQueue(OrderPrescriptionInfo.this);
            StringRequest postRequest = new StringRequest(Request.Method.POST,Choose_third_url,
                    new Response.Listener<String>() {
@@ -624,7 +611,7 @@ public class OrderPrescriptionInfo extends AppCompatActivity {
                                    gotoPresOrderSummery.putExtra("Pref",val_sub4);
                                    startActivity(gotoPresOrderSummery);
                                    overridePendingTransition(0,0);
-                                   finish();
+                                   //finish();
 
                                }
 
@@ -640,7 +627,7 @@ public class OrderPrescriptionInfo extends AppCompatActivity {
                        @Override
                        public void onErrorResponse(VolleyError error) {
                            // error
-
+                           error.printStackTrace();
                        }
                    }
            ) {
@@ -659,7 +646,9 @@ public class OrderPrescriptionInfo extends AppCompatActivity {
            };
 
            requestQueue.add(postRequest);
-       }
+       }else{
+                //Toast.makeText(getApplicationContext(),"nothing",Toast.LENGTH_LONG).show();
+            }
 
 
          /*   RequestQueue requestQueue = Volley.newRequestQueue(SubscriptionDelivery.this);

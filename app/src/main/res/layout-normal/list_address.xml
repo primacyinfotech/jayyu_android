@@ -7,7 +7,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintWidth_percent="0.8"
+        app:layout_constraintWidth_percent="1"
         android:background="@drawable/border_gray_field"
         android:padding="@dimen/activity_vertical_margin"
         android:layout_width="0dip"

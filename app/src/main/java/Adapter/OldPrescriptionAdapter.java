@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.jaayu.Model.BaseUrl;
 import com.jaayu.R;
 
 import java.util.ArrayList;
@@ -41,7 +42,7 @@ public class OldPrescriptionAdapter   extends RecyclerView.Adapter<OldPrescripti
     @Override
     public void onBindViewHolder(@NonNull final OldPrescriptionAdapter.MyViewHolder holder, final int position) {
         holder.date_prescription.setText(oldPrescriptionModels.get(position).getOld_prescription_date());
-        Glide.with(context).load("https://work.primacyinfotech.com/jaayu/upload/prescription/"+oldPrescriptionModels.get(position).getOldprescription_url()).into(holder.prescription_img);
+        Glide.with(context).load(BaseUrl.imageUrl +oldPrescriptionModels.get(position).getOldprescription_url()).into(holder.prescription_img);
         holder.select_prescription.setChecked(oldPrescriptionModels.get(position).getSelected());
        // holder.select_prescription.setTag(oldPrescriptionModels.get(position));
         holder.select_prescription.setTag(position);

@@ -2,6 +2,7 @@ package Adapter;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.jaayu.Model.BaseUrl;
 import com.jaayu.R;
 import com.squareup.picasso.Picasso;
 
@@ -41,7 +43,7 @@ public class OfferPageAdapter extends RecyclerView.Adapter<OfferPageAdapter.MyVi
 
     @Override
     public void onBindViewHolder(@NonNull final OfferPageAdapter.MyViewHolder holder, final int position) {
-        Picasso.with(context).load("https://work.primacyinfotech.com/jaayu/upload/slider/"+offerPageModels.get(position).getOffer_img()).into(holder.offer_img);
+        Picasso.with(context).load(BaseUrl.imageUrlSub + "upload/slider/" +offerPageModels.get(position).getOffer_img()).into(holder.offer_img);
         holder.offer_heading.setText(offerPageModels.get(position).getOffer_heading());
         holder.offer_des.setText(offerPageModels.get(position).getOffer_des());
         holder.offer_code.setText("CODE:"+offerPageModels.get(position).getOffer_code());
@@ -60,7 +62,7 @@ public class OfferPageAdapter extends RecyclerView.Adapter<OfferPageAdapter.MyVi
                 TextView cop_code=(TextView)settingsDialog.findViewById(R.id.cop_code);
                 TextView expdate=(TextView)settingsDialog.findViewById(R.id.expdate);
                 TextView long_des=(TextView)settingsDialog.findViewById(R.id.long_des);
-                Picasso.with(context).load("https://work.primacyinfotech.com/jaayu/upload/slider/"+offerPageModels.get(position).getOffer_img()).into(offer_img);
+                Picasso.with(context).load(BaseUrl.imageUrlSub + "upload/slider/" +offerPageModels.get(position).getOffer_img()).into(offer_img);
                 offer_title.setText(offerPageModels.get(position).getOffer_heading());
                 short_des.setText(offerPageModels.get(position).getOffer_des());
                 long_des.setText(offerPageModels.get(position).getOffer_long_des());
@@ -73,12 +75,8 @@ public class OfferPageAdapter extends RecyclerView.Adapter<OfferPageAdapter.MyVi
                     }
                 });
                 settingsDialog.show();
-
-
-
             }
         });
-
     }
 
     @Override

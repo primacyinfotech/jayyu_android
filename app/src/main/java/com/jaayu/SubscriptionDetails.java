@@ -18,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.ParseError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -30,8 +31,12 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 import Adapter.OrderStatusPressAdapter;
@@ -115,7 +120,16 @@ public class SubscriptionDetails extends AppCompatActivity {
                                 for (int i=0;i<jsonArray.length();i++){
                                     SubscriptionDeliveryDateModel subscriptionDeliveryDateModel=new SubscriptionDeliveryDateModel();
                                     JSONObject jsonObject=jsonArray.getJSONObject(i);
-                                    subscriptionDeliveryDateModel.setDelivery_date(jsonObject.getString("date"));
+                                    String date = jsonObject.getString("date");
+                                    try {
+                                        SimpleDateFormat sdf = new SimpleDateFormat("MMMM dd,yyyy");
+                                        Date testDate = sdf.parse(date);
+                                        SimpleDateFormat formatter = new SimpleDateFormat("dd MMM, yyyy");
+                                        date = formatter.format(testDate);
+                                    }catch (ParseException parseError){
+                                    }
+                                    subscriptionDeliveryDateModel.setDelivery_date(date);
+
                                     subscriptionDeliveryDateModel.setDelivery_status(jsonObject.getString("delivery_status"));
                                     subscriptionDeliveryDateModels.add(subscriptionDeliveryDateModel);
                                 }
@@ -134,6 +148,14 @@ public class SubscriptionDetails extends AppCompatActivity {
                                     subscriptionOrderDetailsModel.setItem_qty(jsonObject2.getString("quantity"));
                                     subscriptionOrderDetailsModel.setItem_name(jsonObject2.getString("title"));
                                     subscriptionOrderDetailsModel.setItem_unit(jsonObject2.getString("strip"));
+
+
+                                    subscriptionOrderDetailsModel.setPrice_normal(jsonObject2.getString("price_normal"));
+                                    subscriptionOrderDetailsModel.setMrp_price(jsonObject2.getString("mrp_price"));
+                                    subscriptionOrderDetailsModel.setCom_name(jsonObject2.getString("com_name"));
+                                    subscriptionOrderDetailsModel.setNormal_disc(jsonObject2.getString("normal_disc"));
+                                    subscriptionOrderDetailsModel.setComposition(jsonObject2.getString("composition"));
+
 
                                     subscriptionOrderDetailsModels.add(subscriptionOrderDetailsModel);
                                 }
@@ -189,8 +211,7 @@ public class SubscriptionDetails extends AppCompatActivity {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        // error
-
+                        error.printStackTrace();
                     }
                 }
         ) {

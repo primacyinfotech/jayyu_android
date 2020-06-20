@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item
+  <!--  <item
         android:id="@+id/navigation_home"
         android:icon="@drawable/u"
+        android:checked="true"
+        android:title="Home" />-->
+
+    <item
+        android:id="@+id/navigation_home"
+        android:icon="@drawable/ic_jaayu_bottom"
         android:checked="true"
         android:title="Home" />
 

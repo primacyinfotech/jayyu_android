@@ -70,10 +70,11 @@ public class ManagaAddressView extends AppCompatActivity {
         back_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ManagaAddressView.this, AccountPage.class);
+                /*Intent intent = new Intent(ManagaAddressView.this, AccountPage.class);
                 startActivity(intent);
                 overridePendingTransition(0,0);
-                finish();
+                finish();*/
+                onBackPressed();
             }
         });
     }
@@ -162,7 +163,6 @@ public class ManagaAddressView extends AppCompatActivity {
 
                 params.put("user_id" ,u_id);
 
-
                 return params;
             }
 
@@ -171,9 +171,10 @@ public class ManagaAddressView extends AppCompatActivity {
     }
     @Override
     public void onBackPressed() {
-        Intent intent = new Intent(ManagaAddressView.this, AccountPage.class);
+        /*Intent intent = new Intent(ManagaAddressView.this, AccountPage.class);
         startActivity(intent);
-        overridePendingTransition(0,0);
+        overridePendingTransition(0,0);*/
+        super.onBackPressed();
         finish();
     }
 }

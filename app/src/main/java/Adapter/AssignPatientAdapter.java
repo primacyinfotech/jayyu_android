@@ -111,15 +111,13 @@ public class AssignPatientAdapter extends RecyclerView.Adapter<AssignPatientAdap
                                 e.printStackTrace();
                                 Toast.makeText(context, "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
                             }
-
-
                         }
                     },
                     new Response.ErrorListener() {
                         @Override
                         public void onErrorResponse(VolleyError error) {
-                            // error
-
+                             error.printStackTrace();
+                            Toast.makeText(context, "Something Went Wrong!", Toast.LENGTH_SHORT).show();
                         }
                     }
             ) {
@@ -138,7 +136,7 @@ public class AssignPatientAdapter extends RecyclerView.Adapter<AssignPatientAdap
             };
             requestQueue.add(postRequest);
 
-            Toast.makeText(context, assign_u_id+asign_pres_id+asign_p_id, Toast.LENGTH_SHORT).show();
+            //Toast.makeText(context, assign_u_id+asign_pres_id+asign_p_id, Toast.LENGTH_SHORT).show();
 
             return String.valueOf(assignPatientModels.get(selectedPosition));
         }

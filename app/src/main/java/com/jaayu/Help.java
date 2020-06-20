@@ -51,10 +51,11 @@ private RecyclerView help_list;
         back_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent GotOaccount=new Intent(Help.this,AccountPage.class);
+                /*Intent GotOaccount=new Intent(Help.this,AccountPage.class);
                 startActivity(GotOaccount);
                 overridePendingTransition(0,0);
-                finish();
+                finish();*/
+                onBackPressed();
             }
         });
     }
@@ -131,9 +132,10 @@ private RecyclerView help_list;
     }
     @Override
     public void onBackPressed() {
-        Intent GotOaccount=new Intent(Help.this,AccountPage.class);
+        /*Intent GotOaccount=new Intent(Help.this,AccountPage.class);
         startActivity(GotOaccount);
-        overridePendingTransition(0,0);
+        overridePendingTransition(0,0);*/
+        super.onBackPressed();
         finish();
     }
 }
